@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Symfony Standard Edition
 ========================
 
@@ -172,3 +173,9 @@ Enjoy!
 [13]: http://jmsyst.com/bundles/JMSSecurityExtraBundle/master
 [14]: http://jmsyst.com/bundles/JMSDiExtraBundle/master
 [15]: http://symfony.com/doc/2.1/bundles/SensioGeneratorBundle/index.html
+=======
+TIP
+===
+
+Trait Information Portal
+>>>>>>> eab8da817d95ee9e4cf04f0b74894ec196107388
