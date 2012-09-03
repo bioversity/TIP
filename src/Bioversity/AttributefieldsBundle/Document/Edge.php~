@@ -1,11 +1,5 @@
 <?php
 
-/**
- * questa classe è stata gestita creando un'eccezzione nella classe
- *
- * Doctrine\ODM\MongoDB\Persisters\PersistenceBuilder::prepareInsertData* 
- *
- **/
 namespace Bioversity\AttributefieldsBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -13,7 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document
  */
-class Attribute
+class Edge
 {
 
   /**
@@ -21,16 +15,20 @@ class Attribute
    */
   protected $id;
   
-
   /**
-   * Get id
-   *
-   * @return id $id
+   * @MongoDB\Int
    */
-  public function getId()
-  {
-      return $this->id;
-  }
+  protected $_subject;
+  
+  /**
+   * @MongoDB\String
+   */
+  protected $_predicate;
+  
+  /**
+   * @MongoDB\Int
+   */
+  protected $_object;
 
   /**
    * Set custom_field

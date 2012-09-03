@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-use Bioversity\AttributefieldsBundle\Document\Attribute;
+use Bioversity\AttributefieldsBundle\Document\Term;
 
 class DefaultController extends Controller
 {
@@ -17,7 +17,7 @@ class DefaultController extends Controller
       $m = $this->get('doctrine.odm.mongodb')->getManager();
       
       // add a record
-      $attribute= new Attribute();
+      $attribute= new Term();
       
       foreach($parameters as $parameter=>$value){
         $attribute->setCustomField($parameter, $value);
@@ -33,7 +33,7 @@ class DefaultController extends Controller
   public function getattributeAction($id)
   {
     $result = $this->get('doctrine.odm.mongodb')
-        ->getRepository('BioversityAttributefieldsBundle:Attribute')
+        ->getRepository('BioversityAttributefieldsBundle:Term')
         ->find($id);
 
     //Just convert array to JSON and return result

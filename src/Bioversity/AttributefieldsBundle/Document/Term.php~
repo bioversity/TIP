@@ -1,11 +1,5 @@
 <?php
 
-/**
- * questa classe è stata gestita creando un'eccezzione nella classe
- *
- * Doctrine\ODM\MongoDB\Persisters\PersistenceBuilder::prepareInsertData* 
- *
- **/
 namespace Bioversity\AttributefieldsBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -13,7 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document
  */
-class Attribute
+class Term
 {
 
   /**
@@ -21,16 +15,30 @@ class Attribute
    */
   protected $id;
   
-
   /**
-   * Get id
-   *
-   * @return id $id
+   * @MongoDB\String
    */
-  public function getId()
-  {
-      return $this->id;
-  }
+  protected $_idx;
+  
+  /**
+   * @MongoDB\String
+   */
+  protected $_ns;
+  
+  /**
+   * @MongoDB\String
+   */
+  protected $_code;
+  
+  /**
+   * @MongoDB\String
+   */
+  protected $label;
+  
+  /**
+   * @MongoDB\String
+   */
+  protected $description;
 
   /**
    * Set custom_field
