@@ -1,6 +1,20 @@
-<form action="#" method="post">
-  {{ error }}
-  {{ form_widget(form) }}
-
-  <input type="submit" name="submit" />
-</form>
+{% if app.session.get('user') %}
+  <div class="btn-group pull-right">
+    <a class="btn btn-info" data-toggle="modal" href="#ProfileModal">
+      <i class="icon-user"></i>
+      <span>{{ app.session.get('user').username }}</span>
+    </a>
+    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" style="width: 240px">
+      <li><a href="{{ path('logout') }}">Sign Out</a></li>
+    </ul>
+  </div>
+{% else %}
+  <div class="btn-group pull-right">
+    <a class="btn" data-toggle="modal" href="#LoginModal">
+      <span>Login</span>
+    </a>
+  </div>
+{% endif %}
