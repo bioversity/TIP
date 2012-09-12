@@ -23,3 +23,11 @@ $app->match('/admin/dashboard', function (Request $request) use ($app) {
   return require_once __DIR__.'/dashboard.php';
 })
 ->bind('dashboard');
+
+$app->match('/admin/edit-profile', function (Request $request) use ($app) {
+  if (null === $user = $app['session']->get('user')) {
+    return $app->redirect($app['url_generator']->generate('login'));
+  }
+  return require_once __DIR__.'/Form/editProfileForm.php';
+})
+->bind('edit_profile');

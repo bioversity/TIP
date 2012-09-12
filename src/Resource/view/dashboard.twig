@@ -1,28 +1,93 @@
 {% extends frontend_layout %}
 
+{% block javascripts %}
+  {{ parent() }}
+  <script src="/js/arbor.js" type="text/javascript" language="javascript"></script>
+  <script src="/js/arbor-tween.js" type="text/javascript" language="javascript"></script>
+  <script src="/js/graphics.js" type="text/javascript" language="javascript"></script>
+  <script src="/js/renderer.js" type="text/javascript" language="javascript"></script>
+{% endblock %}
+
 {% block body %}
-  <!-- Main hero unit for a primary marketing message or call to action -->
-  <div class="hero-unit">
-    <h2>{{ app.session.get('user').username }} Welcome to your Dashboard</h2>
-    <p>There you can upload ypur file and manage it.</p>
-  </div>
-  
-  <!-- Example row of columns -->
   <div class="row">
-    <div class="span4">
-      <h2>Terms</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn btn-primary btn-large" href="{{ path('add_tag') }}">Add new Term</a></p>
-    </div>
-    <div class="span4">
-      <h2>Tags</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn btn-primary btn-large" href="{{ path('add_tag') }}">Add new Tag</a></p>
-    </div>
-    <div class="span4">
-      <h2>Node</h2>
-      <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-      <p><a class="btn btn-primary btn-large" href="{{ path('add_tag') }}">Add new Node</a></p>
+    <div class="span12">
+      <div>
+        {% include 'left_side.twig' %}
+        <div class="span6">
+          <canvas height="350" width="570" id="viewport" class="span6"></canvas>
+          <script type="text/javascript" language="javascript">
+            var colour = {
+              orange:"#EEB211",
+              darkblue:"#21526a",
+              purple:"#941e5e",
+              limegreen:"#c1d72e",
+              darkgreen:"#619b45",
+              lightblue:"#009fc3",
+              pink:"#d11b67",    
+            }
+            var data = {
+              nodes:{
+                HOME:{
+                  color:colour.orange,
+                  shape:'dot',
+                  radius:39,
+                  alpha:1,
+                  label: 'DASHBOARD',
+                  link: '/dddd'},
+                LR:{
+                  color:colour.darkblue, 
+                  shape:'dot', 
+                  radius:30,
+                  alpha:1,
+                  label: 'LANDRACE'},
+                CWR:{
+                  color:colour.purple, 
+                  shape:'dot',
+                  radius:40,
+                  alpha:1,
+                  label: 'CROP WILD RACE' },
+               TRAIT: {
+                  color:colour.limegreen,               
+                  shape:'dot',
+                  radius:35,
+                  alpha:1,
+                  label: 'TRAIT' },
+              },
+              edges:{
+                HOME:{
+                  LR:{}, 
+                  CWR:{}, 
+                  TRAIT:{}
+                },
+              }
+            }
+            
+            var sys = arbor.ParticleSystem()
+            sys.parameters({stiffness:900, repulsion:2000, gravity:true, dt:0.015})
+            sys.renderer = Renderer("#viewport");
+            sys.graft(data);
+            
+            var nav = Nav("#nav")
+            $(sys.renderer).bind('navigate', nav.navigate)
+            $(nav).bind('mode', sys.renderer.switchMode)
+            nav.init()
+          </script>
+        </div>
+        <div class="span2">          
+          <div class="span2 sidewell">
+            <h2>LR</h2>
+            <p><a class="btn btn-primary btn-large" href="{{ path('add_tag') }}">Browse data</a></p>
+          </div>
+          <div class="span2 sidewell">
+            <h2>CWR</h2>
+            <p><a class="btn btn-primary btn-large" href="{{ path('add_tag') }}">Browse data</a></p>
+          </div>
+          <div class="span2 sidewell">
+            <h2>TRAIT</h2>
+            <p><a class="btn btn-primary btn-large" href="{{ path('add_tag') }}">Browse data</a></p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock %}

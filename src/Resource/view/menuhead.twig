@@ -1,22 +1,36 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <a class="brand" href="#">Trait Information Portal</a>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+<div class="container">
+  <div class="navbar" style="padding-top:20px;">
+    <div class="navbar-inner" style="padding-top:10px; padding-bottom:5px;">
+      
+      <div class="container">
+        <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        
+        <a class="brand" href="#">
+          <strong>Bioversity</strong>
+          <br/>International
+          <br/><strong>T</strong>rait <strong>I</strong>nformation <strong>P</strong>ortal
+        </a>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+          </ul>
+        </div>
+        
+        <div class="nav-collapse collapse" style="height: 0px;">
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <form class="navbar-search pull-left">
+            <input type="text" placeholder="Search..." data-source="[&quot;Sweet&quot;,&quot;Clean&quot;,&quot;Popular&quot;,&quot;HTML&quot;,&quot;CSS&quot;,&quot;Free&quot;,&quot;Graphic&quot;,&quot;Colors&quot;,&quot;Cool&quot;,&quot;Simple&quot;]" data-items="4" data-provide="typeahead" class="search-query span3">
+          </form>
+          {% include 'login.twig' %}
+        </div>
       </div>
-      
-      {% include 'login.twig' %}
-      
     </div>
   </div>
 </div>

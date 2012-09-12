@@ -19,11 +19,12 @@ if ('POST' == $request->getMethod()) {
       $data = $_POST;
 
       $connection= new ServerConnection();
-      $user= $connection::checkUserLogin();
+      $user= $connection::checkUserLogin($data);
       
       if (!$user) {
         $app['session']->set('last_error', array('error' => sprintf('Username "%s" does not exist.', $data['username'])));
       }else{
+        $app['session']->clear('last_error');
         $app['session']->set('user', new User($user['username'], $user['password'], explode(',', $user['roles']), true, true, true, true));
       
         // redirect somewhere

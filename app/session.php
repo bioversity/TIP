@@ -26,3 +26,11 @@ $app->get('/logout', function() use ($app) {
   return $app->redirect($app['url_generator']->generate('homepage'));
 })
 ->bind('logout');
+
+$app->match('/registration', function (Request $request) use ($app) {
+  if (null !== $user = $app['session']->get('user')) {
+    return $app->redirect($app['url_generator']->generate('dashboard'));
+  }
+  return require_once __DIR__.'/Form/registrationForm.php';
+})
+->bind('registration');

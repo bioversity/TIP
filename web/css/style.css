@@ -1,4 +1,24 @@
 body {
-  padding-top: 60px;
-  padding-bottom: 40px;
+  background: url(/img/bg_2.jpg) fixed no-repeat;
+  background-size: 100%;
+  display: block;
+  height: 300px;
+  width: 100%;
+}
+
+circle {
+  stroke-width: 1.5px;
+}
+
+line {
+  stroke: #999;
+}
+
+#viewport{
+  border: 1px solid #eee;
+  background-color: rgba(255,255,255,0.5);
+}
+
+#logo_conteiner{
+  text-align: center;
 }

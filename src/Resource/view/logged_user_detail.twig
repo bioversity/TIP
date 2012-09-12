@@ -1,0 +1,9 @@
+<div class="wellfb">
+  <ul>
+    {% for attribute_value in app.session.get('user') %}
+      <li>{{ app.session.get('user') }}</li>
+    {% endfor %}
+  </ul>
+  <h4>Welcome <em>{{ app.session.get('user').username }}</em>  to your Dashboard</h4>
+  <p>Now you can upload your file and manage it.</p>
+</div>
