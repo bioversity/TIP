@@ -46,3 +46,7 @@ p{
   padding-top:10px;
   padding-bottom:5px;
 }
+
+#sitemap.linkable {
+    cursor: pointer;
+}

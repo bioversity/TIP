@@ -28,7 +28,7 @@ var data = {
       shape:'dot',
       radius:40,
       alpha:1,
-      label: 'CROP WILD RACE',
+      label: 'CROP WILD RELATIVES',
       link: '/admin/browse-cwr'},
    TRAIT: {
       color:colour.limegreen,               

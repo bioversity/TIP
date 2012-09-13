@@ -1,12 +1,37 @@
 {% extends frontend_layout %}
 
+{% block javascripts %}
+  {{ parent() }}
+  <script src="/js/arbor.js" type="text/javascript" language="javascript"></script>
+  <script src="/js/arbor-tween.js" type="text/javascript" language="javascript"></script>
+  <script src="/js/graphics.js" type="text/javascript" language="javascript"></script>
+  <script src="/js/renderer.js" type="text/javascript" language="javascript"></script>
+{% endblock %}
+
 {% block body %}
   <!-- Main hero unit for a primary marketing message or call to action -->
   <div class="row">
     <div class="span12">
-      <div id="logo_conteiner" class="sidewell">
-        <img src="/img/pgr-logo.jpg" />
-        <img src="/img/TIP.gif" />
+      <div>
+        <div id="logo_conteiner" class=" span2 sidewell">
+          <img src="/img/pgr-logo.jpg" />
+          <img src="/img/TIP.gif" />
+        </div>
+        <div class="span9">
+          <div class="navbar">
+            <div class="navbar-inner menu_top_inner">
+              <div id="nav_menu" class="nav-collapse collapse">
+                <ul class="nav">
+                  <li><a href="{{ path('browse_landrace') }}">Landrace</a></li>
+                  <li><a href="{{ path('browse_cwr') }}">Crop Wild Relatives</a></li>
+                  <li><a href="{{ path('browse_trait') }}">Trait</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <canvas height="530" width="870" id="viewport" class="span9"></canvas>
+        <script src="/js/arbor_site_map_setup.js" type="text/javascript" language="javascript"></script>
       </div>
     </div>
   </div>

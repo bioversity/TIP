@@ -44,7 +44,7 @@
          
           // Don't draw lines that shouldn't be there
           if (edge.source.data.alpha * edge.target.data.alpha == 0) return
-          gfx.line(pt1, pt2, {stroke:colour.orange, width:2, alpha:edge.target.data.alpha})
+          gfx.line(pt1, pt2, {stroke:"#EEB211", width:2, alpha:edge.target.data.alpha})
         })
         
         // draw the nodes
@@ -172,8 +172,10 @@
               else{
                  dom.removeClass('linkable')
                  window.status = ''
-              } 
-            }else if ($.inArray(nearest.node.name, ['innovation','solution', 'collaboration', 'facilitation', 'international', 'participation']) >=0 ){
+              }
+            //hack to explode everyone node
+            //}else if ($.inArray(nearest.node.name, ['innovation','solution', 'collaboration', 'facilitation', 'international', 'participation']) >=0 ){
+            }else{
               if (nearest.node.name!=_section){
                 _section = nearest.node.name
                 that.switchSection(_section)
