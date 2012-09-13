@@ -22,21 +22,21 @@ var data = {
       radius:30,
       alpha:1,
       label: 'LANDRACE',
-      link: '/admin/lr'},
+      link: '/admin/browse-landrace'},
     CWR:{
       color:colour.purple, 
       shape:'dot',
       radius:40,
       alpha:1,
       label: 'CROP WILD RACE',
-      link: '/admin/cwr'},
+      link: '/admin/browse-cwr'},
    TRAIT: {
       color:colour.limegreen,               
       shape:'dot',
       radius:35,
       alpha:1,
       label: 'TRAIT',
-      link: '/admin/trait'},
+      link: '/admin/browse-trait'},
   },
   edges:{
     HOME:{

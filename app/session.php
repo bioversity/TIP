@@ -6,9 +6,6 @@ use Symfony\Component\HttpFoundation\Response;
 $app->register(new Silex\Provider\SessionServiceProvider());
 
 $app->get('/', function () use ($app) {
-  if (null !== $user = $app['session']->get('user')) {
-    return $app->redirect($app['url_generator']->generate('dashboard'));
-  }
   return $app['twig']->render('homepage.twig');
 })
 ->bind('homepage');
