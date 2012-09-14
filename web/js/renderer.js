@@ -266,7 +266,6 @@
           $(this).hide()
           $(that).trigger({type:'mode', mode:'visible', dt:dt})
         })
-        document.title = "arbor.js"
         break
         case 'introduction':
         case 'reference':
