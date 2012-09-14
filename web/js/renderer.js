@@ -266,6 +266,7 @@
           $(this).hide()
           $(that).trigger({type:'mode', mode:'visible', dt:dt})
         })
+        //document.title = "arbor.js"
         break
         case 'introduction':
         case 'reference':
@@ -275,7 +276,7 @@
         $('#docs').stop(true).css({opacity:0}).show().delay(333).fadeTo('fast',1)
         $('#docs').find(">div").hide()
         $('#docs').find('#'+_path).show()
-        document.title = "arbor.js » " + _path
+        //document.title = "arbor.js » " + _path
         break
       }
     }
