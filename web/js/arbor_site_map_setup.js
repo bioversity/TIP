@@ -55,6 +55,7 @@ function startArbor(){
     sys.parameters({stiffness:900, repulsion:2000, gravity:true, dt:0.015})
     sys.renderer = Renderer("#viewport")
     sys.graft(data)
+    
     var nav = Nav("#nav")
     $(sys.renderer).bind('navigate', nav.navigate)
     $(nav).bind('mode', sys.renderer.switchMode)
