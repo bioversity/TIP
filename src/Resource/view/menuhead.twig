@@ -1,42 +1,43 @@
-<div class="container">
-  <div class="navbar menu_top">
-    <div class="navbar-inner menu_top_inner">
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner menu_top_inner">
+    
+    <div class="container">
+      <div id="tip_logo">
+        <img src="/img/TIP-logo.gif" />
+      </div>
       
-      <div class="container">
-        <div id="tip_logo">
-          <img src="/img/TIP-logo.gif" />
-        </div>
-        
-        <a data-target="#nav_menu" data-toggle="collapse" class="btn btn-navbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
-        
-        <a class="brand" href="#">
-          <strong>Bioversity</strong>
-          <br/>International
-          <br/><strong>T</strong>rait <strong>I</strong>nformation <strong>P</strong>ortal
-        </a>
-        <div class="nav-collapse collapse">
-          <ul class="nav">
-          </ul>
-        </div>
-        
-        <div id="nav_menu" class="nav-collapse collapse" style="height: 0px;">
-          <ul class="nav">
-            <li><a href="{{ path('homepage') }}">Home</a></li>
-            <li><a href="{{ path('about') }}">About</a></li>
-            <li><a href="{{ path('contact') }}">Contact</a></li>
-            {% if app.session.get('user') %}
-              <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
-            {% endif %}
-          </ul>
-          <form class="navbar-search pull-left">
-            <input type="text" placeholder="Search..." data-source="[&quot;Sweet&quot;,&quot;Clean&quot;,&quot;Popular&quot;,&quot;HTML&quot;,&quot;CSS&quot;,&quot;Free&quot;,&quot;Graphic&quot;,&quot;Colors&quot;,&quot;Cool&quot;,&quot;Simple&quot;]" data-items="4" data-provide="typeahead" class="search-query span3">
-          </form>
-          {% include 'login.twig' %}
-        </div>
+      <a data-target=".nav_menu_top" data-toggle="collapse" class="btn btn-navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      
+      <a class="brand" href="#">
+        <strong>Bioversity</strong>
+        <br/>International
+        <br/><strong>T</strong>rait <strong>I</strong>nformation <strong>P</strong>ortal
+      </a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+        </ul>
+      </div>
+      
+      <div class="nav_menu_top nav-collapse collapse" style="height: 0px;">  
+        {% include 'login.twig' %}
+      </div>
+      
+      <div class="nav_menu_top nav-collapse collapse " style="height: 0px;">
+        <ul class="nav  pull-right">
+          <li><a href="{{ path('homepage') }}">Home</a></li>
+          <li><a href="{{ path('about') }}">About</a></li>
+          <li><a href="{{ path('contact') }}">Contact</a></li>
+          <li><a href="{{ path('browse_landrace') }}">Landrace</a></li>
+          <li><a href="{{ path('browse_cwr') }}">Crop Wild Relatives</a></li>
+          <li><a href="{{ path('browse_trait') }}">Trait</a></li>
+          {% if app.session.get('user') %}
+            <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+          {% endif %}
+        </ul>
       </div>
     </div>
   </div>

@@ -1,4 +1,9 @@
 <ul class="nav pull-right">
+  <li>
+    <form class="navbar-search pull-left">
+      <input type="text" placeholder="Search..." data-source="[&quot;Sweet&quot;,&quot;Clean&quot;,&quot;Popular&quot;,&quot;HTML&quot;,&quot;CSS&quot;,&quot;Free&quot;,&quot;Graphic&quot;,&quot;Colors&quot;,&quot;Cool&quot;,&quot;Simple&quot;]" data-items="4" data-provide="typeahead" class="search-query span3">
+    </form>
+  </li>
   {% if app.session.get('user') %}
     <li class="divider-vertical"></li>
     <li>
@@ -21,13 +26,10 @@
         <span>Register</span>
       </a>
     </li>
-    <li class="divider-vertical"></li>
-    <li class="">
-      <div class="btn-group pull-right">
-        <a class="btn" data-toggle="modal" href="#LoginModal">
-          <span>Login</span>
-        </a>
-      </div>
+    <li>
+      <a data-toggle="modal" href="#LoginModal">
+        <span>Login</span>
+      </a>
     </li>
   {% endif %}
 </ul>

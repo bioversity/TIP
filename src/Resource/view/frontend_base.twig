@@ -22,7 +22,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <link rel="shortcut icon" href="favicon.ico">
   </head>
-  <body>
+  <body class="hasGoogleVoiceExt">
     {% if app.session.get('user') %}
       {% include 'form_edit_profile.twig' %}
     {% else %}
@@ -30,17 +30,15 @@
       {% include 'form_login.twig' %}
     {% endif %}
     
-    <div class="container">
     {% include 'menuhead.twig' %}
-    </div>
     
     <div class="container">
       
       {% include 'error.twig' %}
     
       {% block body %}{% endblock %}
-      <hr>
-      {% include 'footer.twig' %}
+      
     </div>
+    {% include 'footer.twig' %}
   </body>
 </html>
