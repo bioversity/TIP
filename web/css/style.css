@@ -1,14 +1,7 @@
-@media (min-width: 1024px) {
-  body {
-    background: url('/img/bg_1.jpg') fixed no-repeat;
-    background-size: 100%;
-  }
-}
-
-
 body {
   padding-bottom: 40px;
   padding-top: 120px;
+  background-color: rgba(156, 255, 0, 0.05);
 }
 
 circle {

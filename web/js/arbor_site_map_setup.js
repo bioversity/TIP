@@ -65,12 +65,10 @@ function startArbor(){
       selected = sys.nearest(p);
       
       $(this).mouseup(function(e){
-        if(selected.distance < 50){
-          var new_p= arbor.Point(e.pageX-pos.left, e.pageY-pos.top);
-          if(p.x == new_p.x && p.y == new_p.y)
-            if(selected.node.data.link)
-              window.location = selected.node.data.link;
-        }
+        var new_p= arbor.Point(e.pageX-pos.left, e.pageY-pos.top);
+        if(p.x == new_p.x && p.y == new_p.y)
+          if(selected.node.data.link)
+            window.location = selected.node.data.link;
       });
     });
 }
