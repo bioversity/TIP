@@ -32,7 +32,10 @@ p{
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 4px 4px 4px 4px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
-  padding: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
   margin: 10px;
 }
 
@@ -47,4 +50,17 @@ p{
 
 #sitemap.linkable {
     cursor: pointer;
+}
+
+.root_page{
+  border-bottom: 3px solid #990033;
+}
+.research_page{
+  border-bottom: 3px solid #336699;
+}
+.static_page{
+  border-bottom: 3px solid #669966;
+}
+.dashboard_page{
+  border-bottom: 3px solid #679EC9;
 }

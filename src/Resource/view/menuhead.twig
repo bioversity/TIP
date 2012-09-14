@@ -28,14 +28,14 @@
       
       <div class="nav_menu_top nav-collapse collapse " style="height: 0px;">
         <ul class="nav  pull-right">
-          <li><a href="{{ path('homepage') }}">Home</a></li>
-          <li><a href="{{ path('about') }}">About</a></li>
-          <li><a href="{{ path('contact') }}">Contact</a></li>
-          <li><a href="{{ path('browse_landrace') }}">Landrace</a></li>
-          <li><a href="{{ path('browse_cwr') }}">Crop Wild Relatives</a></li>
-          <li><a href="{{ path('browse_trait') }}">Trait</a></li>
+          <li class="root_page"><a href="{{ path('homepage') }}">Home</a></li>
+          <li class="static_page"><a href="{{ path('about') }}">About</a></li>
+          <li class="static_page"><a href="{{ path('contact') }}">Contact</a></li>
+          <li class="research_page"><a href="{{ path('browse_landrace') }}">Landrace</a></li>
+          <li class="research_page"><a href="{{ path('browse_cwr') }}">Crop Wild Relatives</a></li>
+          <li class="research_page"><a href="{{ path('browse_trait') }}">Trait</a></li>
           {% if app.session.get('user') %}
-            <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+            <li class="dashboard_page"><a href="{{ path('dashboard') }}">Dashboard</a></li>
           {% endif %}
         </ul>
       </div>

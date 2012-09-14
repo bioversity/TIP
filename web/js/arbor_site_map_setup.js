@@ -1,8 +1,8 @@
 function startArbor(){
   var colour = {
-    root_page:"#EEB211",
-    research_page:"#21526a",
-    static_page:"#941e5e",
+    root_page:"#990033",
+    research_page:"#336699",
+    static_page:"#669966",
   }
   
   
