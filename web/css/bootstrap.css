@@ -3485,7 +3485,7 @@ cursor: pointer;
     position: static;
   }
   .span12{
-    width: 99,99999%;
+    width: 100% !important;
   }
 }
 @media (max-width: 768px) {
