@@ -8,13 +8,27 @@
   <script src="/js/renderer.js" type="text/javascript" language="javascript"></script>
 {% endblock %}
 
-{% block body %}
-  <!-- Main hero unit for a primary marketing message or call to action -->
+{% block body %}  
+  
   <div class="row-fluid">
     <div class="span12">
       <h2>Plant Trait diversity – Crop Wild Relatives – Landraces</h2>
       <p>TIP is a network of European CWR and Landraces Maecenas condimentum tincidunt fermentum. Sed accumsan erat ut magna cursus quis malesuada elit accumsan. Nulla ac nulla nunc, ut fermentum metus. Nam elementum nisi quis mauris placerat nec aliquam lacus tempor. Ut massa erat, porttitor at tempus at, fermentum vel mi. Phasellus vulputate massa eget tellus vulputate sodales. Aliquam erat volutpat. Aliquam erat volutpat. Sed risus ipsum, viverra at malesuada at, dictum non turpis. Duis sed metus id massa pretium sollicitudin. Sed venenatis congue leo et molestie.</p>
-      <hr>
+    </div>
+  </div>
+  <hr>
+  <div class="row-fluid">
+    <div class="span12">
+      <h2>A New way to browse your data</h2>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <canvas height="400" width="1170" id="viewport" class="span12"></canvas>
+    <script src="/js/arbor_site_map_setup.js" type="text/javascript" language="javascript"></script>
+  </div>
+  <hr>
+  <div class="row-fluid">
+    <div class="span12">
       <h3>Main objectives</h3>
       <ul>
         <li>Provide an European documentation of plant traits </li>
@@ -31,10 +45,4 @@
       </ul>
     </div>
   </div>
-  <hr>
-  <div class="row-fluid">
-    <canvas height="400" width="1170" id="viewport" class="span12"></canvas>
-    <script src="/js/arbor_site_map_setup.js" type="text/javascript" language="javascript"></script>
-  </div>
-  <hr>
 {% endblock %}

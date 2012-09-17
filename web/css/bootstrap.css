@@ -2323,7 +2323,7 @@ button.btn.small, input[type="submit"].btn.small {
 .navbar .nav > li > a {
   float: none;
   padding: 5px 5px 5px;
-  line-height: 28px;
+  line-height: 15px;
   color: #545454;
   text-decoration: none;
   text-transform:uppercase;
@@ -2332,7 +2332,6 @@ button.btn.small, input[type="submit"].btn.small {
 .navbar .nav > li > a:hover {
 }
 .navbar .nav .active > a, .navbar .nav .active > a:hover {
-  background:#fff;
   text-decoration: none;
 }
 .navbar .divider-vertical {

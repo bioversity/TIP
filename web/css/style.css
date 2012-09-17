@@ -1,6 +1,7 @@
 body {
   padding-bottom: 40px;
   padding-top: 120px;
+  padding-bottom: 120px;
   background-color: rgba(156, 255, 0, 0.05);
 }
 
@@ -48,6 +49,10 @@ p{
   padding-bottom:5px;
 }
 
+.first_row .nav.pull-right{
+  margin-bottom: 10px;
+}
+
 #sitemap.linkable {
     cursor: pointer;
 }
@@ -64,7 +69,29 @@ p{
 .dashboard_page{
   border-bottom: 3px solid #679EC9;
 }
+.active a{
+  color: #FFF !important;
+  font-weight: bold !important;
+}
+.static_page.active a{
+  background-color: rgba(102, 153, 102, 0.5);
+}
 
+.root_page.active a{
+  background-color: rgba(153, 0, 51, 0.5);
+}
+.research_page.active a{
+  background-color: rgba(51, 102, 153, 0.5);
+}
+.dashboard_page.active a{
+  background-color: rgba(103, 158, 201, 0.5);
+}
+.spacer{
+  line-height: 10px;
+}
+.clear{
+  clear: both;
+}
 /*.sitemap{
   left: 25% !important;
   width: 1024px !important;

@@ -22,20 +22,34 @@
         </ul>
       </div>
       
-      <div class="nav_menu_top nav-collapse collapse" style="height: 0px;">  
+      <div class="nav_menu_top nav-collapse collapse first_row">  
         {% include 'login.twig' %}
       </div>
-      
-      <div class="nav_menu_top nav-collapse collapse " style="height: 0px;">
+
+      <div class="nav_menu_top nav-collapse collapse second_row">
         <ul class="nav  pull-right">
-          <li class="root_page"><a href="{{ path('homepage') }}">Home</a></li>
-          <li class="static_page"><a href="{{ path('about') }}">About</a></li>
-          <li class="static_page"><a href="{{ path('contact') }}">Contact</a></li>
-          <li class="research_page"><a href="{{ path('browse_landrace') }}">Landrace</a></li>
-          <li class="research_page"><a href="{{ path('browse_cwr') }}">Crop Wild Relatives</a></li>
-          <li class="research_page"><a href="{{ path('browse_trait') }}">Trait</a></li>
+          <li class="root_page {% if(link_active == 'homepage') %} active{% endif %}">
+            <a href="{{ path('homepage') }}">Home</a>
+          </li>
+          <li class="static_page {% if(link_active == 'about') %} active{% endif %}">
+            <a href="{{ path('about') }}">About</a>
+          </li>
+          <li class="static_page {% if(link_active == 'contact') %} active{% endif %}">
+            <a href="{{ path('contact') }}">Contact</a>
+          </li>
+          <li class="research_page {% if(link_active == 'browse_landrace') %} active{% endif %}">
+            <a href="{{ path('browse_landrace') }}">Landrace</a>
+          </li>
+          <li class="research_page {% if(link_active == 'browse_cwr') %} active{% endif %}">
+            <a href="{{ path('browse_cwr') }}">Crop Wild Relatives</a>
+          </li>
+          <li class="research_page {% if(link_active == 'browse_trait') %} active{% endif %}">
+            <a href="{{ path('browse_trait') }}">Trait</a>
+          </li>
           {% if app.session.get('user') %}
-            <li class="dashboard_page"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+            <li class="dashboard_page {% if(link_active == 'dashboard') %} active{% endif %}">
+              <a href="{{ path('dashboard') }}">Dashboard</a>
+            </li>
           {% endif %}
         </ul>
       </div>

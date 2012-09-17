@@ -11,32 +11,32 @@ $app->register(new Silex\Provider\TranslationServiceProvider(), array(
 
 //UNLOGGED PATH
 $app->match('/contact', function (Request $request) use ($app) {
-  return $app['twig']->render('contact.twig');
+  return $app['twig']->render('contact.twig', array('link_active' => 'contact'));
 })
 ->bind('contact');
 
 $app->match('/about', function (Request $request) use ($app) {
-  return $app['twig']->render('about.twig');
+  return $app['twig']->render('about.twig', array('link_active' => 'about'));
 })
 ->bind('about');
 
 $app->match('/database', function (Request $request) use ($app) {
-  return $app['twig']->render('database.twig');
+  return $app['twig']->render('database.twig', array('link_active' => 'database'));
 })
 ->bind('page_database');
 
 $app->match('/browse-landrace', function (Request $request) use ($app) {
-  return $app['twig']->render('browse_landrace.twig');
+  return $app['twig']->render('browse_landrace.twig', array('link_active' => 'browse_landrace'));
 })
 ->bind('browse_landrace');
 
 $app->match('/browse-cwr', function (Request $request) use ($app) {
-  return $app['twig']->render('browse_cwr.twig');
+  return $app['twig']->render('browse_cwr.twig', array('link_active' => 'browse_cwr'));
 })
 ->bind('browse_cwr');
 
 $app->match('/browse-trait', function (Request $request) use ($app) {
-  return $app['twig']->render('browse_trait.twig');
+  return $app['twig']->render('browse_trait.twig', array('link_active' => 'browse_trait'));
 })
 ->bind('browse_trait');
 

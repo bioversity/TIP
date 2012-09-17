@@ -51,6 +51,7 @@ function startArbor(){
       }
     }
   }
+    
     var sys = arbor.ParticleSystem()
     sys.parameters({stiffness:900, repulsion:2000, gravity:true, dt:0.015})
     sys.renderer = Renderer("#viewport")
@@ -60,16 +61,16 @@ function startArbor(){
     $(sys.renderer).bind('navigate', nav.navigate)
     $(nav).bind('mode', sys.renderer.switchMode)
     nav.init()
-     $("#viewport").mousedown(function(e){
-      var pos = $(this).offset();
-      var p = arbor.Point(e.pageX-pos.left, e.pageY-pos.top);
-      selected = sys.nearest(p);
-      
-      $(this).mouseup(function(e){
-        var new_p= arbor.Point(e.pageX-pos.left, e.pageY-pos.top);
-        if(p.x == new_p.x && p.y == new_p.y)
-          if(selected.node.data.link)
-            window.location = selected.node.data.link;
-      });
-    });
+    $("#viewport").mousedown(function(e){
+     var pos = $(this).offset();
+     var p = arbor.Point(e.pageX-pos.left, e.pageY-pos.top);
+     selected = sys.nearest(p);
+     
+     $(this).mouseup(function(e){
+       var new_p= arbor.Point(e.pageX-pos.left, e.pageY-pos.top);
+       if(p.x == new_p.x && p.y == new_p.y)
+         if(selected.node.data.link)
+           window.location = selected.node.data.link;
+     });
+   });
 }
