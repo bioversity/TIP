@@ -96,7 +96,16 @@ p{
 #data_menu .active{
   background-color: rgba(51, 102, 153, 0.5);
 }
-/*.sitemap{
-  left: 25% !important;
-  width: 1024px !important;
-}*/
+#SitemapModal{
+  margin: 0 auto;
+  left: auto !important;
+  top: 120px !important;
+  width: 90% !important;
+}
+
+#SitemapModal .modal-body{
+  height: 500px !important;
+  max-height: none !important;
+  overflow-y: visible;
+  padding: 0px !important;
+}
