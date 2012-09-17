@@ -23,15 +23,15 @@ function startArbor(){
      DATABASE: {
         color:colour.static_page, shape:'dot', radius:35, alpha:1, label: 'DATABASE', link: '/database'},
      DATABASE1: {
-        color:colour.static_page, radius:35, alpha:0, label: 'DATASETS'},
+        color:colour.static_page, radius:35, alpha:0, label: 'DATASETS', link: '/datasets'},
      DATABASE2: {
-        color:colour.static_page, radius:35, alpha:0, label: 'DATA SEARCH'},
+        color:colour.static_page, radius:35, alpha:0, label: 'DATA SEARCH', link: '/data-search'},
      DATABASE3: {
-        color:colour.static_page, radius:35, alpha:0, label: 'DOWNLOAD DATA'},
+        color:colour.static_page, radius:35, alpha:0, label: 'DOWNLOAD DATA', link: '/download-data'},
      DATABASE4: {
-        color:colour.static_page, radius:35, alpha:0, label: 'REQUEST DATA'},
+        color:colour.static_page, radius:35, alpha:0, label: 'REQUEST DATA', link: '/request-data'},
      DATABASE5: {
-        color:colour.static_page, radius:35, alpha:0, label: 'CONTRIBUTE DATA'},
+        color:colour.static_page, radius:35, alpha:0, label: 'CONTRIBUTE DATA', link: '/contribute-data'},
     },
     edges:{
       HOME:{

@@ -9,7 +9,9 @@ $app->register(new Silex\Provider\TranslationServiceProvider(), array(
 ));
 
 
-//UNLOGGED PATH
+/*--------------------------------------------------
+  UNLOGGED PATH
+----------------------------------------------------*/
 $app->match('/contact', function (Request $request) use ($app) {
   return $app['twig']->render('contact.twig', array('link_active' => 'contact'));
 })
@@ -40,7 +42,10 @@ $app->match('/browse-trait', function (Request $request) use ($app) {
 })
 ->bind('browse_trait');
 
-//LOGGED PATH
+
+/*--------------------------------------------------
+  LOGGED PATH
+----------------------------------------------------*/
 $app->match('/admin/add-tag', function (Request $request) use ($app) {
   if (null === $user = $app['session']->get('user')) {
     return $app->redirect($app['url_generator']->generate('login'));
@@ -64,3 +69,32 @@ $app->match('/admin/edit-profile', function (Request $request) use ($app) {
   return require_once __DIR__.'/Form/editProfileForm.php';
 })
 ->bind('edit_profile');
+
+
+/*--------------------------------------------------
+  DATASET ROUTE
+----------------------------------------------------*/
+$app->match('/datasets', function (Request $request) use ($app) {
+  return $app['twig']->render('datasets.twig', array('link_active' => 'datasets'));
+})
+->bind('datasets');
+
+$app->match('/data-search', function (Request $request) use ($app) {
+  return $app['twig']->render('data_search.twig', array('link_active' => 'data_search'));
+})
+->bind('data_search');
+
+$app->match('/download-data', function (Request $request) use ($app) {
+  return $app['twig']->render('download_data.twig', array('link_active' => 'download_data'));
+})
+->bind('download_data');
+
+$app->match('/request-data', function (Request $request) use ($app) {
+  return $app['twig']->render('request_data.twig', array('link_active' => 'request_data'));
+})
+->bind('request_data');
+
+$app->match('/contribute-data', function (Request $request) use ($app) {
+  return $app['twig']->render('contribute_data.twig', array('link_active' => 'contribute_data'));
+})
+->bind('contribute_data');

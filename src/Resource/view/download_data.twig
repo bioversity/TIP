@@ -1,0 +1,23 @@
+{% extends frontend_layout %}
+
+{% block body %}  
+  <div class="row">
+    <div class="span12">
+      <div>
+        <div class="span9">
+          <div class="sidewell">
+            <h2>TIP Download Data</h2>
+            <p>
+              The following datasets are publicly available and can directly be downloaded. Data use is according to the TIP Use Data Policy.
+              <br/>
+              The data available in these datasets have …………………………text to be defined…………………
+              <br/>
+              Some of these datasets are original datasets, as contributed to the TIP Portal. If you would like to access these data with additional information, standardization and quality checks, please submit a data request
+            </p>
+          </div>
+        </div>
+        {% include 'data_menu.twig' %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
