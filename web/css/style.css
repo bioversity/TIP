@@ -69,7 +69,7 @@ p{
 .dashboard_page{
   border-bottom: 3px solid #679EC9;
 }
-.active a{
+.nav_menu_top .active a{
   color: #FFF !important;
   font-weight: bold !important;
 }
@@ -108,4 +108,10 @@ p{
   max-height: none !important;
   overflow-y: visible;
   padding: 0px !important;
+}
+
+.lengh_btn{
+  width: 200px;
+  text-align: left;
+  text-transform: uppercase;
 }
