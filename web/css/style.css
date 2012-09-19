@@ -2,8 +2,13 @@ body {
   padding-bottom: 40px;
   padding-top: 100px;
   padding-bottom: 100px;
-  background: none repeat scroll 0 0 #F0F0F0;
 }
+
+/*.navbar-inner{
+  background-color: #83CE02;
+  background-image: -moz-linear-gradient(center top , #8DDD03, #74B800);
+  background-repeat: repeat-x;
+}*/
 
 circle {
   stroke-width: 1.5px;
@@ -63,6 +68,9 @@ p{
 .research_page{
   border-bottom: 3px solid #336699;
 }
+.trait_page{
+  border-bottom: 3px solid #F1921A;
+}
 .static_page{
   border-bottom: 3px solid #669966;
 }
@@ -76,16 +84,19 @@ p{
 .static_page.active a{
   background-color: rgba(102, 153, 102, 0.5);
 }
-
 .root_page.active a{
   background-color: rgba(153, 0, 51, 0.5);
 }
 .research_page.active a{
   background-color: rgba(51, 102, 153, 0.5);
 }
+.trait_page.active a{
+  background-color: rgba(241, 146, 26, 0.5);
+}
 .dashboard_page.active a{
   background-color: rgba(103, 158, 201, 0.5);
 }
+
 .spacer{
   line-height: 10px;
 }
