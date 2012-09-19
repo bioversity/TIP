@@ -2271,22 +2271,23 @@ button.btn.small, input[type="submit"].btn.small {
 .navbar-fixed-top {
   position: fixed;
   top: 0;
-  right: 0;
-  left: 0;
+  right: 20px;
+  left: 20px;
   z-index: 99999;
 }
 .navbar-fixed-bottom {
   position: fixed;
   bottom: 0;
-  right: 0;
-  left: 0;
+  right: 20px;
+  left: 20px;
   z-index: 99999;
+  /*background: -moz-linear-gradient(center top , #23658B 0%, #1C506E 100%) repeat scroll 0 0 transparent;*/
 }
 .navbar-fixed-top .navbar-inner {
   padding-left: 0;
   padding-right: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
+  -moz-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
   -webkit-box-shadow: 1px 0 0 #fff inset, 0 1px 0 #fff inset;
   -moz-box-shadow: 1px 0 0 #fff inset, 0 1px 0 #fff inset;
   -webkit-border-radius: 0;
@@ -2296,8 +2297,8 @@ button.btn.small, input[type="submit"].btn.small {
 .navbar-fixed-bottom .navbar-inner {
   padding-left: 0;
   padding-right: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
+  -moz-border-radius: 0 0 5px 5px;
+  border-radius: 5px 5px 0 0;
   -webkit-box-shadow: 1px 0 0 #fff inset, 0 1px 0 #fff inset;
   -moz-box-shadow: 1px 0 0 #fff inset, 0 1px 0 #fff inset;
   -webkit-border-radius: 0;

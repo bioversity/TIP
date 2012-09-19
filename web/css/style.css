@@ -1,8 +1,8 @@
 body {
   padding-bottom: 40px;
-  padding-top: 120px;
-  padding-bottom: 120px;
-  background-color: rgba(156, 255, 0, 0.05);
+  padding-top: 100px;
+  padding-bottom: 100px;
+  background: none repeat scroll 0 0 #F0F0F0;
 }
 
 circle {
@@ -114,4 +114,8 @@ p{
   width: 200px;
   text-align: left;
   text-transform: uppercase;
+}
+
+.span12{
+  padding: 20px;
 }
