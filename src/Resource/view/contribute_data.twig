@@ -2,6 +2,7 @@
 
 {% block body %}
   <div class="span9">
+    {% include('credential_request.twig') %}
     <h2>Contribute data</h2>
     <p>
       You are welcome to contribute data to the TIP initiative at any time. Benefits of submitting data are potential……. 
@@ -17,6 +18,24 @@
       <br/>
       If you would like to learn more about TIP or contribute a dataset to the TIP database, please contact us! 
     </p>
+    {% if app.session.get('user') %}      
+      <div class="tabbable"> <!-- Only required for left/right tabs -->
+        <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab">Step 1</a></li>
+        <li><a>Step 2</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab1">
+            <form>
+              <input id="datasets" class="input-large" type="file" />
+              <input class="btn" type="submit" value="submit" />
+            </form>
+          </div>
+          <div class="tab-pane" id="tab2">
+          </div>
+        </div>
+      </div>
+    {% endif %}
   </div>
   {% include 'data_menu.twig' %}
 {% endblock %}

@@ -5,6 +5,7 @@ body {
   background: url("/img/bg_yt.png") repeat scroll 0 0 #EBEBEB;
   color: #666666;
   font: 12px arial,sans-serif;
+  overflow-y: scroll;
 }
 
 h1,h2,h3,h4,h5{
@@ -215,6 +216,7 @@ p{
   width: 100%;
   text-align: left;
   text-transform: uppercase;
+  text-decoration: none;
 }
 .lengh_btn:hover{
   font-weight: bold !important;
