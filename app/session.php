@@ -5,6 +5,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 $app->register(new Silex\Provider\SessionServiceProvider());
 
+if($error= $app['session']->get('last_error')){
+  if($error['status'] == 'new' || $error['status'] == null){
+    $error['status']= 'old';
+    $app['session']->set('last_error', $error);
+  }else{
+    $app['session']->clear('last_error');
+  }
+}
+
 $app->get('/', function () use ($app) {
   return $app['twig']->render('homepage.twig', array('link_active' => 'homepage'));
 })

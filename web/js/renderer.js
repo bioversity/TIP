@@ -13,8 +13,8 @@
     var sys = null
     var _vignette = null
     var selected = null,
-    nearest = null,
-    _mouseP = null;
+        nearest = null,
+        _mouseP = null;
     
     var that = {
       init:function(pSystem){
@@ -32,8 +32,8 @@
         }
       },
       resize:function(){
-        canvas.width = $(window).width()
-        canvas.height = .75* $(window).height()
+        canvas.width = dom.width()
+        canvas.height = .75* dom.height()
         sys.screen({size:{width:canvas.width, height:canvas.height}})
         _vignette = null
         that.redraw()
@@ -45,10 +45,8 @@
             gfx.line(p1, p2, {stroke:"#b2b19d", width:2, alpha:edge.target.data.alpha})
           })
         sys.eachNode(function(node, pt){
-          var w = Math.max(20, 100 )
-          var font_size= 12
-          if(gfx.textWidth(node.data.label) > 100)
-            font_size= 8
+          var w = Math.max(20, 5+gfx.textWidth(node.data.label) )
+          var font_size= 8
           if (node.data.alpha===0) return
           if (node.data.shape=='dot'){
             gfx.oval(pt.x-w/2, pt.y-w/2, w, w, {fill:node.data.color, alpha:node.data.alpha})
@@ -76,11 +74,11 @@
           _vignette = {top:top, bot:bot}
         }
         // top
-        ctx.fillStyle = _vignette.top
-        ctx.fillRect(0,0, w,r)
+        //ctx.fillStyle = _vignette.top
+        //ctx.fillRect(0,0, w,r)
         // bot
-        ctx.fillStyle = _vignette.bot
-        ctx.fillRect(0,h-r, w,r)
+        //ctx.fillStyle = _vignette.bot
+        //ctx.fillRect(0,h-r, w,r)
       },
       switchMode:function(e){
         if (e.mode=='hidden'){

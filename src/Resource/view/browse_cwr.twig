@@ -1,34 +1,21 @@
 {% extends frontend_layout %}
 
 {% block body %}  
-  <div class="row">
-    <div class="span12">
-      <div>
-        <div class="span9">
-          <div class="sidewell">
-            <div class="span3">
-              <p><button class="btn lengh_btn">Species name and authors</button></p>
-              <p><button class="btn lengh_btn">Synonyms Non-accepted species names</button></p>
-              <p><button class="btn lengh_btn">Vernacular names</button></p>
-              <p><button class="btn lengh_btn">Cultivated status</button></p>
-              <p><button class="btn lengh_btn">Type of introduction</button></p>
-              <p><button class="btn lengh_btn">CWR checklists</button></p>
-              <p><button class="btn lengh_btn">Economic category</button></p>
-              <p><button class="btn lengh_btn">Ethnobotanical uses</button></p>
-              <p><button class="btn lengh_btn">Global distribution (map)</button></p>
-              <p><button class="btn lengh_btn">National distribution</button></p>
-              <p><button class="btn lengh_btn">Ex situ conservation status</button></p>
-              <p><button class="btn lengh_btn">In situ conservation status</button></p>
-              <p><button class="btn lengh_btn">Legislation</button></p>
-              <p><button class="btn lengh_btn">Threat assessment</button></p>
-            </div>
-            <div class="span5">
-              Cras malesuada elit at tortor dignissim vitae viverra odio ornare. Sed feugiat sapien eget nulla pulvinar pulvinar. Aliquam erat volutpat. Pellentesque suscipit, augue id pellentesque aliquam, purus augue euismod mauris, sit amet ornare augue augue eget nunc. Suspendisse vel odio et diam condimentum aliquet
-            </div>
-          </div>
-        </div>
-        {% include 'data_menu.twig' %}
-      </div>
-    </div>
+  <div class="span9">
+    <button class="btn lengh_btn">Species name and authors</button>
+    <button class="btn lengh_btn">Synonyms Non-accepted species names</button>
+    <button class="btn lengh_btn">Vernacular names</button>
+    <button class="btn lengh_btn">Cultivated status</button>
+    <button class="btn lengh_btn">Type of introduction</button>
+    <button class="btn lengh_btn">CWR checklists</button>
+    <button class="btn lengh_btn">Economic category</button>
+    <button class="btn lengh_btn">Ethnobotanical uses</button>
+    <button class="btn lengh_btn">Global distribution (map)</button>
+    <button class="btn lengh_btn">National distribution</button>
+    <button class="btn lengh_btn">Ex situ conservation status</button>
+    <button class="btn lengh_btn">In situ conservation status</button>
+    <button class="btn lengh_btn">Legislation</button>
+    <button class="btn lengh_btn">Threat assessment</button>
   </div>
+  {% include 'data_menu.twig' %}
 {% endblock %}

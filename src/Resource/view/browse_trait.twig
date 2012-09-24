@@ -1,53 +1,30 @@
 {% extends frontend_layout %}
 
-{% block body %}  
-  <div class="row">
-    <div class="span12">
-      <div>
-        <div class="span9">
-          <div class="sidewell">
-            <div class="tabbable tabs-below">
-              <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#rA">Information by Trait</a></li>
-                <li class=""><a data-toggle="tab" href="#rB">Information by Species</a></li>
-                <li class=""><a data-toggle="tab" href="#rC">Information by Country</a></li>
-              </ul>
-              <div class="tab-content">
-                <div id="rA" class="tab-pane active">
-                  <div class="span3">
-                    <p><button class="btn lengh_btn">Trait table</button></p>
-                    <p><button class="btn lengh_btn">Detailed information for 1 trait</button></p>
-                    <p><button class="btn lengh_btn">Species table for several traits</button></p>
-                  </div>
-                  <div class="span5">
-                    Cras malesuada elit at tortor dignissim vitae viverra odio ornare. Sed feugiat sapien eget nulla pulvinar pulvinar. Aliquam erat volutpat. Pellentesque suscipit, augue id pellentesque aliquam, purus augue euismod mauris, sit amet ornare augue augue eget nunc. Suspendisse vel odio et diam condimentum aliquet
-                  </div>
-                </div>
-                <div id="rB" class="tab-pane">
-                  <div class="span3">
-                    <p><button class="btn lengh_btn">Accepted species table</button></p>
-                    <p><button class="btn lengh_btn">Detailed information for species. Please select the first character of the species of interest:</button></p>
-                    <p><button class="btn lengh_btn">Traits table for several species</button></p>
-                  </div>
-                  <div class="span5">
-                    Cras malesuada elit at tortor dignissim vitae viverra odio ornare. Sed feugiat sapien eget nulla pulvinar pulvinar. Aliquam erat volutpat. Pellentesque suscipit, augue id pellentesque aliquam, purus augue euismod mauris, sit amet ornare augue augue eget nunc. Suspendisse vel odio et diam condimentum aliquet
-                  </div>
-                </div>
-                <div id="rC" class="tab-pane">
-                  <div class="span3">
-                    <p><button class="btn lengh_btn">Global site map</button></p>
-                    <p><button class="btn lengh_btn">Country based queries</button></p>
-                  </div>
-                  <div class="span5">
-                    Cras malesuada elit at tortor dignissim vitae viverra odio ornare. Sed feugiat sapien eget nulla pulvinar pulvinar. Aliquam erat volutpat. Pellentesque suscipit, augue id pellentesque aliquam, purus augue euismod mauris, sit amet ornare augue augue eget nunc. Suspendisse vel odio et diam condimentum aliquet
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+{% block body %}
+  <div class="span9">
+    <div class="tabbable tabs-below">
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#rA">Information by Trait</a></li>
+        <li class=""><a data-toggle="tab" href="#rB">Information by Species</a></li>
+        <li class=""><a data-toggle="tab" href="#rC">Information by Country</a></li>
+      </ul>
+      <div class="tab-content">
+        <div id="rA" class="tab-pane active">
+          <button class="btn lengh_btn">Trait table</button>
+          <button class="btn lengh_btn">Detailed information for 1 trait</button>
+          <button class="btn lengh_btn">Species table for several traits</button>
         </div>
-        {% include 'data_menu.twig' %}
+        <div id="rB" class="tab-pane">
+          <button class="btn lengh_btn">Accepted species table</button>
+          <button class="btn lengh_btn">Detailed information for species. Please select the first character of the species of interest:</button>
+          <button class="btn lengh_btn">Traits table for several species</button>
+        </div>
+        <div id="rC" class="tab-pane">
+          <button class="btn lengh_btn">Global site map</button>
+          <button class="btn lengh_btn">Country based queries</button>
+        </div>
       </div>
     </div>
   </div>
+  {% include 'data_menu.twig' %}
 {% endblock %}

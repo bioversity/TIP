@@ -1,11 +1,7 @@
 {% if app.session.get('last_error') %}
-  <div class="row">
-    <div class="span12">
-      <div class="alert alert-error alert-block">  
-        <a class="close" data-dismiss="alert">×</a>  
-        <strong>Warning!</strong>
-        {{ app.session.get('last_error').error }}
-      </div>
-    </div>
+  <div class="alert alert-error alert-block">  
+    <a class="close" data-dismiss="alert">×</a>  
+    <strong>Warning!</strong>
+    {{ app.session.get('last_error').error }}
   </div>
 {% endif %}
