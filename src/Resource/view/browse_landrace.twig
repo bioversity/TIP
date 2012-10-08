@@ -1,21 +1,16 @@
 {% extends frontend_layout %}
 
+{% block javascripts %}
+  {{ parent() }}
+  <script src="/js/treat.js"></script>
+{% endblock %}
+
 {% block body %}  
   <div class="span9">
-    <button class="btn lengh_btn">INVENTORY IDENTIFICATION</button>
-    <button class="btn lengh_btn">TAXON IDENTIFICATION</button>
-    <button class="btn lengh_btn">LANDRACE/POPULATION IDENTIFICATION</button>
-    <button class="btn lengh_btn">SITE/LOCATION IDENTIFICATION</button>
-    <button class="btn lengh_btn">THE FARMER (I.E. THE MAINTAINER)</button>
-    <button class="btn lengh_btn">THE LANDRACE</button>
-    <button class="btn lengh_btn">CONSERVATION AND MONITORING</button>
-    <button class="btn lengh_btn">REMARKS</button>
-    <button class="btn lengh_btn">Species name and authors</button>
-    <button class="btn lengh_btn">Synonyms Non-accepted species names</button>
-    <button class="btn lengh_btn">Vernacular names</button>
-    <button class="btn lengh_btn">Cultivated status</button>
-    <button class="btn lengh_btn">Type of introduction</button>
-    <button class="btn lengh_btn">CWR checklists</button>
+    {% for field in landrace_field %}
+      <button id="{{ field.name|replace({' ':'_'}) }}" class="btn lengh_btn" {{ field.status }}>{{ field.name }}</button>
+      <div id="detail_{{ field.name|replace({' ':'_'}) }}" class="closed landrace_box"></div>
+    {% endfor %}
   </div>
   {% include 'data_menu.twig' %}
 {% endblock %}

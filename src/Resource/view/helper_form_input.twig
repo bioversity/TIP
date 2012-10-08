@@ -1,0 +1,14 @@
+<div>
+  {% set counter= 1 %}
+  <div class="list">
+  {% for taxa in taxas %}
+      <input type="checkbox" id="{{ taxa.Taxon|replace({' ':'_'}) }}" class="btn lengh_btn"/>{{ taxa.Taxon }}
+      <br/>
+      {% set counter = counter + 1 %}
+      {% if counter >= 10 %}
+        </div><div class="list">
+        {% set counter=1 %}
+      {% endif %}
+  {% endfor %}
+  </div>
+</div>

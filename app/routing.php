@@ -28,7 +28,28 @@ $app->match('/database', function (Request $request) use ($app) {
 ->bind('page_database');
 
 $app->match('/browse-landrace', function (Request $request) use ($app) {
-  return $app['twig']->render('browse_landrace.twig', array('link_active' => 'browse_landrace'));
+  $landraceField= array(
+    array('name'=>'TAXON IDENTIFICATION', 'status'=>'enabled'),
+    array('name'=>'INVENTORY IDENTIFICATION', 'status'=>'enabled'),
+    array('name'=>'LANDRACE POPULATION IDENTIFICATION', 'status'=>'enabled'),
+    array('name'=>'SITE LOCATION IDENTIFICATION', 'status'=>'enabled'),
+    array('name'=>'THE FARMER', 'status'=>'disabled'),
+    array('name'=>'THE LANDRACE', 'status'=>'disabled'),
+    array('name'=>'CONSERVATION AND MONITORING', 'status'=>'disabled'),
+    array('name'=>'REMARKS', 'status'=>'disabled'),
+    array('name'=>'Species name and authors', 'status'=>'disabled'),
+    array('name'=>'Synonyms Non-accepted species nam', 'status'=>'disabled'),
+    array('name'=>'Vernacular names', 'status'=>'disabled'),
+    array('name'=>'Cultivated status', 'status'=>'disabled'),
+    array('name'=>'Type of introduction', 'status'=>'disabled'),
+    array('name'=>'CWR checklists', 'status'=>'disabled'),
+  );
+  
+  return $app['twig']->render('browse_landrace.twig',
+    array(
+      'link_active' => 'browse_landrace',
+      'landrace_field' => $landraceField
+    ));
 })
 ->bind('browse_landrace');
 
@@ -41,6 +62,11 @@ $app->match('/browse-trait', function (Request $request) use ($app) {
   return $app['twig']->render('browse_trait.twig', array('link_active' => 'browse_trait'));
 })
 ->bind('browse_trait');
+
+$app->match('/get-landrace-detail/{label_id}', function ($label_id) use ($app) {
+  return require_once __DIR__.'/Class/landrace.php';
+})
+->bind('get_landrace_detail');
 
 
 /*--------------------------------------------------

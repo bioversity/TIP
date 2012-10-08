@@ -515,4 +515,3 @@ class Name extends \Doctrine\Common\Annotations\Annotation
 {
     public $name;
 }
-
