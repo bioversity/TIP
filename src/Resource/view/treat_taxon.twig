@@ -1,31 +1,56 @@
-<form action="" method="post">
-  <label for"genus">Genus</label>
-  <select  multiple="true" name="GENUS">
-    
-  </select>
-  <label for"genus">Species</label>
-  <select  multiple="true" name="SPECIES">
-    
-  </select>
-  <label for"genus">Species authority</label>
-  <select  multiple="true" name="SPAUTHOR">
-    
-  </select>
-  <label for"genus">Subtaxa</label>
-  <select  multiple="true" name="SUBTAXA">
-    
-  </select>
-  <label for"genus">Subtaxa authority</label>
-  <select  multiple="true" name="SUBTAUTHOR">
-    
-  </select>
-  <label for"genus">Taxonomic references</label>
-  <select  multiple="true" name="TAXREF">
-    
-  </select>
-  <label for"genus">Common crop name</label>
-  <select  multiple="true" name="CROPNAME">
-    
-  </select>
-  <input type="submit" />
-</form>
+<div class="control-group">
+  <label class="control-label" for="genus">Genus</label>
+  <div class="controls">
+    <select   name="GENUS">
+      <option value="">select value</option>
+      {% for gene in genus_lanrade %}
+        <option value="{{ gene.GENUS }}">{{ gene.GENUS }}</option>
+      {% endfor %}
+      {% for gene in genus_cwr %}
+        <option value="{{ gene.GENUS }}">{{ gene.GENUS }}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<div class="control-group">
+  <label class="control-label" for="genus">Species</label>
+  <div class="controls">
+    <select   name="SPECIES">
+      <option value="">select value</option>
+      {% for specie in species_lanrade %}
+        <option value="{{ specie.SPECIES }}">{{ specie.SPECIES }}</option>
+      {% endfor %}
+      {% for specie in species_cwr %}
+        <option value="{{ specie.SPECIES }}">{{ specie.SPECIES }}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<div class="control-group">
+  <label class="control-label" for="genus">Common crop name</label>
+  <div class="controls">
+    <select   name="CROPNAME">
+      <option value="">select value</option>
+      {% for crop in cropname_lanrade %}
+        <option value="{{ crop.CROPNAME }}">{{ crop.CROPNAME }}</option>
+      {% endfor %}
+      {% for crop in cropname_cwr %}
+        <option value="{{ crop.CROPNAME }}">{{ crop.CROPNAME }}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<!--
+<div class="control-group">
+  <label class="control-label" for="genus"></label>
+  <div class="controls">
+    <input type="hidden" name="form_name" value="taxon"/>
+    <input type="submit" />
+  </div>
+</div>
+
+<div class="clear">&nbsp;</div>
+-->

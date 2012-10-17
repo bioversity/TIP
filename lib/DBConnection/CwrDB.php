@@ -6,7 +6,7 @@ require_once __DIR__.'/TableManager.php';
 
 use Lib\DBConnection\TableManager;
 
-class LandraceDB extends TableManager
+class CwrDB extends TableManager
 {
   var $app;
   
@@ -22,9 +22,9 @@ class LandraceDB extends TableManager
     return $fields;
   }
   
-  public function countLandrace($data)
+  public function countCwr($data)
   {
-    $sql= 'SELECT count(*) FROM landrace WHERE 1=1 ';
+    $sql= 'SELECT count(*) FROM cropwildrelative WHERE 1=1 ';
     
     if($data['NICODE'])
       $sql .='AND NICODE=\''.$data['NICODE'].'\'';
@@ -100,9 +100,9 @@ class LandraceDB extends TableManager
     return $count;
   }
   
-  public function findLandrace($data= null)
+  public function findCwr($data= null)
   {
-    $sql= 'SELECT * FROM landrace WHERE 1=1 ';
+    $sql= 'SELECT * FROM cropwildrelative WHERE 1=1 ';
     
     if($data['NICODE'])
       $sql .='AND NICODE=\''.$data['NICODE'].'\'';
@@ -178,9 +178,9 @@ class LandraceDB extends TableManager
     return $query;
   }
   
-  public function getLandrace($id)
+  public function getCwr($id)
   {
-    $sql = "SELECT * FROM landrace WHERE id = ".$id;
+    $sql = "SELECT * FROM cropwildrelative WHERE id = ".$id;
     $post = $this->app['db']->fetchAssoc($sql);
     
     return $post;

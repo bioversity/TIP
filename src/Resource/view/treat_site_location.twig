@@ -1,39 +1,44 @@
-<form action="" method="post">
-  <label for"genus">Farm location: primary administrative subdivision of the country where farm is located</label>
-  <select multiple="true" name="FARMFIRSTADMIN">
-    
-  </select>
-  
-  <label for"genus">Farm location: secondary administrative subdivision</label>
-  <select multiple="true" name="FARMSECONDADMIN">
-    
-  </select>
-  
-  <label for"genus">Farm location: lowest administrative subdivision</label>
-  <select multiple="true" name="FARMLOWESTADMIN">
-    
-  </select>
-  
-  <label for"genus">Location of the nearest known place</label>
-  <select multiple="true" name="LOCATION">
-    
-  </select>
-  
-  <legend>Farm coordinates</legend>
-    <label for"genus">Latitude of farm site</label>
-    <select multiple="true" name="FLATDMS">
-      
+<div class="control-group">
+  <label for="genus">Geographic data recording system</label>
+  <div class="controls">
+    <select name="LRSGPS">
+      <option value="">select value</option>
+      {% for code in lrsgps_landrace %}
+        <option value="{{ code.LRSGPS }}">{{ code.LRSGPS }}</option>
+      {% endfor %}
+      {% for code in lrsgps_cwr %}
+        <option value="{{ code.LRSGPS }}">{{ code.LRSGPS }}</option>
+      {% endfor %}
     </select>
-    
-    <label for"genus">Latitude of farm site</label>
-    <select multiple="true" name="FLATDD">
-      
+  </div>
+</div>
+
+<div class="control-group">
+  <label for="genus">Latitude of farm site</label>
+  <div class="controls">
+    <select name="LRSLATDD">
+      <option value="">select value</option>
+      {% for code in lrslatdd_landrace %}
+        <option value="{{ code.LRSLATDD }}">{{ code.LRSLATDD }}</option>
+      {% endfor %}
+      {% for code in lrslatdd_cwr %}
+        <option value="{{ code.LRSLATDD }}">{{ code.LRSLATDD }}</option>
+      {% endfor %}
     </select>
-    
-    <label for"genus">Longitude of farm site</label>
-    <select multiple="true" name="FLONGDMS">
-      
+  </div>
+</div>
+
+<div class="control-group">
+  <label for="genus">Longitude of farm site</label>
+  <div class="controls">
+    <select name="FLONGDD">
+      <option value="">select value</option>
+      {% for code in flongdd_landrace %}
+        <option value="{{ code.FLONGDD }}">{{ code.FLONGDD }}</option>
+      {% endfor %}
+      {% for code in flongdd_cwr %}
+        <option value="{{ code.FLONGDD }}">{{ code.FLONGDD }}</option>
+      {% endfor %}
     </select>
-    
-  <input type="submit" />
-</form>
+  </div>
+</div>

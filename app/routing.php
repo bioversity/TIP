@@ -31,18 +31,18 @@ $app->match('/browse-landrace', function (Request $request) use ($app) {
   $landraceField= array(
     array('name'=>'TAXON IDENTIFICATION', 'status'=>'enabled'),
     array('name'=>'INVENTORY IDENTIFICATION', 'status'=>'enabled'),
-    array('name'=>'LANDRACE POPULATION IDENTIFICATION', 'status'=>'enabled'),
+    //array('name'=>'LANDRACE POPULATION IDENTIFICATION', 'status'=>'enabled'),
     array('name'=>'SITE LOCATION IDENTIFICATION', 'status'=>'enabled'),
-    array('name'=>'THE FARMER', 'status'=>'disabled'),
-    array('name'=>'THE LANDRACE', 'status'=>'disabled'),
-    array('name'=>'CONSERVATION AND MONITORING', 'status'=>'disabled'),
-    array('name'=>'REMARKS', 'status'=>'disabled'),
-    array('name'=>'Species name and authors', 'status'=>'disabled'),
-    array('name'=>'Synonyms Non-accepted species nam', 'status'=>'disabled'),
-    array('name'=>'Vernacular names', 'status'=>'disabled'),
-    array('name'=>'Cultivated status', 'status'=>'disabled'),
-    array('name'=>'Type of introduction', 'status'=>'disabled'),
-    array('name'=>'CWR checklists', 'status'=>'disabled'),
+    //array('name'=>'THE FARMER', 'status'=>'disabled'),
+    //array('name'=>'THE LANDRACE', 'status'=>'disabled'),
+    //array('name'=>'CONSERVATION AND MONITORING', 'status'=>'disabled'),
+    //array('name'=>'REMARKS', 'status'=>'disabled'),
+    //array('name'=>'Species name and authors', 'status'=>'disabled'),
+    //array('name'=>'Synonyms Non-accepted species nam', 'status'=>'disabled'),
+    //array('name'=>'Vernacular names', 'status'=>'disabled'),
+    //array('name'=>'Cultivated status', 'status'=>'disabled'),
+    //array('name'=>'Type of introduction', 'status'=>'disabled'),
+    //array('name'=>'CWR checklists', 'status'=>'disabled'),
   );
   
   return $app['twig']->render('browse_landrace.twig',
@@ -67,6 +67,46 @@ $app->match('/get-landrace-detail/{label_id}', function ($label_id) use ($app) {
   return require_once __DIR__.'/Class/landrace.php';
 })
 ->bind('get_landrace_detail');
+
+$app->match('/search-landrace', function (Request $request) use ($app) {
+  $explode= false;
+  return require_once __DIR__.'/Class/find_landrace.php';
+})
+->bind('search_landrace');
+
+$app->match('/get-landrace', function (Request $request) use ($app) {
+  $explode= true;
+  return require_once __DIR__.'/Class/find_landrace.php';
+})
+->bind('get_landrace');
+
+$app->match('/get-landrace-record', function (Request $request) use ($app) {
+  $explode= false;
+  return require_once __DIR__.'/Class/find_landrace.php';
+})
+->bind('get_landrace_record');
+
+$app->match('/search-cwr', function (Request $request) use ($app) {
+  return require_once __DIR__.'/Class/find_cwr.php';
+})
+->bind('search_cwr');
+
+$app->match('/get-cwr', function (Request $request) use ($app) {
+  $explode= true;
+  return require_once __DIR__.'/Class/find_cwr.php';
+})
+->bind('get_cwr');
+
+$app->match('/get-cwr-record', function (Request $request) use ($app) {
+  $explode= false;
+  return require_once __DIR__.'/Class/find_cwr.php';
+})
+->bind('cwr');
+
+$app->match('/search-trait', function (Request $request) use ($app) {
+  return require_once __DIR__.'/Class/find_trait.php';
+})
+->bind('search_trait');
 
 
 /*--------------------------------------------------
