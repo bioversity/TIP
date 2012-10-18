@@ -10,7 +10,7 @@
     <li class="divider-vertical"></li>
     <li>
       <div class="btn-group pull-right">
-        <a class="btn btn-info" data-toggle="modal" href="#ProfileModal">
+        <a class="btn btn-info" href="{{ path('dashboard') }}">
           <i class="icon-user"></i>
           <span>{{ app.session.get('user').username }}</span>
         </a>
@@ -18,6 +18,9 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" style="width: 240px">
+          <li class="dashboard_page">
+            <a data-toggle="modal"  href="#ProfileModal">Profile</a>
+          </li>
           <li><a href="{{ path('logout') }}">Sign Out</a></li>
         </ul>
       </div>

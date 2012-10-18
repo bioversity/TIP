@@ -22,6 +22,11 @@ $app->match('/about', function (Request $request) use ($app) {
 })
 ->bind('about');
 
+$app->match('/block-note', function (Request $request) use ($app) {
+  return $app['twig']->render('block_note.twig', array('link_active' => 'about'));
+})
+->bind('block_note');
+
 $app->match('/database', function (Request $request) use ($app) {
   return $app['twig']->render('database.twig', array('link_active' => 'database'));
 })
@@ -124,7 +129,7 @@ $app->match('/admin/dashboard', function (Request $request) use ($app) {
   if (null === $user = $app['session']->get('user')) {
     return $app->redirect($app['url_generator']->generate('login'));
   }
-  return require_once __DIR__.'/dashboard.php';
+  return require_once __DIR__.'/Form/commentForm.php';
 })
 ->bind('dashboard');
 

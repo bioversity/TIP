@@ -116,7 +116,7 @@ p{
 }
 
 #login_form li a{
-  margin-top: 8px !important;
+  text-decoration: none;
 }
 
 .menu_top{

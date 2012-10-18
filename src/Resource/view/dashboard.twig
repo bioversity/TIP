@@ -2,13 +2,42 @@
 
 {% block body %}
   <div class="span9">
-    <h3>Welcome to your Dashboard,</h3>
-    <br/>
-    There you can manage/upload your file
-    <br/>
-    <br/>
+    <h3>Welcome to your Dashboard</h3>
+    <a href="{{ path('block_note') }}" class="btn lengh_btn">Manage your note</a>
     <a href="{{ path('download_data') }}" class="btn lengh_btn">Download Data</a>
     <a href="{{ path('contribute_data') }}" class="btn lengh_btn">Contribute Data</a>
+    <hr>
+    {% if show_result %}
+      <div class="landrace_box">
+        <ul>
+          {% for record in comments %}
+            <li>
+              <label>{{ record.email }}</label>
+              <span>{{ record.comment }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <hr/>
+    {% endif %}
+      {% if tankyou_message %}
+        <div class="alert alert-success">
+          <h3>Thank you</h3>
+        </div>
+      {% else %}
+        <div class="landrace_box">
+          <form name="leave_comment" action="" method="post">
+            <h3>You can leave a comment here</h3>
+            <label class="control-label" for="inputEmail">Email</label>
+            <input type="text" id="inputEmail" name="inputEmail" placeholder="email@email.com" required>
+            <label class="control-label" for="inputComment">Comment</label>
+            <textarea id="inputComment" name="inputComment" placeholder="comment here" style="width: 90%;" required></textarea>
+            <label class=""></label>
+            <button type="submit" class="btn">send</button>
+          </form>
+        </div>
+      {% endif %}
   </div>
+  
   {% include 'data_menu.twig' %}
 {% endblock %}

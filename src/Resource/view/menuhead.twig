@@ -48,9 +48,11 @@
             <a href="{{ path('browse_cwr') }}">Crop Wild Relatives</a>
           </li>
           {% if app.session.get('user') %}
+          <!--
             <li class="dashboard_page {% if(link_active == 'dashboard') %} active{% endif %}">
               <a href="{{ path('dashboard') }}">Dashboard</a>
             </li>
+          -->
           {% endif %}
         </ul>
         

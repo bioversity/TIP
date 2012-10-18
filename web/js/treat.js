@@ -112,7 +112,7 @@ function goToByScroll(id){
 }
 
 function checkButtonStatus(){
-  $('button').click(function(event) {
+  $('.container button').click(function(event) {
     event.preventDefault();
     var label_id= $(this).attr('id');
     
