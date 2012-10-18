@@ -76,16 +76,18 @@ function showDetail(landrace){
     if(value){
       if($('#'+key).length > 0){
         $('#record_detail_'+key).html(value);
+        $('#'+key+' label').addClass('label label-info');
       }
       else{
-        more +='<li class="span2" id="record_detail_'+key+'" ><label for="record_detail_'+key+'">'+label+'</label><span id="record_detail_'+key+'">'+value+'</span></li>';
+        more +='<li class="span2" id="record_detail_'+key+'" ><label for="record_detail_'+key+'" class="label label-info">'+label+'</label><span id="record_detail_'+key+'">'+value+'</span></li>';
       }
     }
     else{
-      if($('#'+key).length > 0)
+      if($('#'+key).length > 0){
         $('#'+key).addClass('no_detail_find');
-      else{
-        more +='<li class="span2 no_detail_find" id="record_detail_'+key+'" ><label for="record_detail_'+key+'">'+label+'</label><span id="record_detail_'+key+'"></span></li>';
+        $('#'+key+' label').addClass('label');
+      }else{
+        more +='<li class="span2 no_detail_find" id="record_detail_'+key+'" ><label for="record_detail_'+key+'" class="label label-info">'+label+'</label><span id="record_detail_'+key+'"></span></li>';
       }
     }
   });

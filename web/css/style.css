@@ -316,27 +316,29 @@ div.open.landrace_box .form_result{
   line-height: 20px;
 }
 
-#result_list li,
-#result_detail li{
+#result_list li{
   border-bottom: 1px solid #CCCCCC;
-  line-height: 20px;
-  font-size: 12px;
+  font-size: 20px;
 }
 
 #result_detail li{
+  border: 1px solid #CCCCCC;
+  font-size: 20px;
+  padding: 5px;
   min-height: 70px;
   margin-bottom: 5px;
 }
 
-#result_detail li label{  
-  text-transform: uppercase;
+#form_result_container{
+  position: relative;
+  top: 0px;
 }
 
-.no_detail_find,
+/*.no_detail_find,
 .no_detail_find label{
   background-color: #E2E2E2;
   color: #FFF;
-}
+}*/
 /*
 #result_detail,
 #map_canvas{
