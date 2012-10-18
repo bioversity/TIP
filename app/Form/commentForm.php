@@ -14,22 +14,19 @@ $dbmanager= new CommentDB($app);
 
 $profile= $app['session']->get('user')->getRoles();
 $profile[0] == 'ROLE_ADMIN'?
-  $result= true : $result= false; 
+  $result= true : $result= false;
+
+$tankyou= false;
   
 if ('POST' == $request->getMethod()) {
   $data = $_POST;
   
   if (!$data['inputEmail'] || !$data['inputComment']) {
     $app['session']->set('last_error', array('error' => 'Both data is required', 'status' => 'new'));
-  }else{
-    $app['session']->clear('last_error');
-    
+  }else{    
     $dbmanager->save($_POST);
-    return $app['twig']
-            ->render('dashboard.twig',
-                      array('link_active' => 'dashboard',
-                            'show_result' => $result,
-                            'tankyou_message' => true));
+    
+    $tankyou= true;
   }
 }
 
@@ -40,6 +37,6 @@ return $app['twig']
                   array('link_active' => 'dashboard',
                         'show_result' => $result,
                         'comments' => $comments,
-                        'tankyou_message' => false
+                        'tankyou_message' => $tankyou
                         )
                 );

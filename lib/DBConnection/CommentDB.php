@@ -24,8 +24,6 @@ class CommentDB extends TableManager
   
   public function save($data)
   {
-    $fields = $this->app['db']
-                ->query('INSERT INTO comment (email, comment) VALUES (\''.$data['inputEmail'].'\',\''.$data['inputComment'].'\')')->execute();    
-    return $fields;
+    $fields = $this->app['db']->query('INSERT INTO comment (email, comment) VALUES (\''.$data['inputEmail'].'\',\''.$data['inputComment'].'\')')->execute();    
   }
 }
