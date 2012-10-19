@@ -38,15 +38,19 @@
           <li class="static_page {% if(link_active == 'contact') %} active{% endif %}">
             <a href="{{ path('contact') }}">Contact</a>
           </li>
+          <!--
           <li class="trait_page {% if(link_active == 'browse_trait') %} active{% endif %}">
             <a href="{{ path('browse_trait') }}">Trait</a>
           </li>
+          -->
           <li class="research_page {% if(link_active == 'browse_landrace') %} active{% endif %}">
-            <a href="{{ path('browse_landrace') }}">Landrace</a>
+            <a href="{{ path('browse_landrace') }}">Trait<!-- ex Landrace--></a>
           </li>
+          <!--
           <li class="research_page {% if(link_active == 'browse_cwr') %} active{% endif %}">
             <a href="{{ path('browse_cwr') }}">Crop Wild Relatives</a>
           </li>
+          -->
           {% if app.session.get('user') %}
           <!--
             <li class="dashboard_page {% if(link_active == 'dashboard') %} active{% endif %}">

@@ -10,13 +10,6 @@ use Lib\Helper\DataFormatter;
 
 $landraceConnection= new LandraceDB($app);
 $cwrConnection= new cwrDB($app);
-//$dataFormatter= new DataFormatter();
-//
-//$tableInformation= $landraceConnection->getTableInfo('TAXA');
-//
-//$taxas= $landraceConnection->getAll();
-//
-//$datas= $dataFormatter->formatData($tableInformation, $taxas);
 
 switch ($label_id){
   case 'TAXON_IDENTIFICATION':
@@ -52,4 +45,13 @@ switch ($label_id){
                                   'lrslatdd_cwr' => $cwrConnection->getLRSLATDD('cropwildrelative'),
                                   'flongdd_cwr' => $cwrConnection->getFLONGDD('cropwildrelative')
                                 ));
+  
+  case 'INFORMATION_BY_TRAIT':
+    return $app['twig']->render('treat_trait.twig',
+                                  array(
+                                    'link_active' => 'browse_trait',
+                                    'crop_list' => $app['db']->fetchAll('SELECT * FROM cropname'),
+                                    'trait_list' => $app['db']->fetchAll('SELECT * FROM trait'),
+                                    'category_list' => $app['db']->fetchAll('SELECT * FROM category')
+                                  ));
 }

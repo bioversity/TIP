@@ -1,6 +1,6 @@
 <div class="span11">
   <div id="map_canvas" class="landrace_box"></div>
-  <div id="result_detail" class="landrace_box">
+  <div id="result_detail" class="span5 landrace_box">
     <ul class="thumbnails">
       <li class="span2" id="NICODE" >
         <label for="record_detail_NICODE">National Inventory code</label>
@@ -32,9 +32,9 @@
         <label for="record_detail_TAXREF">Taxonomic references</label>
         <span id="record_detail_TAXREF"></span>
       </li>
-      <li class="span2" id="CROPNAME" >
-        <label for="record_detail_CROPNAME">Common crop name</label>
-        <span id="record_detail_CROPNAME"></span>
+      <li class="span2" id="CROPME" >
+        <label for="record_detail_CROPME">Common crop name</label>
+        <span id="record_detail_CROPME"></span>
       </li>
     </ul>
     <ul class="thumbnails">
@@ -46,9 +46,9 @@
         <label for="record_detail_LRNUMB">Landrace number</label>
         <span id="record_detail_LRNUMB"></span>
       </li>
-      <li class="span2" id="LRNAME" >
-        <label for="record_detail_LRNAME">Landrace local name/s</label>
-        <span id="record_detail_LRNAME"></span>
+      <li class="span2" id="LRME" >
+        <label for="record_detail_LRME">Landrace local name/s</label>
+        <span id="record_detail_LRME"></span>
       </li>
       <li class="span2" id="FLONGDMS" >
         <label for="record_detail_FLONGDMS">Longitude of farm site</label>
@@ -100,5 +100,561 @@
       </li>
     </ul>
     <ul id='record_detail_more' class="thumbnails"></ul>
+  </div>
+  <div id="trait_detail" class="span5 landrace_box">
+    <ul class="thumbnails">
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">NUMCAT</label>
+        <span id="record_detail_EXDUPL">39</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">INSTCODE</label>
+        <span id="record_detail_EXDUPL">USA022</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">ACCENUMB</label>
+        <span id="record_detail_EXDUPL">1532257</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">COLLNUMB</label>
+        <span id="record_detail_EXDUPL">Al 135</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">COLLCODE</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">INTERSP</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">CROP/WILD</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">GENUS</label>
+        <span id="record_detail_EXDUPL">Beta</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">SPECIES</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">SPAUTHOR</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">SUBTAXA</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">SUBTAUTHOR</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">CROPME</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">ACQDATE</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">ORIG_TAX</label>
+        <span id="record_detail_EXDUPL">Beta L.</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">ACCEME</label>
+        <span id="record_detail_EXDUPL">1532257</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">ORIGCTY</label>
+        <span id="record_detail_EXDUPL">ALB</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">ADM1 (State/Region)</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">ADM2 (Province)</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">ADM3 (Municipality)</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">COLLSITE</label>
+        <span id="record_detail_EXDUPL">Growing along path to Frans Joseph Island.</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">COORDITES?</label>
+        <span id="record_detail_EXDUPL">Available</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">LATITUDE</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">LONGITUDE</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">LATITUDE_FIL</label>
+        <span id="record_detail_EXDUPL">41,84806</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">LONGITUDE_FIL</label>
+        <span id="record_detail_EXDUPL">19,37917</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">COORD_OBT</label>
+        <span id="record_detail_EXDUPL">DEC_ORIG</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">LATDEC_SE</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">LONDEC_SE</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">LATDEC_OR</label>
+        <span id="record_detail_EXDUPL">41,84806</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">LATDEC_OR_PREC</label>
+        <span id="record_detail_EXDUPL">5</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">LONDEC_OR</label>
+        <span id="record_detail_EXDUPL">19,37917</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">LONDEC_OR_PREC</label>
+        <span id="record_detail_EXDUPL">5</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">LATDEC_GL</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">LONDEC_GL</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">PRECPROMGBIF</label>
+        <span id="record_detail_EXDUPL">4,5</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">GEOLOC_PREC</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">GEOREF</label>
+        <span id="record_detail_EXDUPL">2</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">COLLDATE</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BREDCODE</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">SAMPSTAT</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">DATAsource</label>
+        <span id="record_detail_EXDUPL">GBIF</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">LATDEC</label>
+        <span id="record_detail_EXDUPL">41,84806</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">LONDEC</label>
+        <span id="record_detail_EXDUPL">19,37917</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">SUITQUAL</label>
+        <span id="record_detail_EXDUPL">20</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">LOCALQUAL</label>
+        <span id="record_detail_EXDUPL">6</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">COORQUAL</label>
+        <span id="record_detail_EXDUPL">8</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL" class="label label-info">TOTQUAL100</label>
+        <span id="record_detail_EXDUPL">56,7</span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM1</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM2</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM3</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM4</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM5</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM6</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM7</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM8</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM9</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM10</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM11</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM12</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM13</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM14</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM15</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM16</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM17</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM18</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">BIOCLIM19</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">PRECIP1</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">PRECIP2</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">PRECIP3</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">PRECIP4</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">PRECIP5</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">PRECIP6</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">PRECIP7</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">PRECIP8</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">PRECIP9</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">PRECIP10</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">PRECIP11</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">PRECIP12</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMED1</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMED2</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMED3</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMED4</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMED5</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMED6</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMED7</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMED8</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMED9</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMED10</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMED11</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMED12</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMIN1</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMIN2</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMIN3</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMIN4</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMIN5</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMIN6</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMIN7</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMIN8</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMIN9</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TEMPMIN10</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">S_ESP</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">S_ECE</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">SU_SYMBOL</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">COVERAGETX</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">SYMBOLTXT</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">ISSOIL</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">NUTRECAPT</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">OXYAVAIRT</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">RTCONDIT</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+      <li class="span2" id="EXDUPL" >
+        <label for="record_detail_EXDUPL">TOXICITY</label>
+        <span id="record_detail_EXDUPL"></span>
+      </li>
+    </ul>
   </div>
 </div>

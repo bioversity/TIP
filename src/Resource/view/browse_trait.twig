@@ -10,7 +10,32 @@
       </ul>
       <div class="tab-content">
         <div id="rA" class="tab-pane active">
-          <button class="btn lengh_btn" disabled>Trait table</button>
+          <button class="btn lengh_btn">Trait table</button>
+          <div id="trait_filter" class="closed landrace_box">
+            <form>
+              <label fro="crop">cropname</label>
+              <select id="crop" name="crop">
+                <option value="">select value</option>
+                {% for crop in crop_list %}
+                  <option value="{{ crop.name }}">{{ crop.name }}</option>
+                {% endfor %}
+              </select>
+              <label fro="cat">trait category</label>
+              <select id="cat" name="cat">
+                <option value="">select value</option>
+                {% for cat in category_list %}
+                  <option value="{{ cat.name }}">{{ cat.name }}</option>
+                {% endfor %}
+              </select>
+              <label fro="trait">trait</label>
+              <select id="trait" name="trait">
+                <option value="">select value</option>
+                {% for trait in trait_list %}
+                  <option value="{{ trait.name }}">{{ trait.name }}</option>
+                {% endfor %}
+              </select>
+            </form>
+          </div>
           <button class="btn lengh_btn" disabled>Detailed information for 1 trait</button>
           <button class="btn lengh_btn" disabled>Species table for several traits</button>
         </div>
@@ -27,4 +52,45 @@
     </div>
   </div>
   {% include 'data_menu.twig' %}
+  
+
+
+<script type="text/javascript">
+    $('.container button').click(function(event) {
+      event.preventDefault();    
+      if($('#trait_filter').attr('class') == 'closed landrace_box'){
+        $('#trait_filter').attr('class', 'open landrace_box');
+        $('#trait_filter').fadeIn(3000);
+      }else{
+        $('#trait_filter').attr('class', 'closed landrace_box');
+        $('#trait_filter').fadeOut(3000);
+      }
+    });
+    $('.content form select').change(function(){
+      switch $(this).attr('id'){
+        case 'crop':
+          insertCatValue($(this).val());
+        case 'cat':
+          insertTraitValue($(this).val());
+        case 'trait':
+      }
+    });
+    
+    function insertCatValue(crop){
+      $.ajax({
+        type: "POST",
+        url: '/get-trait-cat',
+        data: form_data,
+      }).done(function ( data ) {
+        var options= '';
+        $.each($.parseJSON(data)){
+          options +='<option value"'+data.name+'">'+data.name+'</option>';
+        }
+        
+        $('#cat select').html(options);
+      });
+    }
+</script>
+  
+  
 {% endblock %}

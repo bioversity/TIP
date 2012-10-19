@@ -3,6 +3,22 @@ $(document).ready(function(){
   bindResult();
 });
 
+function bindTraiSelect(selected_element){
+  if($(selected_element).attr('class') == 'trait_fields'){
+    $.ajax({
+      type: "POST",
+      url: '/update-trait-select',
+      data: $(selected_element).attr('name')+'='+$(selected_element).val()
+    }).done(function ( data ) {
+      var options= '';
+      $.each($.parseJSON(data), function(key, value){
+        options +='<option valeu="'+value+'">'+value+'</option>';
+      });
+      $('#trait_trait').html(options);
+    });
+  }
+}
+
 function bindResult(){
   $('#form_result span').click(function(){
     $('.open.landrace_box').each(function(){
@@ -65,6 +81,7 @@ function showLandraceDetail(landrace){
   showDetail(landrace);
   initialize(landrace);
   $('#result_detail').fadeIn(3000);
+  $('#trait_detail').fadeIn(3000);
   $('#map_canvas').fadeIn(3000);
   goToByScroll('map_canvas');
 }
@@ -154,6 +171,7 @@ function bindForm(){
     var form_data= $('#landrace_form').serialize();
     findLandrace(form_action, form_data);
     findCwr(form_action, form_data);
+    bindTraiSelect($(this));
     //findTrait(form_action, form_data);
     return false;
   });

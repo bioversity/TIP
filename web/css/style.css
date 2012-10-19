@@ -303,7 +303,8 @@ div.open.landrace_box .form_result{
 
 #result_detail,
 #result_list,
-#map_canvas{
+#map_canvas,
+#trait_detail{
   display: none;
 }
 
@@ -311,17 +312,20 @@ div.open.landrace_box .form_result{
   height:150px;
 }
 
-#result_list li{
+#result_list li,
+#trait_detail li{
   border-bottom: 1px solid #CCCCCC;
   line-height: 20px;
 }
 
-#result_list li{
+#result_list li,
+#trait_detail li{
   border-bottom: 1px solid #CCCCCC;
   font-size: 20px;
 }
 
-#result_detail li{
+#result_detail li,
+#trait_detail li{
   border: 1px solid #CCCCCC;
   font-size: 20px;
   padding: 5px;
