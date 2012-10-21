@@ -7,17 +7,12 @@ class ServerConnection
   static public function checkUserLogin($credential=null)
   {
     if($credential['username'] == 'admin' || $credential['username'] == 'guest' )
-      if($credential['username'] == $credential['password']){
-        if($credential['username']== 'admin'){
-          return array('username' => 'admin', 'password' => 'admin', 'roles' => 'ROLE_ADMIN');
+        if($credential['username']== 'admin' && $credential['password']== 'nimda'){
+          return array('username' => 'admin', 'password' => 'nimda', 'roles' => 'ROLE_ADMIN');
         }
-        else{
+        elseif($credential['username']== 'guest' && $credential['password']== 'guest'){
           return array('username' => 'guest', 'password' => 'guest', 'roles' => 'ROLE_USER');
-        }
-      }else{
-        return false;
-      }
-    else{
+        }else{
       return false;
     }
   } 
