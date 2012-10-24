@@ -8,7 +8,7 @@ class ServerConnection
   {
     if($credential['username'] == 'admin' || $credential['username'] == 'guest' )
         if($credential['username']== 'admin' && $credential['password']== 'nimda'){
-          return array('username' => 'admin', 'password' => 'nimda', 'roles' => 'ROLE_ADMIN');
+          return array('username' => 'admin', 'password' => 'admin', 'roles' => 'ROLE_ADMIN');
         }
         elseif($credential['username']== 'guest' && $credential['password']== 'guest'){
           return array('username' => 'guest', 'password' => 'guest', 'roles' => 'ROLE_USER');
