@@ -1,3 +1,0 @@
-bioversity_ontology_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: BioversityOntologyBundle:Default:index }
