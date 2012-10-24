@@ -1,3 +1,5 @@
 /Bioversity.komodoproject
 /.komodotools
 vendor
+/app/cache/
+/app/logs/
