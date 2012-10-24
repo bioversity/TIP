@@ -1,9 +1,0 @@
-<?php
-
-  $parameters= " --exclude-from 'rsync_exclude.txt'";
-  $path= '/Library/WebServer/Sites/test.tip.grinfo.net/';
-  $host= '192.168.181.1';
-  $user= 'antonio';
-  $port= 22;
-  
-  exec("rsync -r -v $parameters -e ssh ./ $user@$host:$path");

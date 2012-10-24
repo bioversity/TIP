@@ -1,4 +1,0 @@
-[prod]
-  username: pgr
-  password: pgr_secure
-  db_name:  bioversity
