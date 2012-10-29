@@ -6,19 +6,20 @@
       <input type="text" placeholder="Search..." data-source="[&quot;Sweet&quot;,&quot;Clean&quot;,&quot;Popular&quot;,&quot;HTML&quot;,&quot;CSS&quot;,&quot;Free&quot;,&quot;Graphic&quot;,&quot;Colors&quot;,&quot;Cool&quot;,&quot;Simple&quot;]" data-items="4" data-provide="typeahead" class="search-query span3">
     </form>
   </li>
-  {% if app.session.get('user') %}
+  {% if is_granted('ROLE_USER') %}
     <li class="divider-vertical"></li>
     <li>
       <div class="btn-group pull-right">
-        <a class="btn btn-info" data-toggle="modal" href="#ProfileModal">
+        <a class="btn btn-info" href="{{ path('b_o_dashboard') }}">
           <i class="icon-user"></i>
-          <span>{{ app.session.get('user').username }}</span>
+          <span>{{ app.user.username }}</span>
         </a>
         <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" style="width: 240px">
-          <li><a href="{{ path('bioversity_ontology_logout') }}">Sign Out</a></li>
+          <li><a data-toggle="modal" href="#ProfileModal">Profile</a></li>
+          <li><a href="{{ path('b_s_logout') }}">Sign Out</a></li>
         </ul>
       </div>
     </li>

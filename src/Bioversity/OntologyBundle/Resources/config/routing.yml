@@ -1,63 +1,67 @@
-bioversity_ontology_homepage:
+b_o_homepage:
     pattern:  /
     defaults: { _controller: BioversityOntologyBundle:Default:index }
 
-bioversity_ontology_user_registration:
+b_o_user_registration:
     pattern:  /registration
     defaults: { _controller: BioversityOntologyBundle:Default:registration }
     
-bioversity_ontology_user_login:
-    pattern:  /login
-    defaults: { _controller: BioversityOntologyBundle:Default:login }
-    
-bioversity_ontology_contact:
+b_o_contact:
     pattern:  /contact
     defaults: { _controller: BioversityOntologyBundle:Default:contact }
 
-bioversity_ontology_about:
+b_o_about:
     pattern:  /about
     defaults: { _controller: BioversityOntologyBundle:Default:about }
 
-bioversity_ontology_database:
+b_o_database:
     pattern:  /database
     defaults: { _controller: BioversityOntologyBundle:Default:database }
 
-bioversity_ontology_browse_landrace:
+b_o_browse_landrace:
     pattern:  /browse-landrace
     defaults: { _controller: BioversityOntologyBundle:Default:browseLandrace }
 
-bioversity_ontology_browse_cwr:
+b_o_browse_cwr:
     pattern:  /browse-cwr
     defaults: { _controller: BioversityOntologyBundle:Default:browse_Cwr }
 
-bioversity_ontology_browse_trait:
+b_o_browse_trait:
     pattern:  /browse-trait
     defaults: { _controller: BioversityOntologyBundle:Default:browseTrait }
 
-bioversity_ontology_dashboard:
-    pattern:  /dashboard
-    defaults: { _controller: BioversityOntologyBundle:Default:dashboard }
-
-bioversity_ontology_edit_profile:
-    pattern:  /edit-profile
-    defaults: { _controller: BioversityOntologyBundle:Default:editProfile }
-
-bioversity_ontology_datasets:
+b_o_datasets:
     pattern:  /datasets
     defaults: { _controller: BioversityOntologyBundle:Default:datasets }
 
-bioversity_ontology_data_search:
+b_o_data_search:
     pattern:  /data-search
     defaults: { _controller: BioversityOntologyBundle:Default:dataSearch }
 
-bioversity_ontology_download_data:
+b_o_download_data:
     pattern:  /download-data
     defaults: { _controller: BioversityOntologyBundle:Default:downloadData }
 
-bioversity_ontology_request_data:
+b_o_request_data:
     pattern:  /request-data
     defaults: { _controller: BioversityOntologyBundle:Default:requestData }
 
-bioversity_ontology_contribute_data:
+b_o_contribute_data:
     pattern:  /contribute-data
     defaults: { _controller: BioversityOntologyBundle:Default:contributeData }
+    
+b_o_browse_slaider:
+    pattern:  /browse-slaider
+    defaults: { _controller: BioversityOntologyBundle:Default:browseSlaider }
+
+#----------------------------------------------------------------------------
+#-----------------------ADMIN AREA-------------------------------------------
+#----------------------------------------------------------------------------
+
+b_o_dashboard:
+    pattern:  /admin/dashboard
+    defaults: { _controller: BioversityOntologyBundle:Default:dashboard }
+
+b_o_edit_profile:
+    pattern:  /admin/edit-profile
+    defaults: { _controller: BioversityOntologyBundle:Default:editProfile }

@@ -2,11 +2,11 @@
   <div class="wellfb">
     <ul id="data_menu" class="nav nav-pills nav-stacked">
       {% set currentPath = app.request.attributes.get('_route') %}
-      <li {% if currentPath == 'bioversity_ontology_datasets' %} class="active" {% endif %}><a href="{{ path('bioversity_ontology_datasets') }}">Datasets</a></li>
-      <li {% if currentPath == 'bioversity_ontology_data_search' %} class="active" {% endif %}><a href="{{ path('bioversity_ontology_data_search') }}">Data Search</a></li>
-      <li {% if currentPath == 'bioversity_ontology_download_data' %} class="active" {% endif %}><a href="{{ path('bioversity_ontology_download_data') }}">Download Data</a></li>
-      <li {% if currentPath == 'bioversity_ontology_request_data' %} class="active" {% endif %}><a href="{{ path('bioversity_ontology_request_data') }}">Request Data</a></li>
-      <li {% if currentPath == 'bioversity_ontology_contribute_data' %} class="active" {% endif %}><a href="{{ path('bioversity_ontology_contribute_data') }}">Contribute Data</a></li>
+      <li {% if currentPath == 'b_o_datasets' %} class="active" {% endif %}><a href="{{ path('b_o_datasets') }}">Datasets</a></li>
+      <li {% if currentPath == 'b_o_data_search' %} class="active" {% endif %}><a href="{{ path('b_o_data_search') }}">Data Search</a></li>
+      <li {% if currentPath == 'b_o_download_data' %} class="active" {% endif %}><a href="{{ path('b_o_download_data') }}">Download Data</a></li>
+      <li {% if currentPath == 'b_o_request_data' %} class="active" {% endif %}><a href="{{ path('b_o_request_data') }}">Request Data</a></li>
+      <li {% if currentPath == 'b_o_contribute_data' %} class="active" {% endif %}><a href="{{ path('b_o_contribute_data') }}">Contribute Data</a></li>
     </ul>
   </div>
   <img src="{{ asset('/bundles/bioversityontology/images/PGR_Secure.gif') }}" />

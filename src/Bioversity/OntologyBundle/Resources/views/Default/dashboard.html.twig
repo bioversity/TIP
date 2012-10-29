@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+  <div class="span9">
+    <h3>Welcome to your Dashboard</h3>
+    <!--<a href="{#{ path('block_note') }#}" class="btn lengh_btn">Manage your note</a>-->
+    <a href="{{ path('b_o_download_data') }}" class="btn lengh_btn">Download Data</a>
+    <a href="{{ path('b_o_contribute_data') }}" class="btn lengh_btn">Contribute Data</a>
+  </div>
+  
+  {% include 'BioversityOntologyBundle:Default:data_menu.html.twig' %}
+{% endblock %}
+
+

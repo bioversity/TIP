@@ -1,12 +1,3 @@
-/*!
- * Bootstrap v2.0.0
- *
- * Copyright 2012 Twitter, Inc
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Designed and built with all the love in the world @twitter by @mdo and @fat.
- */
 article,
 aside,
 details,
@@ -743,7 +734,6 @@ select, input[type="file"] {
   /* For IE7, add top margin to align select with labels */
 
   line-height: 28px;
-  margin-right: 75px;
 }
 select {
   width: 220px;
@@ -1389,7 +1379,7 @@ button.btn.small, input[type="submit"].btn.small {
   background-image: url(../img/glyphicons-halflings-white.png);
 }
 .icon-glass {
-  background-position: 0      0;
+  background-position: 0 0;
 }
 .icon-music {
   background-position: -24px 0;
@@ -1936,7 +1926,7 @@ button.btn.small, input[type="submit"].btn.small {
   line-height: 14px;
 }
 /*.nav-tabs {
-  border-bottom: 1px solid #ddd;
+border-bottom: 1px solid #ddd;
 }*/
 .nav-tabs > li {
   margin-bottom: -1px;
@@ -1950,7 +1940,7 @@ button.btn.small, input[type="submit"].btn.small {
   border-radius: 4px 4px 0 0;
 }
 /*.nav-tabs > li > a:hover {
-  border-color: #eeeeee #eeeeee #dddddd;
+border-color: #eeeeee #eeeeee #dddddd;
 }*/
 .nav-tabs > .active > a, .nav-tabs > .active > a:hover {
   color: #333;
@@ -2021,16 +2011,16 @@ button.btn.small, input[type="submit"].btn.small {
   cursor: pointer;
 }
 /*.nav-tabs .open .dropdown-toggle, .nav-pills .open .dropdown-toggle, .nav > .open.active > a:hover {
-  background-color: #999999;
-  border-color: #999999;
+background-color: #999999;
+border-color: #999999;
 }*/
 /*.nav .open .caret, .nav .open.active .caret, .nav .open a:hover .caret {
-  border-top-color: #ffffff;
-  opacity: 1;
-  filter: alpha(opacity=100);
+border-top-color: #ffffff;
+opacity: 1;
+filter: alpha(opacity=100);
 }*/
 /*.tabs-stacked .open > a:hover {
-  border-color: #999999;
+border-color: #999999;
 }*/
 .tabbable {
   *zoom: 1;
@@ -2052,19 +2042,19 @@ button.btn.small, input[type="submit"].btn.small {
   display: block;
 }
 /*.tabs-below .nav-tabs {
-  border-top: 1px solid #ddd;
+border-top: 1px solid #ddd;
 }*/
 .tabs-below .nav-tabs > li {
   margin-top: -1px;
   margin-bottom: 0;
 }
 /*.tabs-below .nav-tabs > li > a {
-  -webkit-border-radius: 0 0 4px 4px;
-  -moz-border-radius: 0 0 4px 4px;
-  border-radius: 0 0 4px 4px;
+-webkit-border-radius: 0 0 4px 4px;
+-moz-border-radius: 0 0 4px 4px;
+border-radius: 0 0 4px 4px;
 }*/
 /*.tabs-below .nav-tabs > li > a:hover {
-  border-bottom-color: transparent;
+border-bottom-color: transparent;
 }*/
 
 .tabs-left .nav-tabs > li, .tabs-right .nav-tabs > li {
@@ -2577,7 +2567,7 @@ a.thumbnail:hover {
   margin-bottom: 10px;
 }
 #portfolio .portthumb img:hover{
--webkit-transform:scale(1.05); 
+-webkit-transform:scale(1.05);
 box-shadow: 0 0 30px rgba(0, 0, 0, 0.67);
 -moz-box-shadow: 0 0 30px rgba(0, 0, 0, 0.67);
 -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.67);
@@ -3147,7 +3137,6 @@ cursor: pointer;
   min-width: 240px;
   max-width: 270px;
   _width: 240px;
-  padding: 4px 0;
   margin: 0;
   list-style: none;
   background-color: #ffffff;
@@ -3394,14 +3383,14 @@ cursor: pointer;
   height: auto;
 }
 /*!
- * Bootstrap Responsive v2.0.0
- *
- * Copyright 2012 Twitter, Inc
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Designed and built with all the love in the world @twitter by @mdo and @fat.
- */
+* Bootstrap Responsive v2.0.0
+*
+* Copyright 2012 Twitter, Inc
+* Licensed under the Apache License v2.0
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Designed and built with all the love in the world @twitter by @mdo and @fat.
+*/
 .hidden {
   display: none;
   visibility: hidden;

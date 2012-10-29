@@ -1,0 +1,9 @@
+b_s_login_path:
+    pattern:  /login
+    defaults: { _controller: BioversitySecurityBundle:Security:login }
+    
+b_s_check_path:
+    pattern:  /login_check
+    
+b_s_logout:
+    pattern:  /logout

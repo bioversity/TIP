@@ -3,6 +3,7 @@
 namespace Bioversity\OntologyBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\SecurityContext;
 
 class DefaultController extends Controller
 {
@@ -18,6 +19,7 @@ class DefaultController extends Controller
     
     public function loginAction()
     {
+        return $this->redirect('admin/dashboard');
         return $this->render('BioversityOntologyBundle:Default:index.html.twig');
     }
     
@@ -51,9 +53,14 @@ class DefaultController extends Controller
         return $this->render('BioversityOntologyBundle:Default:index.html.twig');
     }
 
+    public function browseSlaiderAction()
+    {
+        return $this->render('BioversityOntologyBundle:Default:browse_slaider.html.twig');
+    }
+
     public function dashboardAction()
     {
-        return $this->render('BioversityOntologyBundle:Default:index.html.twig');
+        return $this->render('BioversityOntologyBundle:Default:dashboard.html.twig');
     }
 
     public function editProfileAction()

@@ -1,6 +1,10 @@
 bioversity_ontology:
     resource: "@BioversityOntologyBundle/Resources/config/routing.yml"
     prefix:   /
+    
+bioversity_security:
+    resource: "@BioversitySecurityBundle/Resources/config/routing.yml"
+    prefix:   /
 
 # Internal routing configuration to handle ESI
 #_internal:

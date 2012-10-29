@@ -43,7 +43,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
   </head>
   <body class="hasGoogleVoiceExt">
-    {% if app.session.get('user') %}
+    {% if is_granted('ROLE_USER') %}
       {% include '::form_edit_profile.html.twig' %}
     {% else %}
       {% include '::form_registration.html.twig' %}

@@ -2,7 +2,7 @@
 -- MODAL PROFILE															   --
 -- ------------------------------------------------------------------------- -->
 <div class="modal hide fade" id="ProfileModal">
-  <form class="form-horizontal" data-bind="submit: userProfileSubmit" action="{{ path('bioversity_ontology_user_edit_profile') }}" method="post">
+  <form class="form-horizontal" data-bind="submit: userProfileSubmit" action="" method="post">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h3>User Profile</h3>
@@ -18,7 +18,7 @@
                  id="userName"
                  name="username"
                  placeholder="email@exemple.com"
-                 value="{{ app.session.get('user').username}}" />
+                 value="{{ app.user.username}}" />
         </div>
       </div>
       <div class="control-group">

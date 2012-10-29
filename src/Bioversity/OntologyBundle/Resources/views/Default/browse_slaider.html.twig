@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {% javascripts 
+      '@BioversityOntologyBundle/Resources/public/js/slider.js'
+  %}
+      <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
+{% block body %}  
+  <div id="slider" class="landrace_box span9">
+    ss
+  </div>
+  {% include 'BioversityOntologyBundle:Default:data_menu.html.twig' %}
+{% endblock %}
