@@ -3,15 +3,12 @@
 {% block javascripts %}
   {{ parent() }}
   {% javascripts 
-      '@BioversityOntologyBundle/Resources/public/js/slider.js'
+      '@BioversityOntologyBundle/Resources/public/js/slider/*'
   %}
       <script type="text/javascript" src="{{ asset_url }}"></script>
   {% endjavascripts %}
 {% endblock %}
 
-{% block body %}  
-  <div id="slider" class="landrace_box span9">
-    ss
-  </div>
-  {% include 'BioversityOntologyBundle:Default:data_menu.html.twig' %}
+{% block body %}
+  <div id="slider_content" class="span12"></div>    
 {% endblock %}

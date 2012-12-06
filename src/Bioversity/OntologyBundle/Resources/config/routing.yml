@@ -65,3 +65,49 @@ b_o_dashboard:
 b_o_edit_profile:
     pattern:  /admin/edit-profile
     defaults: { _controller: BioversityOntologyBundle:Default:editProfile }
+
+#----------------------------------------------------------------------------
+#-----------------------JSON RESONSE-----------------------------------------
+#----------------------------------------------------------------------------
+
+b_o_json_root_nodes:
+    pattern:  /get-root-nodes
+    defaults: { _controller: BioversityOntologyBundle:Default:JsonRootNode }
+
+b_o_json_node_relations:
+    pattern:  /get-node-relations/{nodeId}
+    defaults: { _controller: BioversityOntologyBundle:Default:JsonNodeRelations }
+    requirements:
+        nodeId:  \d+
+
+b_o_json_node_details:
+    pattern:  /get-node-details/{nodeId}
+    defaults: { _controller: BioversityOntologyBundle:Default:JsonNodeDetails }
+    requirements:
+        nodeId:  \d+
+
+b_o_json_node_relation_in:
+    pattern:  /get-node-relation-in/{nodeId}
+    defaults: { _controller: BioversityOntologyBundle:Default:JsonNodeRelationIN }
+    requirements:
+        nodeId:  \d+
+
+b_o_json_node_relation_out:
+    pattern:  /get-node-relation-out/{nodeId}
+    defaults: { _controller: BioversityOntologyBundle:Default:JsonNodeRelationOUT }
+    requirements:
+        nodeId:  \d+
+
+b_o_json_node_relation_pager_in:
+    pattern:  /get-node-relation-pager-in/{nodeId}/{page}
+    defaults: { _controller: BioversityOntologyBundle:Default:JsonNodeRelationIN }
+    requirements:
+        nodeId:  \d+
+        page:    \d+
+
+b_o_json_node_relation_pager_out:
+    pattern:  /get-node-relation-pager-out/{nodeId}/{page}
+    defaults: { _controller: BioversityOntologyBundle:Default:JsonNodeRelationOUT }
+    requirements:
+        nodeId:  \d+
+        page:    \d+

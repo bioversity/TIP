@@ -4,6 +4,8 @@ namespace Bioversity\OntologyBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\Response;
+use Bioversity\OntologyBundle\Repository\ServerConnection;
 
 class DefaultController extends Controller
 {
@@ -54,7 +56,7 @@ class DefaultController extends Controller
     }
 
     public function browseSlaiderAction()
-    {
+    { 
         return $this->render('BioversityOntologyBundle:Default:browse_slaider.html.twig');
     }
 
@@ -91,5 +93,55 @@ class DefaultController extends Controller
     public function contributeDataAction()
     {
         return $this->render('BioversityOntologyBundle:Default:contribute_data.html.twig');
+    }
+    
+    /**
+     *Json response for Root nodes
+     *
+     */
+    public function JsonRootNodeAction(){
+        $server= new ServerConnection();
+        
+        return new Response($server->getRootNodes());
+    }
+    
+    /**
+     *Json response for Node relation
+     *
+     */
+    public function JsonNodeRelationsAction($nodeId){
+        $server= new ServerConnection();
+        
+        return new Response($server->getNodeRelation($nodeId));
+    }
+    
+    /**
+     *Json response for Node details
+     *
+     */
+    public function JsonNodeDetailsAction($nodeId){
+        $server= new ServerConnection();
+        
+        return new Response($server->getNodeDetails($nodeId));
+    }
+    
+    /**
+     *Json response for Node in
+     *
+     */
+    public function JsonNodeRelationINAction($nodeId, $page=null){
+        $server= new ServerConnection();
+        
+        return new Response($server->getNodeRelationIN($nodeId, $page));
+    }
+    
+    /**
+     *Json response for Node out
+     *
+     */
+    public function JsonNodeRelationOUTAction($nodeId, $page=null){
+        $server= new ServerConnection();
+        
+        return new Response($server->getNodeRelationOUT($nodeId, $page));
     }
 }
