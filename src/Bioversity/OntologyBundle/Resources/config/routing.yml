@@ -50,9 +50,9 @@ b_o_contribute_data:
     pattern:  /contribute-data
     defaults: { _controller: BioversityOntologyBundle:Default:contributeData }
     
-b_o_browse_slaider:
-    pattern:  /browse-slaider
-    defaults: { _controller: BioversityOntologyBundle:Default:browseSlaider }
+b_o_browse_slider:
+    pattern:  /browse-slider
+    defaults: { _controller: BioversityOntologyBundle:Default:browseSlider }
 
 #----------------------------------------------------------------------------
 #-----------------------ADMIN AREA-------------------------------------------

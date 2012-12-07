@@ -30,9 +30,8 @@ function startBind(button, predicate){
 }
 
 function startButtonAnimation(button, predicate){
-  $('#row_'+button).animate(
-    {opacity: 0},'slow',startDetailAnimation(button, predicate)
-  );
+  $('#row_'+button).effect("transfer", { to: $('#'+slider_destination_center_header+' .btn_node') }, 300);
+  startDetailAnimation(button, predicate);
 }
 
 function startDetailAnimation(button, predicate){
@@ -158,7 +157,7 @@ function resetRight(){
  *
  */
 function createNodeMenuButton(layout, node_name, node_code, node_id){
-  $('#'+layout+' .node_record a').html(node_name+' ('+node_code+')');
+  $('#'+layout+' .node_record a').html(node_name);
   $('#'+layout+' .node_record a').attr('onclick', 'javascript: startBind('+node_id+');');
   $('#'+slider_destination_root).append($('#nav_top_button .node_record').html());
 }
@@ -204,7 +203,8 @@ function createNodeDetail()
       }
     }
   });
-  $('#'+slider_destination_center).fadeIn('slow');
+  
+  $('#'+slider_destination_center).fadeIn('slow');  
   $('#'+slider_destination_center_header).fadeIn('slow');
 }
 

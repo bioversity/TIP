@@ -40,13 +40,13 @@ class ServerConnection
   public function getNodeRelationIN($nodeId, $page=NULL)
   {
     $query= array('subject'=>'_id', 'operator'=>'$EQ', 'type'=>':INT32');
-    return $this->getNodeQuery($nodeId, $query, NULL, $page, 'WS:RELATION:IN', 10);
+    return $this->getNodeQuery($nodeId, $query, NULL, $page, 'WS:RELATION:IN', 5);
   }
   
   public function getNodeRelationOUT($nodeId, $page=NULL)
   {
     $query= array('subject'=>'_id', 'operator'=>'$EQ', 'type'=>':INT32');
-    return $this->getNodeQuery($nodeId, $query, NULL, $page, 'WS:RELATION:OUT', 10);
+    return $this->getNodeQuery($nodeId, $query, NULL, $page, 'WS:RELATION:OUT', 5);
   }
   
   public function getNodeQuery($nodeId, $query, $select= NULL, $page= NULL, $relation= NULL, $limit= NULL)

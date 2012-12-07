@@ -1,7 +1,5 @@
 body {
-  padding-bottom: 40px;
   padding-top: 140px;
-  padding-bottom: 100px;
   background: url("http://s.ytimg.com/yts/img/refresh/body_noise-vfl_60-qt.png") repeat scroll 0 0 #EBEBEB;
   color: #666666;
   font: 12px arial,sans-serif;
@@ -232,7 +230,7 @@ p{
 }
 
 footer p{
-  color: #eee !important;
+  color: #333 !important;
 }
 
 .closed{

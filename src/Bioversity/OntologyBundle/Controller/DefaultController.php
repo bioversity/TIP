@@ -55,7 +55,7 @@ class DefaultController extends Controller
         return $this->render('BioversityOntologyBundle:Default:index.html.twig');
     }
 
-    public function browseSlaiderAction()
+    public function browseSliderAction()
     { 
         return $this->render('BioversityOntologyBundle:Default:browse_slaider.html.twig');
     }

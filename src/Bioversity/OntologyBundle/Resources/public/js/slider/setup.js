@@ -61,6 +61,7 @@ $('document').ready(function(){
 function createCss(){
   slider_css=
   '<style>'+
+  '.ui-effects-transfer { border: 2px solid black; }'+
   '.KIND-FEATURE{'+
   '  color: #DF0101;'+
   '}'+  
@@ -98,8 +99,13 @@ function createCss(){
   '  height: 95%;'+
   '}'+  
   '#node_details_container_body{'+
-  '  height: 95%;'+
+  '  height: 255px;'+
   '  overflow: auto;'+
+  '  border-radius: 3px 3px 3px 3px;'+
+  '  background: none repeat scroll 0 0 #E3E3E3;'+
+  '  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset;'+
+  '  position: relative;'+
+  '  margin-top: 5px;'+
   '}'+
   '#node_details_container{'+
   '  //border: 1px solid #000;'+
@@ -122,6 +128,7 @@ function createCss(){
   '#node_childrens li .btn_node_name{'+
   '  font-size: 1.2em;'+
   '  max-width: 70%;'+
+  '  font-weight: bold;'+
   '}'+  
   '#node_parents li .btn_node:hover,'+
   '#node_childrens li .btn_node:hover{'+
