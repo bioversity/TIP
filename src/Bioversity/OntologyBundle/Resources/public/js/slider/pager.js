@@ -10,18 +10,21 @@ var pager_node_data_selected;
 
 function createPager(request_result, destination){
   var pages= getPageNumber(request_result);
+  console.log('total pages=', pages, ' actual page=', pager_node_data_selected);
   if(pages > 0){
-    $('#'+slider_pager_layout_id+' .node_record .total_page').html(pages+1);
-    $('#'+slider_pager_layout_id+' .node_record .first_page').attr('onclick', 'javascript: startPager(1,\''+destination+'\');');
-    $('#'+slider_pager_layout_id+' .node_record .last_page').attr('onclick', 'javascript: startPager('+(pages + 1)+',\''+destination+'\');');
+    $('#'+slider_pager_layout_id+' .node_record .total_page').html(pages);
     
-    $('#'+slider_pager_layout_id+' .node_record input').attr('value', pager_node_data_selected+1);
+    $('#'+slider_pager_layout_id+' .node_record input').attr('value', pager_node_data_selected);
     $('#'+slider_pager_layout_id+' .node_record input').attr('onChange', 'javascript: startPager(this.value,\''+destination+'\');');
     
-    if((pager_node_data_selected - 1) >= 0)
-      $('#'+slider_pager_layout_id+' .node_record   .prev_page').attr('onclick', 'javascript: startPager('+(pager_node_data_selected - 2)+',\''+destination+'\');');
-    if((pager_node_data_selected + 1) <= pages)
-      $('#'+slider_pager_layout_id+' .node_record   .next_page').attr('onclick', 'javascript: startPager('+(pager_node_data_selected + 2)+',\''+destination+'\');');
+    if((pager_node_data_selected) > 1){
+      $('#'+slider_pager_layout_id+' .node_record .first_page').attr('onclick', 'javascript: startPager(1,\''+destination+'\');');
+      $('#'+slider_pager_layout_id+' .node_record   .prev_page').attr('onclick', 'javascript: startPager('+(pager_node_data_selected-1)+',\''+destination+'\');');
+    }
+    if((pager_node_data_selected) < pages){
+      $('#'+slider_pager_layout_id+' .node_record .last_page').attr('onclick', 'javascript: startPager('+(pages)+',\''+destination+'\');');
+      $('#'+slider_pager_layout_id+' .node_record   .next_page').attr('onclick', 'javascript: startPager('+(pager_node_data_selected+1)+',\''+destination+'\');');
+    }
     
     $('#'+destination+' .'+slider_destination_pager).append($('#'+slider_pager_layout_id+' .node_record').html());
   }
@@ -31,28 +34,32 @@ function startPager(page, destination){
   resetPager();
   if(destination == slider_destination_left){
     resetLeft();
-    getNodeRelationPagerINById(page);
+    getNodeRelationPagerINById(page-1);
   }
   else{
     resetRight();
-    getNodeRelationPagerOUTById(page);
+    getNodeRelationPagerOUTById(page-1);
   }
 }
 
 function getPageNumber(request_result){
-  return parseInt(request_result/pager_node_data_limit);
+  return Math.ceil(request_result/pager_node_data_limit);
 }
 
 function resetPager(){
   $('.'+slider_destination_pager).html(' ');
+  $('#'+slider_pager_layout_id+' .node_record .first_page').removeAttr('onclick');
+  $('#'+slider_pager_layout_id+' .node_record   .prev_page').removeAttr('onclick');
+  $('#'+slider_pager_layout_id+' .node_record .last_page').removeAttr('onclick');
+  $('#'+slider_pager_layout_id+' .node_record   .next_page').removeAttr('onclick');
 }
 
 function getNodeRelationPagerINById(page)
 {
-  ask(dev_env+urlForNodeRelationPagerIN+'/'+selected_node_id+ (page ? '/'+page: ''), generateNodeRelationIN);
+  ask(dev_env+urlForNodeRelationPagerIN+'/'+selected_node_id+ '/'+page, generateNodeRelationIN);
 }
 
 function getNodeRelationPagerOUTById(page)
 {
-  ask(dev_env+urlForNodeRelationPagerOUT+'/'+selected_node_id+ (page ? '/'+page: ''), generateNodeRelationOUT);
+  ask(dev_env+urlForNodeRelationPagerOUT+'/'+selected_node_id+ '/'+page, generateNodeRelationOUT);
 }

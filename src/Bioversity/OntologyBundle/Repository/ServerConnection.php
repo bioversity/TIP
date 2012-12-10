@@ -74,7 +74,7 @@ class ServerConnection
       $request[]= ':WS:RELATION='.urlencode(json_encode($relation));
     
     if($page !== NULL)
-      $request[]=':WS:PAGE-START='. urlencode(json_encode($page-1)) ;
+      $request[]=':WS:PAGE-START='. urlencode(json_encode($page)) ;
     
     //return var_dump(Ontology_WS.'?'.implode( '&', $request ));
     return file_get_contents( Ontology_WS.'?'.implode( '&', $request ));
