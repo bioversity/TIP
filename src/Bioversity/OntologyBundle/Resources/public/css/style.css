@@ -336,6 +336,10 @@ div.open.landrace_box .form_result{
   top: 0px;
 }
 
+.beta_release{
+  color: #000 !important;
+}
+
 /*.no_detail_find,
 .no_detail_find label{
 background-color: #E2E2E2;

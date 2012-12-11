@@ -23,6 +23,7 @@ var slider_destination_breadcrumb_history_container= 'history_container';
 var slider_destination_breadcrumb_history_container_button= 'history_button';
 var slider_destination_breadcrumb_ul= 'root';
 
+var show_pager=false;
 var slider_partials_layout;
 var slider_menu_layout;
 var slider_container_layout;

@@ -8,9 +8,10 @@ var pager_node_data_in_count;
 var pager_node_data_out_count;
 var pager_node_data_selected;
 
-function createPager(request_result, destination){
+function createPager(request_result, destination)
+{
+  //console.log('createPager');
   var pages= getPageNumber(request_result);
-  console.log('total pages=', pages, ' actual page=', pager_node_data_selected);
   if(pages > 0){
     $('#'+slider_pager_layout_id+' .node_record .total_page').html(pages);
     
@@ -30,7 +31,9 @@ function createPager(request_result, destination){
   }
 }
 
-function startPager(page, destination){
+function startPager(page, destination)
+{
+  //console.log('startPager');
   resetPager();
   if(destination == slider_destination_left){
     resetLeft();
@@ -42,11 +45,15 @@ function startPager(page, destination){
   }
 }
 
-function getPageNumber(request_result){
+function getPageNumber(request_result)
+{
+  //console.log('getPageNumber');
   return Math.ceil(request_result/pager_node_data_limit);
 }
 
-function resetPager(){
+function resetPager()
+{
+  //console.log('resetPager');
   $('.'+slider_destination_pager).html(' ');
   $('#'+slider_pager_layout_id+' .node_record .first_page').removeAttr('onclick');
   $('#'+slider_pager_layout_id+' .node_record   .prev_page').removeAttr('onclick');
@@ -56,10 +63,12 @@ function resetPager(){
 
 function getNodeRelationPagerINById(page)
 {
+  //console.log('getRootNodeList');
   ask(dev_env+urlForNodeRelationPagerIN+'/'+selected_node_id+ '/'+page, generateNodeRelationIN);
 }
 
 function getNodeRelationPagerOUTById(page)
 {
+  //console.log('getNodeRelationPagerOUTById');
   ask(dev_env+urlForNodeRelationPagerOUT+'/'+selected_node_id+ '/'+page, generateNodeRelationOUT);
 }

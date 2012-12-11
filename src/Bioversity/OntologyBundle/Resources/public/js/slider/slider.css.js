@@ -217,5 +217,8 @@ function createCss(){
   '  cursor: pointer;'+
   '  font-weight: bold;'+
   '}'+
+  '.nav_open{'+
+  '  font-weight: bold;'+
+  '}'+
   '</style>';
 }
