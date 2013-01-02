@@ -1,6 +1,8 @@
 <?php
 
-namespace  Bioversity\OntologyBundle\Repository;
+/*=======================================================================================
+ *	IDENTIFICATION ATTRIBUTES															*
+ *======================================================================================*/
 
 /**
  * _id.
@@ -389,57 +391,82 @@ define( "kTAG_METHODS",							'28' );
 define( "kTAG_SCALES",							'29' );
 
 /*=======================================================================================
- *	CUSTOM TYPE SUB ATTRIBUTES															*
+ *	USER OBJECT																			*
  *======================================================================================*/
 
 /**
- * type.
+ * USER-NAME.
  *
- * Custom data object type.
+ * User name.
  *
- * This tag is used as the default offset for indicating a custom data type, in general it
- * is used in a structure in conjunction with the {@link kTAG_CUSTOM_DATA} offset to indicate the
- * data type of the item.
+ * The full user name.
  *
- * Version 1: (kTAG_CUSTOM_TYPE)[type]
+ * Version 1: (kTAG_USER_NAME)[30]
  */
-define( "kTAG_CUSTOM_TYPE",						'type' );
+define( "kTAG_USER_NAME",						'30' );
 
 /**
- * data.
+ * USER-CODE.
  *
- * Custom data object data.
+ * User code.
  *
- * This tag is used as the default offset for indicating a custom data type content, in
- * general this tag is used in conjunction with the {@link kTAG_CUSTOM_TYPE} to wrap a custom data
- * type in a standard structure.
+ * The code with which the user is known to the system.
  *
- * Version 1: (kTAG_CUSTOM_DATA)[data]
+ * Version 1: (kTAG_USER_CODE)[31]
  */
-define( "kTAG_CUSTOM_DATA",						'data' );
-
-/*=======================================================================================
- *	CUSTOM TIMESTAMP SUB-ATTRIBUTES														*
- *======================================================================================*/
+define( "kTAG_USER_CODE",						'31' );
 
 /**
- * sec.
+ * USER-PASS.
  *
- * Seconds.
+ * User password.
  *
- * This tag defines the number of seconds since January 1st, 1970.
+ * The password with which the user is known to the system.
  *
- * Version 1: (kTYPE_STAMP_SEC)[sec]
+ * Version 1: (kTAG_USER_PASS)[32]
  */
-define( "kTAG_STAMP_SEC",						'sec' );
+define( "kTAG_USER_PASS",						'32' );
 
 /**
- * usec.
+ * USER-MAIL.
  *
- * Microseconds.
+ * User e-mail.
  *
- * This tag defines microseconds.
+ * The e-mail address of the user.
  *
- * Version 1: (kTYPE_STAMP_USEC)[usec]
+ * Version 1: (kTAG_USER_MAIL)[33]
  */
-define( "kTAG_STAMP_USEC",						'usec' );
+define( "kTAG_USER_MAIL",						'33' );
+
+/**
+ * USER-ROLE.
+ *
+ * User roles.
+ *
+ * The roles assigned to the user.
+ *
+ * Version 1: (kTAG_USER_ROLE)[34]
+ */
+define( "kTAG_USER_ROLE",						'34' );
+
+/**
+ * USER-PROFILE.
+ *
+ * User profile.
+ *
+ * The profile role name assigned to the user.
+ *
+ * Version 1: (kTAG_USER_PROFILE)[35]
+ */
+define( "kTAG_USER_PROFILE",					        '35' );
+
+/**
+ * USER-MANAGER.
+ *
+ * User manager.
+ *
+ * Reference to the user that manages the current user.
+ *
+ * Version 1: (kTAG_USER_MANAGER)[36]
+ */
+define( "kTAG_USER_MANAGER",					        '36' );

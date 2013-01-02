@@ -1,8 +1,6 @@
 body {
-  padding-bottom: 40px;
   padding-top: 140px;
-  padding-bottom: 100px;
-  background: url("/img/bg_yt.png") repeat scroll 0 0 #EBEBEB;
+  background: url("http://s.ytimg.com/yts/img/refresh/body_noise-vfl_60-qt.png") repeat scroll 0 0 #EBEBEB;
   color: #666666;
   font: 12px arial,sans-serif;
   overflow-y: scroll;
@@ -232,7 +230,7 @@ p{
 }
 
 footer p{
-  color: #eee !important;
+  color: #333 !important;
 }
 
 .closed{
@@ -249,12 +247,12 @@ footer p{
 }
 
 .landrace_box{
-  border: 1px solid #CCCCCC;
+  /*border: 1px solid #CCCCCC;*/
   border-radius: 3px 3px 3px 3px;
   overflow: hidden;
   background: none repeat scroll 0 0 #E3E3E3;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset;
-  padding: 4px;
+  /*padding: 4px;*/
   position: relative;
   z-index: 0;
   margin-top: 5px;

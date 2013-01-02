@@ -2,7 +2,8 @@
 
 namespace Bioversity\OntologyBundle\Repository;
 
-define('Ontology_WS', "http://wrappers.grinfo.net/TIP/Wrapper.php");
+//define('Ontology_WS', "http://wrappers.grinfo.net/TIP/Wrapper.php");
+define('Ontology_WS', "http://192.168.181.11/TIP/Wrapper.php");
 
 require_once('Tags.php');
 

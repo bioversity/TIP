@@ -141,7 +141,7 @@ function createActiveNavButtonLink()
   //console.log('createActiveNavButtonLink');
   var predicate= (selected_node_predicate !== undefined )? selected_node_predicate : 'root_';
   $('#'+position_layout+' a').addClass('active');
-  $('#'+position_layout+' a').attr('onclick', 'javascript: startBind('+selected_node_id+');');
+  $('#'+position_layout+' a').attr('onclick', 'javascript: startBind('+selected_node_id+',\''+selected_node_predicate+'\',\''+selected_node_direction+'\');');
   $('#'+position_layout+' a').attr('id', predicate.replace(' ', '')+selected_node_id);
   $('#'+position_layout+' a').html(selected_node_name);
   if(selected_node_predicate)
