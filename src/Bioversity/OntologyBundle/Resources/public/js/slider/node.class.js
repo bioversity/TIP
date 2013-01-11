@@ -49,6 +49,18 @@ function getNodeRelationOUTById(page)
   ask(dev_env+urlForNodeRelationOUT+'/'+selected_node_id+ (page ? '/'+page: ''), generateNodeRelationOUT);
 }
 
+function searchNodeRelationINById(term)
+{
+  //console.log('searchNodeRelationINById');
+  ask(dev_env+urlForSearchNodeRelationIN+'/'+selected_node_id+ (term ? '/'+term: ''), generateNodeRelationIN);
+}
+
+function searchNodeRelationOUTById(term)
+{
+  //console.log('searchNodeRelationOUTById');
+  ask(dev_env+urlForSearchNodeRelationOUT+'/'+selected_node_id+ (term ? '/'+term: ''), generateNodeRelationOUT);
+}
+
 function getNodeName(node)
 {
   //console.log('getNodeName');

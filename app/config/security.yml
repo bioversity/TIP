@@ -10,25 +10,14 @@ security:
             form_login:
                 login_path:  /login
                 check_path:  /login_check
-                failure_path: /
+                failure_path: /login
             logout:
                 path:   /logout
                 target: /
-
-
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-        
-    access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
+                
+    encoders:
+        Bioversity\SecurityBundle\Repository\User\WebserviceUser: plaintext
 
     providers:
-        in_memory:
-            memory:
-                users:
-                    guest: { password: tseug, roles: 'ROLE_USER' }
-                    admin: { password: nimda, roles: 'ROLE_ADMIN' }
-
-    encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        webservice:
+            id: webservice_user_provider

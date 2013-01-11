@@ -44,6 +44,8 @@ var urlForRootNodes= '/get-root-nodes';
 var urlForNodeDetails= '/get-node-details';
 var urlForNodeRelationIN= '/get-node-relation-in';
 var urlForNodeRelationOUT= '/get-node-relation-out';
+var urlForSearchNodeRelationIN= '/search-node-relation-in';
+var urlForSearchNodeRelationOUT= '/search-node-relation-out';
 var urlForNodeRelationPagerIN= '/get-node-relation-pager-in';
 var urlForNodeRelationPagerOUT= '/get-node-relation-pager-out';
 var urlForNodeRelations= '/get-node-relations';
@@ -114,15 +116,25 @@ function ask(url, callback){
  * @param Array data *
  */
 function setBasicValue(url, data){
+  var pattIN=new RegExp(urlForNodeRelationIN);
+  var pattOUT=new RegExp(urlForNodeRelationOUT);
+  var pattSearchIN=new RegExp(urlForSearchNodeRelationIN);
+  var pattSearchOUT=new RegExp(urlForSearchNodeRelationOUT);
+  
   json_data= $.parseJSON(data);
   selected_node_data= json_data[':WS:RESPONSE'];
   pager_node_data_limit= json_data[':WS:PAGING'][':WS:PAGE-LIMIT'];
   pager_node_data_selected= parseInt(json_data[':WS:PAGING'][':WS:PAGE-START'])+1;
   
-  if(url == dev_env+urlForNodeRelationIN+'/'+selected_node_id){
+  pager_node_data_in_count= 0;
+  pager_node_data_out_count= 0;
+  show_search_filter=false;
+  show_pager=false;
+  
+  if(pattIN.test(url) || pattSearchIN.test(url)){
     pager_node_data_in_count= json_data[':WS:STATUS'][':WS:AFFECTED-COUNT'];
   }
-  if(url == dev_env+urlForNodeRelationOUT+'/'+selected_node_id){
+  if(pattOUT.test(url) || pattSearchOUT.test(url)){
     pager_node_data_out_count= json_data[':WS:STATUS'][':WS:AFFECTED-COUNT'];
   }
 }

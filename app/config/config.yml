@@ -1,6 +1,8 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: @BioversitySecurityBundle/Resources/config/services.yml }
+    - { resource: @BioversityUserBundle/Resources/config/security.yml }
 
 framework:
     #esi:             ~

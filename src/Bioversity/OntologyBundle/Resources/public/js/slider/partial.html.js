@@ -16,6 +16,7 @@ function createContainer(){
   '  </div>'+
   '  <div id="node_parents">'+
   '    <h3>Incoming Relations</h3>'+
+  '    <div><input type="text" id="search_left" class="search_filter" name="search_left" placeholder="search node" style="display: none;"/></div>'+
   '    <ul class="node_container"></ul>'+
   '    <div class="pager"></div>'+
   '  </div>'+
@@ -35,6 +36,7 @@ function createContainer(){
   '  </div>'+
   '  <div id="node_childrens">'+
   '    <h3>Outgoing Relations</h3>'+
+  '    <div><input type="text" id="search_right" class="search_filter" name="search_right" placeholder="search node" style="display: none;"/></div>'+
   '    <ul class="node_container"></ul>'+
   '    <ul class="pager"></ul>'+
   '  </div>'+

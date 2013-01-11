@@ -1,0 +1,48 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <fieldset>
+        <legend>
+            <small>User List</small>
+            <div class="pull-right">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('bioversity_user_new_user') }}" class="btn btn-info" type="button">Create new User</a>
+                {% endif %}
+            </div>
+        </legend>
+        <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Full name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Operation</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for user in user_list %}
+                <tr>
+                  <td>{{ user.30 }}</td>
+                  <td>{{ user.31 }}</td>
+                  <td>{{ user.33 }}</td>
+                  <td>
+                    {% for role in user.34 %}
+                        {{ role }}
+                    {% endfor %}
+                  </td>
+                  <td>                    
+                    <div class="btn-group pull-right">
+                        <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle">Delete <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                          <li><a href="{{ path('bioversity_user_delete', {'code':user.31}) }}">Are you sure?</a></li>
+                        </ul>
+                    </div>
+                  </td>
+                </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+        
+    </fieldset>
+{% endblock %}

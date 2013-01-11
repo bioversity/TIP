@@ -6,7 +6,6 @@ bioversity_security:
     resource: "@BioversitySecurityBundle/Resources/config/routing.yml"
     prefix:   /
     
-# Internal routing configuration to handle ESI
-#_internal:
-#    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
-#    prefix:   /_internal
+bioversity_user:
+    resource: "@BioversityUserBundle/Resources/config/routing.yml"
+    prefix:   /

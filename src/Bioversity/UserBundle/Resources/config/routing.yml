@@ -1,0 +1,31 @@
+bioversity_user_homepage:
+    pattern:  /admin/manage-user
+    defaults: { _controller: BioversityUserBundle:User:index }
+    
+bioversity_user_new:
+    pattern:  /admin/manage-user/new
+    defaults: { _controller: BioversityUserBundle:User:newUser }
+
+bioversity_user_delete:
+    pattern:  /admin/manage-user/delete/{code}
+    defaults: { _controller: BioversityUserBundle:User:delete }
+    
+bioversity_user_new_user:
+    pattern:  /admin/manage-user/new-user
+    defaults: { _controller: BioversityUserBundle:User:newUser }
+    
+
+
+#DATASET USER ROUTING    
+bioversity_user_dataset_element_new:
+    pattern:  /datasetuser/manage-dataset/new
+    defaults: { _controller: BioversityUserBundle:Dataset:new }
+
+bioversity_user_dataset_element_list:
+    pattern:  /datasetuser/manage-dataset
+    defaults: { _controller: BioversityUserBundle:Dataset:index }
+
+#CURATOR USER ROUTING
+bioversity_user_curator_element_list:
+    pattern:  /curator/manage-dataset
+    defaults: { _controller: BioversityUserBundle:Dataset:index }

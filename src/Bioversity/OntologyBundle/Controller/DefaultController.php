@@ -13,11 +13,6 @@ class DefaultController extends Controller
     {
         return $this->render('BioversityOntologyBundle:Default:index.html.twig');
     }
-
-    public function registrationAction()
-    {
-        return $this->render('BioversityOntologyBundle:Default:index.html.twig');
-    }
     
     public function loginAction()
     {
@@ -57,7 +52,7 @@ class DefaultController extends Controller
 
     public function browseSliderAction()
     { 
-        return $this->render('BioversityOntologyBundle:Default:browse_slaider.html.twig');
+        return $this->render('BioversityOntologyBundle:Default:browse_slider.html.twig');
     }
 
     public function dashboardAction()
@@ -143,5 +138,25 @@ class DefaultController extends Controller
         $server= new ServerConnection();
         
         return new Response($server->getNodeRelationOUT($nodeId, $page));
+    }
+    
+    /**
+     *Json response for search Node in
+     *
+     */
+    public function JsonSearchNodeRelationINAction($nodeId, $term=null){
+        $server= new ServerConnection();
+        
+        return new Response($server->searchNodeRelationIN($nodeId, $term));
+    }
+    
+    /**
+     *Json response for search Node out
+     *
+     */
+    public function JsonSearchNodeRelationOUTAction($nodeId, $term=null){
+        $server= new ServerConnection();
+        
+        return new Response($server->searchNodeRelationOUT($nodeId, $term));
     }
 }

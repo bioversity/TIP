@@ -3,11 +3,11 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts 
-        '@BioversityOntologyBundle/Resources/public/js/arbor.js'
-        '@BioversityOntologyBundle/Resources/public/js/arbor-tween.js'
-        '@BioversityOntologyBundle/Resources/public/js/graphics.js'
-        '@BioversityOntologyBundle/Resources/public/js/renderer.js'
-        '@BioversityOntologyBundle/Resources/public/js/arbor_homepage_setup.js'
+        'js/arbor.js'
+        'js/arbor-tween.js'
+        'js/graphics.js'
+        'js/renderer.js'
+        'js/arbor_homepage_setup.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

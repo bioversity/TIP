@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <form class="form-inline" action="{{ path('b_s_login_check') }}" method="post">
+        <fieldset>
+            <legend>Login</legend>
+
+            {% if error %}
+                <div class="alert">
+                    <strong>Warning!</strong> {{ error.message }}
+                </div>
+            {% endif %}
+            
+            
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="_password" />
+        
+            <input type="submit" class="btn" value="Sign in" />
+            
+        </fieldset>
+    </form>
+{% endblock %}

@@ -123,12 +123,14 @@ function generateNodeRelations(layout, destination)
       var node_value= selected_node_data._node[node_id];
       select_node_direction='left';
       show_pager=true;
+      show_search_filter= true;
       pager_count= pager_node_data_in_count;
     }else if(value[kTAG_SUBJECT] == selected_node_id){
       var node_id= value[kTAG_OBJECT];
       var node_value= selected_node_data._node[node_id];
       select_node_direction='right';
       show_pager=true;
+      show_search_filter= true;
       pager_count= pager_node_data_out_count;
     }
     
@@ -150,7 +152,17 @@ function generateNodeRelations(layout, destination)
   
   if(show_pager===true){
     createPager(pager_count, destination);
-    show_pager=false;
+  }
+  
+  if(show_search_filter===true){
+    if(pager_count > 5){
+      showSearchFilter(destination);
+    
+      if(start_search_bind===true){
+        startSearchBind();
+        start_search_bind=false;
+      }
+    }
   }
 }
 
@@ -165,6 +177,7 @@ function resetSlider()
   resetLeft();
   resetRight();
   resetPager();
+  resetSearch();
 }
 
 function resetCenter()
@@ -183,6 +196,12 @@ function resetRight()
 {
   //console.log('resetRight');
   $('#'+slider_destination_right+' ul').html(' ');  
+}
+
+function resetSearch()
+{
+  $('.search_filter').fadeOut();
+  $('.search_filter').val('');
 }
 
 

@@ -1,10 +1,6 @@
 b_o_homepage:
     pattern:  /
     defaults: { _controller: BioversityOntologyBundle:Default:index }
-
-b_o_user_registration:
-    pattern:  /registration
-    defaults: { _controller: BioversityOntologyBundle:Default:registration }
     
 b_o_contact:
     pattern:  /contact
@@ -86,6 +82,7 @@ b_o_json_node_details:
     requirements:
         nodeId:  \d+
 
+#-------------Get
 b_o_json_node_relation_in:
     pattern:  /get-node-relation-in/{nodeId}
     defaults: { _controller: BioversityOntologyBundle:Default:JsonNodeRelationIN }
@@ -97,7 +94,21 @@ b_o_json_node_relation_out:
     defaults: { _controller: BioversityOntologyBundle:Default:JsonNodeRelationOUT }
     requirements:
         nodeId:  \d+
+        
+#---------------Search
+b_o_json_search_node_relation_in:
+    pattern:  /search-node-relation-in/{nodeId}/{term}
+    defaults: { _controller: BioversityOntologyBundle:Default:JsonSearchNodeRelationIN }
+    requirements:
+        nodeId:  \d+
 
+b_o_json_search_node_relation_out:
+    pattern:  /search-node-relation-out/{nodeId}/{term}
+    defaults: { _controller: BioversityOntologyBundle:Default:JsonSearchNodeRelationOUT }
+    requirements:
+        nodeId:  \d+
+
+#----------------Pager
 b_o_json_node_relation_pager_in:
     pattern:  /get-node-relation-pager-in/{nodeId}/{page}
     defaults: { _controller: BioversityOntologyBundle:Default:JsonNodeRelationIN }

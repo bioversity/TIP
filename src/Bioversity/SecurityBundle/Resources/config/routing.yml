@@ -1,0 +1,17 @@
+b_s_login_path:
+    pattern:  /login
+    defaults: { _controller: BioversitySecurityBundle:Security:login }
+    
+b_s_login_check:
+    pattern:  /login_check
+    
+b_s_logout:
+    pattern:  /logout
+    
+b_s_registration:
+    pattern:  /registration
+    defaults: { _controller: BioversitySecurityBundle:Security:registration }
+    
+b_s_mok_user_authentication:
+    pattern: /mok_user_authentication
+    defaults: { _controller: BioversitySecurityBundle:MokServerResponce:checkUserAuthentication }

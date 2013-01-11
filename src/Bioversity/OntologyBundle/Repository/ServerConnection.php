@@ -2,30 +2,16 @@
 
 namespace Bioversity\OntologyBundle\Repository;
 
-//define('Ontology_WS', "http://wrappers.grinfo.net/TIP/Wrapper.php");
-define('Ontology_WS', "http://192.168.181.11/TIP/Wrapper.php");
+use Bioversity\SecurityBundle\Repository\Tags;
+use Bioversity\SecurityBundle\Repository\HttpServerConnection;
 
-require_once('Tags.php');
-
-class ServerConnection
+class ServerConnection extends HttpServerConnection
 {
-  public function buildQuery($db, $log=null)
-  {
-    $request= array(
-            ':WS:OPERATION=WS:OP:GetVertex',
-            ':WS:FORMAT=:JSON',
-            ':WS:DATABASE='.urlencode(json_encode($db)));
-    
-    if($log)
-      $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
-    
-    return $request;
-  }
   
   public function getRootNodes()
   { 
-    $query= array('subject'=>kTAG_KIND, 'operator'=>'$EQ', 'type'=>':TEXT');
-    $select= Array(kTAG_GID,kTAG_LABEL,kTAG_DEFINITION,kTAG_DESCRIPTION,kTAG_KIND,kTAG_TYPE);
+    $query= array('subject'=>Tags::kTAG_KIND, 'operator'=>'$EQ', 'type'=>':TEXT');
+    $select= Array(Tags::kTAG_GID,Tags::kTAG_LABEL,Tags::kTAG_DEFINITION,Tags::kTAG_DESCRIPTION,Tags::kTAG_KIND,Tags::kTAG_TYPE);
     $limit= 50;
     $nodeId= ':KIND-ROOT';
     
@@ -50,9 +36,23 @@ class ServerConnection
     return $this->getNodeQuery($nodeId, $query, NULL, $page, 'WS:RELATION:OUT', 5);
   }
   
-  public function getNodeQuery($nodeId, $query, $select= NULL, $page= NULL, $relation= NULL, $limit= NULL)
+  public function searchNodeRelationIN($nodeId, $term=NULL)
   {
-    $request= $this->buildQuery("ONTOLOGY", 1);
+    $query= array('subject'=>'_id', 'operator'=>'$EQ', 'type'=>':INT32');
+    $query2= array('subject'=>Tags::kTAG_LABEL.'.en', 'operator'=>'$CXi', 'type'=>':TEXT', 'data'=>$term);
+    return $this->getNodeQuery($nodeId, $query, NULL, NULL, 'WS:RELATION:IN', 5, $query2);
+  }
+  
+  public function searchNodeRelationOUT($nodeId, $term=NULL)
+  {
+    $query= array('subject'=>'_id', 'operator'=>'$EQ', 'type'=>':INT32');
+    $query2= array('subject'=>Tags::kTAG_LABEL.'.en', 'operator'=>'$CXi', 'type'=>':TEXT', 'data'=>$term);
+    return $this->getNodeQuery($nodeId, $query, NULL, $term, 'WS:RELATION:OUT', 5, $query2);
+  }
+  
+  public function getNodeQuery($nodeId, $query, $select= NULL, $page= NULL, $relation= NULL, $limit= NULL, $query2= null)
+  {
+    $request= $this->manageQuery("ONTOLOGY", 1);
     
     if($select !== NULL)
       $request[]= ':WS:SELECT='.urlencode(json_encode($select));
@@ -67,6 +67,18 @@ class ServerConnection
                                   )
                                 )
                       )));
+    
+    if($query2)    
+      $request[]=':WS:SUBQUERY='.urlencode(json_encode(Array(
+                        '$AND' => Array(
+                                    Array(
+                                      '_query-subject' => $query2['subject'],
+                                      '_query-operator' => $query2['operator'],
+                                      '_query-data-type' => $query2['type'],
+                                      '_query-data' => $query2['data'],
+                                    )
+                                  )
+                        )));
       
     if($limit !== NULL)
       $request[]= ':WS:PAGE-LIMIT='.urlencode(json_encode($limit));
@@ -77,7 +89,20 @@ class ServerConnection
     if($page !== NULL)
       $request[]=':WS:PAGE-START='. urlencode(json_encode($page)) ;
     
-    //return var_dump(Ontology_WS.'?'.implode( '&', $request ));
-    return file_get_contents( Ontology_WS.'?'.implode( '&', $request ));
+    //return print_r($this->wrapper.'?'.implode( '&', $request ));
+    return file_get_contents( $this->wrapper.'?'.implode( '&', $request ));
+  }
+  
+  public function manageQuery($db, $log=null)
+  {
+    $request= array(
+            ':WS:OPERATION=WS:OP:GetVertex',
+            ':WS:FORMAT=:JSON',
+            ':WS:DATABASE='.urlencode(json_encode($db)));
+    
+    if($log)
+      $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
+    
+    return $request;
   }
 }

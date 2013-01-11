@@ -9,9 +9,7 @@
     
     {% block stylesheets %}
         {% stylesheets
-          '@BioversityOntologyBundle/Resources/public/css/bootstrap.css'
-          '@BioversityOntologyBundle/Resources/public/css/style.css'
-          '@BioversityOntologyBundle/Resources/public/css/bootstrap-responsive.css'
+          'css/*'
         %}
             <link href="{{ asset_url }}" rel="stylesheet" type="text/css">
         {% endstylesheets %}
@@ -19,27 +17,27 @@
     
     {% block javascripts %}
         {% javascripts 
-            '@BioversityOntologyBundle/Resources/public/js/jquery.js'
-            '@BioversityOntologyBundle/Resources/public/js/jquery-ui-1.9.2.custom.js'
-            '@BioversityOntologyBundle/Resources/public/js/bootstrap-transition.js'
-            '@BioversityOntologyBundle/Resources/public/js/bootstrap-alert.js'
-            '@BioversityOntologyBundle/Resources/public/js/bootstrap-modal.js'
-            '@BioversityOntologyBundle/Resources/public/js/bootstrap-dropdown.js'
-            '@BioversityOntologyBundle/Resources/public/js/bootstrap-scrollspy.js'
-            '@BioversityOntologyBundle/Resources/public/js/bootstrap-tab.js'
-            '@BioversityOntologyBundle/Resources/public/js/bootstrap-tooltip.js'
-            '@BioversityOntologyBundle/Resources/public/js/bootstrap-popover.js'
-            '@BioversityOntologyBundle/Resources/public/js/bootstrap-button.js'
-            '@BioversityOntologyBundle/Resources/public/js/bootstrap-collapse.js'
-            '@BioversityOntologyBundle/Resources/public/js/bootstrap-carousel.js'
-            '@BioversityOntologyBundle/Resources/public/js/bootstrap-typeahead.js'
+            'js/jquery.js'
+            'js/jquery-ui-1.9.2.custom.js'
+            'js/bootstrap-transition.js'
+            'js/bootstrap-alert.js'
+            'js/bootstrap-modal.js'
+            'js/bootstrap-dropdown.js'
+            'js/bootstrap-scrollspy.js'
+            'js/bootstrap-tab.js'
+            'js/bootstrap-tooltip.js'
+            'js/bootstrap-popover.js'
+            'js/bootstrap-button.js'
+            'js/bootstrap-collapse.js'
+            'js/bootstrap-carousel.js'
+            'js/bootstrap-typeahead.js'
         %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts  %}
     {% endblock %}
     
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
+    <!--[if lt IE 9] -->
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
@@ -47,24 +45,22 @@
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
   </head>
-  <body class="hasGoogleVoiceExt">
-    {% if is_granted('ROLE_USER') %}
-      {% include '::form_edit_profile.html.twig' %}
-    {% else %}
-      {% include '::form_registration.html.twig' %}
-      {% include '::form_login.html.twig' %}
-    {% endif %}
+  <body>
     
     {% include '::menuhead.html.twig' %}
+    
+    <div id="wrap">   
       
-    {% include '::error.html.twig' %}
-    <div class="container-fluid">
-      <div class="row-fluid">
-      {% block body %}{% endblock %}
+      <div class="container">
+        {% include '::error.html.twig' %}
+        {% block body %}{% endblock %}
       </div>
+
+      <div id="push"></div>
+    
     </div>
-    <div class="clear"></div>
-    <hr>
+    
     {% include '::footer.html.twig' %}
+    
   </body>
 </html>

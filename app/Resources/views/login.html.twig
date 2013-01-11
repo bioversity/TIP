@@ -6,11 +6,11 @@
       <input type="text" placeholder="Search..." data-source="[&quot;Sweet&quot;,&quot;Clean&quot;,&quot;Popular&quot;,&quot;HTML&quot;,&quot;CSS&quot;,&quot;Free&quot;,&quot;Graphic&quot;,&quot;Colors&quot;,&quot;Cool&quot;,&quot;Simple&quot;]" data-items="4" data-provide="typeahead" class="search-query span3">
     </form>
   </li>
-  {% if is_granted('ROLE_USER') %}
-    <li class="divider-vertical"></li>
+  <li class="divider-vertical"></li>
+  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     <li>
       <div class="btn-group pull-right">
-        <a class="btn btn-info" href="{{ path('b_o_dashboard') }}">
+        <a class="btn btn-info" href="#">
           <i class="icon-user"></i>
           <span>{{ app.user.username }}</span>
         </a>
@@ -18,24 +18,29 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" style="width: 240px">
-          <li><a data-toggle="modal" href="#ProfileModal">Profile</a></li>
+          {% if is_granted('ROLE_ADMIN') %}
+            <li>
+              <a href="{{ path('bioversity_user_homepage') }}">Manage User</a>
+            </li>
+          {% endif %}
+          <li><a href="#">Profile</a></li>
           <li><a href="{{ path('b_s_logout') }}">Sign Out</a></li>
         </ul>
       </div>
     </li>
   {% else %}
     <li>
-      <a data-toggle="modal" href="#RegistrationModal">
-        <span>Register</span>
-      </a>
-    </li>
-    <li>
-      <a data-toggle="modal" href="#LoginModal">
-        <span>Login</span>
-      </a>
+      <div class="btn-group pull-right">
+        <a class="btn btn-info" href="{{ path('b_s_login_path') }}">
+          <span>Login</span>
+        </a>
+        <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" style="width: 240px">
+          <li><a href="{{ path('b_s_registration') }}">Registration</a></li>
+        </ul>
+      </div>
     </li>
   {% endif %}
-<!--  <li>
-    <a data-toggle="modal" href="#SitemapModal"><i class="icon-th-large"></i></a>
-  </li>-->
 </ul>
