@@ -92,6 +92,7 @@ class HttpServerConnection
   
   public function sendRequest($server, $request)
   {
+    //return var_dump($server.'?'.implode( '&', $request ));
     return json_decode(file_get_contents( $server.'?'.implode( '&', $request ) ), true);
   }
 }

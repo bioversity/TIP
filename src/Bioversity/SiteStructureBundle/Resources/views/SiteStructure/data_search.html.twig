@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+  <div class="span9">
+    <ul class="thumbnails">
+      <li class="span3">
+        <a href="{{ path('b_o_browse_landrace') }}" class="thumbnail">
+          <img src="{{ asset('/bundles/bioversityontology/images/landrace.jpg') }}" />
+          <h3>LANDRACE</h3>
+        </a>
+      </li>
+      <li class="span3">
+        <a href="{{ path('b_o_browse_cwr') }}" class="thumbnail">
+          <img src="{{ asset('/bundles/bioversityontology/images/cwr.jpg') }}" />
+          <h3>CROP WILD RELATIVE</h3>
+        </a>
+      </li>
+      <li class="span3">
+        <a href="{{ path('b_o_browse_trait') }}" class="thumbnail">
+          <img src="{{ asset('/bundles/bioversityontology/images/trait.jpg') }}" />
+          <h3>TRAIT</h3>
+        </a>
+      </li>
+    </ul>
+  </div>
+  {% include 'BioversitySiteStructureBundle:SiteStructure:data_menu.html.twig' %}
+{% endblock %}

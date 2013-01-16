@@ -1,0 +1,7 @@
+parameters:
+#    bioversity_slider.example.class: Bioversity\SliderBundle\Example
+
+services:
+#    bioversity_slider.example:
+#        class: %bioversity_slider.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

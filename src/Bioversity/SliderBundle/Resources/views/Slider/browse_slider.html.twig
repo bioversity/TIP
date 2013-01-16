@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {% javascripts 
+      '@BioversitySliderBundle/Resources/public/js/slider/*'
+  %}
+      <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+  <div id="slider_content"></div>    
+{% endblock %}

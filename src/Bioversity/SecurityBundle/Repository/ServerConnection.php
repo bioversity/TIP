@@ -66,12 +66,45 @@ class ServerConnection extends HttpServerConnection
       Tags::kTAG_USER_MAIL => $email,
       Tags::kTAG_USER_ROLE => $roles,
       Tags::kTAG_USER_PROFILE => array( 'un', 'po', 'di', 'roba' ),
-      Tags::kTAG_USER_MANAGER => 'Codice dell\'utente manager',
+      //Tags::kTAG_USER_MANAGER => 'Codice dell\'utente manager',
       Tags::kTAG_USER_DOMAIN  => 'TIP'
     );
     $params = array(
       ':WS:FORMAT=:JSON',
-      ':WS:OPERATION=WS:OP:INSERT',
+      ':WS:OPERATION=WS:OP:NewUser',
+      ':WS:DATABASE='.urlencode(json_encode($this->db)),
+      ':WS:CONTAINER='.urlencode(json_encode($this->collection)),
+      ':WS:OBJECT='.urlencode(json_encode($object))
+      );        
+    
+    return $this->sendRequest($this->wrapper, $params);
+  }
+  
+  /**
+   * Edit new user
+   *
+   * @param string $fullname
+   * @param string $username
+   * @param string $password
+   * @param string $email
+   * @param array $roles
+   * @param array $profile
+   */
+  public function updateNewUser($fullname, $username, $password, $email, $roles, $profile= NULL)
+  {
+    $object = array(
+      Tags::kTAG_USER_NAME => $fullname,
+      Tags::kTAG_USER_CODE => $username,
+      Tags::kTAG_USER_PASS => $password,
+      Tags::kTAG_USER_MAIL => $email,
+      Tags::kTAG_USER_ROLE => $roles,
+      Tags::kTAG_USER_PROFILE => array( 'un', 'po', 'di', 'roba' ),
+      //Tags::kTAG_USER_MANAGER => 'Codice dell\'utente manager',
+      Tags::kTAG_USER_DOMAIN  => 'TIP'
+    );
+    $params = array(
+      ':WS:FORMAT=:JSON',
+      ':WS:OPERATION=WS:OP:NewUser',
       ':WS:DATABASE='.urlencode(json_encode($this->db)),
       ':WS:CONTAINER='.urlencode(json_encode($this->collection)),
       ':WS:OBJECT='.urlencode(json_encode($object))
@@ -89,14 +122,14 @@ class ServerConnection extends HttpServerConnection
   {
     $params = array(
       ':WS:FORMAT=:JSON',
-      ':WS:OPERATION=WS:OP:DEL',
+      ':WS:OPERATION=WS:OP:DELETE',
       ':WS:DATABASE='.urlencode(json_encode($this->db)),
       ':WS:CONTAINER='.urlencode(json_encode($this->collection)),
       ':WS:OBJECT='.urlencode(json_encode($id))
     );
 
     $query= $this->createQuery(Tags::kTAG_USER_CODE,'_id', $id);
-    $params= $this->createRequest('WS:OP:DEL', $query);
+    $params= $this->createRequest('WS:OP:DELETE', $query);
     return $this->sendRequest($this->wrapper, $params);
   }
 }

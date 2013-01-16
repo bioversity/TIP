@@ -1,3 +1,11 @@
+bioversity_site_structure:
+    resource: "@BioversitySiteStructureBundle/Resources/config/routing.yml"
+    prefix:   /
+
+bioversity_slider:
+    resource: "@BioversitySliderBundle/Resources/config/routing.yml"
+    prefix:   /
+
 bioversity_ontology:
     resource: "@BioversityOntologyBundle/Resources/config/routing.yml"
     prefix:   /

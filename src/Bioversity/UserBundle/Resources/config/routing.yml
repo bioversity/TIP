@@ -9,6 +9,10 @@ bioversity_user_new:
 bioversity_user_delete:
     pattern:  /admin/manage-user/delete/{code}
     defaults: { _controller: BioversityUserBundle:User:delete }
+
+bioversity_user_edit:
+    pattern:  /admin/manage-user/edit/{code}
+    defaults: { _controller: BioversityUserBundle:User:editUser }
     
 bioversity_user_new_user:
     pattern:  /admin/manage-user/new-user

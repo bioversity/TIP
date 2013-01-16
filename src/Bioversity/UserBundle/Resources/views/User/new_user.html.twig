@@ -12,6 +12,14 @@
             </h1>
         </div>
         
+        {% if notice %}
+            {% for error in notice %}
+                <div class="alert  alert-error">
+                    <strong>Warning!</strong> {{ error }}
+                </div>            
+            {% endfor %}
+        {% endif %}
+        
         {{ form_errors(form) }}
         
         {{ form_label(form.fullname) }}

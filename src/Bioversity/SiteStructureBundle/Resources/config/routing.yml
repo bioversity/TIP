@@ -1,0 +1,59 @@
+bioversity_site_structure_homepage:
+    pattern:  /
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:index }
+    
+bioversity_site_structure_contact:
+    pattern:  /contact
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:contact }
+
+bioversity_site_structure_about:
+    pattern:  /about
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:about }
+
+bioversity_site_structure_database:
+    pattern:  /database
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:database }
+
+bioversity_site_structure_browse_landrace:
+    pattern:  /browse-landrace
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:browseLandrace }
+
+bioversity_site_structure_browse_cwr:
+    pattern:  /browse-cwr
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:browse_Cwr }
+
+bioversity_site_structure_browse_trait:
+    pattern:  /browse-trait
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:browseTrait }
+
+bioversity_site_structure_datasets:
+    pattern:  /datasets
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:datasets }
+
+bioversity_site_structure_data_search:
+    pattern:  /data-search
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:dataSearch }
+
+bioversity_site_structure_download_data:
+    pattern:  /download-data
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:downloadData }
+
+bioversity_site_structure_request_data:
+    pattern:  /request-data
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:requestData }
+
+bioversity_site_structure_contribute_data:
+    pattern:  /contribute-data
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:contributeData }
+
+#----------------------------------------------------------------------------
+#-----------------------ADMIN AREA-------------------------------------------
+#----------------------------------------------------------------------------
+
+bioversity_site_structure_dashboard:
+    pattern:  /admin/dashboard
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:dashboard }
+
+bioversity_site_structure_edit_profile:
+    pattern:  /admin/edit-profile
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:editProfile }

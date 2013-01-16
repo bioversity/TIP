@@ -13,7 +13,7 @@
         <span class="icon-bar"></span>
       </a>
       
-      <a class="brand" href="{{ path('b_o_homepage') }}">
+      <a class="brand" href="{{ path('bioversity_site_structure_homepage') }}">
         <strong>T</strong>rait<br/>
         <strong>I</strong>nformation <br/>
         <strong>P</strong>ortal
@@ -31,33 +31,33 @@
       
       <div class="nav_menu_top nav-collapse collapse second_row">
         <ul class="nav  pull-right">
-          <li class="root_page {% if(currentPath == 'b_o_homepage') %} active{% endif %}">
-            <a href="{{ path('b_o_homepage') }}">Home</a>
+          <li class="root_page {% if(currentPath == 'bioversity_site_structure_homepage') %} active{% endif %}">
+            <a href="{{ path('bioversity_site_structure_homepage') }}">Home</a>
           </li>
-          <li class="static_page {% if(currentPath == 'b_o_about') %} active{% endif %}">
-            <a href="{{ path('b_o_about') }}">About</a>
+          <li class="static_page {% if(currentPath == 'bioversity_site_structure_about') %} active{% endif %}">
+            <a href="{{ path('bioversity_site_structure_about') }}">About</a>
           </li>
-          <li class="static_page {% if(currentPath == 'b_o_contact') %} active{% endif %}">
-            <a href="{{ path('b_o_contact') }}">Contact</a>
+          <li class="static_page {% if(currentPath == 'bioversity_site_structure_contact') %} active{% endif %}">
+            <a href="{{ path('bioversity_site_structure_contact') }}">Contact</a>
           </li>
-          <li class="trait_page {% if(currentPath == 'b_o_browse_trait') %} active{% endif %}">
-            <a href="{{ path('b_o_browse_trait') }}">Trait</a>
+          <li class="trait_page {% if(currentPath == 'bioversity_site_structure_browse_trait') %} active{% endif %}">
+            <a href="{{ path('bioversity_site_structure_browse_trait') }}">Trait</a>
           </li>
-          <li class="research_page {% if(currentPath == 'b_o_browse_slider') %} active{% endif %}">
-            <a href="{{ path('b_o_browse_slider') }}">Slider</a>
+          <li class="research_page {% if(currentPath == 'bioversity_slider_browse_slider') %} active{% endif %}">
+            <a href="{{ path('bioversity_slider_browse_slider') }}">Slider</a>
           </li>
           <!--
-          <li class="research_page {% if(currentPath == 'b_o_browse_landrace') %} active{% endif %}">
-            <a href="{{ path('b_o_browse_landrace') }}">Landrace</a>
+          <li class="research_page {% if(currentPath == 'bioversity_site_structure_browse_landrace') %} active{% endif %}">
+            <a href="{{ path('bioversity_site_structure_browse_landrace') }}">Landrace</a>
           </li>
-          <li class="research_page {% if(currentPath == 'b_o_browse_cwr') %} active{% endif %}">
-            <a href="{{ path('b_o_browse_cwr') }}">Crop Wild Relatives</a>
+          <li class="research_page {% if(currentPath == 'bioversity_site_structure_browse_cwr') %} active{% endif %}">
+            <a href="{{ path('bioversity_site_structure_browse_cwr') }}">Crop Wild Relatives</a>
           </li>
           -->
           {#{% if app.session.get('user') %}#}
           <!--
-            <li class="dashboard_page {% if(currentPath == 'b_o_dashboard') %} active{% endif %}">
-              <a href="{{ path('b_o_dashboard') }}">Dashboard</a>
+            <li class="dashboard_page {% if(currentPath == 'bioversity_site_structure_dashboard') %} active{% endif %}">
+              <a href="{{ path('bioversity_site_structure_dashboard') }}">Dashboard</a>
             </li>
           -->
           {#{% endif %}#}
@@ -65,7 +65,7 @@
         
         
         <ul class="nav  pull-right">
-          <li><a href="{{ path('b_o_database') }}">Database</a></li>
+          <li><a href="{{ path('bioversity_site_structure_database') }}">Database</a></li>
           <li><a data-toggle="modal" href="#MenbersModal">Members</a></li>
           <li><a data-toggle="modal" href="#WorkshopsModal">Workshops</a></li>
           <li><a data-toggle="modal" href="#ProjectsModal">Projects</a></li>

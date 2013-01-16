@@ -28,7 +28,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [ BioversityOntologyBundle, BioversitySecurityBundle ]
+    bundles:        [ BioversityOntologyBundle, BioversitySecurityBundle, BioversitySliderBundle, BioversitySiteStructureBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~

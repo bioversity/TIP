@@ -3,4 +3,6 @@ security:
         ROLE_ADMIN:              [ROLE_DATA, ROLE_ONTOLOGY]
         
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin,    roles: ROLE_ADMIN }
+        - { path: ^/ontology, roles: ROLE_ONTOLOGY }
+        - { path: ^/data,     roles: ROLE_DATA }

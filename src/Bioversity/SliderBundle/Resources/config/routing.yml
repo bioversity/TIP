@@ -1,0 +1,64 @@
+bioversity_slider_browse_slider:
+    pattern:  /browse-slider
+    defaults: { _controller: BioversitySliderBundle:Slider:browseSlider }
+
+#----------------------------------------------------------------------------
+#-----------------------JSON RESONSE-----------------------------------------
+#----------------------------------------------------------------------------
+
+bioversity_slider_json_root_nodes:
+    pattern:  /get-root-nodes
+    defaults: { _controller: BioversitySliderBundle:Slider:JsonRootNode }
+
+bioversity_slider_json_node_relations:
+    pattern:  /get-node-relations/{nodeId}
+    defaults: { _controller: BioversitySliderBundle:Slider:JsonNodeRelations }
+    requirements:
+        nodeId:  \d+
+
+bioversity_slider_json_node_details:
+    pattern:  /get-node-details/{nodeId}
+    defaults: { _controller: BioversitySliderBundle:Slider:JsonNodeDetails }
+    requirements:
+        nodeId:  \d+
+
+#-------------Get
+bioversity_slider_json_node_relation_in:
+    pattern:  /get-node-relation-in/{nodeId}
+    defaults: { _controller: BioversitySliderBundle:Slider:JsonNodeRelationIN }
+    requirements:
+        nodeId:  \d+
+
+bioversity_slider_json_node_relation_out:
+    pattern:  /get-node-relation-out/{nodeId}
+    defaults: { _controller: BioversitySliderBundle:Slider:JsonNodeRelationOUT }
+    requirements:
+        nodeId:  \d+
+        
+#---------------Search
+bioversity_slider_json_search_node_relation_in:
+    pattern:  /search-node-relation-in/{nodeId}/{term}
+    defaults: { _controller: BioversitySliderBundle:Slider:JsonSearchNodeRelationIN }
+    requirements:
+        nodeId:  \d+
+
+bioversity_slider_json_search_node_relation_out:
+    pattern:  /search-node-relation-out/{nodeId}/{term}
+    defaults: { _controller: BioversitySliderBundle:Slider:JsonSearchNodeRelationOUT }
+    requirements:
+        nodeId:  \d+
+
+#----------------Pager
+bioversity_slider_json_node_relation_pager_in:
+    pattern:  /get-node-relation-pager-in/{nodeId}/{page}
+    defaults: { _controller: BioversitySliderBundle:Slider:JsonNodeRelationIN }
+    requirements:
+        nodeId:  \d+
+        page:    \d+
+
+bioversity_slider_json_node_relation_pager_out:
+    pattern:  /get-node-relation-pager-out/{nodeId}/{page}
+    defaults: { _controller: BioversitySliderBundle:Slider:JsonNodeRelationOUT }
+    requirements:
+        nodeId:  \d+
+        page:    \d+

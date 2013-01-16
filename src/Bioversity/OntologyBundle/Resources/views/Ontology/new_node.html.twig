@@ -1,0 +1,38 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {% javascripts
+    '@BioversityOntologyBundle/Resources/public/js/node.js'
+  %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
+{% block body %}  
+    
+    <form action="#" method="post" {{ form_enctype(form) }}>
+        <div class="page-header">
+            <h1>
+                <small>Create New Node</small>
+                <div class="pull-right">
+                    <input class="btn btn-info" type="submit" value="Save" />
+                </div>
+            </h1>
+        </div>
+        
+        {% if errors %}
+            {% for error in errors %}
+                <div class="alert alert-error pull-left">
+                    <strong>Warning!</strong> {{ error }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        {{ form_errors(form) }}
+        
+        {{ form_widget(form) }}
+        
+        {{ form_rest(form) }}        
+    </form>
+{% endblock %}
