@@ -64,7 +64,7 @@ function searchNodeRelationOUTById(term)
 function getNodeName(node)
 {
   //console.log('getNodeName');
-  return (node[kTAG_LABEL] !== undefined)? node[kTAG_LABEL]['en']: '';
+  return getDefaultLanguage(node[kTAG_LABEL]);
 }
 
 function getNodeId(node)
@@ -106,7 +106,8 @@ function getNodeImage(node)
 function getNodeDescription(node)
 {
   //console.log('getNodeDescription');
-  return (node[kTAG_DESCRIPTION] !== undefined)? node[kTAG_DESCRIPTION]['en']: '';
+  return getDefaultLanguage(node[kTAG_DESCRIPTION]);
+  //return (node[kTAG_DESCRIPTION] !== undefined)? node[kTAG_DESCRIPTION]['en']: '';
 }
 
 function getNodePredicate(edge)
@@ -155,6 +156,26 @@ function setNodeId(node_id)
 {
   //console.log('setNodeId');
   selected_node_id= node_id;
+}
+
+function getDefaultLanguage($language)
+{
+  if($language !== undefined){
+    if($language['en'] !== undefined){
+      return $language['en'];
+    }else{
+      if($language[0] !== undefined){
+        return $language[0];
+      }
+      else{
+        for (label in $language){
+          return $language[label];
+        }
+      }
+    }
+  }else{
+    return '';
+  }
 }
 
 function isRoot(node)

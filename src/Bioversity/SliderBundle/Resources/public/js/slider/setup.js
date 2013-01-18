@@ -51,12 +51,12 @@ var $urlForNodeRelationPagerOUT= '/get-node-relation-pager-out';
 var $urlForNodeRelations= '/get-node-relations';
 
 $('document').ready(function(){
-  createCss();
-  createMenu();
-  createContainer();
-  createPartial();
-  createBreadcrumb();
-  createBreadcrumbHistory();
+  //createCss();
+  //createMenu();
+  //createContainer();
+  //createPartial();
+  //createBreadcrumb();
+  //createBreadcrumbHistory();
   loadTemplates();
   startHistoryBind();
 });
@@ -66,12 +66,12 @@ $('document').ready(function(){
  *
  */
 function loadTemplates(){
-  $('#slider_content').append($slider_css);
-  $('#slider_content').append($slider_menu_layout);
-  $('#slider_content').append($slider_breadcrumb_layout);
-  $('#slider_content').append($slider_breadcrumb_history_layout);
-  $('#slider_content').append($slider_container_layout);
-  $('#slider_content').append($slider_partials_layout);
+  //$('#slider_content').append($slider_css);
+  //$('#slider_content').append($slider_menu_layout);
+  //$('#slider_content').append($slider_breadcrumb_layout);
+  //$('#slider_content').append($slider_breadcrumb_history_layout);
+  //$('#slider_content').append($slider_container_layout);
+  //$('#slider_content').append($slider_partials_layout);
   initSlider();
 }
 

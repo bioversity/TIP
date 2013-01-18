@@ -1,6 +1,6 @@
 <?php
 
-namespace Bioversity\SecurityBundle\Repository;
+namespace Bioversity\ServerConnectionBundle\Repository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -13,6 +13,16 @@ class HttpServerConnection
   var $domain= "TIP";
   var $wrapper= "http://192.168.181.11/TIP/Wrapper.php";
   
+  public function setDatabase($db)
+  {
+    $this->db= $db;
+  }
+  
+  public function setCollection($collection)
+  {
+    $this->collection= $collection;
+  }
+  
   /**
    * Create the Request for the WebServer request
    * 
@@ -22,7 +32,7 @@ class HttpServerConnection
    *  
    * @return array $request
    */
-  public function createRequest($operation, $query= NULL)
+  public function createRequest($operation, $query= NULL, $query2= NULL)
   {      
     $request= $this->buildQuery($this->db, $operation, $query, 1);
    
@@ -38,9 +48,9 @@ class HttpServerConnection
    *
    * @return array $query
    */
-  public function createQuery($subject, $type=':TEXT', $data)
+  public function createQuery($subject, $type=':TEXT', $data, $operator = '$EQ')
   {
-    return $query= array('subject'=>$subject, 'operator'=>'$EQ', 'type'=>$type, 'data' => $data);
+    return $query= array('subject'=>$subject, 'operator'=>$operator, 'type'=>$type, 'data' => $data);
   }
   
   /**
@@ -55,15 +65,16 @@ class HttpServerConnection
    * @return array $request
    *
    */
-  public function buildQuery($db, $operation, $query= NULL, $log=null)
+  public function buildQuery($db, $operation, $query= NULL, $log=null, $query2= NULL)
   {
     $request= array(
                 ':WS:OPERATION='.$operation,
                 ':WS:FORMAT=:JSON',
-                ':WS:DATABASE='.urlencode(json_encode($db)),
-                ':WS:CONTAINER='.urlencode(json_encode($this->collection))
-
+                ':WS:DATABASE='.urlencode(json_encode($db))
             );
+    
+    if($this->collection)
+      $request[]=':WS:CONTAINER='.urlencode(json_encode($this->collection));
     
       
     if($query != NULL)
@@ -74,12 +85,24 @@ class HttpServerConnection
                                     '_query-operator' => $query['operator'],
                                     '_query-data-type' => $query['type'],
                                     '_query-data' => $query['data'],
-                                  ),
+                                  )
+                                )
+                      )));
+    
+    if($query2 != NULL)
+      $request[]=':WS:QUERY='.urlencode(json_encode(Array(
+                      '$AND' => Array(
                                   Array(
-                                    '_query-subject' => Tags::kTAG_USER_DOMAIN,
+                                    '_query-subject' => $query['subject'],
                                     '_query-operator' => $query['operator'],
                                     '_query-data-type' => $query['type'],
-                                    '_query-data' => $this->domain,
+                                    '_query-data' => $query['data'],
+                                  ),
+                                  Array(
+                                    '_query-subject' => $query2['subject'],
+                                    '_query-operator' => $query2['operator'],
+                                    '_query-data-type' => $query2['type'],
+                                    '_query-data' => $query2['data'],
                                   )
                                 )
                       )));

@@ -1,3 +1,7 @@
+bioversity_server_connection:
+    resource: "@BioversityServerConnectionBundle/Resources/config/routing.yml"
+    prefix:   /
+
 bioversity_site_structure:
     resource: "@BioversitySiteStructureBundle/Resources/config/routing.yml"
     prefix:   /

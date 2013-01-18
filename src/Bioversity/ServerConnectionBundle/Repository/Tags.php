@@ -1,6 +1,6 @@
 <?php
 
-namespace Bioversity\SecurityBundle\Repository;
+namespace Bioversity\ServerConnectionBundle\Repository;
 
 class Tags{
    const kTAG_NID=               '_id';

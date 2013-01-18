@@ -155,7 +155,7 @@ function generateNodeRelations(layout, destination)
   }
   
   if($show_search_filter===true){
-    if(pager_count > 5){
+    if(pager_count > 25){
       showSearchFilter(destination);
     
       if($start_search_bind===true){

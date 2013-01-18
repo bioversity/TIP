@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Bioversity\SecurityBundle\Controller\SecurityController;
 use Bioversity\SecurityBundle\Repository\ServerConnection;
 use Bioversity\SecurityBundle\Repository\User\WebserviceUserProvider;
-use Bioversity\SecurityBundle\Repository\Tags;
+use Bioversity\ServerConnectionBundle\Repository\Tags;
 
 class SecurityControllerTest extends WebTestCase
 {

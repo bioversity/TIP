@@ -1,0 +1,7 @@
+parameters:
+#    bioversity_server_connection.example.class: Bioversity\ServerConnectionBundle\Example
+
+services:
+#    bioversity_server_connection.example:
+#        class: %bioversity_server_connection.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

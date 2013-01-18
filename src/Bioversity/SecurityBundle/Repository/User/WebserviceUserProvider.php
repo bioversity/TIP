@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Bioversity\SecurityBundle\Repository\ServerConnection;
 use Bioversity\SecurityBundle\Repository\User\WebserviceUser;
-use Bioversity\SecurityBundle\Repository\Tags;
+use Bioversity\ServerConnectionBundle\Repository\Tags;
 
 class WebserviceUserProvider implements UserProviderInterface
 {
