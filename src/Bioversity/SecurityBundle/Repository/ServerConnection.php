@@ -19,9 +19,9 @@ class ServerConnection extends HttpServerConnection
    */
   public function findUserForAuthentication($username)
   {
-    $query= $this->createQuery(Tags::kTAG_USER_CODE,':TEXT', $username);
-    $query2= $this->createQuery(Tags::kTAG_USER_DOMAIN,':TEXT', $username, $this->domain);
-    $params= $this->createRequest('WS:OP:GET-ONE',$query,$query2);
+    $query1= $this->createQuery(Tags::kTAG_USER_CODE,':TEXT', $username);
+    $query2= $this->createQuery(Tags::kTAG_USER_DOMAIN,':TEXT',$this->domain);
+    $params= $this->createRequest('WS:OP:GET-ONE',$query1,$query2);
     return $this->sendRequest($this->wrapper, $params);
   }
   
@@ -43,9 +43,9 @@ class ServerConnection extends HttpServerConnection
    */
   public function getDatasetUserList()
   {
-    $query= $this->createQuery(Tags::kTAG_USER_ROLE,':TEXT', 'ROLE_DATASET_USER');
-    $query2= $this->createQuery(Tags::kTAG_USER_DOMAIN,':TEXT', $username, $this->domain);
-    $params= $this->createRequest('WS:OP:GET', $query,$query2);
+    $query1= $this->createQuery(Tags::kTAG_USER_ROLE,':TEXT', 'ROLE_DATASET_USER');
+    $query2= $this->createQuery(Tags::kTAG_USER_DOMAIN,':TEXT', $this->domain);
+    $params= $this->createRequest('WS:OP:GET', $query1,$query2);
     return $this->sendRequest($this->wrapper, $params);
   }
   

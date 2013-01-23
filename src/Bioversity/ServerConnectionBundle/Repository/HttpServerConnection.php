@@ -32,9 +32,9 @@ class HttpServerConnection
    *  
    * @return array $request
    */
-  public function createRequest($operation, $query= NULL, $query2= NULL)
+  public function createRequest($operation, $query1= NULL, $query2= NULL)
   {      
-    $request= $this->buildQuery($this->db, $operation, $query, 1);
+    $request= $this->buildQuery($this->db, $operation, $query1, $query2, 1);
    
     return $request;
   }
@@ -50,7 +50,7 @@ class HttpServerConnection
    */
   public function createQuery($subject, $type=':TEXT', $data, $operator = '$EQ')
   {
-    return $query= array('subject'=>$subject, 'operator'=>$operator, 'type'=>$type, 'data' => $data);
+    return $query= Array('_query-subject'=>$subject, '_query-operator'=>$operator, '_query-data-type'=>$type, '_query-data' => $data);
   }
   
   /**
@@ -65,7 +65,7 @@ class HttpServerConnection
    * @return array $request
    *
    */
-  public function buildQuery($db, $operation, $query= NULL, $log=null, $query2= NULL)
+  public function buildQuery($db, $operation, $query1= NULL, $query2= NULL, $log=NULL)
   {
     $request= array(
                 ':WS:OPERATION='.$operation,
@@ -76,36 +76,10 @@ class HttpServerConnection
     if($this->collection)
       $request[]=':WS:CONTAINER='.urlencode(json_encode($this->collection));
     
-      
-    if($query != NULL)
-      $request[]=':WS:QUERY='.urlencode(json_encode(Array(
-                      '$AND' => Array(
-                                  Array(
-                                    '_query-subject' => $query['subject'],
-                                    '_query-operator' => $query['operator'],
-                                    '_query-data-type' => $query['type'],
-                                    '_query-data' => $query['data'],
-                                  )
-                                )
-                      )));
-    
-    if($query2 != NULL)
-      $request[]=':WS:QUERY='.urlencode(json_encode(Array(
-                      '$AND' => Array(
-                                  Array(
-                                    '_query-subject' => $query['subject'],
-                                    '_query-operator' => $query['operator'],
-                                    '_query-data-type' => $query['type'],
-                                    '_query-data' => $query['data'],
-                                  ),
-                                  Array(
-                                    '_query-subject' => $query2['subject'],
-                                    '_query-operator' => $query2['operator'],
-                                    '_query-data-type' => $query2['type'],
-                                    '_query-data' => $query2['data'],
-                                  )
-                                )
-                      )));
+    if($query2 === NULL)
+        $request[]=':WS:QUERY='.urlencode(json_encode(Array('$AND' => Array($query1))));
+    else
+        $request[]=':WS:QUERY='.urlencode(json_encode(Array('$AND' => Array($query1,$query2))));
       
     if($log)
       $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
