@@ -29,6 +29,16 @@
             {% endfor %}
         {% endif %}
         
+        {% if notice %}
+            {% for alert in notice %}
+                <div class="alert alert-success pull-left">
+                    <strong>Well done!</strong> {{ alert }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <div class="clear"></div>
+        
         {{ form_errors(form) }}
         
         {{ form_widget(form) }}

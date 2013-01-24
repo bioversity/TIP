@@ -26,6 +26,61 @@ class ServerConnection extends HttpServerConnection
     return $this->sendRequest($this->wrapper, $params);
   }
   
+  
+  /**
+   * Returns the term requested
+   *  
+   * @return array $serverResponce
+   */
+  public function getTerm($code, $namespace=NULL)
+  {
+    $this->setDatabase('ONTOLOGY');
+    $this->setCollection(NULL);
+    $query1= $this->createQuery(Tags::kTAG_LID, Types::kTYPE_STRING, $code, Operators::kOPERATOR_EQUAL);
+    if($namespace){
+      $query2= $this->createQuery(Tags::kTAG_NAMESPACE, Types::kTYPE_STRING, $namespace, Operators::kOPERATOR_EQUAL);
+      $params= $this->createRequest('WS:OP:GetTerm', $query1, $query2);
+    }else{
+      $params= $this->createRequest('WS:OP:GetTerm', $query1);
+    }
+    return $this->sendRequest($this->wrapper, $params);
+  }
+  
+  
+  /**
+   * Returns the term requested
+   * @param string $code
+   *  
+   * @return array $serverResponce
+   */
+  public function getTermByCode($code)
+  {
+    $this->setDatabase('ONTOLOGY');
+    $this->setCollection(NULL);
+    $query= $this->createQuery(Tags::kTAG_LID, Types::kTYPE_STRING, $code, Operators::kOPERATOR_EQUAL);
+    $params= $this->createRequest('WS:OP:GetTerm', $query);
+    
+    return $this->sendRequest($this->wrapper, $params);
+  }
+  
+  
+  /**
+   * Returns the term requested
+   * @param string $namespace
+   *  
+   * @return array $serverResponce
+   */
+  public function getNamespace($namespace)
+  {
+    $this->setDatabase('ONTOLOGY');
+    $this->setCollection(NULL);
+    $query= $this->createQuery(Tags::kTAG_NAMESPACE, Types::kTYPE_STRING, $namespace, Operators::kOPERATOR_EQUAL);
+    $params= $this->createRequest('WS:OP:GetTerm', $query);
+    
+    return $this->sendRequest($this->wrapper, $params);
+  }  
+  
+  
   /**
    * Create new user
    *
@@ -36,7 +91,7 @@ class ServerConnection extends HttpServerConnection
    * @param array $roles
    * @param array $profile
    */
-  public function saveNewUser($fullname, $username, $password, $email, $roles, $profile= NULL)
+  public function saveNewTerm($fullname, $username, $password, $email, $roles, $profile= NULL)
   {
     $object = array(
       Tags::kTAG_USER_NAME => $fullname,

@@ -26,11 +26,17 @@ class OntologyTermType extends AbstractType
         $labels= $this->getLabel();
         
         foreach($labels as $label => $type){
-            foreach($labels[':WS:RESPONSE']['_ids'] as $value){
-            $builder->add(
-                str_replace(' ', '_',$labels[':WS:RESPONSE']['_term'][$labels[':WS:RESPONSE']['_tag'][$value][Tags::kTAG_PATH][0]][Tags::kTAG_LABEL]['en']),
-                'text',
-                array('required' => true));
+            $records= $labels[':WS:RESPONSE'];
+            $tags= $records['_tag'];
+            $terms= $records['_term'];
+            foreach($records['_ids'] as $id){
+                $name= str_replace(' ', '_',$terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_LABEL]['en']);
+                
+                $builder->add(
+                    (string)$id,
+                    $this->getInputType($id, $tags)/*'text'*/,
+                    array('required' => true,'label' => $name)
+                );
             }
         }
     }
@@ -45,6 +51,19 @@ class OntologyTermType extends AbstractType
         );
         
         $server= new ServerConnection();
+        //print_r($server->getTags($internationlization));
         return $server->getTags($internationlization);
+    }
+    
+    private function getInputType($id, $tags)
+    {
+        $inputType= $tags[$id][Tags::kTAG_INPUT][0];
+        
+        switch($inputType){
+            case ':INPUT-TEXTAREA':
+                return 'textarea';
+            case ':INPUT-TEXT':
+                return 'text';
+        }
     }
 }
