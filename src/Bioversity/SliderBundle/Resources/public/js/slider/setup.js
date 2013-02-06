@@ -39,7 +39,6 @@ var $slider_left_layout_id= 'node_button_left';
 var $slider_center_layout_id= 'node_details_layout';
 var $slider_pager_layout_id= 'node_pager_layout';
 
-var $dev_env= '/app_dev.php';
 var $urlForRootNodes= '/get-root-nodes';
 var $urlForNodeDetails= '/get-node-details';
 var $urlForNodeRelationIN= '/get-node-relation-in';

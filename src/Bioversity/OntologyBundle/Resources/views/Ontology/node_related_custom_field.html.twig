@@ -1,0 +1,62 @@
+{% block form_rows %}
+{% spaceless %}
+    {% for child in form %}
+        {% if(child.name) == 'node_relate' %}
+            {{ form_row(child) }}
+        {% else %}
+            {{ form_row(child) }}
+        {% endif %}
+    {% endfor %}
+{% endspaceless %}
+{% endblock form_rows %}
+
+{% block form_node %}
+    <div>
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}
+
+{% block radio_widget %}
+    {% spaceless %}
+        <tr class="error">
+          <td>
+            <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ label }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+          </td>
+          <td title="{% if node.18 is defined %}{{ node[18]['en'] }}{% else %}no description for this item{% endif %}">
+            <span>
+              {{ label }}
+            </span>
+          </td>
+        </tr>
+    {% endspaceless %}
+{% endblock radio_widget %}
+
+{% block choice_widget_expanded %}
+    <div class="clear"></div>
+    {% spaceless %}
+        <div {{ block('widget_container_attributes') }}>
+        
+            <div id="OntologyNodeList">
+              <h2><small>Existing nodes related to the Term</small></h2>
+              <blockquote>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>ID</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                        {% for child in form %}
+                            {{ form_widget(child) }}
+                        {% endfor %}
+                  </tbody>
+                </table>
+              </blockquote>
+            </div>
+    
+        </div>
+    {% endspaceless %}
+{% endblock choice_widget_expanded %}

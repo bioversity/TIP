@@ -1,0 +1,60 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme form
+    '::error.html.twig'
+    '::form_div_layout.html.twig'
+    'BioversityOntologyBundle:Ontology:namespace_custom_field.html.twig'
+%}
+
+{% block javascripts %}
+  {{ parent() }}
+  {% javascripts
+    '@BioversityServerConnectionBundle/Resources/public/js/tags.key.js'
+    '@BioversityOntologyBundle/Resources/public/js/node.js'
+    'js/html5form.js'
+  %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+
+    {% include 'BioversityOntologyBundle:Ontology:modal_namespace_form.html.twig' %}
+
+    <form id="form_term" action="#" method="post" {{ form_enctype(form) }}>
+        <h1><small>1) Select New Term</small></h1>
+        <blockquote>
+        
+            {% if errors %}
+                {% for error in errors %}
+                    <div class="alert alert-error pull-left">
+                        <strong>Warning!</strong> {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            {% if notice %}
+                {% for alert in notice %}
+                    <div class="alert alert-success pull-left">
+                        <strong>Well done!</strong> {{ alert }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <div class="clear"></div>
+            
+            {{ form_errors(form) }}
+            
+            {{ form_widget(form) }}
+            
+            {{ form_rest(form) }}
+    
+            <div class="clear"></div>
+        </blockquote>
+        
+        <div class="form-actions">
+            <input id="OntologyTerm_select" class="btn btn-info" type="submit" value="Select This one" />
+            <input id="OntologyTerm_save" class="btn btn-info" type="submit" value="Save new one" />
+        </div>
+    </form>
+{% endblock %}

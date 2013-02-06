@@ -64,11 +64,11 @@ function resetPager()
 function getNodeRelationPagerINById(page)
 {
   //console.log('getRootNodeList');
-  ask($dev_env+$urlForNodeRelationPagerIN+'/'+selected_node_id+ '/'+page, generateNodeRelationIN);
+  ask(dev_stage+$urlForNodeRelationPagerIN+'/'+selected_node_id+ '/'+page, generateNodeRelationIN);
 }
 
 function getNodeRelationPagerOUTById(page)
 {
   //console.log('getNodeRelationPagerOUTById');
-  ask($dev_env+$urlForNodeRelationPagerOUT+'/'+selected_node_id+ '/'+page, generateNodeRelationOUT);
+  ask(dev_stage+$urlForNodeRelationPagerOUT+'/'+selected_node_id+ '/'+page, generateNodeRelationOUT);
 }

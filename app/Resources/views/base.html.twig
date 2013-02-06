@@ -1,66 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>{% block title %}Bioversity Internation TIP{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    
-    {% block stylesheets %}
-        {% stylesheets
-          'css/*'
-        %}
-            <link href="{{ asset_url }}" rel="stylesheet" type="text/css">
-        {% endstylesheets %}
-    {% endblock %}
-    
-    {% block javascripts %}
-        {% javascripts 
-            'js/jquery.js'
-            'js/jquery-ui-1.9.2.custom.js'
-            'js/bootstrap-transition.js'
-            'js/bootstrap-alert.js'
-            'js/bootstrap-modal.js'
-            'js/bootstrap-dropdown.js'
-            'js/bootstrap-scrollspy.js'
-            'js/bootstrap-tab.js'
-            'js/bootstrap-tooltip.js'
-            'js/bootstrap-popover.js'
-            'js/bootstrap-button.js'
-            'js/bootstrap-collapse.js'
-            'js/bootstrap-carousel.js'
-            'js/bootstrap-typeahead.js'
-        %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts  %}
-    {% endblock %}
-    
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9] -->
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+{% extends '::base_empty.html.twig' %}
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-  </head>
-  <body>
-    
-    {% include '::menuhead.html.twig' %}
-    
-    <div id="wrap">   
-      
-      <div class="container">
-        {% include '::error.html.twig' %}
-        {% block body %}{% endblock %}
-      </div>
+{% block menuhead %}
+  {% include '::menuhead.html.twig' %}
+{% endblock %}
 
-      <div id="push"></div>
-    
-    </div>
-    
-    {% include '::footer.html.twig' %}
-    
-  </body>
-</html>
+{% block footer %}
+  {% include '::footer.html.twig' %}
+{% endblock %}

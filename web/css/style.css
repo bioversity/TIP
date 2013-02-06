@@ -381,6 +381,33 @@ div.open.landrace_box .form_result{
 input[type="image"], input[type="checkbox"], input[type="radio"]{
   float: left;
 }
+
+.ui-tooltip {
+  background-color:#000;
+  border:1px solid #fff;
+  padding:10px 15px;
+  width:200px;
+  display:none;
+  color:#fff;
+  text-align:left;
+  font-size:12px;
+
+  /* outline radius for mozilla/firefox only */
+  -moz-box-shadow:0 0 10px #000;
+  -webkit-box-shadow:0 0 10px #000;
+}
+
+
+
+/*---------NODE FORM FIX----------*/
+
+#node_form_container{
+  height: 800px;
+  margin-left: -117px;
+  overflow: hidden;
+  width: 100%;
+}
+
 /*.no_detail_find,
 .no_detail_find label{
 background-color: #E2E2E2;

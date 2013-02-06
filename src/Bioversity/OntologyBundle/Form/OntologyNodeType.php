@@ -2,38 +2,28 @@
 
 namespace Bioversity\OntologyBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\Choice;
+use Bioversity\OntologyBundle\Form\OntologyBaseType;
+use Bioversity\ServerConnectionBundle\Repository\Tags;
 
-class OntologyNodeType extends AbstractType
-{
+class OntologyNodeType extends OntologyBaseType
+{  
+    var $internationlization= array(
+        //(int) Tags::kTAG_TERM,
+        Tags::kTAG_PID,
+	Tags::kTAG_KIND,	
+	Tags::kTAG_TYPE,
+	Tags::kTAG_INPUT,
+        Tags::kTAG_CATEGORY,
+	Tags::kTAG_PATTERN,
+	Tags::kTAG_LENGTH,	
+	Tags::kTAG_MIN_VAL,	
+	Tags::kTAG_MAX_VAL,
+        Tags::kTAG_DESCRIPTION,
+	Tags::kTAG_EXAMPLES,
+    );
 
     public function getName()
     {
         return 'OntologyNode';
-    }
-    
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('fullname', 'text', array('required' => true));
-        $builder->add('username', 'text', array('required' => true));
-        $builder->add('password', 'text', array('required' => true));
-        $builder->add('email', 'email', array('required' => true));
-        $builder->add('roles', 'choice', array(
-            'choices'   => array(
-                'ROLE_ADMIN'    => 'Admin Role',
-                'ROLE_DATA'     => 'Data Entry Role',
-                'ROLE_ONTOLOGY' => 'Ontology Curator Role'
-                ),
-            'required' => true,
-            'multiple' => true,
-            'expanded' => true
-            )
-        );
     }
 }

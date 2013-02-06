@@ -65,6 +65,23 @@ class ServerConnection extends HttpServerConnection
   
   
   /**
+   * Returns the Node list requested
+   * @param string $nid
+   *  
+   * @return array $serverResponce
+   */
+  public function getNodeByNIDTerm($nid)
+  {
+    $this->setDatabase('ONTOLOGY');
+    $this->setCollection(NULL);
+    $query= $this->createQuery(Tags::kTAG_TERM, Types::kTYPE_STRING, $nid, Operators::kOPERATOR_EQUAL);
+    $params= $this->createRequest('WS:OP:GetVertex', $query);
+    
+    return $this->sendRequest($this->wrapper, $params);
+  }
+  
+  
+  /**
    * Returns the term requested
    * @param string $namespace
    *  
@@ -74,76 +91,78 @@ class ServerConnection extends HttpServerConnection
   {
     $this->setDatabase('ONTOLOGY');
     $this->setCollection(NULL);
-    $query= $this->createQuery(Tags::kTAG_NAMESPACE, Types::kTYPE_STRING, $namespace, Operators::kOPERATOR_EQUAL);
+    $query= $this->createQuery(Tags::kTAG_GID, Types::kTYPE_STRING, $namespace, Operators::kOPERATOR_EQUAL);
     $params= $this->createRequest('WS:OP:GetTerm', $query);
-    
-    return $this->sendRequest($this->wrapper, $params);
-  }  
-  
-  
-  /**
-   * Create new user
-   *
-   * @param string $fullname
-   * @param string $username
-   * @param string $password
-   * @param string $email
-   * @param array $roles
-   * @param array $profile
-   */
-  public function saveNewTerm($fullname, $username, $password, $email, $roles, $profile= NULL)
-  {
-    $object = array(
-      Tags::kTAG_USER_NAME => $fullname,
-      Tags::kTAG_USER_CODE => $username,
-      Tags::kTAG_USER_PASS => $password,
-      Tags::kTAG_USER_MAIL => $email,
-      Tags::kTAG_USER_ROLE => $roles,
-      Tags::kTAG_USER_PROFILE => array( 'un', 'po', 'di', 'roba' ),
-      //Tags::kTAG_USER_MANAGER => 'Codice dell\'utente manager',
-      Tags::kTAG_USER_DOMAIN  => 'TIP'
-    );
-    $params = array(
-      ':WS:FORMAT=:JSON',
-      ':WS:OPERATION=WS:OP:NewUser',
-      ':WS:DATABASE='.urlencode(json_encode($this->db)),
-      ':WS:CONTAINER='.urlencode(json_encode($this->collection)),
-      ':WS:OBJECT='.urlencode(json_encode($object))
-      );        
     
     return $this->sendRequest($this->wrapper, $params);
   }
   
   /**
-   * Edit new user
-   *
-   * @param string $fullname
-   * @param string $username
-   * @param string $password
-   * @param string $email
-   * @param array $roles
-   * @param array $profile
+   * Create new namespace/term
+   * 
    */
-  public function updateNewUser($fullname, $username, $password, $email, $roles, $profile= NULL)
+  public function saveNew($object, $metod)
   {
-    $object = array(
-      Tags::kTAG_USER_NAME => $fullname,
-      Tags::kTAG_USER_CODE => $username,
-      Tags::kTAG_USER_PASS => $password,
-      Tags::kTAG_USER_MAIL => $email,
-      Tags::kTAG_USER_ROLE => $roles,
-      Tags::kTAG_USER_PROFILE => array( 'un', 'po', 'di', 'roba' ),
-      //Tags::kTAG_USER_MANAGER => 'Codice dell\'utente manager',
-      Tags::kTAG_USER_DOMAIN  => 'TIP'
-    );
     $params = array(
       ':WS:FORMAT=:JSON',
-      ':WS:OPERATION=WS:OP:NewUser',
+      ':WS:OPERATION=WS:OP:'.$metod,
       ':WS:DATABASE='.urlencode(json_encode($this->db)),
-      ':WS:CONTAINER='.urlencode(json_encode($this->collection)),
       ':WS:OBJECT='.urlencode(json_encode($object))
-      );        
+      );
     
     return $this->sendRequest($this->wrapper, $params);
+  }  
+  
+  /**
+   * Returns the LID requested
+   * @param string $lid
+   * @param string $namespace
+   * 
+   * @return array $serverResponce
+   */
+  public function findLID($lid, $namespace=NULL)
+  {
+    $this->setDatabase('ONTOLOGY');
+    $this->setCollection(':_terms');
+    
+    if($namespace)
+      $lid= $namespace.':'.$lid;
+    
+    $query= $this->createQuery(Tags::kTAG_GID, Types::kTYPE_STRING, $lid, Operators::kOPERATOR_EQUAL);
+    $params= $this->createRequest('WS:OP:GET', $query);
+    
+    //print_r($this->sendRequest($this->wrapper, $params));
+    return $this->clearResponse($this->sendRequest($this->wrapper, $params));
+  }
+  
+  
+  /**
+   * Returns the NAMESPACE requested
+   * @param string $namespace
+   *  
+   * @return array $serverResponce
+   */
+  public function findNAMESPACE($namespace)
+  {
+    $this->setDatabase('ONTOLOGY');
+    $this->setCollection(':_terms');
+    $query= $this->createQuery(Tags::kTAG_GID, Types::kTYPE_STRING, $namespace, Operators::kOPERATOR_PREFIX);
+    $params= $this->createRequest('WS:OP:GET', $query);
+    
+    //print_r($this->clearResponse($this->sendRequest($this->wrapper, $params)));
+    return $this->clearResponse($this->sendRequest($this->wrapper, $params));
+  }
+  
+  private function clearResponse($response)
+  {
+    $list= array();
+    if($response[':WS:STATUS'][':WS:AFFECTED-COUNT'] >= 1){
+      $terms= $response[':WS:RESPONSE'];
+      foreach($terms as $term){
+        $list[]=array('GID'=>$term[Tags::kTAG_GID],'LID'=>$term[Tags::kTAG_LID]);
+      }
+    }
+    
+    return $list;
   }
 }

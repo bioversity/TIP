@@ -5,7 +5,7 @@ namespace Bioversity\OntologyBundle\Form;
 use Bioversity\OntologyBundle\Form\OntologyBaseType;
 use Bioversity\ServerConnectionBundle\Repository\Tags;
 
-class OntologyTermType extends OntologyBaseType
+class OntologyNamespaceType extends OntologyBaseType
 {   
     var $internationlization= array(
         //(int) Tags::kTAG_TERM,
@@ -19,6 +19,6 @@ class OntologyTermType extends OntologyBaseType
     
     public function getName()
     {
-        return 'OntologyTerm';
+        return 'OntologyNamespace';
     }
 }

@@ -12,6 +12,7 @@
 {% block javascripts %}
   {{ parent() }}
   {% javascripts 
+    '@BioversityServerConnectionBundle/Resources/public/js/tags.key.js'
     '@BioversitySliderBundle/Resources/public/js/slider/*'
   %}
       <script type="text/javascript" src="{{ asset_url }}"></script>

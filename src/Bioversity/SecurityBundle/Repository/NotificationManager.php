@@ -13,11 +13,12 @@ class NotificationManager
     static public function noticeList($field= NULL)
     {
         return array(
-            '0'                         => 'User is successiful created',
+            '0'                         => 'Element is successiful created',
             '11000'                     => 'The username is already used by another user',
             'not_found'                 => 'Element not found',
             'element_exist'             => sprintf('The element %s already exist', $field),
-            'combination_element_exist' => sprintf('The elements combination %s already exist', $field)
+            'combination_element_exist' => sprintf('The elements combination %s already exist', $field),
+            'default_value'             => 'This is the defoult and uneditadle value'
         );
     }
 }
