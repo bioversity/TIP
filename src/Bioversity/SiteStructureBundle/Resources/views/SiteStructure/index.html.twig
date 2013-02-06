@@ -1,17 +1,5 @@
 {% extends '::base.html.twig' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    {% javascripts 
-        'js/arbor.js'
-        'js/arbor-tween.js'
-        'js/graphics.js'
-        'js/renderer.js'
-        'js/arbor_homepage_setup.js'
-    %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}
 
 {% block body %}  
   
