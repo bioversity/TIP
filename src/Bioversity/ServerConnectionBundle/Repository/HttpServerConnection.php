@@ -4,7 +4,7 @@ namespace Bioversity\ServerConnectionBundle\Repository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
-use Bioversity\SecurityBundle\Repository\Tags;
+use Bioversity\ServerConnectionBundle\Repository\Tags;
 
 class HttpServerConnection
 {
@@ -13,6 +13,8 @@ class HttpServerConnection
   var $domain= "TIP";
   //var $wrapper= "http://192.168.181.11/TIP/Wrapper.php";
   var $wrapper= "http://temp.wrapper.grinfo.net/TIP/Wrapper.php";
+  
+  const logger= 1;
   
   public function setDatabase($db)
   {
@@ -33,9 +35,9 @@ class HttpServerConnection
    *  
    * @return array $request
    */
-  public function createRequest($operation, $query1= NULL, $query2= NULL)
-  {      
-    $request= $this->buildQuery($this->db, $operation, $query1, $query2, 1);
+  public function createRequest($operation, $query1= NULL, $query2= NULL, $class= NULL)
+  {
+    $request= $this->buildQuery($this->db, $operation, $query1, $query2, $class);
    
     return $request;
   }
@@ -51,7 +53,12 @@ class HttpServerConnection
    */
   public function createQuery($subject, $type=':TEXT', $data, $operator = '$EQ')
   {
-    return $query= Array('_query-subject'=>$subject, '_query-operator'=>$operator, '_query-data-type'=>$type, '_query-data' => $data);
+    return $query= Array(
+      '_query-subject'=>$subject,
+      '_query-operator'=>$operator,
+      '_query-data-type'=>$type,
+      '_query-data' => $data
+    );
   }
   
   /**
@@ -61,18 +68,22 @@ class HttpServerConnection
    * @param string $operation
    * @param string $username
    * @param array $query
+   * @param string $class
    * @param bool $log
    *
    * @return array $request
    *
    */
-  public function buildQuery($db, $operation, $query1= NULL, $query2= NULL, $log=NULL)
+  public function buildQuery($db, $operation, $query1= NULL, $query2= NULL, $class= NULL, $log= self::logger)
   {
     $request= array(
                 ':WS:OPERATION='.$operation,
                 ':WS:FORMAT=:JSON',
                 ':WS:DATABASE='.urlencode(json_encode($db))
             );
+    
+    if($class)
+      $request[]= ':WS:CLASS='.urlencode(json_encode($class));
     
     if($this->collection)
       $request[]=':WS:CONTAINER='.urlencode(json_encode($this->collection));
@@ -90,7 +101,6 @@ class HttpServerConnection
   
   public function sendRequest($server, $request)
   {
-    //return var_dump($server.'?'.implode( '&', $request ));
     return json_decode(file_get_contents( $server.'?'.implode( '&', $request ) ), true);
   }
 }

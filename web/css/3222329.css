@@ -90,7 +90,7 @@
   color: #000;
 }
 #node_parents{
-  width: 33%;
+  width: 30%;
   float: left;
   padding-left: 10px;
 }  
@@ -100,7 +100,7 @@
   padding-left: 10px;
 }  
 #node_childrens{
-  width: 33%;
+  width: 30%;
   float: right;
   padding-left: 10px;
 }  

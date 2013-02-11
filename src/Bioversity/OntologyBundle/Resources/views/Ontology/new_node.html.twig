@@ -26,6 +26,7 @@
 {% endblock %}
 
 {% block body %}  
+    {% include 'BioversityOntologyBundle:Ontology:modal_slider.html.twig' %}
     
     <form id="form_node" action="#" method="post" {{ form_enctype(form) }}>
         <h1><small>2) Select New Node</small></h1>
@@ -48,8 +49,8 @@
         
         <div class="clear"></div>
         
-        <h2><small>Create new node related to the Term</small></h2>
         <blockquote>
+          <h2><small>Create new node related to the Term</small></h2>
           {{ form_errors(form) }}
           
           {{ form_widget(form) }}

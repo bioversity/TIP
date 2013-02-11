@@ -22,7 +22,6 @@ class UserController extends Controller
         
         if($this->get('security.context')->isGranted('ROLE_ADMIN')){
             $userList= $webServer->getUserList();
-            //var_dump($userList); die();
         }else{
             $userList= array(':WS:RESPONSE'=>array());
         }
@@ -35,10 +34,6 @@ class UserController extends Controller
                 'errors' => $session->getFlashBag()->get('error')
             )
         );
-        
-        // set the private or shared max age
-        //$response->setMaxAge(0);
-        //$response->setSharedMaxAge(0);
     
         return $response;
     }
@@ -58,9 +53,7 @@ class UserController extends Controller
                 $saver= new ServerConnection();
                 $save= $saver->saveNewUser($user['fullname'], $user['username'], $user['password'], $user['email'], $user['roles']);
                 
-                //return var_dump($save);
                 if($save[':WS:STATUS'][':STATUS-CODE'] === 0){
-                    //$notice->setNotice($save[':WS:STATUS'][':STATUS-CODE']);
                     $session->getFlashBag()->set('notice',  NotificationManager::getNotice($save[':WS:STATUS'][':STATUS-CODE']) );
                     return $this->redirect($this->generateUrl('bioversity_user_homepage'), 301);
                 }else{
@@ -94,7 +87,6 @@ class UserController extends Controller
                 $saver= new ServerConnection();
                 $save= $saver->updateNewUser($user['fullname'], $user['username'], $user['password'], $user['email'], $user['roles']);
                 
-                //return var_dump($save);
                 if($save[':WS:STATUS'][':STATUS-CODE'] === 0){
                     $session->getFlashBag()->set('notice',  NotificationManager::getNotice($save[':WS:STATUS'][':STATUS-CODE']) );
                     return $this->redirect($this->generateUrl('bioversity_user_homepage'), 301);
@@ -127,7 +119,6 @@ class UserController extends Controller
         $saver= new ServerConnection();
         $delete= $saver->deleteUser($code);
         
-        //return var_dump($delete);
         return $this->redirect($this->generateUrl('bioversity_user_homepage'), 301);
     }
 }

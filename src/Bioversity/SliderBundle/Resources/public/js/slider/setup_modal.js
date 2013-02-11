@@ -77,7 +77,8 @@ function loadTemplates(){
 function initSlider()
 {
   //console.log('initSlider');
-  getRootNodeList();
+  //getRootNodeList();
+  getNodeById();
 }
 
 

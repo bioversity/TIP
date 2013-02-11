@@ -79,8 +79,8 @@ class OntologyController extends Controller
             $form->bindRequest($request);
             $formData= $form->getData();
             if($formData['OntologyNode_node_related']){
-              var_dump($formData['node_related']);
-              die();
+              //var_dump($formData['node_related']);
+              //die();
             }           
         
             if ($form->isValid()) {

@@ -3,12 +3,27 @@
     {{ block('form_widget_simple') }}
 {% endblock integer_widget %}
 
+{% block form_rows %}
+{% spaceless %}
+    {% for child in form %}
+        {% if(child.name == 'node_related') %}
+            <div class="clear"></div>
+            <div>
+                {{ form_row(child) }}
+            </div>
+        {% else %}
+            <div class="span3">
+                {{ form_row(child) }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endspaceless %}
+{% endblock form_rows %}
+
 {% block form_row %}
-    <div class="span3">
-        {{ form_label(form) }}
-        {{ form_errors(form) }}
-        {{ form_widget(form) }}
-    </div>
+    {{ form_label(form) }}
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
 {% endblock %}
 
 {% block form_widget_simple %}

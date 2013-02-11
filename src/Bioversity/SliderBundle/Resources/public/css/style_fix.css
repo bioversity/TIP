@@ -1,0 +1,12 @@
+body {
+  padding-top: 0px !important;
+  overflow: hidden;
+}
+
+#history_container{
+  display: none;
+}
+
+#slider_container{
+  width: 100%;
+}

@@ -1,6 +1,10 @@
 bioversity_slider_browse_slider:
     pattern:  /browse-slider
     defaults: { _controller: BioversitySliderBundle:Slider:browseSlider }
+    
+bioversity_slider_modal_slider:
+    pattern:  /modal-slider/{node_id}
+    defaults: { _controller: BioversitySliderBundle:Slider:modalSlider }
 
 #----------------------------------------------------------------------------
 #-----------------------JSON RESONSE-----------------------------------------

@@ -17,8 +17,6 @@ class WebserviceUserProvider implements UserProviderInterface
     {
         $WebServer= new ServerConnection();
         $userData = $WebServer->findUserForAuthentication($username);
-        //print_r($userData);var_dump('here');die();
-        //$userData = array(array(':WS:RESPONSE'=> array("username" => "admin", kTAG_USER_PASS => "nimda", "salt" => "", kTAG_USER_ROLE => array('ROLE_ADMIN'))));
         
         if (array_key_exists(':WS:RESPONSE', $userData)) {
             $email= $userData[':WS:RESPONSE'][Tags::kTAG_USER_MAIL];

@@ -1,9 +1,10 @@
-{% extends '::base.html.twig' %}
+{% extends '::base_empty.html.twig' %}
     
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets
       '@BioversitySliderBundle/Resources/public/css/slider.css'
+      '@BioversitySliderBundle/Resources/public/css/style_fix.css'
     %}
         <link href="{{ asset_url }}" rel="stylesheet" type="text/css">
     {% endstylesheets %}
@@ -13,7 +14,7 @@
   {{ parent() }}
   {% javascripts 
     '@BioversityServerConnectionBundle/Resources/public/js/tags.key.js'
-    '@BioversitySliderBundle/Resources/public/js/slider/setup.js'
+    '@BioversitySliderBundle/Resources/public/js/slider/setup_modal.js'
     '@BioversitySliderBundle/Resources/public/js/slider/nav.js'
     '@BioversitySliderBundle/Resources/public/js/slider/node.class.js'
     '@BioversitySliderBundle/Resources/public/js/slider/pager.js'
@@ -25,6 +26,7 @@
 {% endblock %}
 
 {% block body %}
+    <script type="text/javascript">selected_node_id= {{ node_id }};</script>
     <div id="slider_content">
     
         <div id="entry_point" class="navbar">
@@ -79,7 +81,6 @@
             </div>
             
             <div class="clear"></div>
-            
             <div id="node_legend">
                 <span class="KIND-ROOT">■ :KIND-ROOT</span> 
                 <span class="KIND-SCALE">■ :KIND-SCALE</span> 

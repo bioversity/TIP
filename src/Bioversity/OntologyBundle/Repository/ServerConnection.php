@@ -26,6 +26,20 @@ class ServerConnection extends HttpServerConnection
     return $this->sendRequest($this->wrapper, $params);
   }
   
+  /**
+   * Returns the enumeration options
+   *  
+   * @return array $serverResponce
+   */
+  public function getEnumOptions($id)
+  {
+    $this->setDatabase('ONTOLOGY');
+    $this->setCollection(NULL);
+    $query= $this->createQuery(Tags::kTAG_NID, Types::kTYPE_INT, $id, Operators::kOPERATOR_EQUAL);
+    $params= $this->createRequest('WS:OP:GetEnums', $query, NULL, 'COntologyTag');
+    return $this->sendRequest($this->wrapper, $params);
+  }
+  
   
   /**
    * Returns the term requested

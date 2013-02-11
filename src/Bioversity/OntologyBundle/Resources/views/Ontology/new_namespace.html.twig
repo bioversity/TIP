@@ -1,6 +1,10 @@
 {% extends '::base_empty.html.twig' %}
 
-{% form_theme form '::error.html.twig' %}
+{% form_theme form
+    '::error.html.twig'
+    '::form_div_layout.html.twig'
+    'BioversityOntologyBundle:Ontology:namespace_custom_field.html.twig'
+%}
 
 {% block javascripts %}
   {{ parent() }}
@@ -49,7 +53,9 @@
         
         {{ form_rest(form) }}
 
-        <div class="pull-left">
+        <div class="clear"></div>
+        
+        <div class="form-actions">
             <input class="btn btn-info" type="submit" value="Save" />
         </div>
     </form>

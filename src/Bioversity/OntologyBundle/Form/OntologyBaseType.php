@@ -28,32 +28,12 @@ class OntologyBaseType extends AbstractType
         $tags= $records['_tag'];
         $terms= $records['_term'];
         
-        foreach($labels as $label => $type){
-            foreach($this->internationlization as $id){
-                $definition= $terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_DEFINITION];
-                $name= str_replace(' ', '_',$terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_LABEL]['en']);
-                $required= in_array(':REQUIRED', $tags[$id][Tags::kTAG_TYPE]);
-                
-                $constraints= array($this->getValidator($tags[$id][Tags::kTAG_GID]));
-                
-                if($required)
-                    $constraints[]= new NotBlank();
-                
-                $builder->add(
-                    (string)$id,
-                    $this->getInputType($id, $tags),
-                    array(
-                        'required' => $required,
-                        'label' => $name,
-                        'attr' => array('title' => $this->getAttrTitle($definition) ),
-                        'constraints' => $constraints
-                    )
-                );
-            }
+        foreach($this->internationlization as $id){
+            $field= $this->getInputType($id, $terms, $tags);                
+            $builder->add((string)$id,$field['type'],$field['options']);
         }
         
         if($this->getName()=='OntologyNode'){
-            $nodeList= array('first node', 'second node', 'third node');
             foreach($options['data']['nodes'] as $node){
                 $nodeList[]= $node[Tags::kTAG_NID];
             }
@@ -93,25 +73,72 @@ class OntologyBaseType extends AbstractType
         return $server->getTags($this->internationlization);
     }
     
-    private function getInputType($id, $tags)
+    private function getInputType($id, $terms, $tags)
     {
+        $definition= $terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_DEFINITION];
+        $name= str_replace(' ', '_',$terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_LABEL]['en']);
+        $required= in_array(':REQUIRED', $tags[$id][Tags::kTAG_TYPE]);
+        
+        $constraints= array($this->getValidator($tags[$id][Tags::kTAG_GID]));
+        
+        if($required)
+            $constraints[]= new NotBlank();        
+        
+        $defaultOptions= array(
+            'required' => $required,
+            'label' => $name,
+            'attr' => array('title' => $this->getAttrTitle($definition) ),
+            'constraints' => $constraints
+        );
+            
         if(array_key_exists(Tags::kTAG_INPUT, $tags[$id]))
-            $inputType= $tags[$id][Tags::kTAG_INPUT][0];
+            $inputType= $tags[$id][Tags::kTAG_INPUT];
         else
             $inputType= 'INPUT-HIDDEN';
-        //print_r($tags[$id]);
         
         switch($inputType){
             case ':INPUT-TEXTAREA':
-                return 'textarea';
+                return array(
+                    'type'      => 'textarea',
+                    'options'   => $defaultOptions);
+            
             case ':INPUT-TEXT':
-                return 'text';
+                return array(
+                    'type'      => 'text',
+                    'options'   => $defaultOptions);
+            
             case ':INPUT-MULTIPLE':
-                //controllare 8 per il tipo di select
-                return 'choice';
+                    $defaultOptions['choices'] = $this->getOptions($id);
+                    $defaultOptions['expanded'] = true;
+                    $defaultOptions['multiple'] = true;
+                    return array(
+                        'type'      => 'choice',
+                        'options'   => $defaultOptions);
+                    
+            case ':INPUT-CHOICE':
+                    $defaultOptions['choices'] = $this->getOptions($id);
+                    $defaultOptions['expanded'] = false;
+                    $defaultOptions['multiple'] = false;
+                    return array(
+                        'type'      => 'choice',
+                        'options'   => $defaultOptions);
+                
             case 'INPUT-HIDDEN':
-                return 'hidden';
+                return array(
+                    'type'      => 'hidden',
+                    'options'   => $defaultOptions);
         }
+    }
+    
+    private function getOptions($id)
+    {
+        $server= new ServerConnection();
+        //print_r($server->getEnumOptions($id));
+        $optionsList= $server->getEnumOptions($id);
+        foreach($optionsList as $option){
+            
+        }
+        return array('primo');
     }
     
     public function getAttrTitle($definitions)

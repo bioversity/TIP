@@ -9,12 +9,6 @@
  *	@version	1.00
  */
 
-function initSlider()
-{
-  //console.log('initSlider');
-  getRootNodeList();
-}
-
 function generateRootMenu()
 {
   //console.log('generateRootMenu');

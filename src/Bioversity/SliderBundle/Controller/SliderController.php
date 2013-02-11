@@ -18,6 +18,15 @@ class SliderController extends Controller
     }
     
     /**
+     *The slider index for modal popup
+     *
+     */
+    public function modalSliderAction($node_id)
+    { 
+        return $this->render('BioversitySliderBundle:Slider:modal_slider.html.twig', array('node_id' => $node_id));
+    }
+    
+    /**
      *Json response for Root nodes
      *
      */
