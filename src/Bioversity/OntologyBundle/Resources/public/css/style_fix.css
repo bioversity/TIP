@@ -10,11 +10,6 @@ body {
   display: none;
 }
 
-#loader{
-  display: none;
-  margin:  0 auto !important;
-}
-
 #SliderModal.modal{
   width: 800px !important;
   heigth: 600px !important;

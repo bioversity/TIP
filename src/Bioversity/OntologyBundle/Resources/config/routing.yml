@@ -8,7 +8,23 @@ bioversity_ontology_namespace_new:
 
 bioversity_ontology_node_new:
     pattern:  /ontology/node/new/{term}
-    defaults: { _controller: BioversityOntologyBundle:Ontology:newNode }
+    defaults: { _controller: BioversityOntologyBundle:Ontology:newNode }    
+    
+#----------------------------------------------------------------------------
+#-----------------------MODAL RESONSE----------------------------------------
+#---------------------------------------------------------------------------- 
+bioversity_ontology_modal_term_new:
+    pattern:  /ontology/modal/term/new
+    defaults: { _controller: BioversityOntologyBundle:Ontology:modalNewTerm }
+    
+bioversity_ontology_modal_node_new:
+    pattern:  /ontology/modal/node/new/{term}
+    defaults: { _controller: BioversityOntologyBundle:Ontology:modalNewNode }
+    
+bioversity_ontology_modal_namespace_new:
+    pattern:  /ontology/modal/namespace/new
+    defaults: { _controller: BioversityOntologyBundle:Ontology:modalNewNamespace }
+    
 #----------------------------------------------------------------------------
 #-----------------------JSON RESONSE-----------------------------------------
 #----------------------------------------------------------------------------

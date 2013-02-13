@@ -17,7 +17,7 @@ body {
   height: auto !important;
   height: 100%;
   /* Negative indent footer by it's height */
-  margin: 0px auto -60px;
+  /*margin: 0px auto -60px;*/
 }
 
 /* Set the fixed height of the footer here */
@@ -406,6 +406,11 @@ input[type="image"], input[type="checkbox"], input[type="radio"]{
   margin-left: -117px;
   overflow: hidden;
   width: 100%;
+}
+
+#loader{
+  display: none;
+  margin:  0 auto !important;
 }
 
 /*.no_detail_find,

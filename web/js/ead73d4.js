@@ -64,15 +64,18 @@ function bindFormButton()
             dataType:   "json",
             data:       $form.serializeArray(),
             success: function( data ) {
-                if(data['term'] !== '')
-                    startNodeSelection(data['term']);
+                if(data['term'] !== ''){
+                    startNodeSelection(data['term'][':WS:RESPONSE']['_ids'][0]);
+                }
             }
         });
     });
     $('#OntologyTerm_select').click(function(event){
         event.preventDefault();
-        var $form= $('form[id="form_term"]');
-        startNodeSelection();
+        
+        var $namespace= $('input[name="OntologyTerm['+kTAG_NAMESPACE+']"]').val();
+        var $lid      = $('input[name="OntologyTerm['+kTAG_LID+']"]').val();
+        startNodeSelection($namespace+':'+$lid);
     });
     
     $('#create_namespace').click(function(event){
@@ -104,8 +107,19 @@ function bindFormButton()
 }
 
 function startNodeSelection(term)
-{
-    $('#form_term').append('<object id="node_form_container" data="'+dev_stage+'/ontology/node/new"></object>');
+{    
+    $('#form_node_container div#loader').fadeIn();
+    $('#form_node_container div#embedded_node_form').html('');
+    $.ajax({
+         url:        dev_stage+'/ontology/modal/node/new/'+term,
+         dataType:   "html",
+         success: function( data ) {
+            $('#form_node_container div#embedded_node_form').html(data);
+         }
+     }).done( function(){
+         $('#form_node_container #loader').fadeOut();
+         $('#form_node_container div#embedded_node_form').fadeIn('slow');
+     });
 }
 
 function startAutocomplete()
@@ -166,7 +180,7 @@ function startAutocomplete()
 
 function getUrlParams(lid)
 {
-    $namespace= $( "#OntologyTerm_"+kTAG_NAMESPACE ).val();
+    var $namespace= $( "#OntologyTerm_"+kTAG_NAMESPACE ).val();
     if($namespace == '')
         params= lid;
     else

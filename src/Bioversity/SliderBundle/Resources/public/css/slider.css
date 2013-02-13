@@ -182,7 +182,7 @@ ul.breadcrumb li a.active{
   border: 1px solid #DDDDDD;
   border-radius: 3px 3px 3px 3px;
   box-shadow: 0 1px 0 #FFFFFF inset;
-  margin: 0 0 18px;
+  /*margin: 0 0 18px;*/
   padding: 7px 14px;
 }
 .clear{
@@ -190,7 +190,7 @@ ul.breadcrumb li a.active{
   height: 0px !important;
 }
 #history_container{
-  border-bottom: 1px solid #fff;
+  /*border-bottom: 1px solid #fff;*/
 }
 #history_button{
   margin-bottom: 0px !important;

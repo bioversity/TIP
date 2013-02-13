@@ -1,9 +1,9 @@
-{% extends '::base.html.twig' %}
+{% extends '::base_empty.html.twig' %}
 
 {% form_theme form
     '::error.html.twig'
     '::form_div_layout.html.twig'
-    'BioversityOntologyBundle:Ontology:node_related_custom_field.html.twig'
+    'BioversityOntologyBundle:Ontology:namespace_custom_field.html.twig'
 %}
 
 {% block javascripts %}
@@ -16,11 +16,18 @@
   {% endjavascripts %}
 {% endblock %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  {% stylesheets
+    '@BioversityOntologyBundle/Resources/public/css/style_fix.css'
+  %}
+    <link href="{{ asset_url }}" rel="stylesheet" type="text/css">
+  {% endstylesheets %}
+{% endblock %}
+
 {% block body %}  
-    {% include 'BioversityOntologyBundle:Ontology:modal_slider.html.twig' %}
     
-    <form id="form_node" action="#" method="post" {{ form_enctype(form) }}>
-        <h1><small>2) Select New Node</small></h1>
+    <form id="form_namespace" action="#" method="post" {{ form_enctype(form) }} >
         
         {% if errors %}
             {% for error in errors %}
@@ -40,20 +47,16 @@
         
         <div class="clear"></div>
         
-        <blockquote>
-          <h2><small>Create new node related to the Term</small></h2>
-          {{ form_errors(form) }}
-          
-          {{ form_widget(form) }}
-          
-          {{ form_rest(form) }}   
-          
-          <div class="clear"></div>
-        </blockquote>
+        {{ form_errors(form) }}
+        
+        {{ form_widget(form) }}
+        
+        {{ form_rest(form) }}
+
+        <div class="clear"></div>
         
         <div class="form-actions">
-            <input id="OntologyNode_select" class="btn btn-info" type="submit" value="Select This one" />
-            <input id="OntologyNode_save" class="btn btn-info" type="submit" value="Save new one" />
-        </div>     
+            <input class="btn btn-info" type="submit" value="Save" />
+        </div>
     </form>
 {% endblock %}

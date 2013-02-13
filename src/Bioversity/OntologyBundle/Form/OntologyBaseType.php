@@ -33,6 +33,7 @@ class OntologyBaseType extends AbstractType
             $builder->add((string)$id,$field['type'],$field['options']);
         }
         
+        $nodeList= array();
         if($this->getName()=='OntologyNode'){
             foreach($options['data']['nodes'] as $node){
                 $nodeList[]= $node[Tags::kTAG_NID];
@@ -133,12 +134,44 @@ class OntologyBaseType extends AbstractType
     private function getOptions($id)
     {
         $server= new ServerConnection();
-        //print_r($server->getEnumOptions($id));
         $optionsList= $server->getEnumOptions($id);
-        foreach($optionsList as $option){
+        
+        return $this->buildOptions($optionsList);
+    }
+    
+    private function buildOptions($optionsList)
+    {
+        $levels= 1;
+        $options= array();
+        
+        if(array_key_exists(':WS:RESPONSE', $optionsList)){
+            $response= $optionsList[':WS:RESPONSE'];
+            $edges= $response['_edge'];
+            $nodes= $response['_node'];
+            $node= $response['_ids'][0];
             
+            $options[]= $this->cicleOptions($edges, $nodes, $node, $levels);
         }
-        return array('primo');
+        
+        return $options;
+    }
+    
+    private function cicleOptions($edges, $nodes, $node, $levels=1)
+    {
+        $options= array();
+        $spacer='';
+        foreach($edges as $option){
+            if($option[Tags::kTAG_OBJECT] == $node){   
+                for($i=1; $i<$levels; $i++){
+                    $spacer=$spacer.'-';
+                }
+                $options[]= $spacer.$nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_LABEL]['en'];
+                $options[]= $this->cicleOptions($edges, $nodes, $option[Tags::kTAG_SUBJECT],$levels++);
+                $spacer='';
+            }
+        }
+        
+        return $options;
     }
     
     public function getAttrTitle($definitions)

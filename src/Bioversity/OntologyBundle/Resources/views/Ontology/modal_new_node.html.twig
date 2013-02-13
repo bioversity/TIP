@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends '::base_popup.html.twig' %}
 
 {% form_theme form
     '::error.html.twig'
@@ -7,7 +7,6 @@
 %}
 
 {% block javascripts %}
-  {{ parent() }}
   {% javascripts
     '@BioversityServerConnectionBundle/Resources/public/js/tags.key.js'
     '@BioversityOntologyBundle/Resources/public/js/node.js'
@@ -16,7 +15,15 @@
   {% endjavascripts %}
 {% endblock %}
 
-{% block body %}  
+{% block stylesheets %}
+  {% stylesheets
+    '@BioversityOntologyBundle/Resources/public/css/style_fix.css'
+  %}
+    <link href="{{ asset_url }}" rel="stylesheet" type="text/css">
+  {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
     {% include 'BioversityOntologyBundle:Ontology:modal_slider.html.twig' %}
     
     <form id="form_node" action="#" method="post" {{ form_enctype(form) }}>

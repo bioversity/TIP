@@ -23,13 +23,10 @@
         </ul>
       </div>
       
-      <div class="nav_menu_top nav-collapse collapse first_row">  
-        {% include '::login.html.twig' %}
-      </div>
-
       {% set currentPath = app.request.attributes.get('_route') %}
       
-      <div class="nav_menu_top nav-collapse collapse second_row">
+      <div class="nav_menu_top nav-collapse collapse first_row">  
+        {% include '::login.html.twig' %}
         <ul class="nav  pull-right">
           <li class="root_page {% if(currentPath == 'bioversity_site_structure_homepage') %} active{% endif %}">
             <a href="{{ path('bioversity_site_structure_homepage') }}">Home</a>
@@ -47,8 +44,9 @@
             <a href="{{ path('bioversity_slider_browse_slider') }}">Slider</a>
           </li>
         </ul>
-        
-        
+      </div>
+      
+      <div class="nav_menu_top nav-collapse collapse second_row">
         <ul class="nav  pull-right">
           <li><a href="{{ path('bioversity_site_structure_database') }}">Database</a></li>
           <li><a data-toggle="modal" href="#MenbersModal">Members</a></li>

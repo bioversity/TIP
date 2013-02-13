@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends '::base_empty.html.twig' %}
 
 {% form_theme form
     '::error.html.twig'
@@ -14,6 +14,15 @@
   %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
   {% endjavascripts %}
+{% endblock %}
+
+{% block stylesheets %}
+  {% stylesheets
+    '@BioversityOntologyBundle/Resources/public/css/style_fix.css'
+  %}
+    <link href="{{ asset_url }}" rel="stylesheet" type="text/css">
+  {% endstylesheets %}
+  {{ parent() }}
 {% endblock %}
 
 {% block body %}
