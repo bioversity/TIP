@@ -1,3 +1,7 @@
+bioversity_ontology_browse_slider:
+    pattern:  /ontology/browse-slider
+    defaults: { _controller: BioversityOntologyBundle:Ontology:browseSlider }
+
 bioversity_ontology_term_new:
     pattern:  /ontology/term/new
     defaults: { _controller: BioversityOntologyBundle:Ontology:newTerm }
@@ -8,7 +12,11 @@ bioversity_ontology_namespace_new:
 
 bioversity_ontology_node_new:
     pattern:  /ontology/node/new/{term}
-    defaults: { _controller: BioversityOntologyBundle:Ontology:newNode }    
+    defaults: { _controller: BioversityOntologyBundle:Ontology:newNode }
+    
+bioversity_ontology_predicate_new:
+    pattern:  /ontology/predicate/new/{node}
+    defaults: { _controller: BioversityOntologyBundle:Ontology:newPredicate }    
     
 #----------------------------------------------------------------------------
 #-----------------------MODAL RESONSE----------------------------------------
@@ -24,6 +32,10 @@ bioversity_ontology_modal_node_new:
 bioversity_ontology_modal_namespace_new:
     pattern:  /ontology/modal/namespace/new
     defaults: { _controller: BioversityOntologyBundle:Ontology:modalNewNamespace }
+    
+bioversity_ontology_modal_predicate_new:
+    pattern:  /ontology/modal/predicate/new/{node}
+    defaults: { _controller: BioversityOntologyBundle:Ontology:modalNewPredicate }
     
 #----------------------------------------------------------------------------
 #-----------------------JSON RESONSE-----------------------------------------

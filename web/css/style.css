@@ -5,7 +5,7 @@ body {
 }
 
 body {
-  padding-top: 100px;
+  /*padding-top: 100px;*/
   color: #666666;
   font: 12px arial,sans-serif;
   overflow-y: scroll;
@@ -266,7 +266,7 @@ footer p{
   color: #333 !important;
 }
 
-.closed{
+.children.closed{
   display: none;
 }
 
@@ -411,6 +411,10 @@ input[type="image"], input[type="checkbox"], input[type="radio"]{
 #loader{
   display: none;
   margin:  0 auto !important;
+}
+
+.opener{
+  cursor: pointer;
 }
 
 /*.no_detail_find,

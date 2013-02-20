@@ -36,7 +36,7 @@ class OntologyBaseType extends AbstractType
         $nodeList= array();
         if($this->getName()=='OntologyNode'){
             foreach($options['data']['nodes'] as $node){
-                $nodeList[]= $node[Tags::kTAG_NID];
+                $nodeList[]= array($node[Tags::kTAG_NID]=>$node[Tags::kTAG_NID]);
             }
             
             if(count($nodeList) > 0)
@@ -112,6 +112,7 @@ class OntologyBaseType extends AbstractType
                     $defaultOptions['choices'] = $this->getOptions($id);
                     $defaultOptions['expanded'] = true;
                     $defaultOptions['multiple'] = true;
+                    $defaultOptions['attr']['class'] = 'tree';
                     return array(
                         'type'      => 'choice',
                         'options'   => $defaultOptions);
@@ -120,6 +121,7 @@ class OntologyBaseType extends AbstractType
                     $defaultOptions['choices'] = $this->getOptions($id);
                     $defaultOptions['expanded'] = false;
                     $defaultOptions['multiple'] = false;
+                    $defaultOptions['empty_value'] = 'Choice value';
                     return array(
                         'type'      => 'choice',
                         'options'   => $defaultOptions);
@@ -150,7 +152,7 @@ class OntologyBaseType extends AbstractType
             $nodes= $response['_node'];
             $node= $response['_ids'][0];
             
-            $options[]= $this->cicleOptions($edges, $nodes, $node, $levels);
+            $options= $this->cicleOptions($edges, $nodes, $node, $levels);
         }
         
         return $options;
@@ -159,18 +161,22 @@ class OntologyBaseType extends AbstractType
     private function cicleOptions($edges, $nodes, $node, $levels=1)
     {
         $options= array();
-        $spacer='';
+        $spacer= '';
+        if($levels > 1){
+            for($i=1; $i<$levels; $i++){
+                $spacer=$spacer.'___';
+            }
+            
+        }
         foreach($edges as $option){
-            if($option[Tags::kTAG_OBJECT] == $node){   
-                for($i=1; $i<$levels; $i++){
-                    $spacer=$spacer.'-';
-                }
+            if($option[Tags::kTAG_OBJECT] == $node){
+                //var_dump($option[Tags::kTAG_OBJECT].'->'.$option[Tags::kTAG_SUBJECT].'<br/>');
                 $options[]= $spacer.$nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_LABEL]['en'];
-                $options[]= $this->cicleOptions($edges, $nodes, $option[Tags::kTAG_SUBJECT],$levels++);
-                $spacer='';
+                $options[]= $this->cicleOptions($edges, $nodes, $option[Tags::kTAG_SUBJECT],$levels+1);
             }
         }
         
+        //var_dump($options);
         return $options;
     }
     

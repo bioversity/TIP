@@ -7,14 +7,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Bioversity\OntologyBundle\Form\OntologyNodeType;
+use Bioversity\OntologyBundle\Form\OntologyPredicateType;
 use Bioversity\OntologyBundle\Form\OntologyTermType;
 use Bioversity\OntologyBundle\Form\OntologyNamespaceType;
 use Bioversity\OntologyBundle\Repository\ServerConnection;
 use Bioversity\ServerConnectionBundle\Repository\Tags;
 use Bioversity\SecurityBundle\Repository\NotificationManager;
+use Bioversity\SliderBundle\Controller\SliderController;
 
 class OntologyController extends Controller
-{    
+{
+    public function browseSliderAction(Request $request)
+    {
+        return $this->render('BioversityOntologyBundle:Ontology:slider_add_node.html.twig');
+    }
     public function newTermAction(Request $request)
     {
         $request = $this->getRequest();
@@ -48,6 +54,46 @@ class OntologyController extends Controller
         
         return $this->render(
             'BioversityOntologyBundle:Ontology:new_term.html.twig',
+            array(
+                'form'              => $form->createView(),
+                'notice'            => $session->getFlashBag()->get('notice'),
+                'errors'            => $session->getFlashBag()->get('error')
+            ));
+    }
+    
+    public function newPredicateAction(Request $request, $node)
+    {
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
+        $form = $this->createForm(new OntologyPredicateType());
+        
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+        
+            if ($form->isValid()) {
+                $formData= $form->getData();
+                $code= $formData[Tags::kTAG_LID];
+                $namespace= $formData[Tags::kTAG_NAMESPACE];
+                $saver= new ServerConnection();
+                $term= $saver->getTerm($code, $namespace);
+                
+                //print_r($term);
+                if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
+                    return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $term[':WS:RESPONSE']['_term'][$term[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
+                }else{
+                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
+                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
+                    $newTerm= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
+                    $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
+                    
+                    return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $newTerm[':WS:RESPONSE']['_term'][$newTerm[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
+                }
+            }
+        }
+        
+        return $this->render(
+            'BioversityOntologyBundle:Ontology:new_predicate.html.twig',
             array(
                 'form'              => $form->createView(),
                 'notice'            => $session->getFlashBag()->get('notice'),
@@ -95,26 +141,22 @@ class OntologyController extends Controller
         $saver= new ServerConnection();
         $nodes= $saver->getNodeByNIDTerm($term);
         $nodeList= (array_key_exists(':WS:RESPONSE', $nodes))? $nodes[':WS:RESPONSE']['_node'] : array();
-        //print_r($nodeList);
         
         $form = $this->createForm(new OntologyNodeType(), array('nodes'=>$nodeList));
         $form->get(Tags::kTAG_PID)->setData($term);
         
         if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
-            $formData= $form->getData();
-            if($formData['OntologyNode_node_related']){
-              //var_dump($formData['node_related']);
-              //die();
-            }           
+            $form->bind($request);
         
-            if ($form->isValid()) {
-                if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
-                    $session->getFlashBag()->set('error',  NotificationManager::getNotice('element_exist', $code.' '.$namespace));
+            if ($form->isValid()){
+                $formData= $form->getData();
+                
+                if(count($formData['node_related']) > 0){
+                    return $this->redirect($this->generateUrl('bioversity_ontology_predicate_new', array('node' => $formData['node_related'])));
                 }else{
                     $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $saver->saveNew($this->clearSubmittedData($formData),'SetVertex');
-                    $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
+                    $node= $saver->saveNew($this->clearSubmittedData($formData),'SetVertex');
+                    $session->getFlashBag()->set('notice', NotificationManager::getNotice($node[':WS:STATUS'][':STATUS-CODE']) );
                 }
             }
         }
@@ -127,52 +169,6 @@ class OntologyController extends Controller
                 'errors'            => $session->getFlashBag()->get('error'),
                 'node_list'         => $nodeList
             ));
-    }
-    
-    private function clearSubmittedData($formData)
-    {
-        foreach($formData as $data=>$value){
-            if(!$value){
-                unset($formData[$data]);
-            }else if($data== Tags::kTAG_LABEL || $data== Tags::kTAG_DEFINITION){
-                $formData[$data]= array('en' => $value);
-            }
-        }
-        
-        return $formData;
-    }
-    
-    private function formatSynonyms($synonyms)
-    {
-        if($synonyms)
-            return explode(',', $synonyms);
-        else
-            return NULL;
-    }
-    
-    private function formatCategory($category)
-    {
-        if($category)
-            return explode(',', $category);
-        else
-            return NULL;
-    }
-    
-    private function getKeyValue($term, $key, $lang= false)
-    {
-        //print_r($term[':WS:STATUS']);
-        $record= $term[':WS:RESPONSE'];
-        $id= $record['_ids'][0];
-        
-        if(array_key_exists($key, $record['_term'][$id])){
-            if($lang){
-                return $record['_term'][$id][$key]['en'];
-            }
-            
-            return $record['_term'][$id][$key];
-        }else{
-            return null;
-        }
     }
 
 //--------MODAL PARTIAL------------------------------
@@ -210,6 +206,46 @@ class OntologyController extends Controller
         
         return $this->render(
             'BioversityOntologyBundle:Ontology:modal_new_term.html.twig',
+            array(
+                'form'              => $form->createView(),
+                'notice'            => $session->getFlashBag()->get('notice'),
+                'errors'            => $session->getFlashBag()->get('error')
+            ));
+    }
+    
+    public function modalNewPredicateAction(Request $request)
+    {
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
+        $form = $this->createForm(new OntologyPredicateType());
+        
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+        
+            if ($form->isValid()) {
+                $formData= $form->getData();
+                $code= $formData[Tags::kTAG_LID];
+                $namespace= $formData[Tags::kTAG_NAMESPACE];
+                $saver= new ServerConnection();
+                $term= $saver->getTerm($code, $namespace);
+                
+                //print_r($term);
+                if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
+                    return $this->redirect($this->generateUrl('bioversity_ontology_predicate_new', array('term' => $term[':WS:RESPONSE']['_term'][$term[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
+                }else{
+                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
+                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
+                    $newTerm= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
+                    $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
+                    
+                    return $this->redirect($this->generateUrl('bioversity_ontology_predicate_new', array('term' => $newTerm[':WS:RESPONSE']['_term'][$newTerm[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
+                }
+            }
+        }
+        
+        return $this->render(
+            'BioversityOntologyBundle:Ontology:modal_new_predicate.html.twig',
             array(
                 'form'              => $form->createView(),
                 'notice'            => $session->getFlashBag()->get('notice'),
@@ -333,5 +369,53 @@ class OntologyController extends Controller
     {
         $server= new ServerConnection();
         return  new Response(json_encode($server->findNAMESPACE($word)));
+    }
+
+//------------PRIVATE---------------------------------------
+    
+    private function clearSubmittedData($formData)
+    {
+        foreach($formData as $data=>$value){
+            if(!$value){
+                unset($formData[$data]);
+            }else if($data== Tags::kTAG_LABEL || $data== Tags::kTAG_DEFINITION){
+                $formData[$data]= array('en' => $value);
+            }
+        }
+        
+        return $formData;
+    }
+    
+    private function formatSynonyms($synonyms)
+    {
+        if($synonyms)
+            return explode(',', $synonyms);
+        else
+            return NULL;
+    }
+    
+    private function formatCategory($category)
+    {
+        if($category)
+            return explode(',', $category);
+        else
+            return NULL;
+    }
+    
+    private function getKeyValue($term, $key, $lang= false)
+    {
+        //print_r($term[':WS:STATUS']);
+        $record= $term[':WS:RESPONSE'];
+        $id= $record['_ids'][0];
+        
+        if(array_key_exists($key, $record['_term'][$id])){
+            if($lang){
+                return $record['_term'][$id][$key]['en'];
+            }
+            
+            return $record['_term'][$id][$key];
+        }else{
+            return null;
+        }
     }
 }

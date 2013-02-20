@@ -19,11 +19,28 @@
     <input
         title="{% if node.18 is defined %}{{ node[18]['en'] }}{% else %}no description for this item{% endif %}"
         type="checkbox"
-        {{ block('widget_attributes') }}{% if value is defined %}
-        value="{{ value }}"{% endif %}{% if checked %}
-        checked="checked"{% endif %} />
+        {{ block('widget_attributes') }}
+        {% if value is defined %}
+            value="{{ value }}"
+        {% endif %}
+        {% if checked %}
+            checked="checked"
+        {% endif %} />
 {% endspaceless %}
 {% endblock checkbox_widget %}
+
+{% block choice_widget_expanded %}
+{% spaceless %}
+    <div {{ block('widget_container_attributes') }}>
+    {% for child in form %}
+        <div class="checkbox_option">
+        {{ form_widget(child) }}
+        {{ form_label(child) }}
+        </div>
+    {% endfor %}
+    </div>
+{% endspaceless %}
+{% endblock choice_widget_expanded %}
 
 {% block _OntologyNode_node_related_widget %}
     <div class="clear"></div>
