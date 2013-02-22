@@ -1,0 +1,14 @@
+.action_form a{
+  width: 90% !important;
+}
+
+.action_form{
+    display: none;
+}
+
+#disable_slider{
+  display: none;
+  z-index: 1000;
+  position: absolute;
+  background-color: rgba(0,0,0,0.3);
+}

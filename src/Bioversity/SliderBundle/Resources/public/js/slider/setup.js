@@ -10,8 +10,8 @@
  *	@version	1.00
  */
 
-var $$slider_destination_content= 'slider';
-var $$slider_destination_root= 'entry_point ul.nav';
+var $slider_destination_content= 'slider';
+var $slider_destination_root= 'entry_point ul.nav';
 var $slider_destination_right= 'node_childrens';
 var $slider_destination_left= 'node_parents';
 var $slider_destination_center= 'node_details #node_details_container_body';

@@ -19,7 +19,18 @@ bioversity_ontology_predicate_new:
     defaults: { _controller: BioversityOntologyBundle:Ontology:newPredicate }    
     
 #----------------------------------------------------------------------------
-#-----------------------MODAL RESONSE----------------------------------------
+#-----------------------PARTIAL RESPONCE-------------------------------------
+#----------------------------------------------------------------------------
+bioversity_ontology_partial_term_new:
+    pattern:  /ontology/partial/term/new
+    defaults: { _controller: BioversityOntologyBundle:Ontology:partialNewTerm }
+    
+bioversity_ontology_partial_predicate_new:
+    pattern:  /ontology/partial/predicate/new/{node}/{direction}
+    defaults: { _controller: BioversityOntologyBundle:Ontology:partialNewPredicate }
+
+#----------------------------------------------------------------------------
+#-----------------------MODAL RESPONCE---------------------------------------
 #---------------------------------------------------------------------------- 
 bioversity_ontology_modal_term_new:
     pattern:  /ontology/modal/term/new
@@ -38,7 +49,7 @@ bioversity_ontology_modal_predicate_new:
     defaults: { _controller: BioversityOntologyBundle:Ontology:modalNewPredicate }
     
 #----------------------------------------------------------------------------
-#-----------------------JSON RESONSE-----------------------------------------
+#-----------------------JSON RESPONCE----------------------------------------
 #----------------------------------------------------------------------------
 
 bioversity_ontology_json_find_lid:

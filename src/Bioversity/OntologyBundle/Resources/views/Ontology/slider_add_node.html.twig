@@ -4,6 +4,7 @@
     {{ parent() }}
     {% stylesheets
       '@BioversitySliderBundle/Resources/public/css/slider.css'
+      '@BioversityOntologyBundle/Resources/public/css/slider.css'
       '@BioversityOntologyBundle/Resources/public/css/style_fix.css'
     %}
         <link href="{{ asset_url }}" rel="stylesheet" type="text/css">
@@ -14,18 +15,26 @@
   {{ parent() }}
   {% javascripts 
     '@BioversityServerConnectionBundle/Resources/public/js/tags.key.js'
+    '@BioversityOntologyBundle/Resources/public/js/autocomplete.js'
+    '@BioversityOntologyBundle/Resources/public/js/tree.js'
+    '@BioversityOntologyBundle/Resources/public/js/binder.js'
+    '@BioversityOntologyBundle/Resources/public/js/scroller.js'
+    '@BioversityOntologyBundle/Resources/public/js/slider/setup.js'
+    '@BioversityOntologyBundle/Resources/public/js/slider/form_action.js'
     '@BioversitySliderBundle/Resources/public/js/slider/setup.js'
     '@BioversitySliderBundle/Resources/public/js/slider/nav.js'
     '@BioversitySliderBundle/Resources/public/js/slider/node.class.js'
     '@BioversitySliderBundle/Resources/public/js/slider/pager.js'
     '@BioversitySliderBundle/Resources/public/js/slider/search.js'
     '@BioversitySliderBundle/Resources/public/js/slider/slider.js'
+    '@BioversityOntologyBundle/Resources/public/js/slider/slider.js'
   %}
       <script type="text/javascript" src="{{ asset_url }}"></script>
   {% endjavascripts %}
 {% endblock %}
 
 {% block body %}
+    <div id="disable_slider"></div>
     <div id="slider_content">
     
         <div id="entry_point" class="navbar">
@@ -53,10 +62,8 @@
             <div id="node_parents">
                 <h3>Incoming Relations</h3>
                 <ul id="node_parents_list" class="node_container"></ul>
+                <div class="action_form"><a id="relation_right" class="btn">Append new node here</a></div>
                 <div class="search_box"><input type="text" id="search_left" class="search_filter" name="search_left" placeholder="search node" style="display: none;"/></div>
-                <div class="action_form">
-                    <a class="btn">Append new node here</a>
-                </div>
                 <div class="pager"></div>
             </div>
           
@@ -78,10 +85,8 @@
             <div id="node_childrens">
                 <h3>Outgoing Relations</h3>
                 <ul id="node_childrens_list" class="node_container"></ul>
+                <div class="action_form"><a id="relation_left" class="btn">Append new node here</a></div>
                 <div class="search_box"><input type="text" id="search_right" class="search_filter" name="search_right" placeholder="search node" style="display: none;"/></div>
-                <div class="action_form">
-                    <a class="btn">Append new node here</a>
-                </div>
                 <div class="pager"></div>
             </div>
             
@@ -93,12 +98,19 @@
                 <span class="KIND-FEATURE">■ :KIND-FEATURE</span> 
                 <span class="KIND-ENUMERATION">■ :KIND-ENUMERATION</span> 
                 <span class="KIND-NAMESPACE">■ :KIND-NAMESPACE</span> 
-            </div>
+            </div>    
+            
+            <div class="clear"></div>
+        
+            <div id="form_container"></div>
           
-        </div>    
+        </div>
+        
         <div class="clear"></div>
     
     </div>
+    
+    <div class="clear"></div>
     
     {% include 'BioversitySliderBundle:Slider:partial.html.twig' %}
 {% endblock %}

@@ -27,7 +27,3 @@ body {
 #SliderModal.modal.fade.in {
     top: 35% !important;
 }
-
-.action_form a{
-  width: 90% !important;
-}

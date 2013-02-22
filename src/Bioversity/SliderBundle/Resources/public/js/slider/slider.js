@@ -208,7 +208,7 @@ function createNodeMenuButton(layout, node_name, node_code, node_id)
   //console.log('createNodeMenuButton');
   $('#'+layout+' .node_record a').html(node_name);
   $('#'+layout+' .node_record a').attr('onclick', 'javascript: startNav('+node_id+');');
-  $('#'+$$slider_destination_root).append($('#nav_top_button .node_record').html());
+  $('#'+$slider_destination_root).append($('#nav_top_button .node_record').html());
 }
 
 function createNodeButton(layout, destination, predicate, node_name, node_code, node_id,node_description,node_definition, node_kind, direction)

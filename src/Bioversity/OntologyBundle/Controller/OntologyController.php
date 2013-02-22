@@ -101,38 +101,6 @@ class OntologyController extends Controller
             ));
     }
     
-    public function jsonNewTermAction(Request $request)
-    {
-        $request = $this->getRequest();
-        $session = $request->getSession();
-        
-        $form = $this->createForm(new OntologyTermType());
-        
-        if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
-        
-            if ($form->isValid()) {
-                $formData= $form->getData();
-                $code= $formData[Tags::kTAG_LID];
-                $namespace= $formData[Tags::kTAG_NAMESPACE];
-                $saver= new ServerConnection();
-                $term= $saver->getTerm($code, $namespace);
-                
-                if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
-                    return new Response(json_encode(array('term'=> '')));
-                }else{
-                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
-                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $saved= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
-                    return new Response(json_encode(array('term'=> $saved)));
-                }
-            }
-        }
-        
-        return new Response(json_encode(array('term'=> '')));
-    }
-    
-       
     public function newNodeAction(Request $request, $term)
     {
         $request = $this->getRequest();
@@ -171,8 +139,90 @@ class OntologyController extends Controller
             ));
     }
 
-//--------MODAL PARTIAL------------------------------
+
+//--------INCLUDED PARTIAL------------------------------
+
+    public function partialNewPredicateAction(Request $request, $node, $direction)
+    {
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
+        $form = $this->createForm(new OntologyPredicateType());
+        
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+        
+            if ($form->isValid()) {
+                $formData= $form->getData();
+                $code= $formData[Tags::kTAG_LID];
+                $namespace= $formData[Tags::kTAG_NAMESPACE];
+                $saver= new ServerConnection();
+                $term= $saver->getTerm($code, $namespace);
+                
+                //print_r($term);
+                if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
+                    return new Response(json_encode(array('term'=> '')));
+                }else{
+                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
+                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
+                    $saved= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
+                    return new Response(json_encode(array('term'=> $saved)));
+                }
+            }
+        }
+        
+        return $this->render(
+            'BioversityOntologyBundle:Ontology:partial_new_predicate.html.twig',
+            array(
+                'form'              => $form->createView(),
+                'notice'            => $session->getFlashBag()->get('notice'),
+                'errors'            => $session->getFlashBag()->get('error')
+            ));
+    }
     
+
+    public function partialNewTermAction(Request $request)
+    {
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
+        $form = $this->createForm(new OntologyTermType());
+        
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+        
+            if ($form->isValid()) {
+                $formData= $form->getData();
+                $code= $formData[Tags::kTAG_LID];
+                $namespace= $formData[Tags::kTAG_NAMESPACE];
+                $saver= new ServerConnection();
+                $term= $saver->getTerm($code, $namespace);
+                
+                //print_r($term);
+                if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
+                    return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $term[':WS:RESPONSE']['_term'][$term[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
+                }else{
+                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
+                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
+                    $newTerm= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
+                    $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
+                    
+                    return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $newTerm[':WS:RESPONSE']['_term'][$newTerm[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
+                }
+            }
+        }
+        
+        return $this->render(
+            'BioversityOntologyBundle:Ontology:partial_new_term.html.twig',
+            array(
+                'form'              => $form->createView(),
+                'notice'            => $session->getFlashBag()->get('notice'),
+                'errors'            => $session->getFlashBag()->get('error')
+            ));
+    }
+    
+//--------MODAL PARTIAL------------------------------
+   
     public function modalNewTermAction(Request $request)
     {
         $request = $this->getRequest();
@@ -340,6 +390,37 @@ class OntologyController extends Controller
     }
     
 //--------ASYNC METHODS-------------------------------
+    
+    public function jsonNewTermAction(Request $request)
+    {
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
+        $form = $this->createForm(new OntologyTermType());
+        
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+        
+            if ($form->isValid()) {
+                $formData= $form->getData();
+                $code= $formData[Tags::kTAG_LID];
+                $namespace= $formData[Tags::kTAG_NAMESPACE];
+                $saver= new ServerConnection();
+                $term= $saver->getTerm($code, $namespace);
+                
+                if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
+                    return new Response(json_encode(array('term'=> '')));
+                }else{
+                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
+                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
+                    $saved= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
+                    return new Response(json_encode(array('term'=> $saved)));
+                }
+            }
+        }
+        
+        return new Response(json_encode(array('term'=> '')));
+    }
     
     /**
      *Json response for LID
