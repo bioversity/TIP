@@ -42,6 +42,22 @@ class HttpServerConnection
     return $request;
   }
   
+  /**
+   * Create the Request for the WebServer request
+   * 
+   * @param string $operation
+   * @param string $username
+   * @param bool $query
+   *  
+   * @return array $request
+   */
+  public function createRequestWithMultipleQuery($operation, $query1= NULL, $query2= NULL, $class= NULL)
+  {
+    $request= $this->buildMultipleQuery($this->db, $operation, $query1, $query2, $class);
+   
+    return $request;
+  }
+    
   /*
    * Create the query array for the request
    *
@@ -97,10 +113,51 @@ class HttpServerConnection
       $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
     
     return $request;
+  }/**
+   * Builds and send the Query for the WebServer request
+   *
+   * @param string $db
+   * @param string $operation
+   * @param string $username
+   * @param array $query
+   * @param string $class
+   * @param bool $log
+   *
+   * @return array $request
+   *
+   */
+  public function buildMultipleQuery($db, $operation, $query1= NULL, $query2= NULL, $class= NULL, $log= self::logger)
+  {
+    $request= array(
+                ':WS:OPERATION='.$operation,
+                ':WS:FORMAT=:JSON',
+                ':WS:DATABASE='.urlencode(json_encode($db))
+            );
+    
+    if($class)
+      $request[]= ':WS:CLASS='.urlencode(json_encode($class));
+    
+    if($this->collection)
+      $request[]=':WS:CONTAINER='.urlencode(json_encode($this->collection));
+    
+    if($query2 === NULL)
+        $request[]=':WS:QUERY='.urlencode(json_encode(Array('$AND' => Array($query1))));
+    else
+        $request[]=':WS:QUERY='.urlencode(json_encode(Array(
+          Array('$AND' => Array($query1)),
+          Array('$AND' => Array($query2))
+          )
+        ));
+      
+    if($log)
+      $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
+    
+    return $request;
   }
   
   public function sendRequest($server, $request)
   {
+    //print_r($server.'?'.implode( '&', $request ));
     return json_decode(file_get_contents( $server.'?'.implode( '&', $request ) ), true);
   }
 }

@@ -51,52 +51,41 @@ function startAutocomplete(form)
         },
         minLength: 1,
         select: function( event, ui ) {
-                    if(ui.item)
-                        getTermDetail(ui.item.value, ui.item.label);
+                    //if(ui.item)
+                        //getTermDetail(ui.item.value, ui.item.label);
+                },
+    });
+     
+    var subvalue;
+    $( "#"+form+"_"+kTAG_LABEL ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: dev_stage+"/ontology/json/find/label/"+request.term,
+                dataType: "json",
+                success: function( data ) {
+                    if(data == ''){
+                        unvalorizeField()
+                    }else{
+                        response( $.map( data, function( item ) {
+                            subvalue= item.GID;
+                            return {
+                                label: item.LABEL,
+                                value: item.LABEL,
+                            }
+                        }));
+                    }
+                }
+            });
+        },
+        minLength: 1,
+        select: function( event, ui ) {
+                    if(ui.item){
+                        getTermDetail(subvalue, subvalue);
+                    }
                 },
     });
      
 }
-
-//function startAutocomplete()
-//{
-//    $("#OntologyTerm_"+kTAG_LID).focusin(function(){
-//        createAutocompleter($(this),'OntologyTerm' );
-//    });
-//    $("#OntologyNamespace_"+kTAG_LID).focusin(function(){
-//        createAutocompleter($(this), 'OntologyNamespace' );
-//    });
-//    
-//    $("#OntologyPredicate_"+kTAG_LID).focusin(function(){
-//        createAutocompleter($(this), 'OntologyPredicate' );
-//    });
-//    
-//    $( "#OntologyTerm_"+kTAG_NAMESPACE+", #OntologyNamespace_"+kTAG_NAMESPACE+", #OntologyPredicate_"+kTAG_NAMESPACE ).autocomplete({
-//        source: function( request, response ) {
-//            $.ajax({
-//                url: dev_stage+"/ontology/json/find/namespace/"+request.term,
-//                dataType: "json",
-//                success: function( data ) {
-//                    if(data == ''){
-//                        unvalorizeField()
-//                    }else{
-//                        response( $.map( data, function( item ) {
-//                            return {
-//                                label: item.GID,
-//                                value: item.GID
-//                            }
-//                        }));
-//                    }
-//                }
-//            });
-//        },
-//        minLength: 1,
-//        select: function( event, ui ) {
-//                    if(ui.item)
-//                        getTermDetail(ui.item.value, ui.item.label);
-//                },
-//    });
-//}
 
 function createAutocompleter(fieldBinded, form)
 {
@@ -142,7 +131,7 @@ function getNamespace(htmlNode)
 
 function getUrlParams(lid, namespace)
 {
-    if(namespace == undefined)
+    if(namespace == undefined || namespace == null || namespace == '')
         params= lid;
     else
         params= lid+'/'+namespace;
@@ -153,7 +142,7 @@ function getUrlParams(lid, namespace)
 function getTermDetail(term, gid)
 {
     $.ajax({
-        url: dev_stage+"/ontology/json/get/term/"+getUrlParams(term),
+        url: dev_stage+"/ontology/json/get/term/"+getUrlParams(gid),
         dataType: "json",
         success: function( data ) {
             var response= data[':WS:RESPONSE'];
@@ -172,7 +161,7 @@ function getTermDetail(term, gid)
 function valorizeField(key, entity)
 {
     var $input= $('#'+actualForm+'_'+key);
-    if(key !== kTAG_LID && key !== kTAG_NAMESPACE){
+    //if(key !== kTAG_LID && key !== kTAG_NAMESPACE){
         if($input.length > 0){
             if($.isPlainObject(entity)){
                 $input.val(entity['en']);
@@ -180,7 +169,7 @@ function valorizeField(key, entity)
                 $input.val(entity);
             }
         }
-    }
+    //}
     lockField();
 };
 

@@ -10,9 +10,14 @@
  *	@version	1.00
  */
 
-var $show_action= true;
+var show_action= false;
 var $slider_destination_form_action= 'action_form';
+var ontology_selected_node_relation;
+var ontology_selected_node_object;
+var ontology_selected_node_subject;
+var ontology_selected_node_predicate;
 
 $(document).ready(function(){
-    showFormAction();
+    hideAddNodeButton();
+    bindRootNode();
 });

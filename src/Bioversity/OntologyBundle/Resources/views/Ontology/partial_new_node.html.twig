@@ -1,0 +1,50 @@
+{% extends '::base_partial.html.twig' %}
+
+{% form_theme form
+    '::error.html.twig'
+    '::form_div_layout.html.twig'
+    'BioversityOntologyBundle:Ontology:node_related_custom_field.html.twig'
+%}
+
+{% block body %}
+    {% include 'BioversityOntologyBundle:Ontology:modal_slider.html.twig' %}
+    
+    <form id="form_node" action="#" method="post" {{ form_enctype(form) }}>
+        <h1><small>3) Select New Node</small></h1>
+        
+        {% if errors %}
+            {% for error in errors %}
+                <div class="alert alert-error pull-left">
+                    <strong>Warning!</strong> {{ error }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        {% if notice %}
+            {% for alert in notice %}
+                <div class="alert alert-success pull-left">
+                    <strong>Well done!</strong> {{ alert }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <div class="clear"></div>
+        
+        <blockquote>
+          <h2><small>Create new node related to the Term</small></h2>
+          {{ form_errors(form) }}
+          
+          {{ form_widget(form) }}
+          
+          {{ form_rest(form) }}   
+          
+          <div class="clear"></div>
+        </blockquote>
+        
+        <div class="form-actions">
+            <input id="OntologyNode_select" class="btn btn-info" type="submit" value="Select This one" />
+            <input id="OntologyNode_save" class="btn btn-info" type="submit" value="Save new one" />
+            <input id="OntologyNode_cancel" class="btn btn-info" type="button" value="Cancel" />
+        </div>     
+    </form>
+{% endblock %}

@@ -140,9 +140,52 @@ class OntologyController extends Controller
     }
 
 
-//--------INCLUDED PARTIAL------------------------------
 
-    public function partialNewPredicateAction(Request $request, $node, $direction)
+
+//--------INCLUDED PARTIAL------------------------------
+    public function partialNewNodeAction(Request $request, $term)
+    {
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
+        $saver= new ServerConnection();
+        $nodes= $saver->getNodeByNIDTerm($term);
+        $nodeList= (array_key_exists(':WS:RESPONSE', $nodes))? $nodes[':WS:RESPONSE']['_node'] : array();
+        //print_r($nodeList);
+        
+        $form = $this->createForm(new OntologyNodeType(), array('nodes'=>$nodeList));
+        $form->get(Tags::kTAG_PID)->setData($term);
+        
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            $formData= $form->getData();
+            if($formData['OntologyNode_node_related']){
+              //var_dump($formData['node_related']);
+              //die();
+            }           
+        
+            if ($form->isValid()) {
+                if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
+                    $session->getFlashBag()->set('error',  NotificationManager::getNotice('element_exist', $code.' '.$namespace));
+                }else{
+                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
+                    $saver->saveNew($this->clearSubmittedData($formData),'SetVertex');
+                    $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
+                }
+            }
+        }
+        
+        return $this->render(
+            'BioversityOntologyBundle:Ontology:partial_new_node.html.twig',
+            array(
+                'form'              => $form->createView(),
+                'notice'            => $session->getFlashBag()->get('notice'),
+                'errors'            => $session->getFlashBag()->get('error'),
+                'node_list'         => $nodeList
+            ));
+    }
+    
+    public function partialNewPredicateAction(Request $request)
     {
         $request = $this->getRequest();
         $session = $request->getSession();
@@ -221,8 +264,9 @@ class OntologyController extends Controller
             ));
     }
     
-//--------MODAL PARTIAL------------------------------
-   
+
+
+//--------MODAL PARTIAL------------------------------   
     public function modalNewTermAction(Request $request)
     {
         $request = $this->getRequest();
@@ -389,7 +433,38 @@ class OntologyController extends Controller
             ));
     }
     
+
+
 //--------ASYNC METHODS-------------------------------
+    public function jsonNewPredicateAction(Request $request)
+    {
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
+        $form = $this->createForm(new OntologyPredicateType());
+    
+        return $this->checkForm($request, $form);
+    }
+    
+    public function jsonNewNodeAction(Request $request)
+    {
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
+        $form = $this->createForm(new OntologyNodeType());
+    
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+        
+            if ($form->isValid()) {
+                $formData= $form->getData();
+                $saver= new ServerConnection();
+                
+                $saved= $saver->saveNew($this->clearSubmittedData($formData),'SetVertex');
+                return new Response(json_encode(array('term'=> $saved)));
+            }
+        }
+    }
     
     public function jsonNewTermAction(Request $request)
     {
@@ -397,7 +472,43 @@ class OntologyController extends Controller
         $session = $request->getSession();
         
         $form = $this->createForm(new OntologyTermType());
-        
+    
+        return $this->checkForm($request, $form);
+    }
+    
+    public function jsonNewRelationAction(Request $request, $subject, $predicate, $object)
+    {
+        $server= new ServerConnection();
+        return  new Response(json_encode($server->saveRelation($subject, $predicate, $object)));
+    }   
+    public function jsonFindLidAction($lid, $namespace=null)
+    {
+        $server= new ServerConnection();
+        return  new Response(json_encode($server->findLID($lid,$namespace)));
+    }
+    
+    public function jsonFindLabelAction($label)
+    {
+        $server= new ServerConnection();
+        return  new Response(json_encode($server->findLABEL($label)));
+    }
+    
+    public function jsonGetTermAction($lid, $namespace=null)
+    {
+        $server= new ServerConnection();
+        return  new Response(json_encode($server->getTerm($lid,$namespace)));
+    }
+    
+    
+    public function jsonFindNamespaceAction($word)
+    {
+        $server= new ServerConnection();
+        return  new Response(json_encode($server->findNAMESPACE($word)));
+    }
+
+//------------PRIVATE---------------------------------------
+    private function checkForm(Request $request, $form)
+    {
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
         
@@ -421,38 +532,6 @@ class OntologyController extends Controller
         
         return new Response(json_encode(array('term'=> '')));
     }
-    
-    /**
-     *Json response for LID
-     *
-     */
-    public function jsonFindLidAction($lid, $namespace=null)
-    {
-        $server= new ServerConnection();
-        return  new Response(json_encode($server->findLID($lid,$namespace)));
-    }
-    
-    /**
-     *Json response for TERM detail
-     *
-     */
-    public function jsonGetTermAction($lid, $namespace=null)
-    {
-        $server= new ServerConnection();
-        return  new Response(json_encode($server->getTerm($lid,$namespace)));
-    }
-    
-    /**
-     *Json response for NAMESPACE
-     *
-     */
-    public function jsonFindNamespaceAction($word)
-    {
-        $server= new ServerConnection();
-        return  new Response(json_encode($server->findNAMESPACE($word)));
-    }
-
-//------------PRIVATE---------------------------------------
     
     private function clearSubmittedData($formData)
     {

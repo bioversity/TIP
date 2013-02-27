@@ -33,13 +33,12 @@ function clearIndentation(label)
 function bindFormCheckbox()
 {
     $('div.tree div.checkbox_option input, .opener').click(function(){
-        var $opener= $(this).parent().find('.opener');
-        
-        if($opener.html() == ' <strong> + </strong> '){
-            $opener.html(' <strong> - </strong> '); 
-        }else{
-            $opener.html(' <strong> + </strong> '); 
-        }
+        //var $opener= $(this).parent().find('.opener');
+        //if($opener.html() == ' <strong> + </strong> '){
+        //    $opener.html(' <strong> - </strong> '); 
+        //}else{
+        //    $opener.html(' <strong> + </strong> '); 
+        //}
         
         var $inputId= $(this).parent().attr('id');
         var $exploded= $inputId.split('_');

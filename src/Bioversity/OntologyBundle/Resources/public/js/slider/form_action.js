@@ -5,8 +5,8 @@
 
 function showFormAction(/*destination*/)
 {
-    $(/*'#'+destination+*/' .'+$slider_destination_form_action).fadeIn('slow');
-    startProcess();
+    $('.'+$slider_destination_form_action).fadeIn('slow');
+    bindStartProcessButton();
 }
 
 function startProcess()
@@ -19,23 +19,17 @@ function startProcess()
     });
 }
 
-function disableSlider(){
-    $('#disable_slider').css('height',$('#slider_content').height()+'px');
-    $('#disable_slider').css('width',$('#slider_content').width()+'px');
-    $('#disable_slider').fadeIn('slow');
-}
-
 function createPredicate(relation)
 {
     $('#form_container').html('');
     $.ajax({
-        url:        dev_stage+'/ontology/partial/predicate/new/'+selected_node_code+'/'+relation,
+        url:        dev_stage+'/ontology/partial/predicate/new',
         dataType:   "html",
         success: function( data ) {
            $('#form_container').append(data);
         }
      }).done( function(){
-        startnamespaceConfiguration();
+        startnamespaceConfiguration('form_predicate');
         startAutocomplete('OntologyPredicate');
         startTooltip();
         bindPredicateFormAction(); 
@@ -52,37 +46,91 @@ function createTerm()
            $('#form_container').append(data);
         }
      }).done( function(){
-        startnamespaceConfiguration();
+        startnamespaceConfiguration('form_term');
         startAutocomplete('OntologyTerm');
         startTooltip();
         bindTermFormAction();
         goToByScroll('form_term');
-        $('#disable_slider').css('height',($('#disable_slider').height()+$('#form_predicate').height())+'px');
+        disableForm('form_predicate');
      });
 }
 
-function createNode()
+function createNode(term)
 {
-    $('#form_container').html('');
     $.ajax({
-        url:        dev_stage+'/ontology/partial/term/new/'+selected_node_code+'/'+relation,
+        url:        dev_stage+'/ontology/partial/node/new/'+term,
         dataType:   "html",
         success: function( data ) {
-           $('#form_container').append(data);
+            $('#form_container').append(data);
         }
      }).done( function(){
-        $('#create_namespace').attr('href', '#NamespaceModal');
-        $('#create_namespace').attr('data-toggle', 'modal');
-        $('#form_term').attr('action',dev_stage+'/ontology/json/term/new');
-        startAutocomplete('OntologyNode');
+        startTooltip();
         goToByScroll('form_node');
+        disableForm('form_term');
+        buildTree();
+        bindFormCheckbox();
+        bindNodeFormAction();
+        bindSliderButton();
+        bindExistingNode();
+        bindNodeFormField();
      });
 }
 
-function startnamespaceConfiguration()
+function deletePredicate()
 {
-    $('#create_namespace').attr('href', '#NamespaceModal');
-    $('#create_namespace').attr('data-toggle', 'modal');
-    $('#form_term').attr('action',dev_stage+'/ontology/json/term/new');
+    enableForm('disable_slider');
+    $('#form_predicate').remove();
+    goToByScroll('slider_content');
+}
+
+function deleteTerm()
+{
+    enableForm('form_term');
+    $('#form_term').remove();
+    goToByScroll('form_predicate');
+}
+
+function deleteNode()
+{
+    enableForm('form_term');
+    $('#form_node').remove();
+    goToByScroll('form_term');
+}
+
+function startnamespaceConfiguration(form)
+{
+    $('#'+form+' #create_namespace').attr('href', '#NamespaceModal');
+    $('#'+form+' #create_namespace').attr('data-toggle', 'modal');
+    //$('#form_term').attr('action',dev_stage+'/ontology/json/term/new');
     bindnamespaceCreation();
+}
+
+function attachNode(data)
+{
+    console.log(data);
+}
+
+function saveRelation($selected_node)
+{
+    console.log($selected_node);
+    var params= buildUrl($selected_node);
+        
+    $.ajax({
+        type:       "POST",
+        url:        dev_stage+'/ontology/json/relation/new/'+params,
+        dataType:   "json",
+        success: function( data ) {
+            if(data['term'] !== ''){
+                attachNode(data);
+            }
+        }
+    });
+}
+
+function buildUrl(ontology_selected_node_nid)
+{
+    if(ontology_selected_node_relation == kTAG_OBJECT)
+        return ontology_selected_node_nid+'/'+ontology_selected_node_predicate+'/'+ontology_selected_node_id;
+    else
+        return ontology_selected_node_id+'/'+ontology_selected_node_predicate+'/'+ontology_selected_node_nid;
 }

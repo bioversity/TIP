@@ -26,8 +26,12 @@ bioversity_ontology_partial_term_new:
     defaults: { _controller: BioversityOntologyBundle:Ontology:partialNewTerm }
     
 bioversity_ontology_partial_predicate_new:
-    pattern:  /ontology/partial/predicate/new/{node}/{direction}
+    pattern:  /ontology/partial/predicate/new
     defaults: { _controller: BioversityOntologyBundle:Ontology:partialNewPredicate }
+    
+bioversity_ontology_partial_node_new:
+    pattern:  /ontology/partial/node/new/{term}
+    defaults: { _controller: BioversityOntologyBundle:Ontology:partialNewNode }
 
 #----------------------------------------------------------------------------
 #-----------------------MODAL RESPONCE---------------------------------------
@@ -52,6 +56,10 @@ bioversity_ontology_modal_predicate_new:
 #-----------------------JSON RESPONCE----------------------------------------
 #----------------------------------------------------------------------------
 
+bioversity_ontology_json_find_label:
+    pattern:  /ontology/json/find/label/{label}
+    defaults: { _controller: BioversityOntologyBundle:Ontology:jsonFindLabel }
+    
 bioversity_ontology_json_find_lid:
     pattern:  /ontology/json/find/lid/{lid}/{namespace}
     defaults: { _controller: BioversityOntologyBundle:Ontology:jsonFindLid }
@@ -75,3 +83,15 @@ bioversity_ontology_json_get_term_without_namespace:
 bioversity_ontology_json_term_new:
     pattern:  /ontology/json/term/new
     defaults: { _controller: BioversityOntologyBundle:Ontology:jsonNewTerm }
+    
+bioversity_ontology_json_predicate_new:
+    pattern:  /ontology/json/predicate/new
+    defaults: { _controller: BioversityOntologyBundle:Ontology:jsonNewPredicate }
+    
+bioversity_ontology_json_node_new:
+    pattern:  /ontology/json/node/new
+    defaults: { _controller: BioversityOntologyBundle:Ontology:jsonNewNode }
+    
+bioversity_ontology_json_relation_new:
+    pattern:  /ontology/json/relation/new/{object}/{predicate}/{subject}
+    defaults: { _controller: BioversityOntologyBundle:Ontology:jsonNewRelation }

@@ -34,12 +34,17 @@ class OntologyBaseType extends AbstractType
         }
         
         $nodeList= array();
+        $this->manageNodeFormException($nodeList, $builder);
+    }
+    
+    public function manageNodeFormException($nodeList, $builder)
+    {
         if($this->getName()=='OntologyNode'){
             foreach($options['data']['nodes'] as $node){
                 $nodeList[]= array($node[Tags::kTAG_NID]=>$node[Tags::kTAG_NID]);
             }
             
-            if(count($nodeList) > 0)
+            if(count($nodeList) > 0){
                 $builder->add(
                     'node_related',
                     'choice',
@@ -50,6 +55,23 @@ class OntologyBaseType extends AbstractType
                         'required' => false
                     )
                 );
+                
+                $builder->add(
+                    'node_class',
+                    'hidden',
+                    array(
+                        'data' => 'COntologyMasterVertex'
+                    )
+                );
+            }else{                
+                $builder->add(
+                    'node_class',
+                    'hidden',
+                    array(
+                        'data' => 'COntologyAliasVertex'
+                    )
+                );
+            }
         }
     }
     

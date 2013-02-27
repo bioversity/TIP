@@ -1,11 +1,102 @@
-function bindTermFormAction(){
-    bindTermSave();
-    bindTermSelection();
+function bindRootNode()
+{
+  $(document).on("click", "#entry_point a", function(){ 
+    if(show_action == false){
+      showFormAction();
+      show_action= true;
+    }
+  });
 }
 
-function bindPredicateFormAction(){
+function bindPredicateFormAction()
+{
     bindPredicateSave(createTerm);
     bindPredicateSelection(createTerm);
+    bindPredicateCancel();
+}
+
+function bindNodeFormAction()
+{
+    bindNodeSave(saveRelation);
+    bindNodeSelection(saveRelation);
+    bindNodeCancel();
+}
+
+function bindTermFormAction()
+{
+    bindTermSave(createNode);
+    bindTermSelection(createNode);
+    bindTermCancel();
+}
+
+//------------------------------------
+//--------START BUTTON----------------
+//------------------------------------
+function bindStartProcessButton()
+{
+    $('.'+$slider_destination_form_action+' a').click(function(){
+        ontology_selected_node_id= selected_node_id; //this variable is defined in the node.class.js file in the SliderBundle
+        ontology_selected_node_relation= ($(this).attr('id') == 'relation_left')? kTAG_OBJECT : kTAG_SUBJECT;
+        disableSlider();
+        createPredicate();
+    });
+}
+
+//------------------------------------
+//--------PREDICATE BUTTON------------
+//------------------------------------
+function bindPredicateCancel()
+{
+    $('#OntologyPredicate_cancel').click(function(event){
+        deletePredicate();
+    });
+}
+
+function bindPredicateSave(callback)
+{
+    $('#OntologyPredicate_save').click(function(event){
+        event.preventDefault();
+        var $form= $('form[id="form_predicate"]');
+        $.ajax({
+            type:       "POST",
+            url:        dev_stage+'/ontology/json/predicate/new',
+            dataType:   "json",
+            data:       $form.serializeArray(),
+            success: function( data ) {
+                if(data['term'] !== ''){
+                    //callback(data['term'][':WS:RESPONSE']['_ids'][0]);
+                    var response= data['term'][':WS:RESPONSE'];
+                    var term_id= response['_ids'];
+                    var term_attr= data['term'][':WS:RESPONSE']['_term'];
+                    ontology_selected_node_predicate= term_attr[term_id[0]][kTAG_GID];
+                    callback();
+                }
+            }
+        });
+    });
+}
+
+function bindPredicateSelection(callback)
+{
+    $('#OntologyPredicate_select').click(function(event){
+        event.preventDefault();
+        
+        var $namespace= $('input[name="OntologyPredicate['+kTAG_NAMESPACE+']"]').val();
+        var $lid      = $('input[name="OntologyPredicate['+kTAG_LID+']"]').val();
+        
+        ontology_selected_node_predicate= $namespace+':'+$lid;
+        callback();
+    });    
+}
+
+//------------------------------------
+//--------TERM BUTTON-----------------
+//------------------------------------
+function bindTermCancel()
+{
+    $('#OntologyTerm_cancel').click(function(event){
+        deleteTerm();
+    });
 }
 
 function bindTermSave(callback)
@@ -15,7 +106,7 @@ function bindTermSave(callback)
         var $form= $('form[id="form_term"]');
         $.ajax({
             type:       "POST",
-            url:        $form.attr('action'),
+            url:        dev_stage+'/ontology/json/term/new',
             dataType:   "json",
             data:       $form.serializeArray(),
             success: function( data ) {
@@ -38,36 +129,6 @@ function bindTermSelection(callback)
     });    
 }
 
-function bindPredicateSave(callback)
-{
-    $('#OntologyPredicate_save').click(function(event){
-        event.preventDefault();
-        var $form= $('form[id="form_term"]');
-        $.ajax({
-            type:       "POST",
-            url:        $form.attr('action'),
-            dataType:   "json",
-            data:       $form.serializeArray(),
-            success: function( data ) {
-                if(data['term'] !== ''){
-                    callback(data['term'][':WS:RESPONSE']['_ids'][0]);
-                }
-            }
-        });
-    });
-}
-
-function bindPredicateSelection(callback)
-{
-    $('#OntologyPredicate_select').click(function(event){
-        event.preventDefault();
-        
-        var $namespace= $('input[name="OntologyPredicate['+kTAG_NAMESPACE+']"]').val();
-        var $lid      = $('input[name="OntologyPredicate['+kTAG_LID+']"]').val();
-        callback();
-    });    
-}
-
 function bindnamespaceCreation()
 {
     $('#create_namespace').click(function(event){
@@ -86,17 +147,69 @@ function bindSliderButton()
         $('#SliderModal .modal-body div#embedded_content').html('');
         $('#SliderModal .modal-body div#embedded_content').html('<object height="500px" width="700px" data="'+dev_stage+'/modal-slider/'+$(this).attr('value')+'"><param value="aaa.pdf" name="src"/><param value="transparent" name="wmode"/></object>');
         $('#SliderModal .modal-body div#embedded_content').fadeIn('slow');
-        
-        //$.ajax({
-        //    type:       "POST",
-        //    url:        dev_stage+'/modal-slider/'+$(this).attr('value'),
-        //    dataType:   "html",
-        //    success: function( data ) {
-        //        $('#SliderModal .modal-body div#embedded_content').append(data);
-        //    }
-        //}).done( function(){
-        //    $('#SliderModal #loader').fadeOut();
-        //    $('#SliderModal .modal-body div#embedded_content').fadeIn('slow');
-        //});
     });    
+}
+
+//------------------------------------
+//--------NODE BUTTON-----------------
+//------------------------------------
+function bindNodeSave(callback)
+{
+    $('#OntologyTerm_save').click(function(event){
+        event.preventDefault();
+        var $form= $('form[id="form_node"]');
+        $.ajax({
+            type:       "POST",
+            url:        dev_stage+'/ontology/json/node/new',
+            dataType:   "json",
+            data:       $form.serializeArray(),
+            success: function( data ) {
+                if(data['term'] !== ''){
+                    callback(data);
+                }
+            }
+        });
+    });
+}
+
+function bindNodeSelection(callback)
+{
+    $('#OntologyNode_select').click(function(event){
+        event.preventDefault();
+        
+        var $selected_node= $('#form_node #OntologyNodeList input[type="radio"]:checked').val();
+        callback($selected_node);
+    });    
+}
+
+function bindNodeCancel()
+{
+    $('#OntologyNode_cancel').click(function(event){
+        deleteNode();
+    });
+}
+
+
+function bindExistingNode()
+{
+    $('#form_node #OntologyNodeList input[type="radio"]').click(function(){
+        if($(this).is(':checked')){
+            $('#OntologyNode_select').removeAttr('disabled');
+            $('#OntologyNode_save').attr('disabled', 'disabled');
+            $('#form_node input[type="text"], select, textarea').val('');
+            $('#form_node .checkbox_option input').attr('checked',false);
+            //$('#form_node input, select, textarea').attr('disabled', 'disabled');
+        }
+    });
+}
+
+function bindNodeFormField()
+{
+    $('#form_node input[type="text"],input[type="checkbox"], textarea, select').change(function(){
+        if($(this).val() !== ''){
+            $('#OntologyNode_save').removeAttr('disabled');
+            $('#OntologyNode_select').attr('disabled', 'disabled');
+            $('#form_node #OntologyNodeList input[type="radio"]:checked').attr('checked', false);
+        }
+    });
 }
