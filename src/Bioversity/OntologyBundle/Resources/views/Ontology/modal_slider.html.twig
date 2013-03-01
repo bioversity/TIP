@@ -2,17 +2,15 @@
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h2>Show in Slider</h2>
+        <a class="pull-right top_menu" data-dismiss="modal" href="#"><i class="icon-remove icon-white"></i></a>
       </div>
       <div class="modal-body">
-        <div style="background: transparent url({{ asset('bundles/bioversityontology/images/loader.gif') }}) no-repeat">
-          <div id="embedded_content"></div>
+        <div class="modal_menu">
+          <h3><i class="icon-bookmark"></i> Show in Slider</h3>
+          <div style="background: transparent url({{ asset('bundles/bioversityontology/images/loader.gif') }}) no-repeat">
+            <div id="embedded_content"></div>
+          </div>
         </div>
-        <!--
-          <img id="loader" src="{{ asset('bundles/bioversityontology/images/loader.gif') }}" />
-          <div id="embedded_content"></div>
-        -->
       </div>
       <div class="modal-footer"></div>
     </div>
