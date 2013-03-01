@@ -1,17 +1,10 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-    <fieldset>
-        <legend>
-            <small>User List</small>
-        </legend>
-
-        <div class="pull-right">
-            {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('bioversity_user_new_user') }}" class="btn btn-primary" type="button">Create new User</a>
-            {% endif %}
-        </div>
+        <h1><small>Edit User</small></h1>
         
+        <div class="clear"></div>
+         
         {% if notice %}
             {% for error in notice %}
                 <div class="alert alert-success pull-left">
@@ -28,40 +21,48 @@
             {% endfor %}
         {% endif %}
         
-        <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Full name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Roles</th>
-            <th>Operation</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for user in user_list %}
-                <tr>
-                  <td>{{ user.30 }}</td>
-                  <td>{{ user.31 }}</td>
-                  <td>{{ user.33 }}</td>
-                  <td>
-                    {% for role in user.34 %}
-                        {{ role }}
-                    {% endfor %}
-                  </td>
-                  <td>
-                    <div class="btn-group pull-right">
-                        <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle">Delete <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                          <li><a href="{{ path('bioversity_user_delete', {'code':user.31}) }}">Are you sure?</a></li>
-                        </ul>
-                    </div>
-                    <a href="{{ path('bioversity_user_edit', {'code':user.31}) }}" class="btn btn-primary pull-right" type="button">Edit</a>
-                  </td>
-                </tr>
-          {% endfor %}
-        </tbody>
-        </table>
         
-    </fieldset>
+        <blockquote>
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Full name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th>Operation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for user in user_list %}
+                        <tr>
+                          <td>{{ user.37 }}</td>
+                          <td>{{ user.38 }}</td>
+                          <td>{{ user.39 }}</td>
+                          <td>
+                            {% for role in user.40 %}
+                                {{ role }}
+                            {% endfor %}
+                          </td>
+                          <td>
+                            <div class="btn-group pull-right">
+                                <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle">Delete <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a href="{{ path('bioversity_user_delete', {'code':user.38}) }}">Are you sure?</a></li>
+                                </ul>
+                            </div>
+                            <a href="{{ path('bioversity_user_edit', {'code':user.38}) }}" class="btn btn-primary pull-right" type="button">Edit</a>
+                          </td>
+                        </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        </blockquote>
+        
+        <div class="form-actions">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('bioversity_user_new_user') }}" class="btn btn-primary" type="button">Create new User</a>
+            {% endif %}
+        </div>     
+        
 {% endblock %}

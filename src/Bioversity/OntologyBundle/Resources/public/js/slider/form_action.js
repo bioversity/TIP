@@ -69,10 +69,10 @@ function createNode(term)
         disableForm('form_term');
         buildTree();
         bindFormCheckbox();
-        bindNodeFormAction();
         bindSliderButton();
         bindExistingNode();
         bindNodeFormField();
+        bindNodeFormAction(term);
      });
 }
 
@@ -99,20 +99,24 @@ function deleteNode()
 
 function startnamespaceConfiguration(form)
 {
-    $('#'+form+' #create_namespace').attr('href', '#NamespaceModal');
-    $('#'+form+' #create_namespace').attr('data-toggle', 'modal');
+    $('#'+form+' .create_namespace').attr('href', '#NamespaceModal');
+    $('#'+form+' .create_namespace').attr('data-toggle', 'modal');
     //$('#form_term').attr('action',dev_stage+'/ontology/json/term/new');
-    bindnamespaceCreation();
+    bindnamespaceCreation(form);
 }
 
 function attachNode(data)
 {
-    console.log(data);
+    enableSlider();
+    startNav(ontology_selected_node_id);
+    deleteNode();
+    deleteTerm();
+    deletePredicate();
+    goToByScroll('slider_content');
 }
 
 function saveRelation($selected_node)
 {
-    console.log($selected_node);
     var params= buildUrl($selected_node);
         
     $.ajax({
@@ -129,7 +133,7 @@ function saveRelation($selected_node)
 
 function buildUrl(ontology_selected_node_nid)
 {
-    if(ontology_selected_node_relation == kTAG_OBJECT)
+    if(ontology_selected_node_relation == kTAG_SUBJECT)
         return ontology_selected_node_nid+'/'+ontology_selected_node_predicate+'/'+ontology_selected_node_id;
     else
         return ontology_selected_node_id+'/'+ontology_selected_node_predicate+'/'+ontology_selected_node_nid;

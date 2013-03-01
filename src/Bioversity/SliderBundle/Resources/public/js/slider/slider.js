@@ -234,8 +234,10 @@ function createNodeButton(layout, destination, predicate, node_name, node_code, 
   
   if(node_kind !== ''){
     var added_class= '';
+    var divider=new RegExp(":");
     $.each(node_kind, function(key, value){
-      var html_class= value.replace(':', '');
+      if(divider.test(value))
+        var html_class= value.replace(':', '');
       added_class += ' <span class="'+html_class+'" title=":'+html_class+'">■</span> ';
     });
     $('#'+layout+' .node_record .btn_node_code').html(node_code+added_class);

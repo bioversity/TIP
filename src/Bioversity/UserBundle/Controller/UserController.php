@@ -10,6 +10,7 @@ use Bioversity\SecurityBundle\Form\BioversityUserType;
 use Bioversity\SecurityBundle\Form\BioversityGenericUserType;
 use Bioversity\SecurityBundle\Repository\NotificationManager;
 use Bioversity\SecurityBundle\Repository\User\WebserviceUser;
+use Bioversity\ServerConnectionBundle\Repository\Tags;
 
 class UserController extends Controller
 {
@@ -98,10 +99,10 @@ class UserController extends Controller
         
         if(array_key_exists(':WS:RESPONSE', $user)){
             $form = $this->createForm(new BioversityUserType());
-            $form->get('fullname')->setData($user[':WS:RESPONSE'][30]);
-            $form->get('username')->setData($user[':WS:RESPONSE'][31]);
-            $form->get('email')->setData($user[':WS:RESPONSE'][33]);
-            $form->get('roles')->setData($user[':WS:RESPONSE'][34]);
+            $form->get('fullname')->setData($user[':WS:RESPONSE'][Tags::kTAG_USER_NAME]);
+            $form->get('username')->setData($user[':WS:RESPONSE'][Tags::kTAG_USER_CODE]);
+            $form->get('email')->setData($user[':WS:RESPONSE'][Tags::kTAG_USER_MAIL]);
+            $form->get('roles')->setData($user[':WS:RESPONSE'][Tags::kTAG_USER_ROLE]);
             
             return $this->render('BioversityUserBundle:User:edit_user.html.twig', array(
                 'form'   => $form->createView(),

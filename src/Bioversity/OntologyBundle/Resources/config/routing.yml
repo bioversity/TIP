@@ -89,7 +89,7 @@ bioversity_ontology_json_predicate_new:
     defaults: { _controller: BioversityOntologyBundle:Ontology:jsonNewPredicate }
     
 bioversity_ontology_json_node_new:
-    pattern:  /ontology/json/node/new
+    pattern:  /ontology/json/node/new/{term}
     defaults: { _controller: BioversityOntologyBundle:Ontology:jsonNewNode }
     
 bioversity_ontology_json_relation_new:

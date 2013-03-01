@@ -22,6 +22,7 @@ class ServerConnection extends HttpServerConnection
     $query1= $this->createQuery(Tags::kTAG_USER_CODE,':TEXT', $username);
     $query2= $this->createQuery(Tags::kTAG_USER_DOMAIN,':TEXT',$this->domain);
     $params= $this->createRequest('WS:OP:GET-ONE',$query1,$query2);
+    
     return $this->sendRequest($this->wrapper, $params);
   }
   
@@ -32,7 +33,8 @@ class ServerConnection extends HttpServerConnection
    */
   public function getUserList()
   {
-    $params= $this->createRequest('WS:OP:GET');
+    $query= $this->createQuery(Tags::kTAG_USER_DOMAIN,':TEXT',$this->domain);
+    $params= $this->createRequest('WS:OP:GET', $query);
     return $this->sendRequest($this->wrapper, $params);
   }
   

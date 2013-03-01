@@ -15,9 +15,9 @@ function bindPredicateFormAction()
     bindPredicateCancel();
 }
 
-function bindNodeFormAction()
+function bindNodeFormAction(term)
 {
-    bindNodeSave(saveRelation);
+    bindNodeSave(saveRelation, term);
     bindNodeSelection(saveRelation);
     bindNodeCancel();
 }
@@ -125,13 +125,16 @@ function bindTermSelection(callback)
         
         var $namespace= $('input[name="OntologyTerm['+kTAG_NAMESPACE+']"]').val();
         var $lid      = $('input[name="OntologyTerm['+kTAG_LID+']"]').val();
-        callback($namespace+':'+$lid);
+        if($namespace)
+            callback($namespace+':'+$lid);
+        else
+            callback($lid);
     });    
 }
 
-function bindnamespaceCreation()
+function bindnamespaceCreation(form)
 {
-    $('#create_namespace').click(function(event){
+    $('#'+form+' .create_namespace').click(function(event){
         event.preventDefault();
         $('#NamespaceModal .modal-body div#embedded_content').html('');
         $('#NamespaceModal .modal-body div#embedded_content').html('<object height="400px" width="100%" data="'+dev_stage+'/ontology/modal/namespace/new'+'"><param value="aaa.pdf" name="src"/><param value="transparent" name="wmode"/></object>');
@@ -153,19 +156,19 @@ function bindSliderButton()
 //------------------------------------
 //--------NODE BUTTON-----------------
 //------------------------------------
-function bindNodeSave(callback)
+function bindNodeSave(callback, term)
 {
-    $('#OntologyTerm_save').click(function(event){
+    $('#OntologyNode_save').click(function(event){
         event.preventDefault();
         var $form= $('form[id="form_node"]');
         $.ajax({
             type:       "POST",
-            url:        dev_stage+'/ontology/json/node/new',
+            url:        dev_stage+'/ontology/json/node/new/'+term,
             dataType:   "json",
             data:       $form.serializeArray(),
             success: function( data ) {
                 if(data['term'] !== ''){
-                    callback(data);
+                    callback(data['term'][':WS:RESPONSE']['_ids'][0]);
                 }
             }
         });

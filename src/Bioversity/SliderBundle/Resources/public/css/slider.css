@@ -39,7 +39,7 @@
   height: 255px;
   overflow: auto;
   border-radius: 3px 3px 3px 3px;
-  background: none repeat scroll 0 0 #E3E3E3;
+  /*background: none repeat scroll 0 0 #E3E3E3;*/
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset;
   position: relative;
   margin-top: 5px;
@@ -140,10 +140,10 @@
  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
  box-shadow:inset 0px 1px 0px 0px #ffffff;
- background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+ /*background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
  background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
- filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ededed", endColorstr="#dfdfdf");
- background-color:#ededed;
+ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ededed", endColorstr="#dfdfdf");*/
+ /*background-color:#ededed;*/
  -moz-border-radius:5px;
  -webkit-border-radius:5px;
  border-radius:5px;
@@ -226,4 +226,15 @@ ul.breadcrumb li a.active{
 }
 .nav_open{
   font-weight: bold;
+}
+
+.root_node_menu{
+  background: #45484d !important;
+  background: -moz-linear-gradient(top, #45484d 0%, #000000 100%) !important;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000)) !important;
+  background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%) !important;
+  background: -o-linear-gradient(top, #45484d 0%,#000000 100%) !important;
+  background: -ms-linear-gradient(top, #45484d 0%,#000000 100%) !important;
+  background: linear-gradient(to bottom, #45484d 0%,#000000 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ) !important;
 }

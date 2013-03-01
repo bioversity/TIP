@@ -34,10 +34,10 @@ class OntologyBaseType extends AbstractType
         }
         
         $nodeList= array();
-        $this->manageNodeFormException($nodeList, $builder);
+        $this->manageNodeFormException($nodeList, $builder, $options);
     }
     
-    public function manageNodeFormException($nodeList, $builder)
+    public function manageNodeFormException($nodeList, $builder, $options)
     {
         if($this->getName()=='OntologyNode'){
             foreach($options['data']['nodes'] as $node){
@@ -60,7 +60,7 @@ class OntologyBaseType extends AbstractType
                     'node_class',
                     'hidden',
                     array(
-                        'data' => 'COntologyMasterVertex'
+                        'data' => 'COntologyAliasVertex'
                     )
                 );
             }else{                
@@ -68,7 +68,7 @@ class OntologyBaseType extends AbstractType
                     'node_class',
                     'hidden',
                     array(
-                        'data' => 'COntologyAliasVertex'
+                        'data' => 'COntologyMasterVertex'
                     )
                 );
             }
@@ -193,7 +193,7 @@ class OntologyBaseType extends AbstractType
         foreach($edges as $option){
             if($option[Tags::kTAG_OBJECT] == $node){
                 //var_dump($option[Tags::kTAG_OBJECT].'->'.$option[Tags::kTAG_SUBJECT].'<br/>');
-                $options[]= $spacer.$nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_LABEL]['en'];
+                $options[]= array($option[Tags::kTAG_PREDICATE] => $spacer.$nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_LABEL]['en']);
                 $options[]= $this->cicleOptions($edges, $nodes, $option[Tags::kTAG_SUBJECT],$levels+1);
             }
         }

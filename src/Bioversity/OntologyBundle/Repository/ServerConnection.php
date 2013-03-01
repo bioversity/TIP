@@ -143,9 +143,14 @@ class ServerConnection extends HttpServerConnection
     $params = array(
       ':WS:FORMAT=:JSON',
       ':WS:OPERATION=WS:OP:'.$metod,
-      ':WS:DATABASE='.urlencode(json_encode($this->db)),
-      ':WS:OBJECT='.urlencode(json_encode($object))
+      ':WS:DATABASE='.urlencode(json_encode('ONTOLOGY')),
+      ':WS:OBJECT='.urlencode(json_encode($object)),
+      ':WS:LOG-REQUEST='.urlencode(json_encode(1)),
+      //':WS:LOG-TRACE='.urlencode(json_encode(1))
       );
+    
+    if($class)
+      $params[]=':WS:CLASS='.urlencode(json_encode($class));
     
     return $this->sendRequest($this->wrapper, $params);
   }

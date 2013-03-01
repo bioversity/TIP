@@ -104,10 +104,13 @@ class HttpServerConnection
     if($this->collection)
       $request[]=':WS:CONTAINER='.urlencode(json_encode($this->collection));
     
-    if($query2 === NULL)
-        $request[]=':WS:QUERY='.urlencode(json_encode(Array('$AND' => Array($query1))));
-    else
-        $request[]=':WS:QUERY='.urlencode(json_encode(Array('$AND' => Array($query1,$query2))));
+    
+    //if($query1 === NULL){
+      if($query2 === NULL)
+          $request[]=':WS:QUERY='.urlencode(json_encode(Array('$AND' => Array($query1))));
+      else
+          $request[]=':WS:QUERY='.urlencode(json_encode(Array('$AND' => Array($query1,$query2))));
+    //}
       
     if($log)
       $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
@@ -157,6 +160,7 @@ class HttpServerConnection
   
   public function sendRequest($server, $request)
   {
+    //var_dump($server.'?'.implode( '&', $request ));die();
     //print_r($server.'?'.implode( '&', $request ));
     return json_decode(file_get_contents( $server.'?'.implode( '&', $request ) ), true);
   }

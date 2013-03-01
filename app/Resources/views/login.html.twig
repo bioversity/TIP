@@ -1,7 +1,7 @@
-{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-  <div class="btn-group pull-right">
-    <a class="btn btn-info" href="#">
-      <i class="icon-user"></i>
+<!--<div class="btn-group pull-right">-->
+  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <a class="pull-right top_menu" href="#">
+      <i class="icon-user icon-white"></i>
       <span>{{ app.user.username }}</span>
     </a>
     <!--
@@ -25,10 +25,8 @@
       <li><a href="{{ path('b_s_logout') }}">Sign Out</a></li>
     </ul>
     -->
-  </div>
-{% else %}
-  <div class="btn-group pull-right">
-    <a class="btn btn-info" href="{{ path('b_s_login_path') }}">
+  {% else %}
+    <a class="pull-right top_menu" href="{{ path('b_s_login_path') }}">
       <span>Login</span>
     </a>
     <!--
@@ -39,5 +37,5 @@
       <li><a href="{{ path('b_s_registration') }}">Registration</a></li>
     </ul>
     -->
-  </div>
-{% endif %}
+  {% endif %}
+<!--</div>-->

@@ -143,6 +143,7 @@ class OntologyController extends Controller
 
 
 //--------INCLUDED PARTIAL------------------------------
+
     public function partialNewNodeAction(Request $request, $term)
     {
         $request = $this->getRequest();
@@ -154,7 +155,7 @@ class OntologyController extends Controller
         //print_r($nodeList);
         
         $form = $this->createForm(new OntologyNodeType(), array('nodes'=>$nodeList));
-        $form->get(Tags::kTAG_PID)->setData($term);
+        //$form->get(Tags::kTAG_PID)->setData($term);
         
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
@@ -267,6 +268,7 @@ class OntologyController extends Controller
 
 
 //--------MODAL PARTIAL------------------------------   
+
     public function modalNewTermAction(Request $request)
     {
         $request = $this->getRequest();
@@ -436,6 +438,7 @@ class OntologyController extends Controller
 
 
 //--------ASYNC METHODS-------------------------------
+
     public function jsonNewPredicateAction(Request $request)
     {
         $request = $this->getRequest();
@@ -446,21 +449,33 @@ class OntologyController extends Controller
         return $this->checkForm($request, $form);
     }
     
-    public function jsonNewNodeAction(Request $request)
+    public function jsonNewNodeAction(Request $request, $term)
     {
         $request = $this->getRequest();
         $session = $request->getSession();
         
-        $form = $this->createForm(new OntologyNodeType());
+        $saver= new ServerConnection();
+        //return print_r($saver->getTermByCode($term));
+        $nodes= $saver->getNodeByNIDTerm($term);
+        $nodeList= (array_key_exists(':WS:RESPONSE', $nodes))? $nodes[':WS:RESPONSE']['_node'] : array();
+        
+        $form = $this->createForm(new OntologyNodeType(), array('nodes'=>$nodeList));
     
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
         
             if ($form->isValid()) {
                 $formData= $form->getData();
-                $saver= new ServerConnection();
                 
-                $saved= $saver->saveNew($this->clearSubmittedData($formData),'SetVertex');
+                $saver= new ServerConnection();
+                $formData[Tags::kTAG_TERM]= $term;
+                $formData[Tags::kTAG_EXAMPLES]= array($form->get(Tags::kTAG_EXAMPLES)->getData());
+                $formData[Tags::kTAG_DESCRIPTION]= array($form->get(Tags::kTAG_DESCRIPTION)->getData());
+                $class= $form->get('node_class')->getData();
+                $formData['node_class']= '';
+                $formData['nodes']= '';
+                
+                $saved= $saver->saveNew($this->clearSubmittedData($formData),'SetVertex', $class);
                 return new Response(json_encode(array('term'=> $saved)));
             }
         }
@@ -507,6 +522,7 @@ class OntologyController extends Controller
     }
 
 //------------PRIVATE---------------------------------------
+
     private function checkForm(Request $request, $form)
     {
         if ($request->getMethod() == 'POST') {
@@ -519,6 +535,7 @@ class OntologyController extends Controller
                 $saver= new ServerConnection();
                 $term= $saver->getTerm($code, $namespace);
                 
+                //print_r($term[':WS:RESPONSE']);
                 if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
                     return new Response(json_encode(array('term'=> '')));
                 }else{
