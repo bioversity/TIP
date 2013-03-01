@@ -1,5 +1,6 @@
+{% set menuClass = app.request.attributes.get('_route') %}
 <div class="navbar">
-  <div class="navbar-inner menu_top_inner">
+  <div class="navbar-inner menu_top_inner {{ menuClass }}">
     
     <div class="container">
       <!--
