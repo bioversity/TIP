@@ -12,6 +12,7 @@ use Bioversity\OntologyBundle\Form\OntologyTermType;
 use Bioversity\OntologyBundle\Form\OntologyNamespaceType;
 use Bioversity\OntologyBundle\Repository\ServerConnection;
 use Bioversity\ServerConnectionBundle\Repository\Tags;
+use Bioversity\ServerConnectionBundle\Repository\DataFormatterHelper;
 use Bioversity\SecurityBundle\Repository\NotificationManager;
 use Bioversity\SliderBundle\Controller\SliderController;
 
@@ -44,7 +45,7 @@ class OntologyController extends Controller
                 }else{
                     $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
                     $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $newTerm= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
+                    $newTerm= $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetTerm');
                     $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
                     
                     return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $newTerm[':WS:RESPONSE']['_term'][$newTerm[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
@@ -550,18 +551,6 @@ class OntologyController extends Controller
         return new Response(json_encode(array('term'=> '')));
     }
     
-    private function clearSubmittedData($formData)
-    {
-        foreach($formData as $data=>$value){
-            if(!$value){
-                unset($formData[$data]);
-            }else if($data== Tags::kTAG_LABEL || $data== Tags::kTAG_DEFINITION){
-                $formData[$data]= array('en' => $value);
-            }
-        }
-        
-        return $formData;
-    }
     
     private function formatSynonyms($synonyms)
     {

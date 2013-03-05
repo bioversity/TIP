@@ -2,15 +2,11 @@
 
 namespace Bioversity\SecurityBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\Choice;
+use Bioversity\ServerConnectionBundle\Form\BioversityBaseType;
+use Bioversity\ServerConnectionBundle\Repository\Tags;
 
-class BioversityUserType extends AbstractType
+class BioversityUserType extends BioversityBaseType
 {
 
     public function getName()
@@ -18,13 +14,23 @@ class BioversityUserType extends AbstractType
         return 'BioversityUser';
     }
     
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('fullname', 'text', array('required' => true));
-        $builder->add('username', 'text', array('required' => true));
-        $builder->add('password', 'text', array('required' => true));
-        $builder->add('email', 'email', array('required' => true));
-        $builder->add('roles', 'choice', array(
+    var $internationlization= array(
+        Tags::kTAG_USER_NAME,
+        Tags::kTAG_USER_CODE,
+        Tags::kTAG_USER_PASS,
+        Tags::kTAG_USER_MAIL,
+        Tags::kTAG_USER_INSTITUTE_CODE,
+        Tags::kTAG_USER_INSTITUTE_NAME,
+        Tags::kTAG_USER_INSTITUTE_ADDRESS,
+        Tags::kTAG_USER_INSTITUTE_COUNTRY
+    );
+    
+    public function getFields(){
+        return $this->internationlization;
+    }
+    
+    public function buildForm(FormBuilderInterface $builder, array $options){
+        $builder->add(Tags::kTAG_USER_ROLE, 'choice', array(
             'choices'   => array(
                 'ROLE_ADMIN'    => 'Admin Role',
                 'ROLE_DATA'     => 'Data Entry Role',
@@ -32,8 +38,50 @@ class BioversityUserType extends AbstractType
                 ),
             'required' => true,
             'multiple' => true,
-            'expanded' => true
-            )
-        );
+            'expanded' => true,
+            'label' => 'Roles'
+            ));
+        parent::buildForm($builder, $options);
     }
+
+    private function refactorRoles($originRoles)
+    {
+        $roles = array('');
+        $rolesAdded = array();
+    
+        // Add herited roles
+        foreach ($originRoles as $roleParent => $rolesHerit) {
+            $tmpRoles = array_values($rolesHerit);
+            $rolesAdded = array_merge($rolesAdded, $tmpRoles);
+            $roles[$roleParent] = array_combine($tmpRoles, $tmpRoles);
+        }
+        // Add missing superparent roles
+        $rolesParent = array_keys($originRoles);
+        foreach ($rolesParent as $roleParent) {
+            if (!in_array($roleParent, $rolesAdded)) {
+                $roles['-----'][$roleParent] = $roleParent;
+            }
+        }
+    
+        return $roles;
+    }
+    
+    //public function buildForm(FormBuilderInterface $builder, array $options)
+    //{
+    //    $builder->add('fullname', 'text', array('required' => true));
+    //    $builder->add('username', 'text', array('required' => true));
+    //    $builder->add('password', 'text', array('required' => true));
+    //    $builder->add('email', 'email', array('required' => true));
+    //    $builder->add('roles', 'choice', array(
+    //        'choices'   => array(
+    //            'ROLE_ADMIN'    => 'Admin Role',
+    //            'ROLE_DATA'     => 'Data Entry Role',
+    //            'ROLE_ONTOLOGY' => 'Ontology Curator Role'
+    //            ),
+    //        'required' => true,
+    //        'multiple' => true,
+    //        'expanded' => true
+    //        )
+    //    );
+    //}
 }

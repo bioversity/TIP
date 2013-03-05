@@ -2,10 +2,10 @@
 
 namespace Bioversity\OntologyBundle\Form;
 
-use Bioversity\OntologyBundle\Form\OntologyBaseType;
+use Bioversity\ServerConnectionBundle\Form\BioversityBaseType;
 use Bioversity\ServerConnectionBundle\Repository\Tags;
 
-class OntologyPredicateType extends OntologyBaseType
+class OntologyPredicateType extends BioversityBaseType
 {   
     var $internationlization= array(
         //(int) Tags::kTAG_TERM,

@@ -2,10 +2,11 @@
 
 namespace Bioversity\OntologyBundle\Form;
 
-use Bioversity\OntologyBundle\Form\OntologyBaseType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Bioversity\ServerConnectionBundle\Form\BioversityBaseType;
 use Bioversity\ServerConnectionBundle\Repository\Tags;
 
-class OntologyNodeType extends OntologyBaseType
+class OntologyNodeType extends BioversityBaseType
 {  
     var $internationlization= array(
         //(int) Tags::kTAG_TERM,
@@ -25,5 +26,50 @@ class OntologyNodeType extends OntologyBaseType
     public function getName()
     {
         return 'OntologyNode';
+    }
+    
+    public function buildForm(FormBuilderInterface $builder, array $options){
+        parent::buildForm($builder, $options);
+        
+        $nodeList= array();
+        $this->manageNodeFormException($nodeList, $builder, $options);
+    }
+    
+    public function manageNodeFormException($nodeList, $builder, $options)
+    {
+        if($this->getName()=='OntologyNode'){
+            foreach($options['data']['nodes'] as $node){
+                $nodeList[]= array($node[Tags::kTAG_NID]=>$node[Tags::kTAG_NID]);
+            }
+            
+            if(count($nodeList) > 0){
+                $builder->add(
+                    'node_related',
+                    'choice',
+                    array(
+                        'choices' => $nodeList,
+                        'expanded' => true,
+                        'multiple' => false,
+                        'required' => false
+                    )
+                );
+                
+                $builder->add(
+                    'node_class',
+                    'hidden',
+                    array(
+                        'data' => 'COntologyAliasVertex'
+                    )
+                );
+            }else{                
+                $builder->add(
+                    'node_class',
+                    'hidden',
+                    array(
+                        'data' => 'COntologyMasterVertex'
+                    )
+                );
+            }
+        }
     }
 }

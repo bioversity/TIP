@@ -3,6 +3,7 @@
 namespace Bioversity\SecurityBundle\Repository\User;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Bioversity\ServerConnectionBundle\Repository\Tags;
 
 class WebserviceUser implements UserInterface
 {

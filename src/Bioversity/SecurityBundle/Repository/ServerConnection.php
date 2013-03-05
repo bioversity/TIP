@@ -5,11 +5,12 @@ namespace Bioversity\SecurityBundle\Repository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Bioversity\ServerConnectionBundle\Repository\Tags;
+use Bioversity\ServerConnectionBundle\Repository\Types;
+use Bioversity\ServerConnectionBundle\Repository\Operators;
 use Bioversity\ServerConnectionBundle\Repository\HttpServerConnection;
 
 class ServerConnection extends HttpServerConnection
-{
-  
+{ 
   /**
    * check if user is able to login
    * 
@@ -54,25 +55,16 @@ class ServerConnection extends HttpServerConnection
   /**
    * Create new user
    *
-   * @param string $fullname
-   * @param string $username
-   * @param string $password
-   * @param string $email
-   * @param array $roles
-   * @param array $profile
+   * @param array $userData
    */
-  public function saveNewUser($fullname, $username, $password, $email, $roles, $profile= NULL)
+  public function saveNewUser($userData)
   {
-    $object = array(
-      Tags::kTAG_USER_NAME => $fullname,
-      Tags::kTAG_USER_CODE => $username,
-      Tags::kTAG_USER_PASS => $password,
-      Tags::kTAG_USER_MAIL => $email,
-      Tags::kTAG_USER_ROLE => $roles,
-      Tags::kTAG_USER_PROFILE => array( 'un', 'po', 'di', 'roba' ),
-      //Tags::kTAG_USER_MANAGER => 'Codice dell\'utente manager',
-      Tags::kTAG_USER_DOMAIN  => 'TIP'
-    );
+    $object= array();
+    foreach($userData as $key=>$value){
+      $object[$key]= $value;
+    }
+    $object[Tags::kTAG_USER_DOMAIN]= 'TIP';
+    
     $params = array(
       ':WS:FORMAT=:JSON',
       ':WS:OPERATION=WS:OP:NewUser',
@@ -87,32 +79,18 @@ class ServerConnection extends HttpServerConnection
   /**
    * Edit new user
    *
-   * @param string $fullname
-   * @param string $username
-   * @param string $password
-   * @param string $email
-   * @param array $roles
-   * @param array $profile
+   * @param array $userData
    */
-  public function updateNewUser($fullname, $username, $password, $email, $roles, $profile= NULL)
+  public function updateNewUser($userData)
   {
-    $object = array(
-      Tags::kTAG_USER_NAME => $fullname,
-      Tags::kTAG_USER_CODE => $username,
-      Tags::kTAG_USER_PASS => $password,
-      Tags::kTAG_USER_MAIL => $email,
-      Tags::kTAG_USER_ROLE => $roles,
-      Tags::kTAG_USER_PROFILE => array( 'un', 'po', 'di', 'roba' ),
-      //Tags::kTAG_USER_MANAGER => 'Codice dell\'utente manager',
-      Tags::kTAG_USER_DOMAIN  => 'TIP'
-    );
-    $params = array(
-      ':WS:FORMAT=:JSON',
-      ':WS:OPERATION=WS:OP:NewUser',
-      ':WS:DATABASE='.urlencode(json_encode($this->db)),
-      ':WS:CONTAINER='.urlencode(json_encode($this->collection)),
-      ':WS:OBJECT='.urlencode(json_encode($object))
-      );        
+    $criteria= array();
+    foreach($userData as $key=>$value){
+      $criteria[$key]= array(0 => $value);
+    }
+    
+    $query= $this->createQuery(Tags::kTAG_USER_CODE, Types::kTYPE_STRING, $userData[Tags::kTAG_USER_CODE], Operators::kOPERATOR_EQUAL);
+    $params= $this->createRequest('WS:OP:MODIFY', $query);
+    $params[]= ':WS:CRITERIA='.urlencode(json_encode($criteria));
     
     return $this->sendRequest($this->wrapper, $params);
   }

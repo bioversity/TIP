@@ -2,13 +2,18 @@
 
 namespace Bioversity\OntologyBundle\Form;
 
-use Bioversity\OntologyBundle\Form\OntologyBaseType;
+//use Bioversity\OntologyBundle\Form\OntologyBaseType;
+use Bioversity\ServerConnectionBundle\Form\BioversityBaseType;
 use Bioversity\ServerConnectionBundle\Repository\Tags;
 
-class OntologyNamespaceType extends OntologyBaseType
+class OntologyNamespaceType extends BioversityBaseType
 {   
+    public function getName()
+    {
+        return 'OntologyNamespace';
+    }
+    
     var $internationlization= array(
-        //(int) Tags::kTAG_TERM,
         Tags::kTAG_NAMESPACE,
         Tags::kTAG_LID,
         Tags::kTAG_LABEL,
@@ -16,9 +21,4 @@ class OntologyNamespaceType extends OntologyBaseType
         Tags::kTAG_SYNONYMS,
         Tags::kTAG_CATEGORY
     );
-    
-    public function getName()
-    {
-        return 'OntologyNamespace';
-    }
 }

@@ -11,6 +11,7 @@ use Bioversity\SecurityBundle\Form\BioversityGenericUserType;
 use Bioversity\SecurityBundle\Repository\NotificationManager;
 use Bioversity\SecurityBundle\Repository\User\WebserviceUser;
 use Bioversity\ServerConnectionBundle\Repository\Tags;
+use Bioversity\ServerConnectionBundle\Repository\DataFormatterHelper;
 
 class UserController extends Controller
 {
@@ -50,24 +51,14 @@ class UserController extends Controller
             $form->bindRequest($request);
         
             if ($form->isValid()) {
-                $user= $form->getData();
-                $saver= new ServerConnection();
-                $save= $saver->saveNewUser($user['fullname'], $user['username'], $user['password'], $user['email'], $user['roles']);
-                
-                if($save[':WS:STATUS'][':STATUS-CODE'] === 0){
-                    $session->getFlashBag()->set('notice',  NotificationManager::getNotice($save[':WS:STATUS'][':STATUS-CODE']) );
-                    return $this->redirect($this->generateUrl('bioversity_user_homepage'), 301);
-                }else{
-                    $session->getFlashBag()->set('error', NotificationManager::getNotice($save[':WS:STATUS'][':STATUS-CODE']) );
-                }
+               $this->saveUser($session, $form, 'saveNewUser');
             }
         }
-
-        //var_dump($this->get('session')->getFlashBag()->get('error'));
         
         return $this->render('BioversityUserBundle:User:new_user.html.twig', array(
             'form'   => $form->createView(),
-            'notice' => $session->getFlashBag()->get('error')
+            'notice' => $session->getFlashBag()->get('notice'),
+            'errors' => $session->getFlashBag()->get('error')
         ));
     }
     
@@ -79,40 +70,35 @@ class UserController extends Controller
         
         $server= new ServerConnection();
         $user= $server->findUserForAuthentication($request->get('code'));
-                
-        if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
         
-            if ($form->isValid()) {
-                $user= $form->getData();
-                $saver= new ServerConnection();
-                $save= $saver->updateNewUser($user['fullname'], $user['username'], $user['password'], $user['email'], $user['roles']);
-                
-                if($save[':WS:STATUS'][':STATUS-CODE'] === 0){
-                    $session->getFlashBag()->set('notice',  NotificationManager::getNotice($save[':WS:STATUS'][':STATUS-CODE']) );
-                    return $this->redirect($this->generateUrl('bioversity_user_homepage'), 301);
-                }else{
-                    $session->getFlashBag()->set('error', NotificationManager::getNotice($save[':WS:STATUS'][':STATUS-CODE']) );
-                }
-            }
-        }
+        $form = $this->createForm(new BioversityUserType());
+        $formClass= new BioversityUserType();
         
         if(array_key_exists(':WS:RESPONSE', $user)){
-            $form = $this->createForm(new BioversityUserType());
-            $form->get('fullname')->setData($user[':WS:RESPONSE'][Tags::kTAG_USER_NAME]);
-            $form->get('username')->setData($user[':WS:RESPONSE'][Tags::kTAG_USER_CODE]);
-            $form->get('email')->setData($user[':WS:RESPONSE'][Tags::kTAG_USER_MAIL]);
-            $form->get('roles')->setData($user[':WS:RESPONSE'][Tags::kTAG_USER_ROLE]);
-            
-            return $this->render('BioversityUserBundle:User:edit_user.html.twig', array(
-                'form'   => $form->createView(),
-                'notice' => $session->getFlashBag()->get('error')
-            ));
+            foreach($formClass->getFields() as $key){
+                if(array_key_exists($key, $user[':WS:RESPONSE']))
+                    $form->get($key)->setData($user[':WS:RESPONSE'][$key]);
+            }
+            //TO-DO: need to find a solution for Role field
+            $form->get(Tags::kTAG_USER_ROLE)->setData($user[':WS:RESPONSE'][Tags::kTAG_USER_ROLE]);
         }else{
             $session->getFlashBag()->set('error', NotificationManager::getNotice('not_found'));
             
             return $this->redirect($this->generateUrl('bioversity_user_homepage'), 301);
         }
+        
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);        
+            if ($form->isValid()) {                
+               $this->saveUser($session, $form, 'updateNewUser');
+            }
+        }
+
+        return $this->render('BioversityUserBundle:User:edit_user.html.twig', array(
+            'form'   => $form->createView(),
+            'notice' => $session->getFlashBag()->get('notice'),
+            'errors' => $session->getFlashBag()->get('errors')
+        ));
     }
     
     public function deleteAction($code)
@@ -121,5 +107,19 @@ class UserController extends Controller
         $delete= $saver->deleteUser($code);
         
         return $this->redirect($this->generateUrl('bioversity_user_homepage'), 301);
+    }
+    
+    private function saveUser($session, $form, $action)
+    {
+        $user= $form->getData();
+        $saver= new ServerConnection();
+        $save= $saver->$action(DataFormatterHelper::clearSubmittedData($user));
+        
+        if($save[':WS:STATUS'][':STATUS-CODE'] === 0){
+            $session->getFlashBag()->set('notice',  NotificationManager::getNotice($save[':WS:STATUS'][':STATUS-CODE']) );
+            return $this->redirect($this->generateUrl('bioversity_user_homepage'), 301);
+        }else{
+            $session->getFlashBag()->set('errors', NotificationManager::getNotice($save[':WS:STATUS'][':STATUS-CODE']) );
+        }   
     }
 }

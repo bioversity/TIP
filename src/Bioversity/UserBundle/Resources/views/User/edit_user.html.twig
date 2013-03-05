@@ -5,6 +5,14 @@
     <form id="form_user" action="#" method="post" {{ form_enctype(form) }}>
         <h1><small>Edit User</small></h1>
         
+        {% if errors %}
+            {% for error in errors %}
+                <div class="alert alert-error pull-left">
+                    <strong>Warning!</strong> {{ error }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
         {% if notice %}
             {% for alert in notice %}
                 <div class="alert alert-success pull-left">
@@ -16,44 +24,12 @@
         <div class="clear"></div>
         
         <blockquote>
-         
+        
             {{ form_errors(form) }}
             
-            {{ form_label(form.fullname) }}
-            {% if form_errors(form.fullname) %}
-                <div class="alert alert-error">{{ form_errors(form.fullname) }}</div>
-            {% endif %}
-            {{ form_widget(form.fullname) }}
+            {{ form_widget(form) }}
             
-            
-            {{ form_label(form.username) }}
-            {% if form_errors(form.username) %}
-                <div class="alert alert-error">{{ form_errors(form.username) }}</div>
-            {% endif %}
-            {{ form_widget(form.username, { 'attr': {'readonly': 'readonly'} }) }}
-            
-            
-            {{ form_label(form.password) }}
-            {% if form_errors(form.password) %}
-                <div class="alert alert-error">{{ form_errors(form.password) }}</div>
-            {% endif %}
-            {{ form_widget(form.password) }}
-            
-            
-            {{ form_label(form.email) }}
-            {% if form_errors(form.email) %}
-                <div class="alert alert-error">{{ form_errors(form.email) }}</div>
-            {% endif %}
-            {{ form_widget(form.email) }}
-            
-            
-            {{ form_label(form.roles) }}
-            {% if form_errors(form.roles) %}
-                <div class="alert alert-error">{{ form_errors(form.roles) }}</div>
-            {% endif %}
-            {{ form_widget(form.roles) }}
-        
-            {{ form_rest(form) }}        
+            {{ form_rest(form) }}
           
           <div class="clear"></div>
         </blockquote>

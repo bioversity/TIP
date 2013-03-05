@@ -3,6 +3,7 @@
 namespace Bioversity\SliderBundle\Repository;
 
 use Bioversity\ServerConnectionBundle\Repository\Tags;
+use Bioversity\ServerConnectionBundle\Repository\Types;
 use Bioversity\ServerConnectionBundle\Repository\HttpServerConnection;
 
 class ServerConnection extends HttpServerConnection
@@ -25,30 +26,57 @@ class ServerConnection extends HttpServerConnection
     return $this->getNodeQuery($nodeId, $query);
   }
   
+  
+  //public function getNodeRelationIN($nodeId, $page=NULL)
+  //{
+  //  $query= array('subject'=>'_id', 'operator'=>'$EQ', 'type'=>':INT32');
+  //  return $this->getNodeQuery($nodeId, $query, NULL, $page, 'WS:RELATION:IN', $this->page_record);
+  //}
+  //
+  //public function getNodeRelationOUT($nodeId, $page=NULL)
+  //{
+  //  $query= array('subject'=>'_id', 'operator'=>'$EQ', 'type'=>':INT32');
+  //  return $this->getNodeQuery($nodeId, $query, NULL, $page, 'WS:RELATION:OUT', $this->page_record);
+  //}
+  //
+  //public function searchNodeRelationIN($nodeId, $term=NULL)
+  //{
+  //  $query= array('subject'=>'_id', 'operator'=>'$EQ', 'type'=>':INT32');
+  //  $query2= array('subject'=>Tags::kTAG_LABEL.'.en', 'operator'=>'$CXi', 'type'=>':TEXT', 'data'=>$term);
+  //  return $this->getNodeQuery($nodeId, $query, NULL, NULL, 'WS:RELATION:IN', $this->page_record, $query2);
+  //}
+  //
+  //public function searchNodeRelationOUT($nodeId, $term=NULL)
+  //{
+  //  $query= array('subject'=>'_id', 'operator'=>'$EQ', 'type'=>':INT32');
+  //  $query2= array('subject'=>Tags::kTAG_LABEL.'.en', 'operator'=>'$CXi', 'type'=>':TEXT', 'data'=>$term);
+  //  return $this->getNodeQuery($nodeId, $query, NULL, $term, 'WS:RELATION:OUT', $this->page_record, $query2);
+  //}
+  
   public function getNodeRelationIN($nodeId, $page=NULL)
   {
     $query= array('subject'=>'_id', 'operator'=>'$EQ', 'type'=>':INT32');
-    return $this->getNodeQuery($nodeId, $query, NULL, $page, 'WS:RELATION:IN', $this->page_record);
+    return $this->getNodeQuery($nodeId, $query, NULL, $page, Types::kTYPE_RELATION_IN, $this->page_record);
   }
   
   public function getNodeRelationOUT($nodeId, $page=NULL)
   {
     $query= array('subject'=>'_id', 'operator'=>'$EQ', 'type'=>':INT32');
-    return $this->getNodeQuery($nodeId, $query, NULL, $page, 'WS:RELATION:OUT', $this->page_record);
+    return $this->getNodeQuery($nodeId, $query, NULL, $page, Types::kTYPE_RELATION_OUT, $this->page_record);
   }
   
   public function searchNodeRelationIN($nodeId, $term=NULL)
   {
     $query= array('subject'=>'_id', 'operator'=>'$EQ', 'type'=>':INT32');
     $query2= array('subject'=>Tags::kTAG_LABEL.'.en', 'operator'=>'$CXi', 'type'=>':TEXT', 'data'=>$term);
-    return $this->getNodeQuery($nodeId, $query, NULL, NULL, 'WS:RELATION:IN', $this->page_record, $query2);
+    return $this->getNodeQuery($nodeId, $query, NULL, NULL, Types::kTYPE_RELATION_IN, $this->page_record, $query2);
   }
   
   public function searchNodeRelationOUT($nodeId, $term=NULL)
   {
     $query= array('subject'=>'_id', 'operator'=>'$EQ', 'type'=>':INT32');
     $query2= array('subject'=>Tags::kTAG_LABEL.'.en', 'operator'=>'$CXi', 'type'=>':TEXT', 'data'=>$term);
-    return $this->getNodeQuery($nodeId, $query, NULL, $term, 'WS:RELATION:OUT', $this->page_record, $query2);
+    return $this->getNodeQuery($nodeId, $query, NULL, $term, Types::kTYPE_RELATION_OUT, $this->page_record, $query2);
   }
   
   public function getNodeQuery(

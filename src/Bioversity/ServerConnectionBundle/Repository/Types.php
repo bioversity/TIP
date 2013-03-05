@@ -30,6 +30,7 @@ class Types{
     const kTYPE_LOCKED=		':LOCKED';
     const kTYPE_ARRAY=		':ARRAY';
     const kTYPE_RELATION_IN=	':RELATION-IN';
+    const kTYPE_RELATION_OUT=	':RELATION-OUT';
     const kTYPE_RELATION_ALL=	':RELATION-ALL';
     const kTYPE_MongoId=	':MongoId';
     const kTYPE_MongoCode=	':MongoCode';

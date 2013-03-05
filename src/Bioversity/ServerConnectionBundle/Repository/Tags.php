@@ -48,4 +48,8 @@ class Tags{
    const kTAG_USER_PROFILE = '42';
    const kTAG_USER_MANAGER = '43';
    const kTAG_USER_DOMAIN = '44';
+   const kTAG_USER_INSTITUTE_CODE= '45';
+   const kTAG_USER_INSTITUTE_NAME= '46';
+   const kTAG_USER_INSTITUTE_ADDRESS= '47';
+   const kTAG_USER_INSTITUTE_COUNTRY= '48';
 }
