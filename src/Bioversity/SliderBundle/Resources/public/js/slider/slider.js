@@ -14,13 +14,29 @@ function generateRootMenu()
   //console.log('generateRootMenu');
   $.each(selected_node_data._ids, function(key, value){
     createNodeMenuButton(
-      $top_menu_layout_id,
+      top_menu_layout_id,
       getNodeName(selected_node_data._node[value]),
       getNodeCode(selected_node_data._node[value]),
       value
     );
   });
   //bindRootButton();
+}
+
+function hideSlider()
+{
+  $('#breadcrumb').hide();
+  $('#history_container').hide();
+  $('#slider').hide();
+  $('#node_legend').hide();
+}
+
+function showSlider()
+{
+  $('#breadcrumb').fadeIn('slow');
+  $('#history_container').fadeIn('slow');
+  $('#slider').fadeIn('slow');
+  $('#node_legend').fadeIn('slow');
 }
 
 function startBind(button, predicate, direction)
@@ -40,14 +56,14 @@ function startBind(button, predicate, direction)
 function startButtonAnimation(button, predicate)
 {
   //console.log('startButtonAnimation');
-  $('#row_'+button).effect("transfer", { to: $('#'+$slider_destination_center_header+' .btn_node') }, 300);
+  $('#row_'+button).effect("transfer", { to: $('#'+slider_destination_center_header+' .btn_node') }, 300);
   startDetailAnimation(button, predicate);
 }
 
 function startDetailAnimation(button, predicate)
 {
   //console.log('startDetailAnimation');
-  $('#'+$slider_destination_center).fadeOut('slow');
+  $('#'+slider_destination_center).fadeOut('slow');
   bindButton(button, predicate);
 }
 
@@ -102,7 +118,7 @@ function generateNodeRelationIN()
 {
   //console.log('generateNodeRelationIN');
   if(selected_node_data){
-    generateNodeRelations($slider_left_layout_id,$slider_destination_left);
+    generateNodeRelations(slider_left_layout_id,slider_destination_left);
   }
 }
 
@@ -110,7 +126,7 @@ function generateNodeRelationOUT()
 {
   //console.log('generateNodeRelationOUT');
   if(selected_node_data){
-    generateNodeRelations($slider_right_layout_id,$slider_destination_right);
+    generateNodeRelations(slider_right_layout_id,slider_destination_right);
   }
 }
 
@@ -124,14 +140,14 @@ function generateNodeRelations(layout, destination)
       var node_id= value[kTAG_SUBJECT];
       var node_value= selected_node_data._node[node_id];
       select_node_direction='left';
-      $show_pager=true;
+      show_pager=true;
       $show_search_filter= true;
       pager_count= $pager_node_data_in_count;
     }else if(value[kTAG_SUBJECT] == selected_node_id){
       var node_id= value[kTAG_OBJECT];
       var node_value= selected_node_data._node[node_id];
       select_node_direction='right';
-      $show_pager=true;
+      show_pager=true;
       $show_search_filter= true;
       pager_count= $pager_node_data_out_count;
     }
@@ -152,7 +168,7 @@ function generateNodeRelations(layout, destination)
   
   startButtonListAnimation();
   
-  if($show_pager===true){
+  if(show_pager===true){
     createPager(pager_count, destination);
   }
   
@@ -185,19 +201,19 @@ function resetSlider()
 function resetCenter()
 {
   //console.log('resetCenter');
-  $('#'+$slider_destination_center).html(' ');  
+  $('#'+slider_destination_center).html(' ');  
 }
 
 function resetLeft()
 {
   //console.log('resetLeft');
-  $('#'+$slider_destination_left+' ul').html(' ');  
+  $('#'+slider_destination_left+' ul').html(' ');  
 }
 
 function resetRight()
 {
   //console.log('resetRight');
-  $('#'+$slider_destination_right+' ul').html(' ');  
+  $('#'+slider_destination_right+' ul').html(' ');  
 }
 
 function resetSearch()
@@ -217,7 +233,7 @@ function createNodeMenuButton(layout, node_name, node_code, node_id)
   $('#'+layout+' .node_record a').html(node_name);
   $('#'+layout+' .node_record a').attr('onclick', 'javascript: startNav('+node_id+');');
   //$('#'+layout+' .node_record a').attr('class', node_id);
-  $('#'+$slider_destination_root).append($('#nav_top_button .node_record').html());
+  $('#'+slider_destination_root).append($('#nav_top_button .node_record').html());
 }
 
 function createNodeButton(layout, destination, predicate, node_name, node_code, node_id,node_description,node_definition, node_kind, direction)
@@ -258,29 +274,29 @@ function createNodeDetail()
       }else if(arrayID == kTAG_GID){
         createNodeHeaderCode(checkArray(arrayValue));
       }else{
-        $('#'+$slider_center_layout_id+' .node_detail label' ).html(label);
-        $('#'+$slider_center_layout_id+' .node_detail span' ).html(checkArray(arrayValue));
-        $('#'+$slider_destination_center).append($('#'+$slider_center_layout_id).html());
-        $('#'+$slider_center_layout_id+' .node_detail label' ).html('');
-        $('#'+$slider_center_layout_id+' .node_detail span' ).html('');
+        $('#'+slider_center_layout_id+' .node_detail label' ).html(label);
+        $('#'+slider_center_layout_id+' .node_detail span' ).html(checkArray(arrayValue));
+        $('#'+slider_destination_center).append($('#'+slider_center_layout_id).html());
+        $('#'+slider_center_layout_id+' .node_detail label' ).html('');
+        $('#'+slider_center_layout_id+' .node_detail span' ).html('');
       }
     }
   });
   
-  $('#'+$slider_destination_center).fadeIn('slow');  
-  $('#'+$slider_destination_center_header).fadeIn('slow');
+  $('#'+slider_destination_center).fadeIn('slow');  
+  $('#'+slider_destination_center_header).fadeIn('slow');
 }
 
 function createNodeHeaderName(node_name)
 {
   //console.log('createNodeHeaderName');
-  $('#'+$slider_destination_center_header+' .btn_node_name').html(node_name);
+  $('#'+slider_destination_center_header+' .btn_node_name').html(node_name);
 }
 
 function createNodeHeaderCode(node_code)
 {
   //console.log('createNodeHeaderCode');
-  $('#'+$slider_destination_center_header+' .btn_node_code').html(node_code);
+  $('#'+slider_destination_center_header+' .btn_node_code').html(node_code);
   
   if(selected_node_kind !== ''){
     var added_class= '';
@@ -288,7 +304,7 @@ function createNodeHeaderCode(node_code)
       var html_class= value.replace(':', '');
       added_class += ' <span class="'+html_class+'" title=":'+html_class+'">■</span> ';
     });
-    $('#'+$slider_destination_center_header+' .btn_node_code').html(node_code+added_class);
+    $('#'+slider_destination_center_header+' .btn_node_code').html(node_code+added_class);
   }
 }
 

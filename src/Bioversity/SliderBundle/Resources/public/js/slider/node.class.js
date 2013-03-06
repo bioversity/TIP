@@ -28,37 +28,37 @@ function setNodeProperty(node_detail)
 function getRootNodeList()
 {
   //console.log('getRootNodeList');
-  ask(dev_stage+$urlForRootNodes, generateRootMenu);
+  ask(dev_stage+urlForRootNodes, generateRootMenu);
 }
 
 function getNodeById()
 {
   //console.log('getNodeById');
-  ask(dev_stage+$urlForNodeDetails+'/'+selected_node_id, initializeNode);
+  ask(dev_stage+urlForNodeDetails+'/'+selected_node_id, initializeNode);
 }
 
 function getNodeRelationINById(page)
 {
   //console.log('getNodeRelationINById');
-  ask(dev_stage+$urlForNodeRelationIN+'/'+selected_node_id+ (page ? '/'+page: ''), generateNodeRelationIN);
+  ask(dev_stage+urlForNodeRelationIN+'/'+selected_node_id+ (page ? '/'+page: ''), generateNodeRelationIN);
 }
 
 function getNodeRelationOUTById(page)
 {
   //console.log('getNodeRelationOUTById');
-  ask(dev_stage+$urlForNodeRelationOUT+'/'+selected_node_id+ (page ? '/'+page: ''), generateNodeRelationOUT);
+  ask(dev_stage+urlForNodeRelationOUT+'/'+selected_node_id+ (page ? '/'+page: ''), generateNodeRelationOUT);
 }
 
 function searchNodeRelationINById(term)
 {
   //console.log('searchNodeRelationINById');
-  ask(dev_stage+$urlForSearchNodeRelationIN+'/'+selected_node_id+ (term ? '/'+term: ''), generateNodeRelationIN);
+  ask(dev_stage+urlForSearchNodeRelationIN+'/'+selected_node_id+ (term ? '/'+term: ''), generateNodeRelationIN);
 }
 
 function searchNodeRelationOUTById(term)
 {
   //console.log('searchNodeRelationOUTById');
-  ask(dev_stage+$urlForSearchNodeRelationOUT+'/'+selected_node_id+ (term ? '/'+term: ''), generateNodeRelationOUT);
+  ask(dev_stage+urlForSearchNodeRelationOUT+'/'+selected_node_id+ (term ? '/'+term: ''), generateNodeRelationOUT);
 }
 
 function getNodeName(node)

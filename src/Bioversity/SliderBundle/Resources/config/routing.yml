@@ -51,6 +51,10 @@ bioversity_slider_json_search_node_relation_out:
     defaults: { _controller: BioversitySliderBundle:Slider:JsonSearchNodeRelationOUT }
     requirements:
         nodeId:  \d+
+    
+bioversity_slider_partial_node_search:
+    pattern:  /slider/partial/node/search
+    defaults: { _controller: BioversitySliderBundle:Slider:partialNodeSearch }
 
 #----------------Pager
 bioversity_slider_json_node_relation_pager_in:

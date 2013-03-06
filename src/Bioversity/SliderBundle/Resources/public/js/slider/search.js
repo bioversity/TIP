@@ -52,3 +52,18 @@ function startSearchBind()
     }
   });
 }
+
+function createSearchPoint()
+{
+    $('#search_point').html('');
+    $.ajax({
+        url:        dev_stage+'/slider/partial/node/search',
+        dataType:   "html",
+        success: function( data ) {
+           $('#search_point').append(data);
+        }
+     }).done( function(){
+        startAutocomplete('OntologySearchNode');
+        startTooltip();
+     });  
+}

@@ -1,0 +1,47 @@
+{% extends '::base_partial.html.twig' %}
+
+{% form_theme form
+    '::error.html.twig'
+    '::form_div_layout.html.twig'
+%}
+
+{% block body %}
+    
+    <form id="search_node" action="#" method="post" {{ form_enctype(form) }}>
+        <h1><small>Search a specific node</small></h1>
+        <blockquote>
+        
+            {% if errors %}
+                {% for error in errors %}
+                    <div class="alert alert-error pull-left">
+                        <strong>Warning!</strong> {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            {% if notice %}
+                {% for alert in notice %}
+                    <div class="alert alert-success pull-left">
+                        <strong>Well done!</strong> {{ alert }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <div class="clear"></div>
+            
+            {{ form_errors(form) }}
+            
+            {{ form_widget(form) }}
+            
+            {{ form_rest(form) }}
+    
+            <div class="clear"></div>
+        </blockquote>
+        
+        <div class="form-actions">
+            <input id="OntologySearchNode_seacrh" class="btn btn-info" type="submit" value="Search" />
+            <input id="OntologySearchNode_cancel" class="btn btn-info" type="button" value="Cancel" />
+        </div>
+    </form>
+    
+{% endblock %}
