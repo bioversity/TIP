@@ -11,7 +11,7 @@
  */
 
 var slider_destination_content= 'slider';
-var slider_destination_root= 'entry_point ul.nav';
+var slider_destination_root= 'entry_point ul';
 var slider_destination_right= 'node_childrens';
 var slider_destination_left= 'node_parents';
 var slider_destination_center= 'node_details #node_details_container_body';
@@ -23,6 +23,9 @@ var slider_destination_breadcrumb_history_container= 'history_container';
 var slider_destination_breadcrumb_history_container_button= 'history_button';
 var slider_destination_breadcrumb_ul= 'root';
 var slider_destination_search_point= 'search_point';
+var slider_destination_search_node_point= 'node_found';
+var slider_destination_search_node_list_point= 'node_found_list';
+var slider_destination_search_node_pager_point='node_found_pager';
 
 var show_pager=false;
 var slider_partials_layout;
@@ -39,6 +42,7 @@ var slider_right_layout_id= 'node_button_right';
 var slider_left_layout_id= 'node_button_left';
 var slider_center_layout_id= 'node_details_layout';
 var slider_pager_layout_id= 'node_pager_layout';
+var slider_search_node_list_layout_id= 'slider_node_search_list';
 
 var urlForRootNodes= '/get-root-nodes';
 var urlForNodeDetails= '/get-node-details';
@@ -131,7 +135,7 @@ function setBasicValue(url, data){
   
   json_data= $.parseJSON(data);
   selected_node_data= json_data[':WS:RESPONSE'];
-  $pager_node_data_limit= json_data[':WS:PAGING'][':WS:PAGE-LIMIT'];
+  pager_node_data_limit= json_data[':WS:PAGING'][':WS:PAGE-LIMIT'];
   $pager_node_data_selected= parseInt(json_data[':WS:PAGING'][':WS:PAGE-START'])+1;
   
   $pager_node_data_in_count= 0;

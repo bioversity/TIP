@@ -6,7 +6,7 @@ function startAutocomplete(form)
     $("#"+form+"_"+kTAG_LID).autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: dev_stage+"/ontology/json/find/lid/"+getUrlParams(request.term, getNamespace(form)),
+                url: dev_stage+"/serverconnection/json/find/lid/"+getUrlParams(request.term, getNamespace(form)),
                 dataType: "json",
                 success: function( data ) {
                     if(data == ''){
@@ -33,7 +33,7 @@ function startAutocomplete(form)
     $( "#"+form+"_"+kTAG_NAMESPACE ).autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: dev_stage+"/ontology/json/find/namespace/"+request.term,
+                url: dev_stage+"/serverconnection/json/find/namespace/"+request.term,
                 dataType: "json",
                 success: function( data ) {
                     if(data == ''){
@@ -55,12 +55,11 @@ function startAutocomplete(form)
                         //getTermDetail(ui.item.value, ui.item.label);
                 },
     });
-     
-    var subvalue;
+    
     $( "#"+form+"_"+kTAG_LABEL ).autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: dev_stage+"/ontology/json/find/label/"+request.term,
+                url: dev_stage+"/serverconnection/json/find/label/"+request.term,
                 dataType: "json",
                 success: function( data ) {
                     if(data == ''){
@@ -70,7 +69,7 @@ function startAutocomplete(form)
                             subvalue= item.GID;
                             return {
                                 label: item.LABEL,
-                                value: item.LABEL,
+                                value: item.GID,
                             }
                         }));
                     }
@@ -80,22 +79,15 @@ function startAutocomplete(form)
         minLength: 1,
         select: function( event, ui ) {
                     if(ui.item){
-                        getTermDetail(subvalue, subvalue);
+                        getTermDetail(ui.item.value, ui.item.value);
                     }
                 },
     });
-     
-}
-
-function createAutocompleter(fieldBinded, form)
-{
-    setActualForm(form);
-    var namespace=  getNamespace(form);
     
-    fieldBinded.autocomplete({
+    $( "#"+form+"_"+kTAG_GID ).autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: dev_stage+"/ontology/json/find/lid/"+getUrlParams(request.term, namespace),
+                url: dev_stage+"/serverconnection/json/find/gid/"+request.term,
                 dataType: "json",
                 success: function( data ) {
                     if(data == ''){
@@ -103,8 +95,8 @@ function createAutocompleter(fieldBinded, form)
                     }else{
                         response( $.map( data, function( item ) {
                             return {
-                                label: item.GID,
-                                value: item.LID
+                                label: item.LABEL,
+                                value: item.GID,
                             }
                         }));
                     }
@@ -114,10 +106,11 @@ function createAutocompleter(fieldBinded, form)
         minLength: 1,
         select: function( event, ui ) {
                     if(ui.item){
-                        getTermDetail(ui.item.value, ui.item.label);
+                        getTermDetail(ui.item.value, ui.item.value);
                     }
                 },
     });
+     
 }
 
 function setActualForm(form){
@@ -142,7 +135,7 @@ function getUrlParams(lid, namespace)
 function getTermDetail(term, gid)
 {
     $.ajax({
-        url: dev_stage+"/ontology/json/get/term/"+getUrlParams(gid),
+        url: dev_stage+"/serverconnection/json/get/term/"+getUrlParams(gid),
         dataType: "json",
         success: function( data ) {
             var response= data[':WS:RESPONSE'];
@@ -170,7 +163,8 @@ function valorizeField(key, entity)
             }
         }
     //}
-    lockField();
+    if(actualForm != 'SliderSearchNode')
+        lockField();
 };
 
 function unvalorizeField()

@@ -43,8 +43,6 @@ class OntologyController extends Controller
                 if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
                     return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $term[':WS:RESPONSE']['_term'][$term[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
                 }else{
-                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
-                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
                     $newTerm= $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetTerm');
                     $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
                     
@@ -83,9 +81,7 @@ class OntologyController extends Controller
                 if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
                     return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $term[':WS:RESPONSE']['_term'][$term[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
                 }else{
-                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
-                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $newTerm= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
+                    $newTerm= $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetTerm');
                     $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
                     
                     return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $newTerm[':WS:RESPONSE']['_term'][$newTerm[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
@@ -123,8 +119,7 @@ class OntologyController extends Controller
                 if(count($formData['node_related']) > 0){
                     return $this->redirect($this->generateUrl('bioversity_ontology_predicate_new', array('node' => $formData['node_related'])));
                 }else{
-                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $node= $saver->saveNew($this->clearSubmittedData($formData),'SetVertex');
+                    $node= $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetVertex');
                     $session->getFlashBag()->set('notice', NotificationManager::getNotice($node[':WS:STATUS'][':STATUS-CODE']) );
                 }
             }
@@ -170,8 +165,7 @@ class OntologyController extends Controller
                 if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
                     $session->getFlashBag()->set('error',  NotificationManager::getNotice('element_exist', $code.' '.$namespace));
                 }else{
-                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $saver->saveNew($this->clearSubmittedData($formData),'SetVertex');
+                    $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetVertex');
                     $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
                 }
             }
@@ -208,9 +202,7 @@ class OntologyController extends Controller
                 if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
                     return new Response(json_encode(array('term'=> '')));
                 }else{
-                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
-                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $saved= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
+                    $saved= $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetTerm');
                     return new Response(json_encode(array('term'=> $saved)));
                 }
             }
@@ -247,9 +239,7 @@ class OntologyController extends Controller
                 if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
                     return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $term[':WS:RESPONSE']['_term'][$term[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
                 }else{
-                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
-                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $newTerm= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
+                    $newTerm= $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetTerm');
                     $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
                     
                     return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $newTerm[':WS:RESPONSE']['_term'][$newTerm[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
@@ -291,9 +281,7 @@ class OntologyController extends Controller
                 if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
                     return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $term[':WS:RESPONSE']['_term'][$term[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
                 }else{
-                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
-                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $newTerm= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
+                    $newTerm= $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetTerm');
                     $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
                     
                     return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $newTerm[':WS:RESPONSE']['_term'][$newTerm[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
@@ -331,9 +319,7 @@ class OntologyController extends Controller
                 if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
                     return $this->redirect($this->generateUrl('bioversity_ontology_predicate_new', array('term' => $term[':WS:RESPONSE']['_term'][$term[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
                 }else{
-                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
-                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $newTerm= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
+                    $newTerm= $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetTerm');
                     $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
                     
                     return $this->redirect($this->generateUrl('bioversity_ontology_predicate_new', array('term' => $newTerm[':WS:RESPONSE']['_term'][$newTerm[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
@@ -377,9 +363,7 @@ class OntologyController extends Controller
                     $form->get(Tags::kTAG_LABEL)->setData($this->getKeyValue($term, Tags::kTAG_LABEL, true));
                     $form->get(Tags::kTAG_DEFINITION)->setData($this->getKeyValue($term, Tags::kTAG_DEFINITION, true));
                 }else{
-                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
-                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $saver->saveNew($this->clearSubmittedData($formData),'SetNamespace');
+                    $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetNamespace');
                     $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
                 }
             }
@@ -419,8 +403,7 @@ class OntologyController extends Controller
                 if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
                     $session->getFlashBag()->set('error',  NotificationManager::getNotice('element_exist', $code.' '.$namespace));
                 }else{
-                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $saver->saveNew($this->clearSubmittedData($formData),'SetVertex');
+                    $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetVertex');
                     $session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
                 }
             }
@@ -476,7 +459,7 @@ class OntologyController extends Controller
                 $formData['node_class']= '';
                 $formData['nodes']= '';
                 
-                $saved= $saver->saveNew($this->clearSubmittedData($formData),'SetVertex', $class);
+                $saved= $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetVertex', $class);
                 return new Response(json_encode(array('term'=> $saved)));
             }
         }
@@ -497,31 +480,6 @@ class OntologyController extends Controller
         $server= new ServerConnection();
         return  new Response(json_encode($server->saveRelation($subject, $predicate, $object)));
     }   
-    public function jsonFindLidAction($lid, $namespace=null)
-    {
-        $server= new ServerConnection();
-        return  new Response(json_encode($server->findLID($lid,$namespace)));
-    }
-    
-    public function jsonFindLabelAction($label)
-    {
-        $server= new ServerConnection();
-        return  new Response(json_encode($server->findLABEL($label)));
-    }
-    
-    public function jsonGetTermAction($lid, $namespace=null)
-    {
-        $server= new ServerConnection();
-        return  new Response(json_encode($server->getTerm($lid,$namespace)));
-    }
-    
-    
-    public function jsonFindNamespaceAction($word)
-    {
-        $server= new ServerConnection();
-        return  new Response(json_encode($server->findNAMESPACE($word)));
-    }
-
 //------------PRIVATE---------------------------------------
 
     private function checkForm(Request $request, $form)
@@ -540,32 +498,13 @@ class OntologyController extends Controller
                 if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
                     return new Response(json_encode(array('term'=> '')));
                 }else{
-                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
-                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $saved= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
+                    $saved= $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetTerm');
                     return new Response(json_encode(array('term'=> $saved)));
                 }
             }
         }
         
         return new Response(json_encode(array('term'=> '')));
-    }
-    
-    
-    private function formatSynonyms($synonyms)
-    {
-        if($synonyms)
-            return explode(',', $synonyms);
-        else
-            return NULL;
-    }
-    
-    private function formatCategory($category)
-    {
-        if($category)
-            return explode(',', $category);
-        else
-            return NULL;
     }
     
     private function getKeyValue($term, $key, $lang= false)

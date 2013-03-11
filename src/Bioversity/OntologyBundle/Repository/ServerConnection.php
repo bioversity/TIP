@@ -16,30 +16,6 @@ class ServerConnection extends HttpServerConnection
    *  
    * @return array $serverResponce
    */
-  public function getTerm($code, $namespace=NULL)
-  {
-    $this->setDatabase('ONTOLOGY');
-    $this->setCollection(NULL);
-    
-    $gid= $namespace ? $namespace.':'.$code : $code;
-    
-    $query1= $this->createQuery(Tags::kTAG_GID, Types::kTYPE_STRING, $gid, Operators::kOPERATOR_EQUAL);
-    $params= $this->createRequest('WS:OP:GetTerm', $query1);
-    
-    //if($namespace){
-    //  $query2= $this->createQuery(Tags::kTAG_NAMESPACE, Types::kTYPE_STRING, $namespace, Operators::kOPERATOR_EQUAL);
-    //  $params= $this->createRequest('WS:OP:GetTerm', $query1, $query2);
-    //}else{
-    //  $params= $this->createRequest('WS:OP:GetTerm', $query1);
-    //}
-    return $this->sendRequest($this->wrapper, $params);
-  }
-  
-  /**
-   * Returns the term requested
-   *  
-   * @return array $serverResponce
-   */
   public function getLID($code, $namespace=NULL)
   {
     $this->setDatabase('ONTOLOGY');
@@ -130,85 +106,5 @@ class ServerConnection extends HttpServerConnection
       );
     
     return $this->sendRequest($this->wrapper, $params);
-  }
-  
-  /**
-   * Returns the LID requested
-   * @param string $lid
-   * @param string $namespace
-   * 
-   * @return array $serverResponce
-   */
-  public function findLID($lid, $namespace=NULL)
-  {
-    $this->setDatabase('ONTOLOGY');
-    $this->setCollection(':_terms');
-    
-    if($namespace)
-      $lid= $namespace.':'.$lid;
-    
-    //print_r($lid);
-    
-    $query1= $this->createQuery(Tags::kTAG_GID, Types::kTYPE_STRING, $lid, Operators::kOPERATOR_CONTAINS_NOCASE);
-    $query2= $this->createQuery(Tags::kTAG_LID, Types::kTYPE_STRING, $lid, Operators::kOPERATOR_CONTAINS_NOCASE);
-    //$query1= $this->createQuery(Tags::kTAG_GID, Types::kTYPE_STRING, $lid, Operators::kOPERATOR_EQUAL);
-    //$query2= $this->createQuery(Tags::kTAG_LID, Types::kTYPE_STRING, $lid, Operators::kOPERATOR_EQUAL);
-    $params= $this->createRequestWithMultipleQuery('WS:OP:GET', $query1,$query2);
-    
-    //print_r($this->sendRequest($this->wrapper, $params));
-    return $this->clearResponse($this->sendRequest($this->wrapper, $params));
-  }
-  
-  /**
-   * Returns the LABEL requested
-   * @param string $lid
-   * @param string $namespace
-   * 
-   * @return array $serverResponce
-   */
-  public function findLABEL($label)
-  {
-    $this->setDatabase('ONTOLOGY');
-    $this->setCollection(':_terms');
-    
-    $query1= $this->createQuery(Tags::kTAG_LABEL.'.en', Types::kTYPE_STRING, $label, Operators::kOPERATOR_CONTAINS_NOCASE);
-    $params= $this->createRequest('WS:OP:GET', $query1);
-    
-    //print_r($this->sendRequest($this->wrapper, $params));
-    return $this->clearResponse($this->sendRequest($this->wrapper, $params));
-  }
-  
-  
-  /**
-   * Returns the NAMESPACE requested
-   * @param string $namespace
-   *  
-   * @return array $serverResponce
-   */
-  public function findNAMESPACE($namespace)
-  {
-    $this->setDatabase('ONTOLOGY');
-    $this->setCollection(':_terms');
-    $query= $this->createQuery(Tags::kTAG_GID, Types::kTYPE_STRING, $namespace, Operators::kOPERATOR_PREFIX);
-    $params= $this->createRequest('WS:OP:GET', $query);
-    
-    //print_r($this->clearResponse($this->sendRequest($this->wrapper, $params)));
-    return $this->clearResponse($this->sendRequest($this->wrapper, $params));
-  }
-  
-  private function clearResponse($response)
-  {
-    $list= array();
-    if($response[':WS:STATUS'][':WS:AFFECTED-COUNT'] >= 1){
-      $terms= $response[':WS:RESPONSE'];
-      foreach($terms as $term){
-        if(array_key_exists(Tags::kTAG_LABEL, $term))
-          $list[]=array('GID'=>$term[Tags::kTAG_GID],'LID'=>$term[Tags::kTAG_LID],'LABEL'=>$term[Tags::kTAG_LABEL]['en']);
-        else
-          $list[]=array('GID'=>$term[Tags::kTAG_GID],'LID'=>$term[Tags::kTAG_LID]);  
-      }
-    }
-    
-    return $list;
   }
 }

@@ -7,7 +7,9 @@ use Bioversity\ServerConnectionBundle\Form\BioversityBaseType;
 use Bioversity\ServerConnectionBundle\Repository\Tags;
 
 class SliderSearchNodeType extends BioversityBaseType
-{  
+{
+    var $checkRequiredField= false;
+    
     var $internationlization= array(
         Tags::kTAG_GID,
 	Tags::kTAG_LABEL,

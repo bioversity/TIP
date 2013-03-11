@@ -129,7 +129,7 @@ function setBasicValue(url, data){
   
   json_data= $.parseJSON(data);
   selected_node_data= json_data[':WS:RESPONSE'];
-  $pager_node_data_limit= json_data[':WS:PAGING'][':WS:PAGE-LIMIT'];
+  pager_node_data_limit= json_data[':WS:PAGING'][':WS:PAGE-LIMIT'];
   $pager_node_data_selected= parseInt(json_data[':WS:PAGING'][':WS:PAGE-START'])+1;
   
   $pager_node_data_in_count= 0;

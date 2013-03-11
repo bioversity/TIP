@@ -63,7 +63,27 @@ function createSearchPoint()
            $('#search_point').append(data);
         }
      }).done( function(){
-        startAutocomplete('OntologySearchNode');
+        buildTree();
+        bindFormCheckbox();
+        startAutocomplete('SliderSearchNode');
         startTooltip();
+        bindSearchButton();
      });  
+}
+
+function bindSearchButton()
+{
+  $('#SliderSearchNode').submit(function(event){
+      event.preventDefault();
+      
+      $.ajax({
+          type:       "POST",
+          url:        dev_stage+'/slider/partial/node/search',
+          dataType:   "json",
+          data:       $(this).serializeArray(),
+          success: function( data ) {
+            generateNodeList(data);
+          }
+      });
+  });
 }

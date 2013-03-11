@@ -1,3 +1,36 @@
 bioversity_server_connection_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: BioversityServerConnectionBundle:Default:index }
+    
+#-----------------------------------
+#--------------JSON METHODS---------
+#-----------------------------------
+
+bioversity_server_connection_json_find_gid:
+    pattern:  /serverconnection/json/find/gid/{gid}
+    defaults: { _controller: BioversityServerConnectionBundle:ServerConnection:jsonFindGid }
+
+bioversity_server_connection_json_find_label:
+    pattern:  /serverconnection/json/find/label/{label}
+    defaults: { _controller: BioversityServerConnectionBundle:ServerConnection:jsonFindLabel }
+    
+bioversity_server_connection_json_find_lid:
+    pattern:  /serverconnection/json/find/lid/{lid}/{namespace}
+    defaults: { _controller: BioversityServerConnectionBundle:ServerConnection:jsonFindLid }
+
+bioversity_server_connection_json_find_lid_without_namespace:
+    pattern:  /serverconnection/json/find/lid/{lid}
+    defaults: { _controller: BioversityServerConnectionBundle:ServerConnection:jsonFindLid }
+
+bioversity_server_connection_json_find_namespace:
+    pattern:  /serverconnection/json/find/namespace/{word}
+    defaults: { _controller: BioversityServerConnectionBundle:ServerConnection:jsonFindNamespace }
+
+bioversity_server_connection_json_get_term_with_namespace:
+    pattern:  /serverconnection/json/get/term/{lid}/{namespace}
+    defaults: { _controller: BioversityServerConnectionBundle:ServerConnection:jsonGetTerm }
+
+bioversity_server_connection_json_get_term_without_namespace:
+    pattern:  /serverconnection/json/get/term/{lid}
+    defaults: { _controller: BioversityServerConnectionBundle:ServerConnection:jsonGetTerm }
+    

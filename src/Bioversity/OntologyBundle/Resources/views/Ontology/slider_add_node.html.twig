@@ -15,18 +15,18 @@
   {{ parent() }}
   {% javascripts 
     '@BioversityServerConnectionBundle/Resources/public/js/tags.key.js'
-    '@BioversityOntologyBundle/Resources/public/js/autocomplete.js'
-    '@BioversityOntologyBundle/Resources/public/js/tree.js'
     '@BioversityOntologyBundle/Resources/public/js/binder.js'
-    '@BioversityOntologyBundle/Resources/public/js/scroller.js'
     '@BioversityOntologyBundle/Resources/public/js/slider/setup.js'
     '@BioversityOntologyBundle/Resources/public/js/slider/form_action.js'
+    '@BioversitySliderBundle/Resources/public/js/slider/autocomplete.js'
     '@BioversitySliderBundle/Resources/public/js/slider/setup.js'
     '@BioversitySliderBundle/Resources/public/js/slider/nav.js'
     '@BioversitySliderBundle/Resources/public/js/slider/node.class.js'
     '@BioversitySliderBundle/Resources/public/js/slider/pager.js'
     '@BioversitySliderBundle/Resources/public/js/slider/search.js'
     '@BioversitySliderBundle/Resources/public/js/slider/slider.js'
+    '@BioversitySliderBundle/Resources/public/js/slider/tree.js'
+    '@BioversitySliderBundle/Resources/public/js/slider/scroller.js'
     '@BioversityOntologyBundle/Resources/public/js/slider/slider.js'
     '@BioversityOntologyBundle/Resources/public/js/slider/disabler.js'
   %}
@@ -38,20 +38,18 @@
     <div id="disable_slider"></div>
     <div id="slider_content">
     
-        <div id="entry_point" class="navbar">
-          <div class="navbar-inner">
-            <ul class="nav"></ul>
-            <div class="clear">&nbsp;</div>
+        <div id="entry_point">
+          <div class="root_node_menu">
+            <legend>Start from root node</legend>
+            <blockquote>
+                <ul class="inline"></ul>
+                <div class="clear">&nbsp;</div>
+            </blockquote>
           </div>
         </div>
         <div class="clear"></div>
     
-        <div id="search_point" class="navbar">
-          <div class="navbar-inner">
-            <ul class="nav"></ul>
-            <div class="clear">&nbsp;</div>
-          </div>
-        </div>
+        <div id="search_point" class="navbar"></div>
         <div class="clear"></div>
         
         <div id="breadcrumb">

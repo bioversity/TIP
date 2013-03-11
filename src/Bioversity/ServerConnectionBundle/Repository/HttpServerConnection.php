@@ -14,6 +14,7 @@ class HttpServerConnection
   //var $wrapper= "http://192.168.181.11/TIP/Wrapper.php";
   var $wrapper= "http://temp.wrapper.grinfo.net/TIP/Wrapper.php";
   
+  const page_record= 10;
   const logger= 1;
   
   public function setDatabase($db)
@@ -46,6 +47,22 @@ class HttpServerConnection
    * Create the Request for the WebServer request
    * 
    * @param string $operation
+   * @param array $query
+   * @param string $class
+   *  
+   * @return array $request
+   */
+  public function createNewRequest($operation, $query= NULL, $class= NULL)
+  {
+    $request= $this->buildNewQuery($this->db, $operation, $query, $class);
+   
+    return $request;
+  }
+  
+  /**
+   * Create the Request for the WebServer request
+   * 
+   * @param string $operation
    * @param string $username
    * @param bool $query
    *  
@@ -69,6 +86,36 @@ class HttpServerConnection
    */
   public function createQuery($subject, $type=':TEXT', $data, $operator = '$EQ')
   {
+    return $query= Array(
+      '_query-subject'=>$subject,
+      '_query-operator'=>$operator,
+      '_query-data-type'=>$type,
+      '_query-data' => $data
+    );
+  }
+    
+  /*
+   * Create the query array for the request
+   *
+   * @param string $subject
+   * @param string $type
+   * @param string $data
+   *
+   * @return array $query
+   */
+  public function createNewQuery($subject, $type=':TEXT', $data, $operator = '$EQ')
+  {
+    if($subject == Tags::kTAG_LABEL){
+      $subject= $subject.'.'.key($data);
+      $data= $data[key($data)];
+      $operator= Operators::kOPERATOR_CONTAINS_NOCASE;
+    }
+    
+    if($subject == Tags::kTAG_KIND || $subject == Tags::kTAG_TYPE){
+      $operator= Operators::kOPERATOR_IN;
+    }
+    
+    
     return $query= Array(
       '_query-subject'=>$subject,
       '_query-operator'=>$operator,
@@ -116,7 +163,53 @@ class HttpServerConnection
       $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
     
     return $request;
-  }/**
+  }
+  
+  /**
+   * Builds and send the Query for the WebServer request
+   *
+   * @param string $db
+   * @param string $operation
+   * @param string $username
+   * @param array $query
+   * @param string $class
+   * @param bool $log
+   *
+   * @return array $request
+   *
+   */
+  public function buildNewQuery($db, $operation, $query= NULL, $class= NULL, $pageStart= NULL, $pageLimit= self::page_record, $log= self::logger)
+  {
+    $request= array(
+                ':WS:OPERATION='.$operation,
+                ':WS:FORMAT=:JSON',
+                ':WS:DATABASE='.urlencode(json_encode($db))
+            );
+    
+    if($class)
+      $request[]= ':WS:CLASS='.urlencode(json_encode($class));
+    
+    if($this->collection)
+      $request[]=':WS:CONTAINER='.urlencode(json_encode($this->collection));
+    
+    if($query)
+      $request[]=':WS:QUERY='.urlencode(json_encode(Array('$AND' => $query)));
+      
+    if($log)
+      $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
+    
+    if($pageStart !== NULL)
+      $request[]=':WS:PAGE-START='. urlencode(json_encode($pageStart)) ;
+      
+    if($pageLimit !== NULL)
+      $request[]=':WS:PAGE-LIMIT='. urlencode(json_encode($pageLimit)) ;
+    
+    //return $this->showUnformattedRequest($db, $operation, $query, $class, $log);
+  
+    return $request;
+  }
+  
+  /**
    * Builds and send the Query for the WebServer request
    *
    * @param string $db
@@ -163,5 +256,31 @@ class HttpServerConnection
     //var_dump($server.'?'.implode( '&', $request ));die();
     //print_r($server.'?'.implode( '&', $request ));
     return json_decode(file_get_contents( $server.'?'.implode( '&', $request ) ), true);
+  }
+  
+  
+  /**
+   * This is a debug method
+   *
+   *
+   */
+  private function showUnformattedRequest($db, $operation, $query= NULL, $class= NULL, $log= self::logger)
+  {
+    $request[':WS:OPERATION']=$operation;
+    $request[':WS:FORMAT']=':JSON';
+    $request[':WS:DATABASE']=$db;
+    
+    if($class)
+      $request[':WS:CLASS']= $class;
+    
+    if($this->collection)
+      $request[':WS:CONTAINER']=$this->collection;
+    
+    $request[':WS:QUERY']=Array('$AND' => $query);
+      
+    if($log)
+      $request[':WS:LOG-REQUEST']=$log;
+    
+    return print_r($request);
   }
 }

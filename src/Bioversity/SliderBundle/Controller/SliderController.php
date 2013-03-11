@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Bioversity\SliderBundle\Repository\ServerConnection;
 use Bioversity\SliderBundle\Form\SliderSearchNodeType;
+use Bioversity\ServerConnectionBundle\Repository\Tags;
+use Bioversity\ServerConnectionBundle\Repository\DataFormatterHelper;
 
 class SliderController extends Controller
 {
@@ -32,21 +34,13 @@ class SliderController extends Controller
         
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
-        
+            
             if ($form->isValid()) {
-                $formData= $form->getData();
+                $formData= $form->getData();        
                 $saver= new ServerConnection();
-                $nodeList= $saver->getTerm();
+                $nodeList= $saver->getNodes(DataFormatterHelper::clearSubmittedData($formData));
                 
-                //print_r($term);
-                if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
-                    return new Response(json_encode(array('term'=> '')));
-                }else{
-                    $formData[Tags::kTAG_SYNONYMS]= $this->formatSynonyms($formData[Tags::kTAG_SYNONYMS]);
-                    $formData[Tags::kTAG_CATEGORY]= $this->formatSynonyms($formData[Tags::kTAG_CATEGORY]);
-                    $saved= $saver->saveNew($this->clearSubmittedData($formData),'SetTerm');
-                    return new Response(json_encode(array('term'=> $saved)));
-                }
+                return new Response(json_encode(array('term'=> $nodeList)));
             }
         }
         

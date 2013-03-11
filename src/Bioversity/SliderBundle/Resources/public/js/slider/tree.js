@@ -1,5 +1,5 @@
 function buildTree()
-{    
+{
     $('div.tree div.checkbox_option').each(function(){
         var labelText= $(this).text();
         var count = labelText.match(/___/g);
@@ -33,21 +33,16 @@ function clearIndentation(label)
 function bindFormCheckbox()
 {
     $('div.tree div.checkbox_option input, .opener').click(function(){
-        //var $opener= $(this).parent().find('.opener');
-        //if($opener.html() == ' <strong> + </strong> '){
-        //    $opener.html(' <strong> - </strong> '); 
-        //}else{
-        //    $opener.html(' <strong> + </strong> '); 
-        //}
-        
-        var $inputId= $(this).parent().attr('id');
+        var $field= $(this).parents().find('div.tree').attr('id');        
+        var $inputId= $(this).parent().attr('id');        
         var $exploded= $inputId.split('_');
         
         var level= parseInt($exploded[3], 10)+1;
         
         var open= false;
         var check= false;
-        $('.tree .checkbox_option').each(function(){
+        
+        $('#'+$field+' .checkbox_option').each(function(){
             if($(this).attr('id') == $inputId){
                 open= true;
             }

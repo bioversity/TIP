@@ -8,7 +8,6 @@
  *	@author		Antonino Luca Carella <antonio.carella@gmail.com>
  *	@version	1.00
  */
-
 function generateRootMenu()
 {
   //console.log('generateRootMenu');
@@ -21,6 +20,48 @@ function generateRootMenu()
     );
   });
   //bindRootButton();
+}
+
+function generateNodeList(node_list)
+{
+  //console.log('generateNodeList');
+  resetNodeList();
+  showNodes();
+  goToByScroll(slider_destination_search_node_list_point);
+  if(node_list['term'][':WS:PAGING'][':WS:PAGE-COUNT'] > 0){
+    setNodePager(node_list['term']);
+    $.each(node_list['term'][':WS:RESPONSE'], function(key, value){
+      createNodeList(
+        value[kTAG_CLASS],
+        value[kTAG_NID],
+        value[kTAG_GID],
+        value[kTAG_LABEL],
+        value[kTAG_KIND]
+      );
+    });
+  }else{
+    displayNoResult();
+  }
+}
+
+function hideSearch()
+{
+  $('#'+slider_destination_search_point+' form').hide();
+}
+
+function showSearch()
+{
+  $('#'+slider_destination_search_point+' form').fadeIn('slow');
+}
+
+function showNodes()
+{
+  $('#'+slider_destination_search_node_point).fadeIn('slow');
+}
+
+function hideNodes()
+{
+  $('#'+slider_destination_search_node_point).fadeOut('slow');
 }
 
 function hideSlider()
@@ -42,8 +83,10 @@ function showSlider()
 function startBind(button, predicate, direction)
 {
   //console.log('startBind');
+  showSlider();
   setAppendDirection(direction);
   startButtonAnimation(button,predicate);
+  goToByScroll('slider');
 }
 
 //function bindRootButton()
@@ -198,6 +241,12 @@ function resetSlider()
   resetSearch();
 }
 
+function resetNodeList()
+{
+  //console.log('resetCenter');
+  $('#'+slider_destination_search_node_list_point).html(' ');  
+}
+
 function resetCenter()
 {
   //console.log('resetCenter');
@@ -261,6 +310,28 @@ function createNodeButton(layout, destination, predicate, node_name, node_code, 
     
   $('#'+destination+' ul.node_container').append($('#'+layout+' .node_record').html());
   $('#'+destination+' ul.node_container li').fadeIn('slow');
+}
+
+function displayNoResult()
+{
+  $('#'+slider_destination_search_node_list_point).append('<p>no node found</p>');
+}
+
+function createNodeList(node_class, node_nid, node_gid, node_label, node_kind)
+{
+  //console.log('createNodeMenuButton');
+  $('#'+slider_search_node_list_layout_id+' .node_record li').addClass(node_class);
+  $('#'+slider_search_node_list_layout_id+' .node_record li').attr('onclick', 'javascript: startNav('+node_nid+');');
+  $('#'+slider_search_node_list_layout_id+' .node_record span.node_nid').html('NID '+node_nid);
+  $('#'+slider_search_node_list_layout_id+' .node_record span.node_label').html('LABEL '+node_label['en']);
+  $('#'+slider_search_node_list_layout_id+' .node_record span.node_gid').html('GID '+node_gid);
+  
+  if(node_kind !== undefined)
+    $('#'+slider_search_node_list_layout_id+' .node_record span.node_kind').html('KIND <br/>'+String(node_kind).replace(',','<br/>'));
+  else
+    $('#'+slider_search_node_list_layout_id+' .node_record span.node_kind').html('');
+  
+  $('#'+slider_destination_search_node_list_point).append($('#'+slider_search_node_list_layout_id+' .node_record').html());
 }
 
 function createNodeDetail()

@@ -55,31 +55,6 @@ bioversity_ontology_modal_predicate_new:
 #----------------------------------------------------------------------------
 #-----------------------JSON RESPONCE----------------------------------------
 #----------------------------------------------------------------------------
-
-bioversity_ontology_json_find_label:
-    pattern:  /ontology/json/find/label/{label}
-    defaults: { _controller: BioversityOntologyBundle:Ontology:jsonFindLabel }
-    
-bioversity_ontology_json_find_lid:
-    pattern:  /ontology/json/find/lid/{lid}/{namespace}
-    defaults: { _controller: BioversityOntologyBundle:Ontology:jsonFindLid }
-
-bioversity_ontology_json_find_lid_without_namespace:
-    pattern:  /ontology/json/find/lid/{lid}
-    defaults: { _controller: BioversityOntologyBundle:Ontology:jsonFindLid }
-
-bioversity_ontology_json_find_namespace:
-    pattern:  /ontology/json/find/namespace/{word}
-    defaults: { _controller: BioversityOntologyBundle:Ontology:jsonFindNamespace }
-
-bioversity_ontology_json_get_term_with_namespace:
-    pattern:  /ontology/json/get/term/{lid}/{namespace}
-    defaults: { _controller: BioversityOntologyBundle:Ontology:jsonGetTerm }
-
-bioversity_ontology_json_get_term_without_namespace:
-    pattern:  /ontology/json/get/term/{lid}
-    defaults: { _controller: BioversityOntologyBundle:Ontology:jsonGetTerm }
-    
 bioversity_ontology_json_term_new:
     pattern:  /ontology/json/term/new
     defaults: { _controller: BioversityOntologyBundle:Ontology:jsonNewTerm }

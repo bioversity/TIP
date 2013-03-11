@@ -19,7 +19,9 @@
     '@BioversitySliderBundle/Resources/public/js/slider/pager.js'
     '@BioversitySliderBundle/Resources/public/js/slider/search.js'
     '@BioversitySliderBundle/Resources/public/js/slider/slider.js'
+    '@BioversitySliderBundle/Resources/public/js/slider/tree.js'
     '@BioversitySliderBundle/Resources/public/js/slider/autocomplete.js'
+    '@BioversitySliderBundle/Resources/public/js/slider/scroller.js'
   %}
       <script type="text/javascript" src="{{ asset_url }}"></script>
   {% endjavascripts %}
@@ -28,15 +30,28 @@
 {% block body %}
     <div id="slider_content">
     
-        <div id="entry_point" class="navbar">
-          <div class="navbar-inner root_node_menu">
-            <ul class="nav"></ul>
-            <div class="clear">&nbsp;</div>
+        <div id="entry_point">
+          <div class="root_node_menu">
+            <legend>Start from root node</legend>
+            <blockquote>
+                <ul class="inline"></ul>
+                <div class="clear">&nbsp;</div>
+            </blockquote>
           </div>
         </div>
         <div class="clear"></div>
     
-        <div id="search_point" class="navbar"></div>
+        <div id="search_point"></div>
+        <div class="clear"></div>
+    
+        <div id="node_found">
+            <legend>Nodes Found</legend>
+            <blockquote>
+                <ul id="node_found_list"></ul>
+                <div id="node_found_pager"></div>
+                <div class="clear">&nbsp;</div>
+            </blockquote>
+        </div>
         <div class="clear"></div>
         
         <div id="breadcrumb">

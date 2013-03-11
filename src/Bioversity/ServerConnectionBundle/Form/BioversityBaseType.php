@@ -16,6 +16,8 @@ use Bioversity\ServerConnectionBundle\Validator\Constraints\ContainsDEFAULT;
 
 class BioversityBaseType extends AbstractType
 {
+    var $checkRequiredField= true;
+    
     public function getName()
     {
         return 'BioversityBase';
@@ -58,7 +60,11 @@ class BioversityBaseType extends AbstractType
         $definition= $terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_DEFINITION];
         //strange behaviour in mane generation, it don't work on _
         $name= str_replace(' ', ' ',$terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_LABEL]['en']);
-        $required= in_array(':REQUIRED', $tags[$id][Tags::kTAG_TYPE]);
+        
+        if($this->checkRequiredField)
+            $required= in_array(':REQUIRED', $tags[$id][Tags::kTAG_TYPE]);
+        else
+            $required= false;
         
         $constraints= array($this->getValidator($tags[$id][Tags::kTAG_GID]));
         
@@ -151,7 +157,7 @@ class BioversityBaseType extends AbstractType
         foreach($edges as $option){
             if($option[Tags::kTAG_OBJECT] == $node){
                 //var_dump($option[Tags::kTAG_OBJECT].'->'.$option[Tags::kTAG_SUBJECT].'<br/>');
-                $options[]= array($option[Tags::kTAG_PREDICATE] => $spacer.$nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_LABEL]['en']);
+                $options[]= array($nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_GID] => $spacer.$nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_LABEL]['en']);
                 $options[]= $this->cicleOptions($edges, $nodes, $option[Tags::kTAG_SUBJECT],$levels+1);
             }
         }

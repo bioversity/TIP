@@ -9,7 +9,6 @@ bioversity_slider_modal_slider:
 #----------------------------------------------------------------------------
 #-----------------------JSON RESONSE-----------------------------------------
 #----------------------------------------------------------------------------
-
 bioversity_slider_json_root_nodes:
     pattern:  /get-root-nodes
     defaults: { _controller: BioversitySliderBundle:Slider:JsonRootNode }
@@ -26,6 +25,7 @@ bioversity_slider_json_node_details:
     requirements:
         nodeId:  \d+
 
+
 #-------------Get
 bioversity_slider_json_node_relation_in:
     pattern:  /get-node-relation-in/{nodeId}
@@ -38,6 +38,7 @@ bioversity_slider_json_node_relation_out:
     defaults: { _controller: BioversitySliderBundle:Slider:JsonNodeRelationOUT }
     requirements:
         nodeId:  \d+
+
         
 #---------------Search
 bioversity_slider_json_search_node_relation_in:
@@ -55,7 +56,12 @@ bioversity_slider_json_search_node_relation_out:
 bioversity_slider_partial_node_search:
     pattern:  /slider/partial/node/search
     defaults: { _controller: BioversitySliderBundle:Slider:partialNodeSearch }
-
+    
+bioversity_slider_json_node_search:
+    pattern:  /slider/json/node/search
+    defaults: { _controller: BioversitySliderBundle:Slider:JsonNodeSearch }
+    
+    
 #----------------Pager
 bioversity_slider_json_node_relation_pager_in:
     pattern:  /get-node-relation-pager-in/{nodeId}/{page}

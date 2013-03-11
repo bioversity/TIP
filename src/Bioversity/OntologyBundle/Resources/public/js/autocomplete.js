@@ -6,7 +6,7 @@ function startAutocomplete(form)
     $("#"+form+"_"+kTAG_LID).autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: dev_stage+"/ontology/json/find/lid/"+getUrlParams(request.term, getNamespace(form)),
+                url: dev_stage+"/serverconnection/json/find/lid/"+getUrlParams(request.term, getNamespace(form)),
                 dataType: "json",
                 success: function( data ) {
                     if(data == ''){
@@ -33,7 +33,7 @@ function startAutocomplete(form)
     $( "#"+form+"_"+kTAG_NAMESPACE ).autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: dev_stage+"/ontology/json/find/namespace/"+request.term,
+                url: dev_stage+"/serverconnection/json/find/namespace/"+request.term,
                 dataType: "json",
                 success: function( data ) {
                     if(data == ''){
@@ -55,22 +55,20 @@ function startAutocomplete(form)
                         //getTermDetail(ui.item.value, ui.item.label);
                 },
     });
-     
-    var subvalue;
+    
     $( "#"+form+"_"+kTAG_LABEL ).autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: dev_stage+"/ontology/json/find/label/"+request.term,
+                url: dev_stage+"/serverconnection/json/find/label/"+request.term,
                 dataType: "json",
                 success: function( data ) {
                     if(data == ''){
                         unvalorizeField()
                     }else{
                         response( $.map( data, function( item ) {
-                            subvalue= item.GID;
                             return {
                                 label: item.LABEL,
-                                value: item.LABEL,
+                                value: item.GID,
                             }
                         }));
                     }
@@ -80,7 +78,7 @@ function startAutocomplete(form)
         minLength: 1,
         select: function( event, ui ) {
                     if(ui.item){
-                        getTermDetail(subvalue, subvalue);
+                        getTermDetail(ui.item.value, ui.item.value);
                     }
                 },
     });
@@ -95,7 +93,7 @@ function createAutocompleter(fieldBinded, form)
     fieldBinded.autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: dev_stage+"/ontology/json/find/lid/"+getUrlParams(request.term, namespace),
+                url: dev_stage+"/serverconnection/json/find/lid/"+getUrlParams(request.term, namespace),
                 dataType: "json",
                 success: function( data ) {
                     if(data == ''){
@@ -142,7 +140,7 @@ function getUrlParams(lid, namespace)
 function getTermDetail(term, gid)
 {
     $.ajax({
-        url: dev_stage+"/ontology/json/get/term/"+getUrlParams(gid),
+        url: dev_stage+"/serverconnection/json/get/term/"+getUrlParams(gid),
         dataType: "json",
         success: function( data ) {
             var response= data[':WS:RESPONSE'];
