@@ -2,52 +2,41 @@
 
 {% block body %}
     
-    <form action="#" method="post" {{ form_enctype(form) }}>
-        <div class="page-header">
-            <h1>
-                <small>Registration account</small>
-                <div class="pull-right">
-                    <input class="btn btn-info" type="submit" value="Save" />
+    <form id="form_user" action="#" method="post" {{ form_enctype(form) }}>
+        <h1><small>Registration account</small></h1>
+        
+        {% if errors %}
+            {% for error in errors %}
+                <div class="alert alert-error pull-left">
+                    <strong>Warning!</strong> {{ error }}
                 </div>
-            </h1>
-        </div>
-        
-        {{ form_errors(form) }}
-        
-        {{ form_label(form.fullname) }}
-        {% if form_errors(form.fullname) %}
-            <div class="alert alert-error">{{ form_errors(form.fullname) }}</div>
+            {% endfor %}
         {% endif %}
-        {{ form_widget(form.fullname) }}
         
-        
-        {{ form_label(form.username) }}
-        {% if form_errors(form.username) %}
-            <div class="alert alert-error">{{ form_errors(form.username) }}</div>
+        {% if notice %}
+            {% for alert in notice %}
+                <div class="alert alert-success pull-left">
+                    <strong>Well done!</strong> {{ alert }}
+                </div>
+            {% endfor %}
         {% endif %}
-        {{ form_widget(form.username) }}
         
+        <div class="clear"></div>
         
-        {{ form_label(form.password) }}
-        {% if form_errors(form.password) %}
-            <div class="alert alert-error">{{ form_errors(form.password) }}</div>
-        {% endif %}
-        {{ form_widget(form.password) }}
+        <blockquote>
         
+            {{ form_errors(form) }}
+            
+            {{ form_widget(form) }}
+            
+            {{ form_rest(form) }}
+          
+          <div class="clear"></div>
+        </blockquote>
         
-        {{ form_label(form.email) }}
-        {% if form_errors(form.email) %}
-            <div class="alert alert-error">{{ form_errors(form.email) }}</div>
-        {% endif %}
-        {{ form_widget(form.email) }}
-        
-        
-        {{ form_label(form.roles) }}
-        {% if form_errors(form.roles) %}
-            <div class="alert alert-error">{{ form_errors(form.roles) }}</div>
-        {% endif %}
-        {{ form_widget(form.roles) }}
-    
-        {{ form_rest(form) }}        
+        <div class="form-actions">
+            <a href="{{ path('bioversity_user_homepage') }}" class="btn btn-info" type="button" >Back</a>
+            <input class="btn btn-info" type="submit" value="Save" />
+        </div>     
     </form>
 {% endblock %}

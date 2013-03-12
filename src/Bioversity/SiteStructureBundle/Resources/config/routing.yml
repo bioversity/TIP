@@ -6,6 +6,10 @@ bioversity_slider_conservaton_strategies:
     pattern:  /conservation_strategies
     defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:conservatonStrategies }
     
+bioversity_slider_national_inventories:
+    pattern:  /national_inventories
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:nationalInventories }
+    
 bioversity_site_structure_contact:
     pattern:  /contact
     defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:contact }

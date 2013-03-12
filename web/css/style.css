@@ -595,3 +595,13 @@ input[type="text"], select, .uneditable-input{
 #home_menu h3{
   color: #000;
 }
+
+.natinal_inventory a{
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
+}
+
+.natinal_inventory a:hover{
+  color: #ccc;
+}

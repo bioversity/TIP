@@ -33,24 +33,25 @@ class SecurityController extends Controller
     }
     
     public function registrationAction(Request $request)
-    {        
+    { 
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
         $form = $this->createForm(new BioversityUserRegistrationType());
         
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
         
             if ($form->isValid()) {
-                $user= $form->getData();
-                $saver= new ServerConnection();
-                $save= $saver->saveNewUser($user['fullname'], $user['username'], $user['password'], $user['email'], $user['roles']);
-                
-                //if($save[':STATUS-CODE'] === 0)
-                    return $this->redirect($this->generateUrl('b_s_login_path'), 301);
+               $this->saveUser($session, $form, 'saveNewUser');
+               return $this->redirect($this->generateUrl('b_s_login_path'), 301);
             }
         }
-
+        
         return $this->render('BioversitySecurityBundle:Security:registration.html.twig', array(
-            'form'  => $form->createView(),
+            'form'   => $form->createView(),
+            'notice' => $session->getFlashBag()->get('notice'),
+            'errors' => $session->getFlashBag()->get('error')
         ));
     }
 }
