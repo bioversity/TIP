@@ -11,8 +11,8 @@ var node_element_for_page= 10;
 
 function createPager(request_result, destination)
 {
-  //console.log('createPager');
   var pages= getPageNumber(request_result);
+  
   if(pages > 0){
     $('#'+slider_pager_layout_id+' .node_record .total_page').html(pages);
     

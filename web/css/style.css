@@ -285,6 +285,11 @@ p{
   max-height: none !important;
   overflow-y: visible;
   padding: 0px !important;
+  color: #fff !important;
+}
+
+.modal-body{
+  color: #fff !important;
 }
 
 .lengh_btn{

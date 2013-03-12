@@ -132,21 +132,24 @@ function setBasicValue(url, data){
   var pattOUT=new RegExp(urlForNodeRelationOUT);
   var pattSearchIN=new RegExp(urlForSearchNodeRelationIN);
   var pattSearchOUT=new RegExp(urlForSearchNodeRelationOUT);
+  var pattPagerIN= new RegExp(urlForNodeRelationPagerIN);
+  var pattPagerOUT= new RegExp(urlForNodeRelationPagerOUT);
   
   json_data= $.parseJSON(data);
   selected_node_data= json_data[':WS:RESPONSE'];
   pager_node_data_limit= json_data[':WS:PAGING'][':WS:PAGE-LIMIT'];
-  $pager_node_data_selected= parseInt(json_data[':WS:PAGING'][':WS:PAGE-START'])+1;
+  pager_node_data_selected= parseInt(json_data[':WS:PAGING'][':WS:PAGE-START'])+1;
   
-  $pager_node_data_in_count= 0;
-  $pager_node_data_out_count= 0;
-  $show_search_filter=false;
-  show_pager=false;
+  pager_node_data_in_count= 0;
+  pager_node_data_out_count= 0;
+  show_search_filter=false;
+  how_pager=false;
   
-  if(pattIN.test(url) || pattSearchIN.test(url)){
-    $pager_node_data_in_count= json_data[':WS:STATUS'][':WS:AFFECTED-COUNT'];
+  //console.log(json_data[':WS:STATUS']);
+  if(pattIN.test(url) || pattSearchIN.test(url) || pattPagerIN.test(url)){
+    pager_node_data_in_count= json_data[':WS:STATUS'][':WS:AFFECTED-COUNT'];
   }
-  if(pattOUT.test(url) || pattSearchOUT.test(url)){
-    $pager_node_data_out_count= json_data[':WS:STATUS'][':WS:AFFECTED-COUNT'];
+  if(pattOUT.test(url) || pattSearchOUT.test(url) || pattPagerOUT.test(url)){
+    pager_node_data_out_count= json_data[':WS:STATUS'][':WS:AFFECTED-COUNT'];
   }
 }

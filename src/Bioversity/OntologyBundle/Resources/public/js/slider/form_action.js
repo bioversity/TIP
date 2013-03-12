@@ -6,7 +6,7 @@
 function showFormAction(/*destination*/)
 {
     $('.'+$slider_destination_form_action).fadeIn('slow');
-    //bindStartProcessButton();
+    bindStartProcessButton();
 }
 
 function startProcess()

@@ -10,8 +10,11 @@ function bindRootNode()
 
 function bindFoundNode()
 {
-  $(document).on("click", "#node_found_list .node_result", function(){ 
-    bindStartProcessButton();
+  $(document).on("click", "#node_found_list .node_result", function(){
+    if(show_action == false){
+      showFormAction();
+      show_action= true;
+    }
   });
 }
 

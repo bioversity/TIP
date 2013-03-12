@@ -3,8 +3,8 @@
  *
  */
 
-var $start_search_bind= true;
-var $show_search_filter= true;
+var start_search_bind= true;
+var show_search_filter= true;
 
 var delay = (function(){
   var timer = 0;

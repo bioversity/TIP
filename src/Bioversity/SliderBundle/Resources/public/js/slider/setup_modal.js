@@ -130,17 +130,17 @@ function setBasicValue(url, data){
   json_data= $.parseJSON(data);
   selected_node_data= json_data[':WS:RESPONSE'];
   pager_node_data_limit= json_data[':WS:PAGING'][':WS:PAGE-LIMIT'];
-  $pager_node_data_selected= parseInt(json_data[':WS:PAGING'][':WS:PAGE-START'])+1;
+  pager_node_data_selected= parseInt(json_data[':WS:PAGING'][':WS:PAGE-START'])+1;
   
-  $pager_node_data_in_count= 0;
-  $pager_node_data_out_count= 0;
-  $show_search_filter=false;
+  pager_node_data_in_count= 0;
+  pager_node_data_out_count= 0;
+  show_search_filter=false;
   show_pager=false;
   
   if(pattIN.test(url) || pattSearchIN.test(url)){
-    $pager_node_data_in_count= json_data[':WS:STATUS'][':WS:AFFECTED-COUNT'];
+    pager_node_data_in_count= json_data[':WS:STATUS'][':WS:AFFECTED-COUNT'];
   }
   if(pattOUT.test(url) || pattSearchOUT.test(url)){
-    $pager_node_data_out_count= json_data[':WS:STATUS'][':WS:AFFECTED-COUNT'];
+    pager_node_data_out_count= json_data[':WS:STATUS'][':WS:AFFECTED-COUNT'];
   }
 }

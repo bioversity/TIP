@@ -184,15 +184,15 @@ function generateNodeRelations(layout, destination)
       var node_value= selected_node_data._node[node_id];
       select_node_direction='left';
       show_pager=true;
-      $show_search_filter= true;
-      pager_count= $pager_node_data_in_count;
+      show_search_filter= true;
+      pager_count= pager_node_data_in_count;
     }else if(value[kTAG_SUBJECT] == selected_node_id){
       var node_id= value[kTAG_OBJECT];
       var node_value= selected_node_data._node[node_id];
       select_node_direction='right';
       show_pager=true;
-      $show_search_filter= true;
-      pager_count= $pager_node_data_out_count;
+      show_search_filter= true;
+      pager_count= pager_node_data_out_count;
     }
     
     createNodeButton(
@@ -215,13 +215,13 @@ function generateNodeRelations(layout, destination)
     createPager(pager_count, destination);
   }
   
-  if($show_search_filter===true){
+  if(show_search_filter===true){
     if(pager_count > 25){
       showSearchFilter(destination);
     
-      if($start_search_bind===true){
+      if(start_search_bind===true){
         startSearchBind();
-        $start_search_bind=false;
+        start_search_bind=false;
       }
     }
   }

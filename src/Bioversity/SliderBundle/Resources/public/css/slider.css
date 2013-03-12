@@ -52,6 +52,13 @@
 }
 .search_box{
   float: left;
+  width: 100%;
+}
+.search_box input{
+  padding: 4px 0px !important;
+}
+.search_filter{
+  width: 100% !important;
 }
 #node_parents ul,
 #node_details ul,
@@ -212,7 +219,7 @@ ul.breadcrumb li a.active{
   font-weight: bold;
 }
 .pager{
-  float: right;
+  /*float: right;*/
 }
 
 .pager .first_page:hover,
