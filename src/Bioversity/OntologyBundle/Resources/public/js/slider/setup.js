@@ -18,6 +18,8 @@ var ontology_selected_node_subject;
 var ontology_selected_node_predicate;
 
 $(document).ready(function(){
-    hideAddNodeButton();
+    //hideAddNodeButton();
+    //showFormAction();
     bindRootNode();
+    bindFoundNode();
 });

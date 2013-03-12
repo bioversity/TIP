@@ -2,10 +2,6 @@
   width: 90% !important;
 }
 
-.action_form{
-    display: none;
-}
-
 #disable_slider{
   display: none;
   z-index: 1000;

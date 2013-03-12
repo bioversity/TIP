@@ -1,9 +1,6 @@
-{% extends '::base.html.twig' %}
+{% extends '::base_menu_right.html.twig' %}
 
-
-{% block body %}  
-    
-    {% include 'BioversitySiteStructureBundle:SiteStructure:left_side.html.twig' %}
+{% block content_page %}  
     
     <div class="span7" class="thumbnails">
         <h3>Plant Trait diversity – Crop Wild Relatives – Landraces</h3>
@@ -22,10 +19,5 @@
           <li>200 National inventories</li>
           <li>50 conservation strategies in place</li>
         </ul>
-    </div>
-    
-    <div id="home_menu" class="span2 pull-right">
-      <div class="pull-right"><i class="icon-th"></i></div>
-      {% include '::menuPartial.html.twig' %}
     </div>
 {% endblock %}

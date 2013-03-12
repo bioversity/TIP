@@ -8,6 +8,13 @@ function bindRootNode()
   });
 }
 
+function bindFoundNode()
+{
+  $(document).on("click", "#node_found_list .node_result", function(){ 
+    bindStartProcessButton();
+  });
+}
+
 function bindPredicateFormAction()
 {
     bindPredicateSave(createTerm);
@@ -84,7 +91,11 @@ function bindPredicateSelection(callback)
         var $namespace= $('input[name="OntologyPredicate['+kTAG_NAMESPACE+']"]').val();
         var $lid      = $('input[name="OntologyPredicate['+kTAG_LID+']"]').val();
         
-        ontology_selected_node_predicate= $namespace+':'+$lid;
+        if($namespace)
+            ontology_selected_node_predicate= $namespace+':'+$lid;
+        else
+            ontology_selected_node_predicate= $lid;
+            
         callback();
     });    
 }

@@ -1,0 +1,21 @@
+{% extends '::base_empty.html.twig' %}
+
+{% block menuhead %}
+  {% include '::menuhead.html.twig' %}
+{% endblock %}
+
+{% block footer %}
+  {% include '::footer.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    
+    {% include 'BioversitySiteStructureBundle:SiteStructure:left_side.html.twig' %}
+
+    {% block content_page %}{% endblock %}
+    
+    <div id="home_menu" class="span2 pull-right">
+      <div class="pull-right"><i class="icon-th"></i></div>
+      {% include '::menuPartial.html.twig' %}
+    </div>
+{% endblock %}

@@ -201,6 +201,9 @@ p{
 .dashboard_page{
   border-bottom: 3px solid #679EC9;
 }
+.conservation_page{
+  border-bottom: 3px solid #679EC9;
+}
 .nav_menu_top .active a{
   color: #FFF !important;
   font-weight: bold !important;
@@ -219,6 +222,28 @@ p{
 }
 .dashboard_page.active a{
   background-color: rgba(103, 158, 201, 0.5);
+}
+.conservation_page.active a{
+  background-color: rgba(103, 158, 201, 0.5);
+}
+
+.bioversity_site_structure_homepage{
+  border-bottom: 5px solid #990033;
+}
+.bioversity_site_structure_browse_trait{
+  border-bottom: 5px solid #F1921A;
+}
+.bioversity_slider_browse_slider{
+  border-bottom: 5px solid #FFCC00;
+}
+.bioversity_site_structure_about{
+  border-bottom: 5px solid #669966;
+}
+.bioversity_site_structure_contact{
+  border-bottom: 5px solid #669966;
+}
+.bioversity_slider_conservaton_strategies{
+  border-bottom: 5px solid #679EC9;
 }
 
 .spacer{
@@ -564,20 +589,4 @@ input[type="text"], select, .uneditable-input{
 
 #home_menu h3{
   color: #000;
-}
-
-.bioversity_site_structure_homepage{
-  border-bottom: 5px solid #990033;
-}
-.bioversity_site_structure_browse_trait{
-  border-bottom: 5px solid #F1921A;
-}
-.bioversity_slider_browse_slider{
-  border-bottom: 5px solid #FFCC00;
-}
-.bioversity_site_structure_about{
-  border-bottom: 5px solid #669966;
-}
-.bioversity_site_structure_contact{
-  border-bottom: 5px solid #669966;
 }

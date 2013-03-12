@@ -111,7 +111,12 @@ class HttpServerConnection
       $operator= Operators::kOPERATOR_CONTAINS_NOCASE;
     }
     
-    if($subject == Tags::kTAG_KIND || $subject == Tags::kTAG_TYPE){
+    if(
+      $subject == Tags::kTAG_KIND ||
+      $subject == Tags::kTAG_TYPE ||
+      $subject == Tags::kTAG_SYNONYMS ||
+      $subject == Tags::kTAG_CATEGORY
+      ){
       $operator= Operators::kOPERATOR_IN;
     }
     

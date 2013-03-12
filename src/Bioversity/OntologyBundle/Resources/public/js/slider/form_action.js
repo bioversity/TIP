@@ -6,7 +6,7 @@
 function showFormAction(/*destination*/)
 {
     $('.'+$slider_destination_form_action).fadeIn('slow');
-    bindStartProcessButton();
+    //bindStartProcessButton();
 }
 
 function startProcess()
@@ -80,7 +80,8 @@ function deletePredicate()
 {
     enableForm('disable_slider');
     $('#form_predicate').remove();
-    goToByScroll('slider_content');
+    //goToByScroll('slider_content');
+    goToByScroll('slider');
 }
 
 function deleteTerm()
@@ -112,7 +113,7 @@ function attachNode(data)
     deleteNode();
     deleteTerm();
     deletePredicate();
-    goToByScroll('slider_content');
+    goToByScroll('slider');
 }
 
 function saveRelation($selected_node)

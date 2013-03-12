@@ -12,11 +12,22 @@ class DataFormatterHelper
             }else if($data== Tags::kTAG_LABEL || $data== Tags::kTAG_DEFINITION){
                 $formData[$data]= array('en' => $value);
             }else if($data == Tags::kTAG_SYNONYMS || $data == Tags::kTAG_CATEGORY){
-                $formData[$data]= self::convertData(explode(',', $value));
+                $formData[$data]= self::convertData($value);
             }
         }
         
         return $formData;
+    }
+    
+    public static function convertdata($data)
+    {
+        if(is_array($data))
+            return $data;
+            
+        if($data)
+            return explode(',', $data);
+        else
+            return NULL;
     }
     
     public static function formatSynonyms($synonyms)

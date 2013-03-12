@@ -17,6 +17,11 @@ class SiteStructureController extends Controller
         return $this->render('BioversitySiteStructureBundle:SiteStructure:index.html.twig');
     }
     
+    public function conservatonStrategiesAction()
+    {
+        return $this->render('BioversitySiteStructureBundle:SiteStructure:conservation_strategies.html.twig');
+    }
+    
     public function contactAction()
     {
         return $this->render('BioversitySiteStructureBundle:SiteStructure:contact.html.twig');
@@ -44,7 +49,7 @@ class SiteStructureController extends Controller
 
     public function browseTraitAction()
     {
-        return $this->render('BioversitySiteStructureBundle:SiteStructure:index.html.twig');
+        return $this->render('BioversitySiteStructureBundle:SiteStructure:trait.html.twig');
     }
 
     public function dashboardAction()

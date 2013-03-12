@@ -2,6 +2,10 @@ bioversity_site_structure_homepage:
     pattern:  /
     defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:index }
     
+bioversity_slider_conservaton_strategies:
+    pattern:  /conservation_strategies
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:conservatonStrategies }
+    
 bioversity_site_structure_contact:
     pattern:  /contact
     defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:contact }

@@ -10,58 +10,7 @@ use Bioversity\ServerConnectionBundle\Repository\Operators;
 use Bioversity\ServerConnectionBundle\Repository\HttpServerConnection;
 
 class ServerConnection extends HttpServerConnection
-{  
-  /**
-   * Returns the term requested
-   *  
-   * @return array $serverResponce
-   */
-  public function getLID($code, $namespace=NULL)
-  {
-    $this->setDatabase('ONTOLOGY');
-    $this->setCollection(NULL);
-    
-    if($namespace){
-      $query2= $this->createQuery(Tags::kTAG_NAMESPACE, Types::kTYPE_STRING, $namespace, Operators::kOPERATOR_EQUAL);
-      $params= $this->createRequest('WS:OP:GetTerm', $query1, $query2);
-    }else{
-      $params= $this->createRequest('WS:OP:GetTerm', $query1);
-    }
-    return $this->sendRequest($this->wrapper, $params);
-  }
-  
-  /**
-   * Returns the term requested
-   * @param string $code
-   *  
-   * @return array $serverResponce
-   */
-  public function getTermByCode($code)
-  {
-    $this->setDatabase('ONTOLOGY');
-    $this->setCollection(NULL);
-    $query= $this->createQuery(Tags::kTAG_LID, Types::kTYPE_STRING, $code, Operators::kOPERATOR_EQUAL);
-    $params= $this->createRequest('WS:OP:GetTerm', $query);
-    
-    return $this->sendRequest($this->wrapper, $params);
-  }
-  
-  
-  /**
-   * Returns the Node list requested
-   * @param string $nid
-   *  
-   * @return array $serverResponce
-   */
-  public function getNodeByNIDTerm($nid)
-  {
-    $this->setDatabase('ONTOLOGY');
-    $this->setCollection(NULL);
-    $query= $this->createQuery(Tags::kTAG_TERM, Types::kTYPE_STRING, $nid, Operators::kOPERATOR_EQUAL);
-    $params= $this->createRequest('WS:OP:GetVertex', $query);
-    
-    return $this->sendRequest($this->wrapper, $params);
-  }
+{ 
   
   /**
    * Create new namespace/term
