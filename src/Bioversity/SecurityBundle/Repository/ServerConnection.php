@@ -57,7 +57,7 @@ class ServerConnection extends HttpServerConnection
    *
    * @param array $userData
    */
-  public function saveNewUser($userData)
+  public function saveNewUser($userData, $role= null)
   {
     $object= array();
     foreach($userData as $key=>$value){
@@ -65,6 +65,9 @@ class ServerConnection extends HttpServerConnection
     }
     $object[Tags::kTAG_USER_DOMAIN]= 'TIP';
     
+    if($role)
+      $object[Tags::kTAG_USER_ROLE]= $role;
+      
     $params = array(
       ':WS:FORMAT=:JSON',
       ':WS:OPERATION=WS:OP:NewUser',

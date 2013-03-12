@@ -43,8 +43,9 @@ class SecurityController extends Controller
             $form->bindRequest($request);
         
             if ($form->isValid()) {
-               $this->saveUser($session, $form, 'saveNewUser');
-               return $this->redirect($this->generateUrl('b_s_login_path'), 301);
+                $saver= new ServerConnection();
+                $saver->saveNewUser($form->getData(), 'ROLE_ANONIMUS');
+                return $this->redirect($this->generateUrl('b_s_login_path'), 301);
             }
         }
         
