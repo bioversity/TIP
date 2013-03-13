@@ -41,11 +41,8 @@
             <div class="clear"></div>
         </blockquote>
         
-        <div class="form-actions">
-            <input id="OntologyTerm_select" class="btn btn-info" type="submit" value="Select This one" />
-            <input id="OntologyTerm_save" class="btn btn-info" type="submit" value="Save new one" />
-            <input id="OntologyTerm_cancel" class="btn btn-info" type="button" value="Cancel" />
-        </div>
+        {% include 'BioversityOntologyBundle:Ontology:partial_action.html.twig' with {'form_id': 'OntologyTerm'} %}
+        
     </form>
     
 {% endblock %}

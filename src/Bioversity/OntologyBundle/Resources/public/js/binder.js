@@ -22,6 +22,7 @@ function bindPredicateFormAction()
 {
     bindPredicateSave(createTerm);
     bindPredicateSelection(createTerm);
+    bindPredicateClear();
     bindPredicateCancel();
 }
 
@@ -29,6 +30,7 @@ function bindNodeFormAction(term)
 {
     bindNodeSave(saveRelation, term);
     bindNodeSelection(saveRelation);
+    bindNodeClear();
     bindNodeCancel();
 }
 
@@ -36,6 +38,7 @@ function bindTermFormAction()
 {
     bindTermSave(createNode);
     bindTermSelection(createNode);
+    bindTermClear();
     bindTermCancel();
 }
 
@@ -59,6 +62,14 @@ function bindPredicateCancel()
 {
     $('#OntologyPredicate_cancel').click(function(event){
         deletePredicate();
+    });
+}
+
+function bindPredicateClear()
+{
+    $('#OntologyPredicate_clear').click(function(event){
+        setActualForm('OntologyPredicate');
+        unvalorizeAllField();
     });
 }
 
@@ -110,6 +121,14 @@ function bindTermCancel()
 {
     $('#OntologyTerm_cancel').click(function(event){
         deleteTerm();
+    });
+}
+
+function bindTermClear()
+{
+    $('#OntologyTerm_clear').click(function(event){
+        setActualForm('OntologyTerm');
+        unvalorizeAllField();
     });
 }
 
@@ -203,6 +222,14 @@ function bindNodeCancel()
 {
     $('#OntologyNode_cancel').click(function(event){
         deleteNode();
+    });
+}
+
+function bindNodeClear()
+{
+    $('#OntologyNode_clear').click(function(event){
+        setActualForm('OntologyNode');
+        unvalorizeAllField();
     });
 }
 

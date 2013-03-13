@@ -119,6 +119,7 @@ function createAutocompleter(fieldBinded, form)
 }
 
 function setActualForm(form){
+    console.log(form);
     actualForm= form;
 }
 
@@ -173,7 +174,7 @@ function valorizeField(key, entity)
 
 function unvalorizeField()
 {
-    $('form input[type="text"][readonly], textarea[readonly], select[readonly]').each(function(){
+    $('#'+actualForm+' input[type="text"][readonly], textarea[readonly], select[readonly]').each(function(){
         $(this).val('');
     });
     unlockField();
@@ -181,7 +182,7 @@ function unvalorizeField()
 
 function lockField()
 {
-    $('form input[type="text"], textarea, select').each(function(){
+    $('#'+actualForm+' input[type="text"], textarea, select').each(function(){
         var $id=$(this).attr('id');
         if( $id !== ''+actualForm+'_'+kTAG_LID && $id !== ''+actualForm+'_'+kTAG_NAMESPACE)
             $(this).attr('readonly', 'readonly');
@@ -193,7 +194,7 @@ function lockField()
 
 function unlockField()
 {
-    $('form input, textarea, select').each(function(){
+    $('#'+actualForm+' input, textarea, select').each(function(){
         $(this).removeAttr('readonly');
     });
     $('#'+actualForm+'_save').removeAttr('disabled');

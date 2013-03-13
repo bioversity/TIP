@@ -120,18 +120,6 @@ function bindFormButton()
         $('#SliderModal .modal-body div#embedded_content').html('');
         $('#SliderModal .modal-body div#embedded_content').html('<object height="500px" width="700px" data="'+dev_stage+'/modal-slider/'+$(this).attr('value')+'"><param value="aaa.pdf" name="src"/><param value="transparent" name="wmode"/></object>');
         $('#SliderModal .modal-body div#embedded_content').fadeIn('slow');
-        
-        //$.ajax({
-        //    type:       "POST",
-        //    url:        dev_stage+'/modal-slider/'+$(this).attr('value'),
-        //    dataType:   "html",
-        //    success: function( data ) {
-        //        $('#SliderModal .modal-body div#embedded_content').append(data);
-        //    }
-        //}).done( function(){
-        //    $('#SliderModal #loader').fadeOut();
-        //    $('#SliderModal .modal-body div#embedded_content').fadeIn('slow');
-        //});
     });
 }
 
