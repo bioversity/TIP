@@ -12,6 +12,7 @@
         'css/bootstrap-responsive.css'
         'css/bootstrap.css'
         'css/style.css'
+        'css/new_style.css'
       %}
           <link href="{{ asset_url }}" rel="stylesheet" type="text/css">
       {% endstylesheets %}
@@ -57,7 +58,8 @@
   </head>
   <body>
     
-    {% block menuhead %}{% endblock %}
+   {% include '::mainMenu.html.twig' %}
+   {% block menuhead %}{% endblock %}
     
     <div id="wrap">   
       

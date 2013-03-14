@@ -1,0 +1,86 @@
+{% set currentPath = app.request.attributes.get('_route') %}
+<div id="navigation_menu">
+    <ul id="navigationMenu">
+        <li>
+            <div class="home navigationFirstLevel">
+                <img src="{{ asset('images/TIP-logo.gif') }}" />
+            </div>
+        </li>
+        
+        <li>
+            <div class="home navigationFirstLevel">
+                <i class="icon-bookmark"></i>
+                <br/>
+                Main menu
+                
+                <span>
+                    <a href="{{ path('bioversity_site_structure_homepage') }}">Home</a>
+                    <br/>
+                    <a href="{{ path('bioversity_site_structure_about') }}">About</a>
+                    <br/>
+                    <a href="{{ path('bioversity_site_structure_contact') }}">Contact</a>
+                    <br/>
+                    <a href="{{ path('bioversity_site_structure_browse_trait') }}">Trait</a>
+                    <br/>
+                    <a href="{{ path('bioversity_slider_conservaton_strategies') }}">Conservation Strategies</a>
+                    <br/>
+                    <a href="{{ path('bioversity_slider_national_inventories') }}">National Inventories</a>
+                    <br/>
+                    <a href="{{ path('bioversity_slider_browse_slider') }}">Ontology</a>
+                </span>
+            </div>
+        </li>
+        
+        <li>
+            <div class="about navigationFirstLevel">
+                <i class="icon-user"></i>
+                <br/>User menu
+                <span>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('bioversity_user_homepage') }}">Manage User</a>
+                            <br/>
+                        {% endif %}
+                        {% if is_granted('ROLE_ONTOLOGY') %}
+                            <a href="{{ path('bioversity_ontology_browse_slider') }}">Manage Ontology</a>
+                            <br/>
+                        {% endif %}
+                        <a href="#">Profile</a>
+                        <br/>
+                        <a href="{{ path('b_s_logout') }}">Sign Out</a>
+                        <br/>
+                    {% else %}
+                        <a href="{{ path('b_s_login_path') }}">Login</a>
+                        <br/>
+                        <a href="{{ path('b_s_registration') }}">Registration</a>
+                    {% endif %}
+                </span>
+            </div>
+        </li>
+        
+        <li>
+            <div class="services navigationFirstLevel">
+                <i class="icon-leaf"></i>
+                <br/>
+                Site menu
+                <span>
+                    <a data-toggle="modal" href="#MenbersModal">Members</a>
+                    <br/>
+                    <a data-toggle="modal" href="#WorkshopsModal">Workshops</a>
+                    <br/>
+                    <a data-toggle="modal" href="#ProjectsModal">Projects</a>
+                    <br/>
+                    <a data-toggle="modal" href="#PublicationsModal">Publications</a>
+                    <br/>
+                    <a data-toggle="modal" href="#DataUsePolicyModal">Data Use Policy</a>
+                    <br/>
+                    <a data-toggle="modal" href="#AdvisoryBoardModal">Advisory Board</a>
+                    <br/>
+                    <a data-toggle="modal" href="#NewsArchiveModal">News Archive</a>
+                    <br/>
+                    <a data-toggle="modal" href="#GovernanceModal">Governance</a>
+                </span>
+            </div>
+        </li>
+    </ul>
+</div>
