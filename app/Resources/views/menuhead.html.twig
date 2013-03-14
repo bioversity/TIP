@@ -1,40 +1,19 @@
-{% set menuClass = app.request.attributes.get('_route') %}
 <div class="navbar">
-  <div class="navbar-inner menu_top_inner {{ menuClass }}">
+  <div class="navbar-inner menu_top_inner">
     
-    <div class="container">
-      <!--
-      <div id="tip_logo">
-        <img src="{{ asset('images/TIP-logo.gif') }}" />
-      </div>
-      -->
+    <div>
       
       <a class="brand" href="{{ path('bioversity_site_structure_homepage') }}">
-      <!--
-        <strong>T</strong>rait<br/>
-        <strong>I</strong>nformation <br/>
-        <strong>P</strong>ortal
-      -->
         <strong>T</strong><em>rait</em> <strong>I</strong><em>nformation</em> <strong>P</strong><em>ortal</em>
         <span class="beta_release">beta 0.1</span>
       </a>
       
-      <div id="main_menu" class="first_row">  
-        {% include '::menuModal.html.twig' %}
+      <div id="main_menu" class="first_row">
         {% include '::login.html.twig' %}
         {% include '::search.html.twig' %}
       </div>
     
       <div class="clear"></div>
-      
-      {#{% if(app.request.attributes.get('_route') == 'bioversity_site_structure_homepage') %}#}
-        <!--
-        <div id="home_menu">
-          <div class="pull-right"><i class="icon-th icon-white"></i></div>
-          {% include '::menuPartial.html.twig' %}
-        </div>
-        -->
-      {#{% endif %}#}
     </div>
   </div>
 </div>

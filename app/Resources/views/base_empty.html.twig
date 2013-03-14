@@ -59,19 +59,14 @@
   <body>
     
    {% include '::mainMenu.html.twig' %}
-   {% block menuhead %}{% endblock %}
-    
-    <div id="wrap">   
       
-      <div class="container">
+    <div id="content_page">
+      {% block menuhead %}{% endblock %}
+      <div id="content_body">
         {% block body %}{% endblock %}
+        {% block footer %}{% endblock %}
       </div>
-
-      <div id="push"></div>
-    
     </div>
-    
-    {% block footer %}{% endblock %}
     
   </body>
 </html>

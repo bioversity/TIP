@@ -5,7 +5,7 @@
 }
 
 #navigation_menu{
-	position: absolute;
+	position: fixed;
 	left: 0px;	  
 	height: 100%;
 	background: #45484d; /* Old browsers */
@@ -16,6 +16,75 @@
 	background: -ms-linear-gradient(left,  #45484d 0%,#000000 100%); /* IE10+ */
 	background: linear-gradient(to right,  #45484d 0%,#000000 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
+	
+	/*-webkit-box-shadow: 4px 0px 3px rgba(50, 50, 50, 0.33);
+	-moz-box-shadow:    4px 0px 3px rgba(50, 50, 50, 0.33);
+	box-shadow:         4px 0px 3px rgba(50, 50, 50, 0.33);*/
+}
+
+#navigation_menu.bioversity_site_structure_homepage,
+#navigationMenu span.bioversity_site_structure_homepage{
+	-webkit-box-shadow: 4px 0px 3px rgba(153, 0, 51, 0.33);
+	-moz-box-shadow:    4px 0px 3px rgba(153, 0, 51, 0.33);
+	box-shadow:         4px 0px 3px rgba(153, 0, 51, 0.33);
+}
+#navigation_menu.bioversity_site_structure_browse_trait,
+#navigationMenu span.bioversity_site_structure_browse_trait{
+	-webkit-box-shadow: 4px 0px 3px rgba(241, 146, 26, 0.33);
+	-moz-box-shadow:    4px 0px 3px rgba(241, 146, 26, 0.33);
+	box-shadow:         4px 0px 3px rgba(241, 146, 26, 0.33);
+}
+#navigation_menu.bioversity_slider_browse_slider,
+#navigationMenu span.bioversity_slider_browse_slider{
+	-webkit-box-shadow: 4px 0px 3px rgba(241, 146, 26, 0.33);
+	-moz-box-shadow:    4px 0px 3px rgba(241, 146, 26, 0.33);
+	box-shadow:         4px 0px 3px rgba(241, 146, 26, 0.33);
+}
+#navigation_menu.bioversity_site_structure_about,
+#navigation_menu.bioversity_site_structure_contact,
+#navigationMenu span.bioversity_site_structure_about,
+#navigationMenu span.bioversity_site_structure_contact{
+	-webkit-box-shadow: 4px 0px 3px rgba(102, 153, 102, 0.33);
+	-moz-box-shadow:    4px 0px 3px rgba(102, 153, 102, 0.33);
+	box-shadow:         4px 0px 3px rgba(102, 153, 102, 0.33);
+}
+#navigation_menu.bioversity_slider_conservaton_strategies,
+#navigationMenu span.bioversity_slider_conservaton_strategies{
+	-webkit-box-shadow: 4px 0px 3px rgba(103, 158, 201, 0.33);
+	-moz-box-shadow:    4px 0px 3px rgba(103, 158, 201, 0.33);
+	box-shadow:         4px 0px 3px rgba(103, 158, 201, 0.33);
+}
+
+#navigationMenu span.bioversity_site_structure_homepage{
+	/* inner shadow*/
+	-moz-box-shadow:inset 3px 0px 8px #990033;
+	-webkit-box-shadow:inset 3px 0px 8px #990033;
+	box-shadow:inset 3px 0px 8px #990033;
+}
+#navigationMenu span.bioversity_site_structure_browse_trait{
+	/* inner shadow*/
+	-moz-box-shadow:inset 3px 0px 8px #F1921A;
+	-webkit-box-shadow:inset 3px 0px 8px #F1921A;
+	box-shadow:inset 3px 0px 8px #F1921A;
+}
+#navigationMenu span.bioversity_slider_browse_slider{
+	/* inner shadow*/
+	-moz-box-shadow:inset 3px 0px 8px #FFCC00;
+	-webkit-box-shadow:inset 3px 0px 8px #FFCC00;
+	box-shadow:inset 3px 0px 8px #FFCC00;
+}
+#navigationMenu span.bioversity_site_structure_about,
+#navigationMenu span.bioversity_site_structure_contact{
+	/* inner shadow*/
+	-moz-box-shadow:inset 3px 0px 8px #669966;
+	-webkit-box-shadow:inset 3px 0px 8px #669966;
+	box-shadow:inset 3px 0px 8px #669966;
+}
+#navigationMenu span.bioversity_slider_conservaton_strategies{
+	/* inner shadow*/
+	-moz-box-shadow:inset 3px 0px 8px #679EC9;
+	-webkit-box-shadow:inset 3px 0px 8px #679EC9;
+	box-shadow:inset 3px 0px 8px #679EC9;
 }
 
 #navigation_menu ul{
@@ -24,26 +93,37 @@
 
 #navigationMenu li{
 	list-style:none;
-	height:70px;
-	padding:2px;
 	width:70px;
-	border-bottom: 1px ridge;
-	color: #fff;
+	color: #B4B4B4;
+	display: block;
+	font-size: 1.18em;
+	font-weight: bold;
+	text-align: center;
 }
 
 
 #navigationMenu li:hover{
 	box-shadow:0 0 5px #9ddff5;
+	color: #ccc;
+}
+
+#navigationMenu li,
+.navigationTitle{
+	height:70px;
+	padding:2px;
+	border-bottom: 1px ridge;
+	text-shadow: 0 1px 0 #000000;
 }
 
 #navigationMenu span{
 	/* Container properties */
-	top: 0px;
+	top: -4px;
 	width:0;
-	left:69px;
+	left:74px;
 	padding:0;
-	position:absolute;
+	position:fixed;
 	overflow:hidden;
+	height: 100%;
 
 	/* Text properties */
 	font-family:'Myriad Pro',Arial, Helvetica, sans-serif;
@@ -52,6 +132,7 @@
 	letter-spacing:0.6px;
 	white-space:nowrap;
 	line-height:39px;
+	text-align: left;
 	
 	/* CSS3 Transition: */
 	-webkit-transition: 0.25s;
@@ -59,6 +140,15 @@
 	/* Future proofing (these do not work yet): */
 	-moz-transition: 0.25s;
 	transition: 0.25s;
+	
+	background: #45484d; /* Old browsers */
+	background: -moz-linear-gradient(left,  #45484d 0%, #000000 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#45484d), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #45484d 0%,#000000 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #45484d 0%,#000000 100%); /* IE10+ */
+	background: linear-gradient(to right,  #45484d 0%,#000000 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
 }
 
 #navigationMenu .navigationFirstLevel{
@@ -72,7 +162,17 @@
 	text-align: center;
 }
 
+#navigationMenu span a{
+	text-decoration: none;
+}
+
 /* General hover styles */
+
+#navigationMenu span:hover{
+	position: fixed;
+	top: -4px;
+	height: 100%;
+}
 
 #navigationMenu .navigationFirstLevel:hover span{
 	width:auto;
@@ -90,48 +190,75 @@
 
 #navigationMenu .home {	background-position:0 0;}
 #navigationMenu .home:hover {	background-position:0 -69px;}
-#navigationMenu .home span{
-	background-color:#7da315;
-	color:#3d4f0c;
-	text-shadow:1px 1px 0 #99bf31;
-}
 
 /* Blue Button */
 
 #navigationMenu .about { background-position:-69px 0;}
 #navigationMenu .about:hover { background-position:-69px -69px;}
-#navigationMenu .about span{
-	background-color:#1e8bb4;
-	color:#223a44;
-	text-shadow:1px 1px 0 #44a8d0;
-}
 
 /* Orange Button */
 
 #navigationMenu .services { background-position:-69px 0;}
 #navigationMenu .services:hover { background-position:-69px -69px;}
-#navigationMenu .services span{
-	background-color:#c86c1f;
-	color:#5a3517;
-	text-shadow:1px 1px 0 #d28344;
-}
 
 /* Yellow Button */
 
 #navigationMenu .portfolio { background-position:-114px 0;}
 #navigationMenu .portfolio:hover{ background-position:-114px -39px;}
-#navigationMenu .portfolio span{
-	background-color:#d0a525;
-	color:#604e18;
-	text-shadow:1px 1px 0 #d8b54b;
-}
 
 /* Purple Button */
 
 #navigationMenu .contact { background-position:-152px 0;}
 #navigationMenu .contact:hover { background-position:-152px -39px;}
-#navigationMenu .contact span{
-	background-color:#af1e83;
-	color:#460f35;
-	text-shadow:1px 1px 0 #d244a6;
+
+
+
+#content_page{
+	margin-left: 75px;
+}
+#content_body{
+	padding: 10px;
+}
+
+.navbar-inner{
+	background: none repeat scroll 0 0 #191919;
+	height: 70px;
+	padding-bottom:2px;
+	border-bottom: 1px ridge;
+}
+
+.navbar .brand{
+	color: #fff !important;
+	font-size: 25px !important;
+	padding: 20px !important;
+}
+
+.top-search{
+  margin-bottom: 0;
+  margin-top: 20px;
+  position: relative;
+}
+
+.top-search .search-query {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.15);
+    color: #FFFFFF;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1;
+    padding: 4px 9px;
+    transition: none 0s ease 0s;
+}
+
+
+.top_menu{
+  margin-top: 20px;
+  padding: 7px;
+  text-decoration: none !important;
+  font-weight: bold !important;
+}
+
+.top_menu:hover{
+  color: #ccc;
 }
