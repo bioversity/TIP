@@ -28,6 +28,7 @@
 }  
 #slider{
   height: 400px;
+  display: none;
 }  
 #entry_point button{
   float: left;
@@ -39,7 +40,7 @@
   height: 255px;
   overflow: auto;
   border-radius: 3px 3px 3px 3px;
-  background: none repeat scroll 0 0 #E3E3E3;
+  /*background: none repeat scroll 0 0 #E3E3E3;*/
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset;
   position: relative;
   margin-top: 5px;
@@ -51,6 +52,13 @@
 }
 .search_box{
   float: left;
+  width: 100%;
+}
+.search_box input{
+  padding: 4px 0px !important;
+}
+.search_filter{
+  width: 100% !important;
 }
 #node_parents ul,
 #node_details ul,
@@ -140,10 +148,10 @@
  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
  box-shadow:inset 0px 1px 0px 0px #ffffff;
- background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+ /*background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
  background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
- filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ededed", endColorstr="#dfdfdf");
- background-color:#ededed;
+ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ededed", endColorstr="#dfdfdf");*/
+ /*background-color:#ededed;*/
  -moz-border-radius:5px;
  -webkit-border-radius:5px;
  border-radius:5px;
@@ -182,7 +190,7 @@ ul.breadcrumb li a.active{
   border: 1px solid #DDDDDD;
   border-radius: 3px 3px 3px 3px;
   box-shadow: 0 1px 0 #FFFFFF inset;
-  margin: 0 0 18px;
+  /*margin: 0 0 18px;*/
   padding: 7px 14px;
 }
 .clear{
@@ -190,7 +198,7 @@ ul.breadcrumb li a.active{
   height: 0px !important;
 }
 #history_container{
-  border-bottom: 1px solid #fff;
+  /*border-bottom: 1px solid #fff;*/
 }
 #history_button{
   margin-bottom: 0px !important;
@@ -211,7 +219,7 @@ ul.breadcrumb li a.active{
   font-weight: bold;
 }
 .pager{
-  float: right;
+  /*float: right;*/
 }
 
 .pager .first_page:hover,
@@ -227,6 +235,77 @@ ul.breadcrumb li a.active{
 .nav_open{
   font-weight: bold;
 }
+
+.root_node_menu{
+  /*
+  background: #45484d !important;
+  background: -moz-linear-gradient(top, #45484d 0%, #000000 100%) !important;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000)) !important;
+  background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%) !important;
+  background: -o-linear-gradient(top, #45484d 0%,#000000 100%) !important;
+  background: -ms-linear-gradient(top, #45484d 0%,#000000 100%) !important;
+  background: linear-gradient(to bottom, #45484d 0%,#000000 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ) !important;
+  */
+}
+
+.root_node_menu ul{
+  list-style: none;
+}
+
+.root_node_menu ul li{
+  float: left;
+  padding: 5px;
+}
+
+.root_node_menu ul li a{
+  text-decoration: none;
+  color: #000;
+}
+
+#SliderShowhNode{
+  display: none;
+}
+
+#node_found{
+  display: none;
+}
+
+#node_found_list{
+  list-style: none;
+}
+
+.node_result{
+  margin: 5px;
+  padding: 10px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.node_result span{
+  padding-left: 10px;
+}
+
+.COntologyMasterVertex{
+  background-color: red;
+}
+
+.COntologyAliasVertex{
+  background-color: green;
+}
+
+.COntologyMasterVertex:hover{
+  background-color: rgba(0,0,0,0.5);
+}
+
+.COntologyAliasVertex:hover{
+  background-color: rgba(0,0,0,0.5);
+}
+
+#node_found_pager{
+  
+}
 body {
   padding-top: 0px !important;
   overflow: hidden;
@@ -238,4 +317,8 @@ body {
 
 #slider_container{
   width: 100%;
+}
+
+#slider {
+    display: block !important;
 }

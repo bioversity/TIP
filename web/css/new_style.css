@@ -117,7 +117,7 @@ footer{
 	-webkit-box-shadow:inset 3px 0px 8px #669966;
 	box-shadow:inset 3px 0px 8px #669966;
 }
-#navigationMenu span.bioversity_slider_conservaton_strategies{
+#navigationMenu span.bioversity_site_structure_conservaton_strategies{
 	/* inner shadow*/
 	-moz-box-shadow:inset 3px 0px 8px #679EC9;
 	-webkit-box-shadow:inset 3px 0px 8px #679EC9;
@@ -347,4 +347,8 @@ footer{
 
 .natinal_inventory a:hover{
   color: #fff;
+}
+
+#tip_chat{
+	height: auto;
 }

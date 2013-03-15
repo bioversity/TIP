@@ -2,11 +2,15 @@ bioversity_site_structure_homepage:
     pattern:  /
     defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:index }
     
-bioversity_slider_conservaton_strategies:
+bioversity_site_structure_conservaton_strategies:
     pattern:  /conservation_strategies
     defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:conservatonStrategies }
     
-bioversity_slider_national_inventories:
+bioversity_site_structure_online_chat:
+    pattern:  /online-chat
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:onlineChat }
+    
+bioversity_site_structure_national_inventories:
     pattern:  /national_inventories
     defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:nationalInventories }
     

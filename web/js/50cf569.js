@@ -52,6 +52,637 @@ var kTAG_USER_INSTITUTE_CODE='50';
 var kTAG_USER_INSTITUTE_NAME='51';
 var kTAG_USER_INSTITUTE_ADDRESS='52';
 var kTAG_USER_INSTITUTE_COUNTRY='53';
+function bindRootNode()
+{
+  $(document).on("click", "#entry_point a", function(){ 
+    if(show_action == false){
+      showFormAction();
+      show_action= true;
+    }
+  });
+}
+
+function bindFoundNode()
+{
+  $(document).on("click", "#node_found_list .node_result", function(){
+    if(show_action == false){
+      showFormAction();
+      show_action= true;
+    }
+  });
+}
+
+function bindPredicateFormAction()
+{
+    bindPredicateSave(createTerm);
+    bindPredicateSelection(createTerm);
+    bindPredicateClear();
+    bindPredicateCancel();
+}
+
+function bindNodeFormAction(term)
+{
+    bindNodeSave(saveRelation, term);
+    bindNodeSelection(saveRelation);
+    bindNodeClear();
+    bindNodeCancel();
+}
+
+function bindTermFormAction()
+{
+    bindTermSave(createNode);
+    bindTermSelection(createNode);
+    bindTermClear();
+    bindTermCancel();
+}
+
+//------------------------------------
+//--------START BUTTON----------------
+//------------------------------------
+function bindStartProcessButton()
+{
+    $('.'+$slider_destination_form_action+' a').click(function(){
+        ontology_selected_node_id= selected_node_id; //this variable is defined in the node.class.js file in the SliderBundle
+        ontology_selected_node_relation= ($(this).attr('id') == 'relation_left')? kTAG_OBJECT : kTAG_SUBJECT;
+        disableSlider();
+        createPredicate();
+    });
+}
+
+//------------------------------------
+//--------PREDICATE BUTTON------------
+//------------------------------------
+function bindPredicateCancel()
+{
+    $('#OntologyPredicate_cancel').click(function(event){
+        deletePredicate();
+    });
+}
+
+function bindPredicateClear()
+{
+    $('#OntologyPredicate_clear').click(function(event){
+        setActualForm('OntologyPredicate');
+        unvalorizeAllField();
+    });
+}
+
+function bindPredicateSave(callback)
+{
+    $('#OntologyPredicate_save').click(function(event){
+        event.preventDefault();
+        var $form= $('form[id="form_predicate"]');
+        $.ajax({
+            type:       "POST",
+            url:        dev_stage+'/ontology/json/predicate/new',
+            dataType:   "json",
+            data:       $form.serializeArray(),
+            success: function( data ) {
+                if(data['term'] !== ''){
+                    //callback(data['term'][':WS:RESPONSE']['_ids'][0]);
+                    var response= data['term'][':WS:RESPONSE'];
+                    var term_id= response['_ids'];
+                    var term_attr= data['term'][':WS:RESPONSE']['_term'];
+                    ontology_selected_node_predicate= term_attr[term_id[0]][kTAG_GID];
+                    callback();
+                }
+            }
+        });
+    });
+}
+
+function bindPredicateSelection(callback)
+{
+    $('#OntologyPredicate_select').click(function(event){
+        event.preventDefault();
+        
+        var $namespace= $('input[name="OntologyPredicate['+kTAG_NAMESPACE+']"]').val();
+        var $lid      = $('input[name="OntologyPredicate['+kTAG_LID+']"]').val();
+        
+        if($namespace)
+            ontology_selected_node_predicate= $namespace+':'+$lid;
+        else
+            ontology_selected_node_predicate= $lid;
+            
+        callback();
+    });    
+}
+
+//------------------------------------
+//--------TERM BUTTON-----------------
+//------------------------------------
+function bindTermCancel()
+{
+    $('#OntologyTerm_cancel').click(function(event){
+        deleteTerm();
+    });
+}
+
+function bindTermClear()
+{
+    $('#OntologyTerm_clear').click(function(event){
+        setActualForm('OntologyTerm');
+        unvalorizeAllField();
+    });
+}
+
+function bindTermSave(callback)
+{
+    $('#OntologyTerm_save').click(function(event){
+        event.preventDefault();
+        var $form= $('form[id="form_term"]');
+        $.ajax({
+            type:       "POST",
+            url:        dev_stage+'/ontology/json/term/new',
+            dataType:   "json",
+            data:       $form.serializeArray(),
+            success: function( data ) {
+                if(data['term'] !== ''){
+                    callback(data['term'][':WS:RESPONSE']['_ids'][0]);
+                }
+            }
+        });
+    });
+}
+
+function bindTermSelection(callback)
+{
+    $('#OntologyTerm_select').click(function(event){
+        event.preventDefault();
+        
+        var $namespace= $('input[name="OntologyTerm['+kTAG_NAMESPACE+']"]').val();
+        var $lid      = $('input[name="OntologyTerm['+kTAG_LID+']"]').val();
+        if($namespace)
+            callback($namespace+':'+$lid);
+        else
+            callback($lid);
+    });    
+}
+
+function bindnamespaceCreation(form)
+{
+    $('#'+form+' .create_namespace').click(function(event){
+        event.preventDefault();
+        $('#NamespaceModal .modal-body div#embedded_content').html('');
+        $('#NamespaceModal .modal-body div#embedded_content').html('<object height="400px" width="100%" data="'+dev_stage+'/ontology/modal/namespace/new'+'"><param value="aaa.pdf" name="src"/><param value="transparent" name="wmode"/></object>');
+        $('#NamespaceModal .modal-body div#embedded_content').fadeIn('slow');
+    });
+}
+
+function bindSliderButton()
+{ 
+    $('.slider_button').click(function(event){
+        event.preventDefault();
+        $('#SliderModal #loader').fadeIn('slow');
+        $('#SliderModal .modal-body div#embedded_content').html('');
+        $('#SliderModal .modal-body div#embedded_content').html('<object height="500px" width="700px" data="'+dev_stage+'/modal-slider/'+$(this).attr('value')+'"><param value="aaa.pdf" name="src"/><param value="transparent" name="wmode"/></object>');
+        $('#SliderModal .modal-body div#embedded_content').fadeIn('slow');
+    });    
+}
+
+//------------------------------------
+//--------NODE BUTTON-----------------
+//------------------------------------
+function bindNodeSave(callback, term)
+{
+    $('#OntologyNode_save').click(function(event){
+        event.preventDefault();
+        var $form= $('form[id="form_node"]');
+        $.ajax({
+            type:       "POST",
+            url:        dev_stage+'/ontology/json/node/new/'+term,
+            dataType:   "json",
+            data:       $form.serializeArray(),
+            success: function( data ) {
+                if(data['term'] !== ''){
+                    callback(data['term'][':WS:RESPONSE']['_ids'][0]);
+                }
+            }
+        });
+    });
+}
+
+function bindNodeSelection(callback)
+{
+    $('#OntologyNode_select').click(function(event){
+        event.preventDefault();
+        
+        var $selected_node= $('#form_node #OntologyNodeList input[type="radio"]:checked').val();
+        callback($selected_node);
+    });    
+}
+
+function bindNodeCancel()
+{
+    $('#OntologyNode_cancel').click(function(event){
+        deleteNode();
+    });
+}
+
+function bindNodeClear()
+{
+    $('#OntologyNode_clear').click(function(event){
+        setActualForm('OntologyNode');
+        unvalorizeAllField();
+    });
+}
+
+
+function bindExistingNode()
+{
+    $('#form_node #OntologyNodeList input[type="radio"]').click(function(){
+        if($(this).is(':checked')){
+            $('#OntologyNode_select').removeAttr('disabled');
+            $('#OntologyNode_save').attr('disabled', 'disabled');
+            $('#form_node input[type="text"], select, textarea').val('');
+            $('#form_node .checkbox_option input').attr('checked',false);
+            //$('#form_node input, select, textarea').attr('disabled', 'disabled');
+        }
+    });
+}
+
+function bindNodeFormField()
+{
+    $('#form_node input[type="text"],input[type="checkbox"], textarea, select').change(function(){
+        if($(this).val() !== ''){
+            $('#OntologyNode_save').removeAttr('disabled');
+            $('#OntologyNode_select').attr('disabled', 'disabled');
+            $('#form_node #OntologyNodeList input[type="radio"]:checked').attr('checked', false);
+        }
+    });
+}
+
+/**
+ *	Global plugin setup file for node creation.
+ *
+ *	This file set the global var for the plugin
+ *	You can customize the slider changing the html class name of the single elment
+ *
+ *	@package	ontology slider
+ *
+ *	@author		Antonino Luca Carella <antonio.carella@gmail.com>
+ *	@version	1.00
+ */
+
+var show_action= false;
+var $slider_destination_form_action= 'action_form';
+var ontology_selected_node_relation;
+var ontology_selected_node_object;
+var ontology_selected_node_subject;
+var ontology_selected_node_predicate;
+
+$(document).ready(function(){
+    //hideAddNodeButton();
+    //showFormAction();
+    bindRootNode();
+    bindFoundNode();
+});
+/**
+ * Form action
+ *
+ */
+
+function showFormAction(/*destination*/)
+{
+    $('.'+$slider_destination_form_action).fadeIn('slow');
+    bindStartProcessButton();
+}
+
+function startProcess()
+{
+    $('.'+$slider_destination_form_action+' a').click(function(){
+        disableSlider();
+        var relation= ($(this).attr('id') == 'relation_left')? kTAG_OBJECT : kTAG_SUBJECT;
+        
+        createPredicate(relation);
+    });
+}
+
+function createPredicate(relation)
+{
+    $('#form_container').html('');
+    $.ajax({
+        url:        dev_stage+'/ontology/partial/predicate/new',
+        dataType:   "html",
+        success: function( data ) {
+           $('#form_container').append(data);
+        }
+     }).done( function(){
+        startnamespaceConfiguration('form_predicate');
+        startAutocomplete('OntologyPredicate');
+        startTooltip();
+        bindPredicateFormAction(); 
+        goToByScroll('form_predicate');
+     });  
+}
+
+function createTerm()
+{
+    $.ajax({
+        url:        dev_stage+'/ontology/partial/term/new',
+        dataType:   "html",
+        success: function( data ) {
+           $('#form_container').append(data);
+        }
+     }).done( function(){
+        startnamespaceConfiguration('form_term');
+        startAutocomplete('OntologyTerm');
+        startTooltip();
+        bindTermFormAction();
+        goToByScroll('form_term');
+        disableForm('form_predicate');
+     });
+}
+
+function createNode(term)
+{
+    $.ajax({
+        url:        dev_stage+'/ontology/partial/node/new/'+term,
+        dataType:   "html",
+        success: function( data ) {
+            $('#form_container').append(data);
+        }
+     }).done( function(){
+        startTooltip();
+        goToByScroll('form_node');
+        disableForm('form_term');
+        buildTree();
+        bindFormCheckbox();
+        bindSliderButton();
+        bindExistingNode();
+        bindNodeFormField();
+        bindNodeFormAction(term);
+     });
+}
+
+function deletePredicate()
+{
+    enableForm('disable_slider');
+    $('#form_predicate').remove();
+    //goToByScroll('slider_content');
+    goToByScroll('slider');
+}
+
+function deleteTerm()
+{
+    enableForm('form_term');
+    $('#form_term').remove();
+    goToByScroll('form_predicate');
+}
+
+function deleteNode()
+{
+    enableForm('form_term');
+    $('#form_node').remove();
+    goToByScroll('form_term');
+}
+
+function startnamespaceConfiguration(form)
+{
+    $('#'+form+' .create_namespace').attr('href', '#NamespaceModal');
+    $('#'+form+' .create_namespace').attr('data-toggle', 'modal');
+    //$('#form_term').attr('action',dev_stage+'/ontology/json/term/new');
+    bindnamespaceCreation(form);
+}
+
+function attachNode(data)
+{
+    enableSlider();
+    startNav(ontology_selected_node_id);
+    deleteNode();
+    deleteTerm();
+    deletePredicate();
+    goToByScroll('slider');
+}
+
+function saveRelation($selected_node)
+{
+    var params= buildUrl($selected_node);
+        
+    $.ajax({
+        type:       "POST",
+        url:        dev_stage+'/ontology/json/relation/new/'+params,
+        dataType:   "json",
+        success: function( data ) {
+            if(data['term'] !== ''){
+                attachNode(data);
+            }
+        }
+    });
+}
+
+function buildUrl(ontology_selected_node_nid)
+{
+    if(ontology_selected_node_relation == kTAG_SUBJECT)
+        return ontology_selected_node_nid+'/'+ontology_selected_node_predicate+'/'+ontology_selected_node_id;
+    else
+        return ontology_selected_node_id+'/'+ontology_selected_node_predicate+'/'+ontology_selected_node_nid;
+}
+var actualForm;
+
+function startAutocomplete(form)
+{
+    setActualForm(form);
+    $("#"+form+"_"+kTAG_LID).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: dev_stage+"/serverconnection/json/find/lid/"+getUrlParams(request.term, getNamespace(form)),
+                dataType: "json",
+                success: function( data ) {
+                    if(data == ''){
+                        unvalorizeField()
+                    }else{
+                        response( $.map( data, function( item ) {
+                            return {
+                                label: item.GID,
+                                value: item.LID
+                            }
+                        }));
+                    }
+                }
+            });
+        },
+        minLength: 1,
+        select: function( event, ui ) {
+                    if(ui.item){
+                        getTermDetail(ui.item.value, ui.item.label);
+                    }
+                },
+    });
+     
+    $( "#"+form+"_"+kTAG_NAMESPACE ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: dev_stage+"/serverconnection/json/find/namespace/"+request.term,
+                dataType: "json",
+                success: function( data ) {
+                    if(data == ''){
+                        unvalorizeField()
+                    }else{
+                        response( $.map( data, function( item ) {
+                            return {
+                                label: item.GID,
+                                value: item.GID
+                            }
+                        }));
+                    }
+                }
+            });
+        },
+        minLength: 1,
+        select: function( event, ui ) {
+                    //if(ui.item)
+                        //getTermDetail(ui.item.value, ui.item.label);
+                },
+    });
+    
+    $( "#"+form+"_"+kTAG_LABEL ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: dev_stage+"/serverconnection/json/find/label/"+request.term,
+                dataType: "json",
+                success: function( data ) {
+                    if(data == ''){
+                        unvalorizeField()
+                    }else{
+                        response( $.map( data, function( item ) {
+                            subvalue= item.GID;
+                            return {
+                                label: item.LABEL,
+                                value: item.GID,
+                            }
+                        }));
+                    }
+                }
+            });
+        },
+        minLength: 1,
+        select: function( event, ui ) {
+                    if(ui.item){
+                        getTermDetail(ui.item.value, ui.item.value);
+                    }
+                },
+    });
+    
+    $( "#"+form+"_"+kTAG_GID ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: dev_stage+"/serverconnection/json/find/gid/"+request.term,
+                dataType: "json",
+                success: function( data ) {
+                    if(data == ''){
+                        unvalorizeField()
+                    }else{
+                        response( $.map( data, function( item ) {
+                            return {
+                                label: item.LABEL,
+                                value: item.GID,
+                            }
+                        }));
+                    }
+                }
+            });
+        },
+        minLength: 1,
+        select: function( event, ui ) {
+                    if(ui.item){
+                        getTermDetail(ui.item.value, ui.item.value);
+                    }
+                },
+    });
+     
+}
+
+function setActualForm(form){
+    actualForm= form;
+}
+
+function getNamespace(htmlNode)
+{
+    return $( "#"+htmlNode+"_"+kTAG_NAMESPACE ).val();
+}
+
+function getUrlParams(lid, namespace)
+{
+    if(namespace == undefined || namespace == null || namespace == '')
+        params= lid;
+    else
+        params= lid+'/'+namespace;
+    
+    return params;
+}
+
+function getTermDetail(term, gid)
+{
+    $.ajax({
+        url: dev_stage+"/serverconnection/json/get/term/"+getUrlParams(gid),
+        dataType: "json",
+        success: function( data ) {
+            var response= data[':WS:RESPONSE'];
+            if(response !== undefined){
+                var entity= response['_term'][gid];
+                for(var key in entity)
+                    valorizeField(key, entity[key]);
+            }
+            else
+                unvalorizeField();
+            
+        }
+    });
+}
+
+function valorizeField(key, entity)
+{
+    var $input= $('#'+actualForm+'_'+key);
+    //if(key !== kTAG_LID && key !== kTAG_NAMESPACE){
+        if($input.length > 0){
+            if($.isPlainObject(entity)){
+                $input.val(entity['en']);
+            }else{
+                $input.val(entity);
+            }
+        }
+    //}
+    if(actualForm != 'SliderSearchNode')
+        lockField();
+};
+
+function unvalorizeField()
+{
+    $('#'+actualForm+' :input[readonly]').each(function(){
+        $(this).val('');
+    });
+    unlockField();
+};
+
+function unvalorizeAllField()
+{
+    $('#'+actualForm+' :input:not(input[type=button],input[type=submit])').each(function(){
+        $(this).val('');
+    });
+    unlockField();
+};
+
+function lockField()
+{
+    $('#'+actualForm+' :input').each(function(){
+        var $id=$(this).attr('id');
+        if( $id !== actualForm+'_'+kTAG_LID && $id !== actualForm+'_'+kTAG_NAMESPACE)
+            $(this).attr('readonly', 'readonly');
+    });
+    
+    $('#'+actualForm+'_select').removeAttr('disabled');
+    $('#'+actualForm+'_save').attr('disabled','disabled');
+}
+
+function unlockField()
+{
+    $('#'+actualForm+' :input[readonly]').each(function(){
+        $(this).removeAttr('readonly');
+    });
+    $('#'+actualForm+'_save').removeAttr('disabled');
+    $('#'+actualForm+'_select').attr('disabled','disabled');
+}
 /**
  *	Global plugin setup file.
  *
@@ -65,7 +696,7 @@ var kTAG_USER_INSTITUTE_COUNTRY='53';
  */
 
 var slider_destination_content= 'slider';
-var slider_destination_root= 'entry_point ul.nav';
+var slider_destination_root= 'entry_point ul';
 var slider_destination_right= 'node_childrens';
 var slider_destination_left= 'node_parents';
 var slider_destination_center= 'node_details #node_details_container_body';
@@ -76,6 +707,10 @@ var slider_destination_breadcrumb_history= 'breadcrumb_history';
 var slider_destination_breadcrumb_history_container= 'history_container';
 var slider_destination_breadcrumb_history_container_button= 'history_button';
 var slider_destination_breadcrumb_ul= 'root';
+var slider_destination_search_point= 'search_point';
+var slider_destination_search_node_point= 'node_found';
+var slider_destination_search_node_list_point= 'node_found_list';
+var slider_destination_search_node_pager_point='node_found_pager';
 
 var show_pager=false;
 var slider_partials_layout;
@@ -92,6 +727,7 @@ var slider_right_layout_id= 'node_button_right';
 var slider_left_layout_id= 'node_button_left';
 var slider_center_layout_id= 'node_details_layout';
 var slider_pager_layout_id= 'node_pager_layout';
+var slider_search_node_list_layout_id= 'slider_node_search_list';
 
 var urlForRootNodes= '/get-root-nodes';
 var urlForNodeDetails= '/get-node-details';
@@ -131,8 +767,9 @@ function loadTemplates(){
 function initSlider()
 {
   //console.log('initSlider');
-  //getRootNodeList();
-  getNodeById();
+  getRootNodeList();
+  createSearchPoint();
+  hideSlider();
 }
 
 
@@ -180,6 +817,8 @@ function setBasicValue(url, data){
   var pattOUT=new RegExp(urlForNodeRelationOUT);
   var pattSearchIN=new RegExp(urlForSearchNodeRelationIN);
   var pattSearchOUT=new RegExp(urlForSearchNodeRelationOUT);
+  var pattPagerIN= new RegExp(urlForNodeRelationPagerIN);
+  var pattPagerOUT= new RegExp(urlForNodeRelationPagerOUT);
   
   json_data= $.parseJSON(data);
   selected_node_data= json_data[':WS:RESPONSE'];
@@ -189,12 +828,13 @@ function setBasicValue(url, data){
   pager_node_data_in_count= 0;
   pager_node_data_out_count= 0;
   show_search_filter=false;
-  show_pager=false;
+  how_pager=false;
   
-  if(pattIN.test(url) || pattSearchIN.test(url)){
+  //console.log(json_data[':WS:STATUS']);
+  if(pattIN.test(url) || pattSearchIN.test(url) || pattPagerIN.test(url)){
     pager_node_data_in_count= json_data[':WS:STATUS'][':WS:AFFECTED-COUNT'];
   }
-  if(pattOUT.test(url) || pattSearchOUT.test(url)){
+  if(pattOUT.test(url) || pattSearchOUT.test(url) || pattPagerOUT.test(url)){
     pager_node_data_out_count= json_data[':WS:STATUS'][':WS:AFFECTED-COUNT'];
   }
 }
@@ -1194,4 +1834,121 @@ function checkArray(arrayValue)
   }
   
   return arrayValue;
+}
+function buildTree()
+{
+    $('div.tree div.checkbox_option').each(function(){
+        var labelText= $(this).text();
+        var count = labelText.match(/___/g);
+        var $inputId= $(this).find('input').attr('id');
+        
+        if(count){
+            var $next= $(this).next().text().match(/___/g);
+            if($next){
+                if($next.length > count.length)
+                    $(this).find('label').html('<span class="opener"> <strong> + </strong> </span>'+$(this).text());
+                else
+                    $(this).find('label').html('<span class="opener"> _</span>'+$(this).text());
+            }
+            $(this).attr('id', 'node'+$inputId+'_'+(count.length+1));
+            $(this).addClass('children level_'+(count.length+1)+' closed');
+            $(this).fadeOut('slow');
+        }else{
+            if($(this).next().text().match(/___/g))
+                $(this).find('label').html('<span class="opener"> <strong> + </strong> </span>'+$(this).text());
+            $(this).attr('id', 'node'+$inputId+'_'+'1');
+            $(this).addClass('root level_1');
+        }
+    });    
+}
+
+function clearIndentation(label)
+{
+    return label.replace('___', '&nbsp;');
+}
+
+function bindFormCheckbox()
+{
+    $('div.tree div.checkbox_option input, .opener').click(function(){
+        var $field= $(this).parents().find('div.tree').attr('id');        
+        var $inputId= $(this).parent().attr('id');        
+        var $exploded= $inputId.split('_');
+        
+        var level= parseInt($exploded[3], 10)+1;
+        
+        var open= false;
+        var check= false;
+        
+        $('#'+$field+' .checkbox_option').each(function(){
+            if($(this).attr('id') == $inputId){
+                open= true;
+            }
+            if(check && ($(this).hasClass('root') || $(this).hasClass('level_'+(level-1)))){
+                open= false;
+            }
+            if(open && $(this).hasClass('level_'+level)){
+                if($(this).hasClass('closed')){
+                    $(this).fadeIn();
+                    $(this).removeClass('closed');
+                    $(this).addClass('open');
+                }else{
+                    $(this).fadeOut();
+                    $(this).removeClass('open');
+                    $(this).addClass('closed');
+                }
+                check= true;
+            }
+        });
+    });
+}
+/**
+ * this methos is used to scroll at the called element in the page
+ */
+
+function calculateScroll(element){
+  var scrollTop     = $(window).scrollTop(),
+      elementOffset = $('#'+element).offset().top,
+      distance      = (elementOffset - scrollTop);
+      
+  return scrollTop;
+}
+    
+function goToByScroll(id){
+  $('html,body').animate({scrollTop: $("#"+id).offset().top - $('#menu_header').height() - 10 },'slow');
+}
+/**
+ *	Slider configurator file for node creation.
+ *
+ *	There you can find the primary bind method an relations request method
+ *
+ *	@package	ontology slider
+ *
+ *	@author		Antonino Luca Carella <antonio.carella@gmail.com>
+ *	@version	1.00
+ */
+
+function hideAddNodeButton()
+{
+  $('.'+$slider_destination_form_action).hide();
+}
+function disableSlider(){
+    $('#disable_slider').css('width',$('#slider_content').width()+'px');
+    $('#disable_slider').css('height','1px');
+    $('#disable_slider').fadeIn('slow');
+    $('#disable_slider').animate({'height':$('#slider_content').height()+'px'});
+}
+
+function enableSlider(){
+    $('#disable_slider').animate({'height':'0px'});
+    $('#disable_slider').fadeOut('slow');
+}
+
+function disableForm(form)
+{
+    $('#disable_slider').animate({'height':($('#disable_slider').height()+$('#'+form).height())+'px'});
+}
+
+function enableForm(form)
+{
+    $('#disable_slider').animate({'height':($('#disable_slider').height()-$('#'+form).height())+'px'});
 }

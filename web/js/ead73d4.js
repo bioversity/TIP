@@ -1,56 +1,139 @@
-var kTAG_NID = '_id';
-var kTAG_LID = '1';
-var kTAG_GID = '2';
-var kTAG_UID = '3';
-var kTAG_PID = '4';
-var kTAG_SYNONYMS = '5';
-var kTAG_CATEGORY = '6';
-var kTAG_KIND = '7';
-var kTAG_TYPE = '8';
-var kTAG_CLASS = '9';
-var kTAG_NAMESPACE = '10';
-var kTAG_INPUT = '11';
-var kTAG_PATTERN = '12';
-var kTAG_LENGTH = '13';
-var kTAG_MIN_VAL = '14';
-var kTAG_MAX_VAL = '15';
-var kTAG_LABEL = '16';
-var kTAG_DEFINITION = '17';
-var kTAG_DESCRIPTION = '18';
-var kTAG_NOTES = '19';
-var kTAG_EXAMPLES = '20';
-var kTAG_AUTHORS = '21';
-var kTAG_ACKNOWLEDGMENTS = '22';
-var kTAG_BIBLIOGRAPHY = '23';
-var kTAG_TERM = '24';
-var kTAG_NODE = '25';
-var kTAG_SUBJECT = '26';
-var kTAG_OBJECT = '27';
-var kTAG_PREDICATE = '28';
-var kTAG_PATH = '29';
-var kTAG_NAMESPACE_REFS = '30';
-var kTAG_NODES = '31';
-var kTAG_EDGES = '32';
-var kTAG_FEATURES = '33';
-var kTAG_METHODS = '34';
-var kTAG_SCALES = '35';
-var kTAG_USER_NAME = '36';
-var kTAG_USER_CODE = '37';
-var kTAG_USER_PASS = '38';
-var kTAG_USER_MAIL = '39';
-var kTAG_USER_ROLE = '40';
-var kTAG_USER_PROFILE = '41';
-var kTAG_USER_MANAGER = '42';
-var kTAG_USER_DOMAIN = '43';
-
+var kTAG_NID='_id';
+var kTAG_LID='1';
+var kTAG_GID='2';
+var kTAG_UID='3';
+var kTAG_PID='4';
+var kTAG_SYNONYMS='5';
+var kTAG_DOMAIN='6';
+var kTAG_CATEGORY='7';
+var kTAG_KIND='8';
+var kTAG_TYPE='9';
+var kTAG_CLASS='10';
+var kTAG_NAMESPACE='11';
+var kTAG_INPUT='12';
+var kTAG_PATTERN='13';
+var kTAG_LENGTH='14';
+var kTAG_MIN_VAL='15';
+var kTAG_MAX_VAL='16';
+var kTAG_NAME='17';
+var kTAG_LABEL='18';
+var kTAG_DEFINITION='19';
+var kTAG_DESCRIPTION='20';
+var kTAG_NOTES='21';
+var kTAG_EXAMPLES='22';
+var kTAG_AUTHORS='23';
+var kTAG_ACKNOWLEDGMENTS='24';
+var kTAG_BIBLIOGRAPHY='25';
+var kTAG_VERSION='26';
+var kTAG_TERM='27';
+var kTAG_NODE='28';
+var kTAG_TAG='29';
+var kTAG_SUBJECT='30';
+var kTAG_OBJECT='31';
+var kTAG_PREDICATE='32';
+var kTAG_PATH='33';
+var kTAG_NAMESPACE_REFS='34';
+var kTAG_DATAPOINT_REFS='35';
+var kTAG_NODES='36';
+var kTAG_EDGES='37';
+var kTAG_TAGS='38';
+var kTAG_FEATURES='39';
+var kTAG_METHODS='40';
+var kTAG_SCALES='41';
+var kTAG_USER_NAME='42';
+var kTAG_USER_CODE='43';
+var kTAG_USER_PASS='44';
+var kTAG_USER_MAIL='45';
+var kTAG_USER_ROLE='46';
+var kTAG_USER_PROFILE='47';
+var kTAG_USER_MANAGER='48';
+var kTAG_USER_DOMAIN='49';
+var kTAG_USER_INSTITUTE_CODE='50';
+var kTAG_USER_INSTITUTE_NAME='51';
+var kTAG_USER_INSTITUTE_ADDRESS='52';
+var kTAG_USER_INSTITUTE_COUNTRY='53';
 $(document).ready(function(){
     $('#create_namespace').attr('href', '#NamespaceModal');
     $('#create_namespace').attr('data-toggle', 'modal');
     $('#form_term').attr('action',dev_stage+'/ontology/json/term/new');
     startAutocomplete();
     bindFormButton();
-
+    bindFormCheckbox();
+    buildTree();
 });
+
+function buildTree()
+{    
+    $('div.tree div.checkbox_option').each(function(){
+        var labelText= $(this).text();
+        var count = labelText.match(/___/g);
+        var $inputId= $(this).find('input').attr('id');
+        
+        if(count){
+            var $next= $(this).next().text().match(/___/g);
+            if($next){
+                if($next.length > count.length)
+                    $(this).find('label').html('<span class="opener"> <strong> + </strong> </span>'+$(this).text());
+                else
+                    $(this).find('label').html('<span class="opener"> _</span>'+$(this).text());
+            }
+            $(this).attr('id', 'node'+$inputId+'_'+(count.length+1));
+            $(this).addClass('children level_'+(count.length+1)+' closed');
+            $(this).fadeOut('slow');
+        }else{
+            if($(this).next().text().match(/___/g))
+                $(this).find('label').html('<span class="opener"> <strong> + </strong> </span>'+$(this).text());
+            $(this).attr('id', 'node'+$inputId+'_'+'1');
+            $(this).addClass('root level_1');
+        }
+    });    
+}
+
+function clearIndentation(label)
+{
+    return label.replace('___', '&nbsp;');
+}
+
+function bindFormCheckbox()
+{
+    $('div.tree div.checkbox_option input, .opener').click(function(){
+        var $opener= $(this).parent().find('.opener');
+        
+        if($opener.html() == ' <strong> + </strong> '){
+            $opener.html(' <strong> - </strong> '); 
+        }else{
+            $opener.html(' <strong> + </strong> '); 
+        }
+        
+        var $inputId= $(this).parent().attr('id');
+        var $exploded= $inputId.split('_');
+        
+        var level= parseInt($exploded[3], 10)+1;
+        
+        var open= false;
+        var check= false;
+        $('.tree .checkbox_option').each(function(){
+            if($(this).attr('id') == $inputId){
+                open= true;
+            }
+            if(check && ($(this).hasClass('root') || $(this).hasClass('level_'+(level-1)))){
+                open= false;
+            }
+            if(open && $(this).hasClass('level_'+level)){
+                if($(this).hasClass('closed')){
+                    $(this).fadeIn();
+                    $(this).removeClass('closed');
+                    $(this).addClass('open');
+                }else{
+                    $(this).fadeOut();
+                    $(this).removeClass('open');
+                    $(this).addClass('closed');
+                }
+                check= true;
+            }
+        });
+    });
+}
 
 function bindFormButton()
 {
@@ -81,7 +164,7 @@ function bindFormButton()
     $('#create_namespace').click(function(event){
         event.preventDefault();
         $('#NamespaceModal .modal-body div#embedded_content').html('');
-        $('#NamespaceModal .modal-body div#embedded_content').html('<object height="400px" width="100%" data="'+dev_stage+'/ontology/namespace/new'+'"><param value="aaa.pdf" name="src"/><param value="transparent" name="wmode"/></object>');
+        $('#NamespaceModal .modal-body div#embedded_content').html('<object height="400px" width="100%" data="'+dev_stage+'/ontology/modal/namespace/new'+'"><param value="aaa.pdf" name="src"/><param value="transparent" name="wmode"/></object>');
         $('#NamespaceModal .modal-body div#embedded_content').fadeIn('slow');
     });
         
@@ -91,18 +174,6 @@ function bindFormButton()
         $('#SliderModal .modal-body div#embedded_content').html('');
         $('#SliderModal .modal-body div#embedded_content').html('<object height="500px" width="700px" data="'+dev_stage+'/modal-slider/'+$(this).attr('value')+'"><param value="aaa.pdf" name="src"/><param value="transparent" name="wmode"/></object>');
         $('#SliderModal .modal-body div#embedded_content').fadeIn('slow');
-        
-        //$.ajax({
-        //    type:       "POST",
-        //    url:        dev_stage+'/modal-slider/'+$(this).attr('value'),
-        //    dataType:   "html",
-        //    success: function( data ) {
-        //        $('#SliderModal .modal-body div#embedded_content').append(data);
-        //    }
-        //}).done( function(){
-        //    $('#SliderModal #loader').fadeOut();
-        //    $('#SliderModal .modal-body div#embedded_content').fadeIn('slow');
-        //});
     });
 }
 

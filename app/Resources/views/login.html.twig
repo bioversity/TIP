@@ -1,8 +1,11 @@
 <!--<div class="btn-group pull-right">-->
   {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <a class="pull-right top_menu" href="#">
+    <a title="User Login" class="pull-right top_menu" href="#">
       <i class="icon-user icon-white"></i>
       <span>{{ app.user.username }}</span>
+    </a>
+    <a title="Social Chat" class="pull-right top_menu" href="{{ path('bioversity_site_structure_online_chat') }}">
+      <i class="icon-comments icon-white"></i>
     </a>
     <!--
     <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">

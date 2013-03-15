@@ -17,6 +17,11 @@ class SiteStructureController extends Controller
         return $this->render('BioversitySiteStructureBundle:SiteStructure:index.html.twig');
     }
     
+    public function onlineChatAction()
+    {
+        return $this->render('BioversitySiteStructureBundle:SiteStructure:online_chat.html.twig');
+    }
+    
     public function conservatonStrategiesAction()
     {
         return $this->render('BioversitySiteStructureBundle:SiteStructure:conservation_strategies.html.twig');
