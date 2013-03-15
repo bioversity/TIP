@@ -35,23 +35,27 @@
                   </tr>
                 </thead>
                 <tbody>
+                    {% set user_name= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_USER_NAME') %}
+                    {% set user_code= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_USER_CODE') %}
+                    {% set user_mail= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_USER_MAIL') %}
+                    {% set user_role= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_USER_ROLE') %}
                     {% for user in user_list %}
                         <tr>
-                          <td>{{ user.37 }}</td>
-                          <td>{{ user.38 }}</td>
-                          <td>{{ user.40 }}</td>
+                          <td>{{ user[user_name] }}</td>
+                          <td>{{ user[user_code] }}</td>
+                          <td>{{ user[user_mail] }}</td>
                           <td>
-                            {% for role in user.41 %}
+                            {% for role in user[user_role] %}
                                 {{ role }}
                                 <br/>
                             {% endfor %}
                           </td>
                           <td>
-                            <a href="{{ path('bioversity_user_edit', {'code':user.38}) }}" class="btn btn-primary pull-left" type="button">Edit</a>
+                            <a href="{{ path('bioversity_user_edit', {'code':user[user_code]}) }}" class="btn btn-primary pull-left" type="button">Edit</a>
                             <div class="btn-group pull-left">
                                 <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle">Delete <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                  <li><a href="{{ path('bioversity_user_delete', {'code':user.38}) }}">Are you sure?</a></li>
+                                  <li><a href="{{ path('bioversity_user_delete', {'code':user[user_code]}) }}">Are you sure?</a></li>
                                 </ul>
                             </div>
                           </td>

@@ -4,55 +4,92 @@
 	padding:0;
 }
 
+body {
+  /*padding-top: 100px;*/
+  color: #666666;
+  font: 12px arial,sans-serif;
+  overflow-y: scroll;
+  background-color: #CDCDCD;
+}
+
+footer{
+	margin: 50px 0px;
+}
+
 #navigation_menu{
 	position: fixed;
 	left: 0px;	  
 	height: 100%;
-	background: #45484d; /* Old browsers */
-	background: -moz-linear-gradient(left,  #45484d 0%, #000000 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#45484d), color-stop(100%,#000000)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  #45484d 0%,#000000 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  #45484d 0%,#000000 100%); /* IE10+ */
-	background: linear-gradient(to right,  #45484d 0%,#000000 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
-	
-	/*-webkit-box-shadow: 4px 0px 3px rgba(50, 50, 50, 0.33);
-	-moz-box-shadow:    4px 0px 3px rgba(50, 50, 50, 0.33);
-	box-shadow:         4px 0px 3px rgba(50, 50, 50, 0.33);*/
+}
+#navigation_menu{
+	background: #7d7e7d; /* Old browsers */
+	background: -moz-linear-gradient(left,  #7d7e7d 0%, #000000 10%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#7d7e7d), color-stop(10%,#000000)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #7d7e7d 0%,#000000 10%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #7d7e7d 0%,#000000 10%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #7d7e7d 0%,#000000 10%); /* IE10+ */
+	background: linear-gradient(to right,  #7d7e7d 0%,#000000 10%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
 }
 
-#navigation_menu.bioversity_site_structure_homepage,
-#navigationMenu span.bioversity_site_structure_homepage{
-	-webkit-box-shadow: 4px 0px 3px rgba(153, 0, 51, 0.33);
-	-moz-box-shadow:    4px 0px 3px rgba(153, 0, 51, 0.33);
-	box-shadow:         4px 0px 3px rgba(153, 0, 51, 0.33);
+#navigation_menu.bioversity_site_structure_homepage{
+	background: #990033; /* Old browsers */
+	background: -moz-linear-gradient(left,  #990033 0%, #000000 10%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#990033), color-stop(10%,#000000)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #990033 0%,#000000 10%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #990033 0%,#000000 10%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #990033 0%,#000000 10%); /* IE10+ */
+	background: linear-gradient(to right,  #990033 0%,#000000 10%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#990033', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
 }
-#navigation_menu.bioversity_site_structure_browse_trait,
-#navigationMenu span.bioversity_site_structure_browse_trait{
-	-webkit-box-shadow: 4px 0px 3px rgba(241, 146, 26, 0.33);
-	-moz-box-shadow:    4px 0px 3px rgba(241, 146, 26, 0.33);
-	box-shadow:         4px 0px 3px rgba(241, 146, 26, 0.33);
+#navigation_menu.bioversity_site_structure_browse_trait{
+	background: #F1921A; /* Old browsers */
+	background: -moz-linear-gradient(left,  #F1921A 0%, #000000 10%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#F1921A), color-stop(10%,#000000)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #F1921A 0%,#000000 10%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #F1921A 0%,#000000 10%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #F1921A 0%,#000000 10%); /* IE10+ */
+	background: linear-gradient(to right,  #F1921A 0%,#000000 10%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F1921A', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
 }
-#navigation_menu.bioversity_slider_browse_slider,
-#navigationMenu span.bioversity_slider_browse_slider{
-	-webkit-box-shadow: 4px 0px 3px rgba(241, 146, 26, 0.33);
-	-moz-box-shadow:    4px 0px 3px rgba(241, 146, 26, 0.33);
-	box-shadow:         4px 0px 3px rgba(241, 146, 26, 0.33);
+#navigation_menu.bioversity_slider_browse_slider{
+	background: #FFCC00; /* Old browsers */
+	background: -moz-linear-gradient(left,  #FFCC00 0%, #000000 10%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#FFCC00), color-stop(10%,#000000)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #FFCC00 0%,#000000 10%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #FFCC00 0%,#000000 10%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #FFCC00 0%,#000000 10%); /* IE10+ */
+	background: linear-gradient(to right,  #FFCC00 0%,#000000 10%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFCC00', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
 }
 #navigation_menu.bioversity_site_structure_about,
-#navigation_menu.bioversity_site_structure_contact,
-#navigationMenu span.bioversity_site_structure_about,
-#navigationMenu span.bioversity_site_structure_contact{
-	-webkit-box-shadow: 4px 0px 3px rgba(102, 153, 102, 0.33);
-	-moz-box-shadow:    4px 0px 3px rgba(102, 153, 102, 0.33);
-	box-shadow:         4px 0px 3px rgba(102, 153, 102, 0.33);
+#navigation_menu.bioversity_site_structure_contact{
+	background: #669966; /* Old browsers */
+	background: -moz-linear-gradient(left,  #669966 0%, #000000 10%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#669966), color-stop(10%,#000000)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #669966 0%,#000000 10%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #669966 0%,#000000 10%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #669966 0%,#000000 10%); /* IE10+ */
+	background: linear-gradient(to right,  #669966 0%,#000000 10%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#669966', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
 }
 #navigation_menu.bioversity_slider_conservaton_strategies,
-#navigationMenu span.bioversity_slider_conservaton_strategies{
-	-webkit-box-shadow: 4px 0px 3px rgba(103, 158, 201, 0.33);
-	-moz-box-shadow:    4px 0px 3px rgba(103, 158, 201, 0.33);
-	box-shadow:         4px 0px 3px rgba(103, 158, 201, 0.33);
+#navigation_menu.bioversity_slider_national_inventories{
+	background: #679EC9; /* Old browsers */
+	background: -moz-linear-gradient(left,  #679EC9 0%, #000000 10%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#679EC9), color-stop(10%,#000000)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #679EC9 0%,#000000 10%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #679EC9 0%,#000000 10%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #679EC9 0%,#000000 10%); /* IE10+ */
+	background: linear-gradient(to right,  #679EC9 0%,#000000 10%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#679EC9', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
+}
+
+#navigationMenu span{
+	/* inner shadow*/
+	-moz-box-shadow:inset 3px 0px 8px #7d7e7d;
+	-webkit-box-shadow:inset 3px 0px 8px #7d7e7d;
+	box-shadow:inset 3px 0px 8px #7d7e7d;
 }
 
 #navigationMenu span.bioversity_site_structure_homepage{
@@ -87,11 +124,46 @@
 	box-shadow:inset 3px 0px 8px #679EC9;
 }
 
+.navigationFirstLevel .root_page{
+  border-bottom: 3px solid #990033;
+}
+.navigationFirstLevel .research_page{
+  border-bottom: 3px solid #FFCC00;
+}
+.navigationFirstLevel .trait_page{
+  border-bottom: 3px solid #F1921A;
+}
+.navigationFirstLevel .static_page{
+  border-bottom: 3px solid #669966;
+}
+.navigationFirstLevel .dashboard_page,
+.navigationFirstLevel .conservation_page{
+  border-bottom: 3px solid #679EC9;
+}
+
+.navigationFirstLevel .root_page a:hover{
+  color: #990033;
+}
+.navigationFirstLevel .research_page a:hover{
+  color: #FFCC00;
+}
+.navigationFirstLevel .trait_page a:hover{
+  color: #F1921A;
+}
+.navigationFirstLevel .static_page a:hover{
+  color: #669966;
+}
+.navigationFirstLevel .dashboard_page a:hover,
+.navigationFirstLevel .conservation_page a:hover{
+  color: #679EC9;
+}
+
 #navigation_menu ul{
     margin: 0px !important;
 }
 
 #navigationMenu li{
+	height:70px;
 	list-style:none;
 	width:70px;
 	color: #B4B4B4;
@@ -109,10 +181,13 @@
 
 #navigationMenu li,
 .navigationTitle{
-	height:70px;
 	padding:2px;
 	border-bottom: 1px ridge;
 	text-shadow: 0 1px 0 #000000;
+}
+
+.navigationTitle{
+	height:74px;
 }
 
 #navigationMenu span{
@@ -160,6 +235,7 @@
 	margin: 5px;
 	position: relative;
 	text-align: center;
+	text-transform: uppercase;
 }
 
 #navigationMenu span a{
@@ -217,12 +293,12 @@
 	margin-left: 75px;
 }
 #content_body{
-	padding: 10px;
+	padding: 10px 50px;
 }
 
 .navbar-inner{
 	background: none repeat scroll 0 0 #191919;
-	height: 70px;
+	height: 72px;
 	padding-bottom:2px;
 	border-bottom: 1px ridge;
 }
@@ -261,4 +337,14 @@
 
 .top_menu:hover{
   color: #ccc;
+}
+
+.natinal_inventory a{
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
+}
+
+.natinal_inventory a:hover{
+  color: #fff;
 }
