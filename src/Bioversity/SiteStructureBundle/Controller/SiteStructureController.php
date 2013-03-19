@@ -2,7 +2,11 @@
 
 namespace Bioversity\SiteStructureBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Bioversity\SiteStructureBundle\Form\searchTraitType;
+
 
 class SiteStructureController extends Controller
 {
@@ -57,9 +61,39 @@ class SiteStructureController extends Controller
         return $this->render('BioversitySiteStructureBundle:SiteStructure:index.html.twig');
     }
 
-    public function browseTraitAction()
+    public function browseTraitAction(Request $request)
     {
-        return $this->render('BioversitySiteStructureBundle:SiteStructure:trait.html.twig');
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
+        $form = $this->createForm(new searchTraitType());
+        
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+        
+            if ($form->isValid()) {
+                //$saver= new ServerConnection();
+                //$term= $saver->getTerm($code, $namespace);
+                
+                //print_r($term);
+                //if($term[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
+                    //return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $term[':WS:RESPONSE']['_term'][$term[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
+                //}else{
+                    //$newTerm= $saver->saveNew(DataFormatterHelper::clearSubmittedData($formData),'SetTerm');
+                    //$session->getFlashBag()->set('notice', NotificationManager::getNotice($term[':WS:STATUS'][':STATUS-CODE']) );
+                    
+                    //return $this->redirect($this->generateUrl('bioversity_ontology_node_new', array('term' => $newTerm[':WS:RESPONSE']['_term'][$newTerm[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_GID])));
+                //}
+            }
+        }
+        
+        return $this->render(
+            'BioversitySiteStructureBundle:SiteStructure:trait.html.twig',
+            array(
+                'form'              => $form->createView(),
+                'notice'            => $session->getFlashBag()->get('notice'),
+                'errors'            => $session->getFlashBag()->get('error')
+            ));
     }
 
     public function dashboardAction()

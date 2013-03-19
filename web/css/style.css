@@ -303,9 +303,9 @@ div.open.landrace_box .form_result{
 }
 
 /*fix for alert label*/
-.alert, .alert-heading{
+/*.alert, .alert-heading{
   color: #FFF !important;
-}
+}*/
 
 input[type="image"], input[type="checkbox"], input[type="radio"]{
   float: left;

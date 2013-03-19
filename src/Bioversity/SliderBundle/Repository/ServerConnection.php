@@ -11,7 +11,7 @@ class ServerConnection extends HttpServerConnection
 {
   var $page_record= 25;
   
-  public function getNodes($data){
+  public function getNodes($data, $page){
     $this->setDatabase('ONTOLOGY');
     $this->setCollection(':_nodes');
     
@@ -19,7 +19,7 @@ class ServerConnection extends HttpServerConnection
     foreach($data as $key=>$value){
       $query[]= $this->createNewQuery($key, Types::kTYPE_STRING, $value, Operators::kOPERATOR_EQUAL);
     }
-    $params= $this->createNewRequest('WS:OP:GET', $query);
+    $params= $this->createNewRequest('WS:OP:GET', $query, NULL, $page);
     
     return $this->sendRequest($this->wrapper, $params);
   }
@@ -69,7 +69,7 @@ class ServerConnection extends HttpServerConnection
   
   public function getNodeQuery(
     $nodeId, $query, $select= NULL,
-    $page= NULL, $relation= NULL, $limit= NULL,
+    $page= 1, $relation= NULL, $limit= NULL,
     $query2= null)
   {
     $request= $this->manageQuery("ONTOLOGY", 1);
@@ -106,9 +106,11 @@ class ServerConnection extends HttpServerConnection
     if($relation !== NULL)
       $request[]= ':WS:RELATION='.urlencode(json_encode($relation));
     
-    if($page !== NULL)
+    if($page !== NULL){
+      if($page > 1 )
+        $page= ($this->page_record*($page-1))+1;
       $request[]=':WS:PAGE-START='. urlencode(json_encode($page)) ;
-    
+    }
     //return print_r($this->wrapper.'?'.implode( '&', $request ));
     return file_get_contents( $this->wrapper.'?'.implode( '&', $request ));
   }

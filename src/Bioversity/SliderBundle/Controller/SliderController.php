@@ -25,7 +25,7 @@ class SliderController extends Controller
      * The node search tool
      *
      */
-    public function partialNodeSearchAction(Request $request)
+    public function partialNodeSearchAction(Request $request, $page=null)
     {
         $request = $this->getRequest();
         $session = $request->getSession();
@@ -38,7 +38,7 @@ class SliderController extends Controller
             if ($form->isValid()) {
                 $formData= $form->getData();        
                 $saver= new ServerConnection();
-                $nodeList= $saver->getNodes(DataFormatterHelper::clearSubmittedData($formData));
+                $nodeList= $saver->getNodes(DataFormatterHelper::clearSubmittedData($formData), $page);
                 
                 return new Response(json_encode(array('term'=> $nodeList)));
             }

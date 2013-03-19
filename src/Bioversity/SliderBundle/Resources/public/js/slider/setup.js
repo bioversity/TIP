@@ -27,6 +27,13 @@ var slider_destination_search_node_point= 'node_found';
 var slider_destination_search_node_list_point= 'node_found_list';
 var slider_destination_search_node_pager_point='node_found_pager';
 
+var slider_right_layout_id= 'node_button_right';
+var slider_left_layout_id= 'node_button_left';
+var slider_center_layout_id= 'node_details_layout';
+var slider_pager_layout_id= 'node_pager_layout';
+var slider_search_node_list_layout_id= 'slider_node_search_list';
+var slider_pager_node_list_layout_id= 'slider_node_pager_list';
+
 var show_pager=false;
 var slider_partials_layout;
 var slider_menu_layout;
@@ -38,11 +45,6 @@ var slider_breadcrumb_history_layout;
 var top_menu_layout_id= 'nav_top_button';
 var bottom_menu_layout_left_id= 'nav_bottom_button_left .node_record';
 var bottom_menu_layout_right_id= 'nav_bottom_button_right .node_record';
-var slider_right_layout_id= 'node_button_right';
-var slider_left_layout_id= 'node_button_left';
-var slider_center_layout_id= 'node_details_layout';
-var slider_pager_layout_id= 'node_pager_layout';
-var slider_search_node_list_layout_id= 'slider_node_search_list';
 
 var urlForRootNodes= '/get-root-nodes';
 var urlForNodeDetails= '/get-node-details';
@@ -138,7 +140,7 @@ function setBasicValue(url, data){
   json_data= $.parseJSON(data);
   selected_node_data= json_data[':WS:RESPONSE'];
   pager_node_data_limit= json_data[':WS:PAGING'][':WS:PAGE-LIMIT'];
-  pager_node_data_selected= parseInt(json_data[':WS:PAGING'][':WS:PAGE-START'])+1;
+  //pager_node_data_selected= parseInt(json_data[':WS:PAGING'][':WS:PAGE-START'])+1;
   
   pager_node_data_in_count= 0;
   pager_node_data_out_count= 0;

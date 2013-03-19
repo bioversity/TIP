@@ -1,0 +1,15 @@
+{% block form_row %}
+    <div class="accordion-group">
+        <div class="accordion-heading">
+          <a href="#collapse{{form.name}}" data-parent="#accordion{{form.name}}" data-toggle="collapse" class="accordion-toggle collapsed">
+          {{ form_errors(form) }}
+          {{ form_label(form) }}
+          </a>
+        </div>
+        <div class="accordion-body collapse" id="collapse{{form.name}}" style="height: 0px;">
+          <div class="accordion-inner">
+            {{ form_widget(form) }}
+          </div>
+        </div>
+    </div>  
+{% endblock %}

@@ -279,6 +279,7 @@ function resetSearch()
 function createNodeMenuButton(layout, node_name, node_code, node_id)
 {
   //console.log('createNodeMenuButton');
+  console.log(layout);
   $('#'+layout+' .node_record a').html(node_name);
   $('#'+layout+' .node_record a').attr('onclick', 'javascript: startNav('+node_id+');');
   //$('#'+layout+' .node_record a').attr('class', node_id);
@@ -320,18 +321,20 @@ function displayNoResult()
 function createNodeList(node_class, node_nid, node_gid, node_label, node_kind)
 {
   //console.log('createNodeMenuButton');
-  $('#'+slider_search_node_list_layout_id+' .node_record li').addClass(node_class);
-  $('#'+slider_search_node_list_layout_id+' .node_record li').attr('onclick', 'javascript: startNav('+node_nid+');');
-  $('#'+slider_search_node_list_layout_id+' .node_record span.node_nid').html('NID '+node_nid);
-  $('#'+slider_search_node_list_layout_id+' .node_record span.node_label').html('LABEL '+node_label['en']);
-  $('#'+slider_search_node_list_layout_id+' .node_record span.node_gid').html('GID '+node_gid);
+  $new_row= $('#'+slider_search_node_list_layout_id+' .node_record').clone();
+  
+  $new_row.find('li').addClass(node_class);
+  $new_row.find('li').attr('onclick', 'javascript: startNav('+node_nid+');');
+  $new_row.find('span.node_nid').html('NID '+node_nid);
+  $new_row.find('span.node_label').html('LABEL '+node_label['en']);
+  $new_row.find('span.node_gid').html('GID '+node_gid);
   
   if(node_kind !== undefined)
-    $('#'+slider_search_node_list_layout_id+' .node_record span.node_kind').html('KIND <br/>'+String(node_kind).replace(',','<br/>'));
+    $new_row.find('span.node_kind').html('KIND <br/>'+String(node_kind).replace(',','<br/>'));
   else
-    $('#'+slider_search_node_list_layout_id+' .node_record span.node_kind').html('');
+    $new_row.find('span.node_kind').html('');
   
-  $('#'+slider_destination_search_node_list_point).append($('#'+slider_search_node_list_layout_id+' .node_record').html());
+  $('#'+slider_destination_search_node_list_point).append($($new_row).html());
 }
 
 function createNodeDetail()

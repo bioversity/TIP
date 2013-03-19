@@ -1,7 +1,27 @@
 {% extends '::base.html.twig' %}
 
+{% form_theme form
+    '::error.html.twig'
+    'BioversitySiteStructureBundle:SiteStructure:field.html.twig'
+%}
+
 {% block body %}
     <div>
       <h2>Trait</h2>
+      <h2><small>Explore or refine your search below:</small></h2>
+      
+      <form id="searchTrait" method="post">
+      <div class="accordion" id="accordion2">
+        {{ form_errors(form) }}
+        
+        {{ form_widget(form) }}
+        
+        {{ form_rest(form) }}
+      </div>
+      
+      <div class="form-actions">
+          <input id="searchTrait_search" class="btn btn-info" type="submit" value="Search" />
+      </div>
+      </form>
     </div>
 {% endblock %}

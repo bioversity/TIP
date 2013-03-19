@@ -57,7 +57,7 @@ function createSearchPoint()
 {
     $('#search_point').html('');
     $.ajax({
-        url:        dev_stage+'/slider/partial/node/search',
+        url:        dev_stage+'/slider/partial/node/search/'+pager_search_node_data_selected,
         dataType:   "html",
         success: function( data ) {
            $('#search_point').append(data);
@@ -75,15 +75,21 @@ function bindSearchButton()
 {
   $('#SliderSearchNode').submit(function(event){
       event.preventDefault();
-      
-      $.ajax({
-          type:       "POST",
-          url:        dev_stage+'/slider/partial/node/search',
-          dataType:   "json",
-          data:       $(this).serializeArray(),
-          success: function( data ) {
-            generateNodeList(data);
-          }
-      });
+      searchNode(pager_search_node_data_selected);
+  });
+}
+
+function searchNode(page)
+{
+  resetSearchPager();
+  pager_search_node_data_selected= page;
+  $.ajax({
+      type:       "POST",
+      url:        dev_stage+'/slider/partial/node/search/'+(page),
+      dataType:   "json",
+      data:       $('#SliderSearchNode').serializeArray(),
+      success: function( data ) {
+        generateNodeList(data);
+      }
   });
 }

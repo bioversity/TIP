@@ -52,9 +52,9 @@ class HttpServerConnection
    *  
    * @return array $request
    */
-  public function createNewRequest($operation, $query= NULL, $class= NULL)
+  public function createNewRequest($operation, $query= NULL, $class= NULL, $page)
   {
-    $request= $this->buildNewQuery($this->db, $operation, $query, $class);
+    $request= $this->buildNewQuery($this->db, $operation, $query, $class, $page);
    
     return $request;
   }
@@ -203,9 +203,12 @@ class HttpServerConnection
     if($log)
       $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
     
-    if($pageStart !== NULL)
+    if($pageStart !== NULL){
+      if($pageStart > 1 )
+        $pageStart= (self::page_record*($pageStart-1))+1;
       $request[]=':WS:PAGE-START='. urlencode(json_encode($pageStart)) ;
-      
+    }
+    
     if($pageLimit !== NULL)
       $request[]=':WS:PAGE-LIMIT='. urlencode(json_encode($pageLimit)) ;
     
