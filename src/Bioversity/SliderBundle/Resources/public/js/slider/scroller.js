@@ -11,5 +11,6 @@ function calculateScroll(element){
 }
     
 function goToByScroll(id){
-  $('html,body').animate({scrollTop: $("#"+id).offset().top - $('#menu_header').height() - 10 },'slow');
+  //$('html,body').animate({scrollTop: $("#"+id).offset().top - $('#menu_header').height() - 10 },'slow');
+  $('html,body').animate({scrollTop: $("#"+id).offset().top - 10 },'slow');
 }

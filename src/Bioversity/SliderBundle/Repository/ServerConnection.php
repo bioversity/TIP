@@ -107,8 +107,8 @@ class ServerConnection extends HttpServerConnection
       $request[]= ':WS:RELATION='.urlencode(json_encode($relation));
     
     if($page !== NULL){
-      if($page > 1 )
-        $page= ($this->page_record*($page-1))+1;
+      if($page > 0 )
+        $page= ($this->page_record*($page-1));
       $request[]=':WS:PAGE-START='. urlencode(json_encode($page)) ;
     }
     //return print_r($this->wrapper.'?'.implode( '&', $request ));

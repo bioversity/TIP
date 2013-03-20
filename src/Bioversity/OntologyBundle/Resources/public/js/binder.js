@@ -28,8 +28,9 @@ function bindPredicateFormAction()
 
 function bindNodeFormAction(term)
 {
-    bindNodeSave(saveRelation, term);
-    bindNodeSelection(saveRelation);
+    var action = (form_action=='newroot')? saveRoot : saveRelation;
+    bindNodeSave(action, term);
+    bindNodeSelection(action);
     bindNodeClear();
     bindNodeCancel();
 }
@@ -47,7 +48,7 @@ function bindTermFormAction()
 //------------------------------------
 function bindStartProcessButton()
 {
-    $('.'+$slider_destination_form_action+' a').click(function(){
+    $('.'+slider_destination_form_action+' a').click(function(){
         ontology_selected_node_id= selected_node_id; //this variable is defined in the node.class.js file in the SliderBundle
         ontology_selected_node_relation= ($(this).attr('id') == 'relation_left')? kTAG_OBJECT : kTAG_SUBJECT;
         disableSlider();

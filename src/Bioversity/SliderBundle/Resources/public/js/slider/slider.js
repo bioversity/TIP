@@ -279,7 +279,7 @@ function resetSearch()
 function createNodeMenuButton(layout, node_name, node_code, node_id)
 {
   //console.log('createNodeMenuButton');
-  console.log(layout);
+  //console.log(layout);
   $('#'+layout+' .node_record a').html(node_name);
   $('#'+layout+' .node_record a').attr('onclick', 'javascript: startNav('+node_id+');');
   //$('#'+layout+' .node_record a').attr('class', node_id);

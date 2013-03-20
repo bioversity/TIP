@@ -5,14 +5,16 @@
 
 function showFormAction(/*destination*/)
 {
-    $('.'+$slider_destination_form_action).fadeIn('slow');
+    $('.'+slider_destination_form_action).fadeIn('slow');
     bindStartProcessButton();
 }
 
 function startProcess()
 {
-    $('.'+$slider_destination_form_action+' a').click(function(){
+    $('.'+slider_destination_form_action+' a').click(function(){
         disableSlider();
+        
+        setActualAction('newrelation');
         var relation= ($(this).attr('id') == 'relation_left')? kTAG_OBJECT : kTAG_SUBJECT;
         
         createPredicate(relation);
@@ -116,9 +118,9 @@ function attachNode(data)
     goToByScroll('slider');
 }
 
-function saveRelation($selected_node)
+function saveRelation(selected_node)
 {
-    var params= buildUrl($selected_node);
+    var params= buildUrl(selected_node);
         
     $.ajax({
         type:       "POST",
@@ -130,6 +132,15 @@ function saveRelation($selected_node)
             }
         }
     });
+}
+
+function saveRoot(selected_node)
+{
+    deleteNode();
+    deleteTerm();
+    deletePredicate();
+    goToByScroll('slider_content');
+    getRootNodeList();
 }
 
 function buildUrl(ontology_selected_node_nid)

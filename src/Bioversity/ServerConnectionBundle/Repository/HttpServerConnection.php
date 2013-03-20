@@ -204,6 +204,7 @@ class HttpServerConnection
       $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
     
     if($pageStart !== NULL){
+      
       if($pageStart > 1 )
         $pageStart= (self::page_record*($pageStart-1))+1;
       $request[]=':WS:PAGE-START='. urlencode(json_encode($pageStart)) ;
