@@ -87,6 +87,7 @@ function bindSearchButton()
 function searchNode(page)
 {
   resetSearchPager();
+  hideSlider();
   pager_search_node_data_selected= page;
   $.ajax({
       type:       "POST",

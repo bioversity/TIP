@@ -140,6 +140,7 @@ function getTermDetail(term, gid)
         success: function( data ) {
             var response= data[':WS:RESPONSE'];
             if(response !== undefined){
+                unvalorizeAllField();
                 var entity= response['_term'][gid];
                 for(var key in entity)
                     valorizeField(key, entity[key]);
