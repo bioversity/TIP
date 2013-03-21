@@ -92,16 +92,16 @@ function createNodePager(pages)
   if(pages > 0){
     $('#'+slider_pager_node_list_layout_id+' .node_record .total_page').html(pages);
     
-    $('#'+slider_pager_node_list_layout_id+' .node_record input').attr('value', pager_search_node_data_selected);
+    $('#'+slider_pager_node_list_layout_id+' .node_record input').attr('value', (pager_search_node_data_selected == 0)? 1: pager_search_node_data_selected);
     $('#'+slider_pager_node_list_layout_id+' .node_record input').attr('onChange', 'javascript: searchNode(this.value);');
     
-    if((pager_search_node_data_selected) > 1){
+    if(pager_search_node_data_selected > 1){
       $('#'+slider_pager_node_list_layout_id+' .node_record .first_page').attr('onclick', 'javascript: searchNode(1);');
       $('#'+slider_pager_node_list_layout_id+' .node_record   .prev_page').attr('onclick', 'javascript: searchNode('+(pager_search_node_data_selected-1)+');');
     }
-    if((pager_search_node_data_selected) < pages){
+    if(pager_search_node_data_selected < pages && pager_search_node_data_selected != 0){
       $('#'+slider_pager_node_list_layout_id+' .node_record .last_page').attr('onclick', 'javascript: searchNode('+(pages)+');');
-      $('#'+slider_pager_node_list_layout_id+' .node_record   .next_page').attr('onclick', 'javascript: searchNode('+(pager_search_node_data_selected+1)+');');
+      $('#'+slider_pager_node_list_layout_id+' .node_record   .next_page').attr('onclick', 'javascript: searchNode('+(parseInt(pager_search_node_data_selected, 10)+1)+');');
     }
     
     $('#'+slider_destination_search_node_pager_point).append($('#'+slider_pager_node_list_layout_id+' .node_record').html());

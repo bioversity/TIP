@@ -75,7 +75,7 @@ function bindSearchButton()
 {
   $('#SliderSearchNode').submit(function(event){
       event.preventDefault();
-      searchNode(pager_search_node_data_selected);
+      searchNode(0);
   });
 }
 
