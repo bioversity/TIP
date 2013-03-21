@@ -73,9 +73,14 @@ function createSearchPoint()
 
 function bindSearchButton()
 {
-  $('#SliderSearchNode').submit(function(event){
+  $('#SliderSearchNode_search').click(function(event){
       event.preventDefault();
       searchNode(0);
+  });
+  
+  $('#SliderSearchNode_clear').click(function(event){
+    setActualForm('SliderSearchNode');
+    unvalorizeAllField();
   });
 }
 

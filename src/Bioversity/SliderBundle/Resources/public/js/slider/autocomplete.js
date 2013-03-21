@@ -178,7 +178,8 @@ function unvalorizeField()
 function unvalorizeAllField()
 {
     $('#'+actualForm+' :input:not(input[type=button],input[type=submit])').each(function(){
-        $(this).val('');
+        if($(this).attr('id') !== actualForm+'__token')
+            $(this).val('');
     });
     unlockField();
 };

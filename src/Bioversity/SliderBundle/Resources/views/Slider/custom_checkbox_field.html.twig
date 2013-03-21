@@ -1,7 +1,6 @@
 {% block checkbox_widget %}
 {% spaceless %}
     <input
-        title="{% if node.18 is defined %}{{ node[18]['en'] }}{% else %}no description for this item{% endif %}"
         type="checkbox"
         {{ block('widget_attributes') }}
         {% if value is defined %}
