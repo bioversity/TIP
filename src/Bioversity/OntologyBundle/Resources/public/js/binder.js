@@ -62,6 +62,7 @@ function bindStartProcessButton()
 function bindPredicateCancel()
 {
     $('#OntologyPredicate_cancel').click(function(event){
+        setActualForm(previusForm);     
         deletePredicate();
     });
 }
@@ -121,6 +122,7 @@ function bindPredicateSelection(callback)
 function bindTermCancel()
 {
     $('#OntologyTerm_cancel').click(function(event){
+        setActualForm(previusForm);
         deleteTerm();
     });
 }
@@ -222,6 +224,7 @@ function bindNodeSelection(callback)
 function bindNodeCancel()
 {
     $('#OntologyNode_cancel').click(function(event){
+        setActualForm(previusForm);
         deleteNode();
     });
 }

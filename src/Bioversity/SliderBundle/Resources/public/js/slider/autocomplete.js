@@ -1,4 +1,5 @@
 var actualForm;
+var previusForm;
 
 function startAutocomplete(form)
 {
@@ -114,6 +115,7 @@ function startAutocomplete(form)
 }
 
 function setActualForm(form){
+    previusForm= actualForm;
     actualForm= form;
 }
 
