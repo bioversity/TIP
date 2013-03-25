@@ -36,7 +36,14 @@ class SliderController extends Controller
             $form->bindRequest($request);
             
             if ($form->isValid()) {
-                $formData= $form->getData();        
+                $formData= $form->getData();
+                
+                if($formData[Tags::kTAG_GID]){
+                    foreach($formData as $key=>$value){
+                        if($key != Tags::kTAG_GID)
+                            unset($formData[$key]);
+                    }
+                }
                 $saver= new ServerConnection();
                 $nodeList= $saver->getNodes(DataFormatterHelper::clearSubmittedData($formData), $page);
                 
