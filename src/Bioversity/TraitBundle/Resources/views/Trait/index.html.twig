@@ -1,0 +1,95 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme form_base
+    '::error.html.twig'
+%}
+{% form_theme form_advance
+    '::error.html.twig'
+%}
+
+{% block javascripts %}
+  {{ parent() }}
+  {% javascripts
+    '@BioversityServerConnectionBundle/Resources/public/js/tags.key.js'
+    '@BioversityTraitBundle/Resources/public/js/trait.js'
+  %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+    <div>
+        <h2>Trait</h2>
+        <h2><small>Explore or refine your search below:</small></h2>
+      
+        {% if errors %}
+            {% for error in errors %}
+                <div class="alert alert-error pull-left">
+                    <strong>Warning!</strong> {{ error }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        {% if notice %}
+            {% for alert in notice %}
+                <div class="alert alert-success pull-left">
+                    <strong>Well done!</strong> {{ alert }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <div class="clear"></div>
+        
+        {{ form_errors(form_base.trait) }}
+        <form action="{{ path('bioversity_trait_browse_trait') }}" id="searchTrait" class="form-search" method="post">
+            {{ form_widget(form_base.trait, { 'attr': {'placeholder': 'Trait'} }) }}
+            <input id="searchTrait_search" class="btn btn-info" type="submit" value="Search" />
+            {{ form_rest(form_base) }}
+        </form>
+        
+        {% if datalist|length > 0 %}
+            {% include 'BioversityTraitBundle:Trait:pager.html.twig' with {'form_advance' : form_advance} %}
+            
+            <div class="clear"></div>
+            
+            <ul style="list-style: none; margin: 0px !important;">
+                {% set path= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_PATH') %}
+                {% set label= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LABEL') %}
+                {% set type= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_TYPE') %}
+                
+                {% for data in datalist['_unit'] %}
+                    <li class="node_result" style="border: 1px solid #fff;margin-bottom: 4px; padding: 3px;">
+                        {% for key,value in data %}
+                            {% if key != '_id' %}
+                                <span class="node_label pull-left" style="margin-right: 4px;">
+                                    {% set term= datalist['_tag'][key][path][0]|base_term %}
+                                    <strong>
+                                        {% for base in term %}
+                                            {{ datalist['_term'][base][label]['en'] }}</strong>
+                                        {% endfor %}
+                                    </strong>
+                                    {% if value|is_array %}
+                                        {% for subvalue in value%}
+                                            {% if datalist['_tag'][key][type][0] == ':ENUM'%}
+                                                {{ datalist['_term'][subvalue][label]['en'] }}
+                                            {% else %}
+                                                {{ subvalue }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        {% if datalist['_tag'][key][type][0] == ':ENUM'%}
+                                            {{ datalist['_term'][value][label]['en'] }}
+                                        {% else %}
+                                            {{ value }}
+                                        {% endif %}
+                                    {% endif %}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="clear"></div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

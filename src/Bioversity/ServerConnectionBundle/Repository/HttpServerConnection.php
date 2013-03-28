@@ -9,8 +9,10 @@ use Bioversity\ServerConnectionBundle\Repository\Tags;
 class HttpServerConnection
 {
   var $db= 'USERS';
+  var $secondDB= null;
   var $collection= 'CUser';
   var $domain= "TIP";
+  var $operator= '$AND';
   //var $wrapper= "http://192.168.181.11/TIP/Wrapper.php";
   var $wrapper= "http://temp.wrapper.grinfo.net/TIP/Wrapper.php";
   
@@ -25,6 +27,16 @@ class HttpServerConnection
   public function setCollection($collection)
   {
     $this->collection= $collection;
+  }
+  
+  public function setOperator($operator)
+  {
+    $this->operator= $operator;
+  }
+  
+  public function setSecondDB($db)
+  {
+    $this->secondDB= $db;
   }
   
   /**
@@ -103,7 +115,7 @@ class HttpServerConnection
    *
    * @return array $query
    */
-  public function createNewQuery($subject, $type=':TEXT', $data, $operator = '$EQ')
+  public function createNewQuery($subject, $type=null, $data=null, $operator = '$EQ')
   {
     if($subject == Tags::kTAG_LABEL){
       $subject= $subject.'.'.key($data);
@@ -120,13 +132,20 @@ class HttpServerConnection
       $operator= Operators::kOPERATOR_IN;
     }
     
-    
-    return $query= Array(
+    $query= Array(
       '_query-subject'=>$subject,
-      '_query-operator'=>$operator,
-      '_query-data-type'=>$type,
-      '_query-data' => $data
+      '_query-operator'=>$operator
     );
+    
+    if($type)
+    $query['_query-data-type']= $type;
+    
+    if($data !== null)
+      $query['_query-data']= $data;
+    
+    
+    
+    return $query;
   }
   
   /**
@@ -191,6 +210,9 @@ class HttpServerConnection
                 ':WS:DATABASE='.urlencode(json_encode($db))
             );
     
+    if($this->secondDB)
+      $request[]= ':WS:DATABASE-ONTOLOGY='.urlencode(json_encode($this->secondDB));
+    
     if($class)
       $request[]= ':WS:CLASS='.urlencode(json_encode($class));
     
@@ -198,7 +220,7 @@ class HttpServerConnection
       $request[]=':WS:CONTAINER='.urlencode(json_encode($this->collection));
     
     if($query)
-      $request[]=':WS:QUERY='.urlencode(json_encode(Array('$AND' => $query)));
+      $request[]=':WS:QUERY='.urlencode(json_encode(Array($this->operator => $query)));
       
     if($log)
       $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
@@ -291,5 +313,97 @@ class HttpServerConnection
       $request[':WS:LOG-REQUEST']=$log;
     
     return print_r($request);
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /**
+   * Create the Request for the WebServer request
+   * 
+   * @param string $operation
+   * @param array $query
+   * @param string $class
+   *  
+   * @return array $request
+   */
+  public function createFuckingBastardDuplicatedRequest($operation, $or= NULL, $and= NULL, $class= NULL, $page)
+  {
+    $request= $this->buildFuckingBastardDuplicatedQuery($this->db, $operation, $or, $and, $class, $page);
+   
+    return $request;
+  }
+  
+  /**
+   * Builds and send the Query for the WebServer request
+   *
+   * @param string $db
+   * @param string $operation
+   * @param string $username
+   * @param array $query
+   * @param string $class
+   * @param bool $log
+   *
+   * @return array $request
+   *
+   */
+  public function buildFuckingBastardDuplicatedQuery(
+    $db,
+    $operation,
+    $or= NULL,
+    $and= NULL,
+    $class= NULL,
+    $pageStart= NULL,
+    $pageLimit= self::page_record,
+    $log= self::logger)
+  {
+    $request= array(
+                ':WS:OPERATION='.$operation,
+                ':WS:FORMAT=:JSON',
+                ':WS:DATABASE='.urlencode(json_encode($db))
+            );
+    
+    if($this->secondDB)
+      $request[]= ':WS:DATABASE-ONTOLOGY='.urlencode(json_encode($this->secondDB));
+    
+    if($class)
+      $request[]= ':WS:CLASS='.urlencode(json_encode($class));
+    
+    if($this->collection)
+      $request[]=':WS:CONTAINER='.urlencode(json_encode($this->collection));
+    
+    if($or)
+      $request[]=':WS:QUERY='.urlencode(json_encode(Array('$OR' => $or)));
+    
+    if($and)
+      $request[]=':WS:QUERY='.urlencode(json_encode(Array('$AND' => $and, '$OR' => $or)));
+      
+    if($log)
+      $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
+    
+    if($pageStart !== NULL){
+      
+      if($pageStart > 1 )
+        $pageStart= (self::page_record*($pageStart-1))+1;
+      $request[]=':WS:PAGE-START='. urlencode(json_encode($pageStart)) ;
+    }
+    
+    if($pageLimit !== NULL)
+      $request[]=':WS:PAGE-LIMIT='. urlencode(json_encode($pageLimit)) ;
+    
+    //return $this->showUnformattedRequest($db, $operation, $query, $class, $log);
+  
+    return $request;
   }
 }

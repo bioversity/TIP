@@ -1,0 +1,12 @@
+<strong>Total results:</strong> {{ status[':WS:AFFECTED-COUNT'] }}
+<br/>
+<form action="{{ path('bioversity_trait_browse_trait_filter') }}" id="searchBestFilter" class="form-search" method="post">
+    {{ form_widget(form_advance.trait) }}
+    <strong> Page</strong>
+    {{ form_widget(form_advance.page) }}
+    <strong>of</strong> {{ (status[':WS:AFFECTED-COUNT']/pager[':WS:PAGE-COUNT'])|ceil }}
+    {{ form_widget(form_advance.location, { 'attr': {'placeholder': 'Location'} }) }}
+    {#{{ form_widget(form_advance.species, { 'attr': {'placeholder': 'Species'} }) }}#}
+    <input id="searchBestFilter_search" class="btn btn-info" type="submit" value="Search" />
+    {{ form_rest(form_advance) }}
+</form>

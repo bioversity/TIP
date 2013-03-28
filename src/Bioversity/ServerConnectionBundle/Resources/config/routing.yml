@@ -26,6 +26,10 @@ bioversity_server_connection_json_find_namespace:
     pattern:  /serverconnection/json/find/namespace/{word}
     defaults: { _controller: BioversityServerConnectionBundle:ServerConnection:jsonFindNamespace }
 
+bioversity_server_connection_json_find_trait:
+    pattern:  /serverconnection/json/find/trait/{word}
+    defaults: { _controller: BioversityServerConnectionBundle:ServerConnection:jsonFindTrait }
+
 bioversity_server_connection_json_get_term_with_namespace:
     pattern:  /serverconnection/json/get/term/{lid}/{namespace}
     defaults: { _controller: BioversityServerConnectionBundle:ServerConnection:jsonGetTerm }

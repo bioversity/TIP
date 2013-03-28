@@ -1,0 +1,36 @@
+{% block form_row %}
+    <div class="accordion-group">
+        <div class="accordion-heading">
+          <a href="#collapse{{form.name}}" data-parent="#accordion{{form.name}}" data-toggle="collapse" class="accordion-toggle collapsed">
+          {{ form_errors(form) }}
+          {{ form_label(form) }}
+          </a>
+        </div>
+        <div class="accordion-body collapse" id="collapse{{form.name}}" style="height: 0px;">
+          <div class="accordion-inner">
+            {{ form_widget(form) }}
+          </div>
+        </div>
+    </div>  
+{% endblock %}
+
+{% block form_label %}
+    {% spaceless %}
+        {% if not compound %}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {% endif %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+            {{ label|trans({}, translation_domain) }}
+            {% if required %}
+                <span class="required" title="This field is required">*</span>
+            {% endif %}
+        </label>
+    {% endspaceless %}
+{% endblock %}
+

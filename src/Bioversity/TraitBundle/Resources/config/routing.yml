@@ -1,0 +1,7 @@
+bioversity_trait_browse_trait:
+    pattern:  /trait/browse
+    defaults: { _controller: BioversityTraitBundle:Trait:index }
+    
+bioversity_trait_browse_trait_filter:
+    pattern:  /trait/browse/filter
+    defaults: { _controller: BioversityTraitBundle:Trait:bestFilter }

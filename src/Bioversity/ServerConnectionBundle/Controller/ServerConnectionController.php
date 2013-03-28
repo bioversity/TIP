@@ -34,6 +34,12 @@ class ServerConnectionController extends Controller
         return  new Response(json_encode($server->findGID($gid)));
     }
     
+    public function jsonFindTraitAction($word)
+    {
+        $server= new AutocompleteMethod();
+        return  new Response(json_encode($server->findTrait($word)));
+    }
+    
     public function jsonGetTermAction($lid, $namespace=null)
     {
         $server= new ServerConnection();

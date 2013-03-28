@@ -1,0 +1,5 @@
+services:
+    bioversity.twig.trait_extension:
+        class: Bioversity\TraitBundle\Twig\TraitExtension
+        tags:
+            - { name: twig.extension }

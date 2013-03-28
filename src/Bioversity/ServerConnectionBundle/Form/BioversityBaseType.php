@@ -119,7 +119,7 @@ class BioversityBaseType extends AbstractType
         }
     }
     
-    private function getOptions($id)
+    public function getOptions($id)
     {
         $server= new ServerConnection();
         $optionsList= $server->getEnumOptions($id);
@@ -157,7 +157,8 @@ class BioversityBaseType extends AbstractType
         foreach($edges as $option){
             if($option[Tags::kTAG_OBJECT] == $node){
                 //var_dump($option[Tags::kTAG_OBJECT].'->'.$option[Tags::kTAG_SUBJECT].'<br/>');
-                $options[]= array($nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_GID] => $spacer.$nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_LABEL]['en']);
+                //$options[]= array($nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_GID] => $spacer.$nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_LABEL]['en']);
+                $options[$nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_GID]]= $spacer.$nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_LABEL]['en'];
                 $options[]= $this->cicleOptions($edges, $nodes, $option[Tags::kTAG_SUBJECT],$levels+1);
             }
         }

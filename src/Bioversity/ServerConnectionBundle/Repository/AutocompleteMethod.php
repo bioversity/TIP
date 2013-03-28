@@ -89,6 +89,24 @@ class AutocompleteMethod extends HttpServerConnection
     $params= $this->createRequest('WS:OP:GET', $query1);
     
     return $this->clearResponse($this->sendRequest($this->wrapper, $params));
+  }  
+  
+  /**
+   * Returns the TRAIT requested
+   * @param string $term
+   *  
+   * @return array $serverResponce
+   */
+  public function findTrait($term)
+  {
+    $this->setDatabase('ONTOLOGY');
+    $this->setCollection(':_terms');
+    $query1= $this->createNewQuery(Tags::kTAG_LABEL.'.en', Types::kTYPE_STRING, $term, Operators::kOPERATOR_CONTAINS_NOCASE);
+    $query2= $this->createNewQuery(Tags::kTAG_FEATURES, Types::kTYPE_INT, NULL, Operators::kOPERATOR_NOT_NULL);
+    $params= $this->createNewRequest('WS:OP:GET', Array($query1,$query2), NULL, 0);
+    
+    //print_r($this->clearResponse($this->sendRequest($this->wrapper, $params)));
+    return $this->clearResponse($this->sendRequest($this->wrapper, $params));
   }
   
   public function clearResponse($response)

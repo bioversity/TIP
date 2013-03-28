@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Bioversity\SliderBundle\BioversitySliderBundle(),
             new Bioversity\SiteStructureBundle\BioversitySiteStructureBundle(),
             new Bioversity\ServerConnectionBundle\BioversityServerConnectionBundle(),
+            new Bioversity\TraitBundle\BioversityTraitBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
