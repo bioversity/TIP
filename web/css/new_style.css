@@ -349,6 +349,11 @@ footer{
   color: #fff;
 }
 
+.other_information a{
+  font-weight: bold;
+  text-decoration: none;
+}
+
 #tip_chat{
 	height: auto;
 }

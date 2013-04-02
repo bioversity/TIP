@@ -2,23 +2,13 @@ $(document).ready( function(){ startTooltip() });
 
 function startTooltip()
 {
-  //$("form :input[type=file], :input[type=radio], :input[type=checkbox], :input[type=text], textarea, select").each(function(){
-  //  $(this).tooltip({
-  //    position: { my: "left+15 center", at: "right center" },
-  //    content: $(this).attr('title')    
-  //  });
-  //});
-  //
-  //$("form td, div").each(function(){
-  //  $(this).tooltip({
-  //    position: { my: "left+15 center", at: "right center" },
-  //    content: $(this).attr('title')    
-  //  });
-  //});
-  
-  $("td, div, :input[type=file], :input[type=radio], :input[type=checkbox], :input[type=text], textarea, select").each(function(){
+  $("td, div, :input[type=file], :input[type=radio], :input[type=text], textarea, select").each(function(){
+    $(this).attr( "data-toggle", "tooltip");
     $(this).tooltip({
-      position: { my: "left+15 center", at: "right center" },
+      placement: 'left',
+      html: true,
+      trigger: 'hover',
+      animation: true,
       content: $(this).attr('title')    
     });
   });
