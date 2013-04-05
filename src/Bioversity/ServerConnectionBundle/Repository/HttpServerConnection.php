@@ -13,6 +13,7 @@ class HttpServerConnection
   var $collection= 'CUser';
   var $domain= "TIP";
   var $operator= '$AND';
+  var $distinct= null;
   //var $wrapper= "http://192.168.181.11/TIP/Wrapper.php";
   var $wrapper= "http://temp.wrapper.grinfo.net/TIP/Wrapper.php";
   
@@ -37,6 +38,11 @@ class HttpServerConnection
   public function setSecondDB($db)
   {
     $this->secondDB= $db;
+  }
+  
+  public function setDistinct($distinct)
+  {
+    $this->distinct= $distinct;
   }
   
   /**
@@ -64,7 +70,7 @@ class HttpServerConnection
    *  
    * @return array $request
    */
-  public function createNewRequest($operation, $query= NULL, $class= NULL, $page)
+  public function createNewRequest($operation, $query= NULL, $class= NULL, $page= 0)
   {
     $request= $this->buildNewQuery($this->db, $operation, $query, $class, $page);
    
@@ -185,6 +191,10 @@ class HttpServerConnection
       
     if($log)
       $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
+      
+      
+    if($this->distinct)
+      $request[]= ':WS:DISTINCT='.urlencode(json_encode($this->distinct));
     
     return $request;
   }
@@ -236,7 +246,7 @@ class HttpServerConnection
       $request[]=':WS:PAGE-LIMIT='. urlencode(json_encode($pageLimit)) ;
     
     //return $this->showUnformattedRequest($db, $operation, $query, $class, $log);
-  
+    
     return $request;
   }
   
@@ -375,19 +385,23 @@ class HttpServerConnection
             );
     
     if($this->secondDB)
-      $request[]= ':WS:DATABASE-ONTOLOGY='.urlencode(json_encode($this->secondDB));
+      $request[]= ':WS:DATABASE-ONTOLOGY='.urlencode(json_encode($this->secondDB));      
+      
+    if($this->distinct)
+      $request[]= ':WS:DISTINCT='.urlencode(json_encode($this->distinct));
     
-    if($class)
+    if($class !== NULL)
       $request[]= ':WS:CLASS='.urlencode(json_encode($class));
     
     if($this->collection)
       $request[]=':WS:CONTAINER='.urlencode(json_encode($this->collection));
-    
-    if($or)
-      $request[]=':WS:QUERY='.urlencode(json_encode(Array('$OR' => $or)));
-    
-    if($and)
+        
+    if($and !== NULL && $or !== NULL)
       $request[]=':WS:QUERY='.urlencode(json_encode(Array('$AND' => $and, '$OR' => $or)));
+    elseif($or !== NULL && $and === NULL)
+      $request[]=':WS:QUERY='.urlencode(json_encode(Array('$OR' => $or)));
+    elseif($and !== NULL && $or === NULL)
+      $request[]=':WS:QUERY='.urlencode(json_encode(Array('$AND' => $and)));
       
     if($log)
       $request[]=':WS:LOG-REQUEST='.urlencode(json_encode($log));
@@ -402,7 +416,7 @@ class HttpServerConnection
     if($pageLimit !== NULL)
       $request[]=':WS:PAGE-LIMIT='. urlencode(json_encode($pageLimit)) ;
     
-    //return $this->showUnformattedRequest($db, $operation, $query, $class, $log);
+    //return $this->showUnformattedRequest($db, $operation, $or, $class, $log);
   
     return $request;
   }

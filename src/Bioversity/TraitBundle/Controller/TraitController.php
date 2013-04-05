@@ -24,18 +24,17 @@ class TraitController extends Controller
         $session = $request->getSession();
         
         $formBase = $this->createForm(new TraitType());
-        $formAdvance = $this->createForm(new BestFilterType());
+        $formAdvance= null;
         
         if ($request->getMethod() == 'POST') {
             $formBase->bindRequest($request);
         
-            if ($formBase->isValid()) {                
+            if ($formBase->isValid()) {
                 $server= new TraitConnection();
                 $traitValue= $formBase->get('trait')->getData();
                 $trait= $server->getTrait($traitValue);
                 
                 if($trait[':WS:STATUS'][':WS:AFFECTED-COUNT'] > 0){
-                    $formAdvance->get('trait')->setData($traitValue);
                     $features= $trait[':WS:RESPONSE'][0][Tags::kTAG_FEATURES];
                     $tagsList= $server->getTags($features);
                     
@@ -44,6 +43,9 @@ class TraitController extends Controller
                         $dataList= $server->getData($tags);
                     
                         if(array_key_exists(':WS:RESPONSE', $dataList)){
+                            $formAdvance = $this->createForm(new BestFilterType(),array('trait' => $traitValue, 'tags' => $tags));
+                            $formAdvance->get('trait')->setData($traitValue);
+                
                             $data=$dataList[':WS:RESPONSE'];
                             $pager= $dataList[':WS:PAGING'];
                             $status= $dataList[':WS:STATUS'];
@@ -66,7 +68,7 @@ class TraitController extends Controller
             'BioversityTraitBundle:Trait:index.html.twig',
             array(
                 'form_base'         => $formBase->createView(),
-                'form_advance'      => $formAdvance->createView(),
+                'form_advance'      => $formAdvance? $formAdvance->createView(): null,
                 'datalist'          => $data,
                 'pager'             => $pager,
                 'status'            => $status,
@@ -86,7 +88,7 @@ class TraitController extends Controller
         $session = $request->getSession();
         
         $formBase = $this->createForm(new TraitType());
-        $formAdvance = $this->createForm(new BestFilterType());
+        $formAdvance = $this->createForm(new BestFilterType(), array());
         
         if ($request->getMethod() == 'POST') {
             $formAdvance->bindRequest($request);
@@ -96,7 +98,7 @@ class TraitController extends Controller
                 $traitValue= $formAdvance->get('trait')->getData();
                 $page= $formAdvance->get('page')->getData();
                 $location= $formAdvance->get('location')->getData();
-                //$species= $formAdvance->get('species')->getData();
+                $species= $formAdvance->get('species')->getData();
                 
                 $trait= $server->getTrait($traitValue);
                 
@@ -107,9 +109,15 @@ class TraitController extends Controller
                     
                     if(array_key_exists(':WS:RESPONSE', $tagsList)){
                         $tags= $this->getTags($tagsList[':WS:RESPONSE']['_tag']);
-                        $dataList= $server->getData($tags, $location, $page);
+                        $dataList= $server->getData($tags, $location, $page, $species);
                     
                         if(array_key_exists(':WS:RESPONSE', $dataList)){
+                            $formAdvance = $this->createForm(new BestFilterType(),array('trait' => $traitValue, 'tags' => $tags));
+                            $formAdvance->get('page')->setData($page);
+                            $formAdvance->get('location')->setData($location);
+                            $formAdvance->get('trait')->setData($traitValue);
+                            $formAdvance->get('species')->setData($species);
+                            
                             $data= $dataList[':WS:RESPONSE'];
                             $pager= $dataList[':WS:PAGING'];
                             $status= $dataList[':WS:STATUS'];

@@ -7,6 +7,8 @@ use Bioversity\ServerConnectionBundle\Repository\Tags;
 use Bioversity\ServerConnectionBundle\Repository\Types;
 use Bioversity\ServerConnectionBundle\Repository\Operators;
 use Bioversity\ServerConnectionBundle\Repository\HttpServerConnection;
+use Bioversity\ServerConnectionBundle\Repository\ServerConnection;
+use Bioversity\TraitBundle\Repository\TraitConnection;
 
 class AutocompleteMethod extends HttpServerConnection
 {    
@@ -107,6 +109,64 @@ class AutocompleteMethod extends HttpServerConnection
     
     //print_r($this->clearResponse($this->sendRequest($this->wrapper, $params)));
     return $this->clearResponse($this->sendRequest($this->wrapper, $params));
+  }
+  
+  /**
+   * Returns the TAXO requested
+   * @param string $term
+   * @param string $traitValue
+   *  
+   * @return array $serverResponce
+   */
+  public function findTaxo($word, $traitValue)
+  {
+    $traitConnection= new TraitConnection();
+    $serverConnection = new ServerConnection();
+    
+    $trait= $traitConnection->getTrait($traitValue);
+    $features= $trait[':WS:RESPONSE'][0][Tags::kTAG_FEATURES];
+    
+    $tagsList= $serverConnection->getTags($features);
+    
+    $tags= array();
+    foreach($tagsList[':WS:RESPONSE']['_tag'] as $key=>$value){
+        if(count($value[Tags::kTAG_OFFSETS]) > 0){
+            foreach($value[Tags::kTAG_OFFSETS] as $tag=>$one)
+            $tags[]= $one;
+        }
+    }
+    
+    $taxonTag= $serverConnection->getTagByGID('GR:TAXON', Tags::kTAG_GID);
+    $taxonTagKey= $taxonTag[':WS:RESPONSE']['_ids'][0];
+    $taxonTagType= $taxonTag[':WS:RESPONSE']['_tag'][$taxonTag[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_TYPE][0];
+    
+    $this->setDatabase('PGRSECURE');
+    $this->setSecondDB('ONTOLOGY');
+    $this->setCollection(':_units');
+    $this->setOperator('$OR');
+    $this->setDistinct($taxonTagKey);
+    
+    foreach($tags as $key=>$tag)
+      $or[]= $this->createNewQuery($tag, NULL, NULL, Operators::kOPERATOR_NOT_NULL);
+    
+    $and= Array($this->createNewQuery($taxonTagKey, Types::kTYPE_STRING, $word, Operators::kOPERATOR_PREFIX_NOCASE));
+      
+    $params= $this->createFuckingBastardDuplicatedRequest('WS:OP:GET', $or, $and, NULL, 0);
+   
+    $response= $this->sendRequest($this->wrapper, $params);
+    
+    $list= array();
+    
+    if(array_key_exists(':WS:RESPONSE', $response)){
+      $options= $serverConnection->getDistinctDetail($response[':WS:RESPONSE'], $taxonTagType);
+      foreach($options as $key=>$option){
+        $list[]=array('GID'=>$option,'LID'=>$option);
+      }
+    }else{
+      $list[]=array('GID'=>'','LABEL'=>'No options found');
+    }
+    
+    return $list;
   }
   
   public function clearResponse($response)

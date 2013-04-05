@@ -26,6 +26,21 @@ class ServerConnection extends HttpServerConnection
   }
   
   /**
+   * Returns the tags language list
+   * @param string $tags
+   *  
+   * @return array $serverResponce
+   */
+  public function getTagByGID($tags)
+  {
+    $this->setDatabase('ONTOLOGY');
+    $this->setCollection(NULL);
+    $query= $this->createQuery(Tags::kTAG_GID, Types::kTYPE_STRING, $tags, Operators::kOPERATOR_EQUAL);
+    $params= $this->createNewRequest('WS:OP:GetTag', Array($query));
+    return $this->sendRequest($this->wrapper, $params);
+  }
+  
+  /**
    * Returns the enumeration options
    * @param int $id
    *  
@@ -38,6 +53,34 @@ class ServerConnection extends HttpServerConnection
     $query= $this->createQuery(Tags::kTAG_NID, Types::kTYPE_INT, $id, Operators::kOPERATOR_EQUAL);
     $params= $this->createRequest('WS:OP:GetEnums', $query, NULL, 'COntologyTag');
     return $this->sendRequest($this->wrapper, $params);
+  }
+  
+  /**
+   * Returns the options value for distinct query response
+   * @param array $tag
+   * @param string $type
+   *  
+   * @return array $options
+   */
+  //TODO: move this method in another class
+  public function getDistinctDetail($tags, $type)
+  {
+      $options= array();
+      
+      foreach($tags as $key=>$tag){
+        switch ($type){
+          case ':TEXT':
+            $options[$tag]= $tag;
+            break;
+          case ':ENUM':
+            $term= $this->getTerm($tag);            
+            $label= $term[':WS:RESPONSE']['_term'][$term[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_LABEL]['en'];
+            $options[$tag]= $label;
+            break;
+        }
+      }
+      
+      return $options;
   }
   
   /**

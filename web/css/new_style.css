@@ -16,6 +16,10 @@ footer{
 	margin: 50px 0px;
 }
 
+.working{
+	background: url('/images/indicator.gif') #fff no-repeat right center !important;
+}
+
 #navigation_menu{
 	position: fixed;
 	left: 0px;	  

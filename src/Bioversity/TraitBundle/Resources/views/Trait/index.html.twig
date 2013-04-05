@@ -3,9 +3,6 @@
 {% form_theme form_base
     '::error.html.twig'
 %}
-{% form_theme form_advance
-    '::error.html.twig'
-%}
 
 {% block javascripts %}
   {{ parent() }}
@@ -52,41 +49,48 @@
             
             <div class="clear"></div>
             
-            <ul style="list-style: none; margin: 0px !important;">
+            <ul class="thumbnails">
                 {% set path= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_PATH') %}
                 {% set label= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LABEL') %}
                 {% set type= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_TYPE') %}
                 
                 {% for data in datalist['_unit'] %}
-                    <li class="node_result" style="border: 1px solid #fff;margin-bottom: 4px; padding: 3px;">
-                        {% for key,value in data %}
-                            {% if key != '_id' %}
-                                <span class="node_label pull-left" style="margin-right: 4px;">
+                    <li class="span11">
+                        <div class="thumbnail">
+                            {% for key,value in data %}
+                                {% if key != '_id' %}
                                     {% set term= datalist['_tag'][key][path][0]|base_term %}
-                                    <strong>
-                                        {% for base in term %}
-                                            {{ datalist['_term'][base][label]['en'] }}</strong>
-                                        {% endfor %}
-                                    </strong>
-                                    {% if value|is_array %}
-                                        {% for subvalue in value%}
-                                            {% if datalist['_tag'][key][type][0] == ':ENUM'%}
-                                                {{ datalist['_term'][subvalue][label]['en'] }}
-                                            {% else %}
-                                                {{ subvalue }}
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% else %}
-                                        {% if datalist['_tag'][key][type][0] == ':ENUM'%}
-                                            {{ datalist['_term'][value][label]['en'] }}
+                                    <div class="{{ datalist['_tag'][key][type][0]|replace({':':'type_'}) }} node_label pull-left" style="margin-right: 4px;">
+                                        <strong>
+                                            {% for base in term %}
+                                                {{ datalist['_term'][base][label]['en'] }}</strong>
+                                            {% endfor %}
+                                        </strong>
+                                        {% if value|is_array %}
+                                            {% for subvalue in value%}
+                                                {% if datalist['_tag'][key][type][0] == ':ENUM'%}
+                                                    {{ datalist['_term'][subvalue][label]['en'] }}
+                                                {% else %}
+                                                    {{ subvalue }}
+                                                {% endif %}
+                                            {% endfor %}
                                         {% else %}
-                                            {{ value }}
+                                            {% if datalist['_tag'][key][type][0] == ':ENUM'%}
+                                                <!--TODO: manage exception-->
+                                                {% if datalist['_term'][value][label]['en'] is defined %}
+                                                    {{ datalist['_term'][value][label]['en'] }}
+                                                {% else %}
+                                                    no-data-found ( {{ key }} - {{ value }} )
+                                                {% endif%}
+                                            {% else %}
+                                                {{ value }}
+                                            {% endif %}
                                         {% endif %}
-                                    {% endif %}
-                                </span>
-                            {% endif %}
-                        {% endfor %}
-                        <div class="clear"></div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            <div class="clear"></div>
+                        </div>
                     </li>
                 {% endfor %}
             </ul>

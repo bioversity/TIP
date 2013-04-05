@@ -40,6 +40,12 @@ class ServerConnectionController extends Controller
         return  new Response(json_encode($server->findTrait($word)));
     }
     
+    public function jsonFindTaxoAction($word, $trait)
+    {
+        $server= new AutocompleteMethod();
+        return  new Response(json_encode($server->findTaxo($word, $trait)));
+    }
+    
     public function jsonGetTermAction($lid, $namespace=null)
     {
         $server= new ServerConnection();
