@@ -1,11 +1,13 @@
 {% set currentPath = app.request.attributes.get('_route') %}
-<div id="navigation_menu" class="{{ currentPath }}">
+<div id="navigation_menu" class="pull-right {{ currentPath }}">
     <ul id="navigationMenu">        
+        <!--
         <li>
             <div class="navigationFirstLevel">
                 <img src="{{ asset('images/TIP-logo.gif') }}" />
             </div>
         </li>
+        -->
         
         <li>
             <div class="navigationFirstLevel">
@@ -14,7 +16,7 @@
                 Main menu
                 
                 <span class="{{ currentPath }}">
-                    <div class="navigationTitle"></div>
+                    <!--<div class="navigationTitle"></div>-->
                     <p class="root_page navigationLink"><a href="{{ path('bioversity_site_structure_homepage') }}">Home</a></p>
                     <p class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_about') }}">About</a></p>
                     <p class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_contact') }}">Contact</a></p>
@@ -31,8 +33,10 @@
                 <i class="icon-user icon-white"></i>
                 <br/>User menu
                 <span class="{{ currentPath }}">
-                    <div class="navigationTitle"></div>
+                    <!--<div class="navigationTitle"></div>-->
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <p><a href="{{ path('bioversity_user_homepage') }}">Manage User</a></p>
+                        <p><a href="{{ path('bioversity_site_structure_online_chat') }}">Who is online (chat)</a></p>
                         {% if is_granted('ROLE_ADMIN') %}
                             <p><a href="{{ path('bioversity_user_homepage') }}">Manage User</a></p>
                         {% endif %}
@@ -55,7 +59,7 @@
                 <br/>
                 Site menu
                 <span class="{{ currentPath }}">
-                    <div class="navigationTitle"></div>
+                    <!--<div class="navigationTitle"></div>-->
                     <p><a data-toggle="modal" href="#MenbersModal">Members</a></p>
                     <p><a data-toggle="modal" href="#OtherInformationModal">Other Information</a></p>
                     <p><a data-toggle="modal" href="#ProjectsModal">Projects</a></p>

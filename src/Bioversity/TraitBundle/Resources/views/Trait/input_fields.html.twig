@@ -1,0 +1,14 @@
+{% form_theme form
+    '::error.html.twig'
+    '::form_div_layout.html.twig'
+%}
+
+<blockquote>
+    <legend>Fields related to <strong>{{ argument }}</strong></legend>
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+    {{ form_rest(form) }}
+    <div class="clear"></div>
+</blockquote>
+
+<div class="clear"></div>

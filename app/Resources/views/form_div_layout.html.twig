@@ -47,7 +47,7 @@
             {% set label = name|humanize %}
         {% endif %}
         <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-            {{ label|trans({}, translation_domain) }}
+            {% autoescape false %}{{ label|trans({}, translation_domain) }}{% endautoescape %}
             {% if required %}
                 <span class="required" title="This field is required">*</span>
             {% endif %}

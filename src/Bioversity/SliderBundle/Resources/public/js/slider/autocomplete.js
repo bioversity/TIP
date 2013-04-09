@@ -5,6 +5,8 @@ function startAutocomplete(form)
 {
     setActualForm(form);
     $("#"+form+"_"+kTAG_LID).autocomplete({
+        search  : function(){$(this).addClass('working');},
+        open    : function(){$(this).removeClass('working');},
         source: function( request, response ) {
             $.ajax({
                 url: dev_stage+"/serverconnection/json/find/lid/"+getUrlParams(request.term, getNamespace(form)),
@@ -32,6 +34,8 @@ function startAutocomplete(form)
     });
      
     $( "#"+form+"_"+kTAG_NAMESPACE ).autocomplete({
+        search  : function(){$(this).addClass('working');},
+        open    : function(){$(this).removeClass('working');},
         source: function( request, response ) {
             $.ajax({
                 url: dev_stage+"/serverconnection/json/find/namespace/"+request.term,
@@ -58,6 +62,8 @@ function startAutocomplete(form)
     });
     
     $( "#"+form+"_"+kTAG_LABEL ).autocomplete({
+        search  : function(){$(this).addClass('working');},
+        open    : function(){$(this).removeClass('working');},
         source: function( request, response ) {
             $.ajax({
                 url: dev_stage+"/serverconnection/json/find/label/"+request.term,
@@ -86,6 +92,8 @@ function startAutocomplete(form)
     });
     
     $( "#"+form+"_"+kTAG_GID ).autocomplete({
+        search  : function(){$(this).addClass('working');},
+        open    : function(){$(this).removeClass('working');},
         source: function( request, response ) {
             $.ajax({
                 url: dev_stage+"/serverconnection/json/find/gid/"+request.term,

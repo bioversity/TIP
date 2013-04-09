@@ -12,6 +12,23 @@ class TraitConnection extends HttpServerConnection
 {  
   
   /**
+   * Returns the TRAIT list requested
+   * @param string $word
+   *  
+   * @return array $serverResponce
+   */
+  public function getTraits($word)
+  {
+    $this->setDatabase('ONTOLOGY');
+    $this->setCollection(':_tags');
+    $query1= $this->createQuery(Tags::kTAG_LABEL.'.en', Types::kTYPE_STRING, $word, Operators::kOPERATOR_CONTAINS_NOCASE);
+    $query2= $this->createNewQuery(Tags::kTAG_DATAPOINT_REFS, Types::kTYPE_INT, 0, Operators::kOPERATOR_GREAT);
+    $params= $this->createNewRequest('WS:OP:GetTag', array($query1,$query2),NULL,0);
+    
+    return $this->sendRequest($this->wrapper, $params);
+  } 
+  
+  /**
    * Returns the TRAIT requested
    * @param string $gid
    *  

@@ -28,7 +28,7 @@ class BioversityBaseType extends AbstractType
         $labels= $this->getLabel();
         $records= $labels[':WS:RESPONSE'];
         $tags= $records['_tag'];
-        $terms= $records['_term'];
+        $terms= $records['_term'];       
         
         foreach($this->internationlization as $id){
             $field= $this->getInputType($id, $terms, $tags);                
@@ -57,9 +57,13 @@ class BioversityBaseType extends AbstractType
     
     private function getInputType($id, $terms, $tags)
     {
-        $definition= $terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_DEFINITION];
+        $definition=
+            (array_key_exists(Tags::kTAG_DEFINITION, $terms[$tags[$id][Tags::kTAG_PATH][count($tags[$id][Tags::kTAG_PATH])-1]]))?
+                $terms[$tags[$id][Tags::kTAG_PATH][count($tags[$id][Tags::kTAG_PATH])-1]][Tags::kTAG_DEFINITION] :
+                null;
+        
         //strange behaviour in mane generation, it don't work on _
-        $name= str_replace(' ', ' ',$terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_LABEL]['en']);
+        $name= $this->getFieldName($terms, $tags, $id);
         
         if($this->checkRequiredField)
             $required= in_array(':REQUIRED', $tags[$id][Tags::kTAG_TYPE]);
@@ -77,11 +81,22 @@ class BioversityBaseType extends AbstractType
             'attr' => array('title' => $this->getAttrTitle($definition) ),
             'constraints' => $constraints
         );
-            
-        if(array_key_exists(Tags::kTAG_INPUT, $tags[$id]))
+        
+        $inputType= 'INPUT-HIDDEN';
+        
+        //print_r($tags[$id]);
+        if(array_key_exists(Tags::kTAG_INPUT, $tags[$id])){
             $inputType= $tags[$id][Tags::kTAG_INPUT];
-        else
-            $inputType= 'INPUT-HIDDEN';
+        }else if(array_key_exists(Tags::kTAG_TYPE, $tags[$id])){
+            switch($tags[$id][Tags::kTAG_TYPE][0]){
+                case ':ENUM':
+                    $inputType= ':INPUT-CHOICE';
+                    break;
+                case ':TEXT':
+                    $inputType= ':INPUT-TEXT';
+                    break;
+            }
+        }
         
         switch($inputType){
             case ':INPUT-TEXTAREA':
@@ -167,14 +182,25 @@ class BioversityBaseType extends AbstractType
         return $options;
     }
     
-    public function getAttrTitle($definitions)
+    public function getAttrTitle($definitions= null)
     {
         $title= '';
-        foreach($definitions as $key=>$definition){
-            $title = $title.'<p style="text-align:left;"><strong>'.$key.'</strong>:'.$definition.'</p>';
-        }
+        if($definitions)
+            foreach($definitions as $key=>$definition){
+                $title = $title.'<p style="text-align:left;"><strong>'.$key.'</strong>:'.$definition.'</p>';
+            }
         
         return $title;
+    }
+    
+    public function getFieldName($terms, $tags, $id)
+    {
+        $name= '<i>'.str_replace(' ', ' ', $terms[$tags[$id][Tags::kTAG_PATH][count($tags[$id][Tags::kTAG_PATH])-1]][Tags::kTAG_LABEL]['en']).'</i>';
+        
+        if(count($tags[$id][Tags::kTAG_PATH]) > 1)
+            $name= str_replace(' ', ' ',$terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_LABEL]['en']).' <br/> '.$name;
+            
+        return $name;
     }
     
 }

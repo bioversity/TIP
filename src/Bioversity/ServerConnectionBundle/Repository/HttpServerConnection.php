@@ -242,6 +242,9 @@ class HttpServerConnection
       $request[]=':WS:PAGE-START='. urlencode(json_encode($pageStart)) ;
     }
     
+    if($this->distinct)
+      $request[]= ':WS:DISTINCT='.urlencode(json_encode($this->distinct));
+    
     if($pageLimit !== NULL)
       $request[]=':WS:PAGE-LIMIT='. urlencode(json_encode($pageLimit)) ;
     

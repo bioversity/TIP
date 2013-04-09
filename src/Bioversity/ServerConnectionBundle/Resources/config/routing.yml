@@ -30,6 +30,10 @@ bioversity_server_connection_json_find_trait:
     pattern:  /serverconnection/json/find/trait/{word}
     defaults: { _controller: BioversityServerConnectionBundle:ServerConnection:jsonFindTrait }
 
+bioversity_server_connection_json_find_tag_by_label:
+    pattern:  /serverconnection/json/find/tag/label/{word}
+    defaults: { _controller: BioversityServerConnectionBundle:ServerConnection:jsonFindTagByLabel }
+
 bioversity_server_connection_json_find_taxo:
     pattern:  /serverconnection/json/find/taxo/{word}/{trait}
     defaults: { _controller: BioversityServerConnectionBundle:ServerConnection:jsonFindTaxo }

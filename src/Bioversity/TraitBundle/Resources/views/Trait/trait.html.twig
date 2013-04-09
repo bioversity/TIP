@@ -1,0 +1,68 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme form_base
+    '::error.html.twig'
+%}
+
+{% block javascripts %}
+  {{ parent() }}
+  {% javascripts
+    '@BioversityServerConnectionBundle/Resources/public/js/tags.key.js'
+    '@BioversityTraitBundle/Resources/public/js/trait.js'
+  %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+      '@BioversityTraitBundle/Resources/public/css/trait.css'
+    %}
+        <link href="{{ asset_url }}" rel="stylesheet" type="text/css">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div>
+        <h2>Trait</h2>
+        <h2><small>Choice your trait below:</small></h2>
+      
+        {% if errors %}
+            {% for error in errors %}
+                <div class="alert alert-error pull-left">
+                    <strong>Warning!</strong> {{ error }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        {% if notice %}
+            {% for alert in notice %}
+                <div class="alert alert-success pull-left">
+                    <strong>Well done!</strong> {{ alert }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <div class="clear"></div>
+        
+        {{ form_errors(form_base) }}
+        <form action="{{ path('bioversity_trait_browse_trait') }}" id="searchTrait" class="form-search" method="post">
+            {{ form_widget(form_base.trait, { 'attr': {'placeholder': 'Trait'} }) }}
+            <input id="searchTrait_search" class="btn btn-info" type="submit" value="Search" />
+            {{ form_rest(form_base) }}
+        </form>
+        
+        <div class="clear"></div>
+        <form id="form_fields" action="" method="post">
+            <div id="form_fields_container"></div>
+            
+            <div class="clear"></div>
+            <div class="form-actions">
+                <input class="btn btn-info" type="submit" value="Search" />
+            </div>     
+        </form>
+        <div class="clear"></div>
+        
+    </div>
+{% endblock %}

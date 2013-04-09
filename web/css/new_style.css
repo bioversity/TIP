@@ -21,112 +21,104 @@ footer{
 }
 
 #navigation_menu{
-	position: fixed;
-	left: 0px;	  
 	height: 100%;
 }
-#navigation_menu{
-	background: #7d7e7d; /* Old browsers */
-	background: -moz-linear-gradient(left,  #7d7e7d 0%, #000000 10%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#7d7e7d), color-stop(10%,#000000)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  #7d7e7d 0%,#000000 10%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  #7d7e7d 0%,#000000 10%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  #7d7e7d 0%,#000000 10%); /* IE10+ */
-	background: linear-gradient(to right,  #7d7e7d 0%,#000000 10%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
-}
+/*#navigation_menu{
+	background: #7d7e7d;
+	background: -moz-linear-gradient(left,  #7d7e7d 0%, #000000 10%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#7d7e7d), color-stop(10%,#000000));
+	background: -webkit-linear-gradient(left,  #7d7e7d 0%,#000000 10%);
+	background: -o-linear-gradient(left,  #7d7e7d 0%,#000000 10%);
+	background: -ms-linear-gradient(left,  #7d7e7d 0%,#000000 10%);
+	background: linear-gradient(to right,  #7d7e7d 0%,#000000 10%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#000000',GradientType=1 );
+}*/
 
-#navigation_menu.bioversity_site_structure_homepage{
-	background: #990033; /* Old browsers */
-	background: -moz-linear-gradient(left,  #990033 0%, #000000 10%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#990033), color-stop(10%,#000000)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  #990033 0%,#000000 10%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  #990033 0%,#000000 10%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  #990033 0%,#000000 10%); /* IE10+ */
-	background: linear-gradient(to right,  #990033 0%,#000000 10%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#990033', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
+/*#navigation_menu.bioversity_site_structure_homepage{
+	background: #990033;
+	background: -moz-linear-gradient(left,  #990033 0%, #000000 10%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#990033), color-stop(10%,#000000));
+	background: -webkit-linear-gradient(left,  #990033 0%,#000000 10%);
+	background: -o-linear-gradient(left,  #990033 0%,#000000 10%);
+	background: -ms-linear-gradient(left,  #990033 0%,#000000 10%);
+	background: linear-gradient(to right,  #990033 0%,#000000 10%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#990033', endColorstr='#000000',GradientType=1 );
 }
 #navigation_menu.bioversity_site_structure_browse_trait{
-	background: #F1921A; /* Old browsers */
-	background: -moz-linear-gradient(left,  #F1921A 0%, #000000 10%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#F1921A), color-stop(10%,#000000)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  #F1921A 0%,#000000 10%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  #F1921A 0%,#000000 10%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  #F1921A 0%,#000000 10%); /* IE10+ */
-	background: linear-gradient(to right,  #F1921A 0%,#000000 10%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F1921A', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
+	background: #F1921A;
+	background: -moz-linear-gradient(left,  #F1921A 0%, #000000 10%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#F1921A), color-stop(10%,#000000));
+	background: -webkit-linear-gradient(left,  #F1921A 0%,#000000 10%);
+	background: -o-linear-gradient(left,  #F1921A 0%,#000000 10%);
+	background: -ms-linear-gradient(left,  #F1921A 0%,#000000 10%);
+	background: linear-gradient(to right,  #F1921A 0%,#000000 10%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F1921A', endColorstr='#000000',GradientType=1 );
 }
 #navigation_menu.bioversity_slider_browse_slider{
-	background: #FFCC00; /* Old browsers */
-	background: -moz-linear-gradient(left,  #FFCC00 0%, #000000 10%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#FFCC00), color-stop(10%,#000000)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  #FFCC00 0%,#000000 10%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  #FFCC00 0%,#000000 10%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  #FFCC00 0%,#000000 10%); /* IE10+ */
-	background: linear-gradient(to right,  #FFCC00 0%,#000000 10%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFCC00', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
+	background: #FFCC00;
+	background: -moz-linear-gradient(left,  #FFCC00 0%, #000000 10%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#FFCC00), color-stop(10%,#000000));
+	background: -webkit-linear-gradient(left,  #FFCC00 0%,#000000 10%);
+	background: -o-linear-gradient(left,  #FFCC00 0%,#000000 10%);
+	background: -ms-linear-gradient(left,  #FFCC00 0%,#000000 10%);
+	background: linear-gradient(to right,  #FFCC00 0%,#000000 10%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFCC00', endColorstr='#000000',GradientType=1 );
 }
 #navigation_menu.bioversity_site_structure_about,
 #navigation_menu.bioversity_site_structure_contact{
-	background: #669966; /* Old browsers */
-	background: -moz-linear-gradient(left,  #669966 0%, #000000 10%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#669966), color-stop(10%,#000000)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  #669966 0%,#000000 10%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  #669966 0%,#000000 10%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  #669966 0%,#000000 10%); /* IE10+ */
-	background: linear-gradient(to right,  #669966 0%,#000000 10%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#669966', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
+	background: #669966;
+	background: -moz-linear-gradient(left,  #669966 0%, #000000 10%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#669966), color-stop(10%,#000000));
+	background: -webkit-linear-gradient(left,  #669966 0%,#000000 10%);
+	background: -o-linear-gradient(left,  #669966 0%,#000000 10%);
+	background: -ms-linear-gradient(left,  #669966 0%,#000000 10%);
+	background: linear-gradient(to right,  #669966 0%,#000000 10%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#669966', endColorstr='#000000',GradientType=1 );
 }
 #navigation_menu.bioversity_slider_conservaton_strategies,
 #navigation_menu.bioversity_slider_national_inventories{
-	background: #679EC9; /* Old browsers */
-	background: -moz-linear-gradient(left,  #679EC9 0%, #000000 10%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#679EC9), color-stop(10%,#000000)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  #679EC9 0%,#000000 10%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  #679EC9 0%,#000000 10%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  #679EC9 0%,#000000 10%); /* IE10+ */
-	background: linear-gradient(to right,  #679EC9 0%,#000000 10%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#679EC9', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
-}
+	background: #679EC9;
+	background: -moz-linear-gradient(left,  #679EC9 0%, #000000 10%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#679EC9), color-stop(10%,#000000));
+	background: -webkit-linear-gradient(left,  #679EC9 0%,#000000 10%);
+	background: -o-linear-gradient(left,  #679EC9 0%,#000000 10%);
+	background: -ms-linear-gradient(left,  #679EC9 0%,#000000 10%);
+	background: linear-gradient(to right,  #679EC9 0%,#000000 10%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#679EC9', endColorstr='#000000',GradientType=1 );
+}*/
 
-#navigationMenu span{
-	/* inner shadow*/
+/*#navigationMenu span{
 	-moz-box-shadow:inset 3px 0px 8px #7d7e7d;
 	-webkit-box-shadow:inset 3px 0px 8px #7d7e7d;
 	box-shadow:inset 3px 0px 8px #7d7e7d;
 }
 
 #navigationMenu span.bioversity_site_structure_homepage{
-	/* inner shadow*/
 	-moz-box-shadow:inset 3px 0px 8px #990033;
 	-webkit-box-shadow:inset 3px 0px 8px #990033;
 	box-shadow:inset 3px 0px 8px #990033;
 }
 #navigationMenu span.bioversity_site_structure_browse_trait{
-	/* inner shadow*/
 	-moz-box-shadow:inset 3px 0px 8px #F1921A;
 	-webkit-box-shadow:inset 3px 0px 8px #F1921A;
 	box-shadow:inset 3px 0px 8px #F1921A;
 }
 #navigationMenu span.bioversity_slider_browse_slider{
-	/* inner shadow*/
 	-moz-box-shadow:inset 3px 0px 8px #FFCC00;
 	-webkit-box-shadow:inset 3px 0px 8px #FFCC00;
 	box-shadow:inset 3px 0px 8px #FFCC00;
 }
 #navigationMenu span.bioversity_site_structure_about,
 #navigationMenu span.bioversity_site_structure_contact{
-	/* inner shadow*/
 	-moz-box-shadow:inset 3px 0px 8px #669966;
 	-webkit-box-shadow:inset 3px 0px 8px #669966;
 	box-shadow:inset 3px 0px 8px #669966;
 }
 #navigationMenu span.bioversity_site_structure_conservaton_strategies{
-	/* inner shadow*/
 	-moz-box-shadow:inset 3px 0px 8px #679EC9;
 	-webkit-box-shadow:inset 3px 0px 8px #679EC9;
 	box-shadow:inset 3px 0px 8px #679EC9;
-}
+}*/
 
 .navigationFirstLevel .root_page{
   border-bottom: 3px solid #990033;
@@ -143,6 +135,10 @@ footer{
 .navigationFirstLevel .dashboard_page,
 .navigationFirstLevel .conservation_page{
   border-bottom: 3px solid #679EC9;
+}
+
+.navigationFirstLevel p{
+  border-bottom: 3px solid #898888;
 }
 
 .navigationFirstLevel .root_page a:hover{
@@ -174,9 +170,9 @@ footer{
 	display: block;
 	font-size: 1.18em;
 	font-weight: bold;
-	text-align: center;
+	text-align: center;	
+	float: left;
 }
-
 
 #navigationMenu li:hover{
 	box-shadow:0 0 5px #9ddff5;
@@ -186,7 +182,7 @@ footer{
 #navigationMenu li,
 .navigationTitle{
 	padding:2px;
-	border-bottom: 1px ridge;
+	/*border-bottom: 1px ridge;*/
 	text-shadow: 0 1px 0 #000000;
 }
 
@@ -196,13 +192,13 @@ footer{
 
 #navigationMenu span{
 	/* Container properties */
-	top: -4px;
-	width:0;
-	left:74px;
+	top: 72px;
+	width:100%;
+	left:0;
 	padding:0;
 	position:fixed;
 	overflow:hidden;
-	height: 100%;
+	height: 0;
 
 	/* Text properties */
 	font-family:'Myriad Pro',Arial, Helvetica, sans-serif;
@@ -220,14 +216,14 @@ footer{
 	-moz-transition: 0.25s;
 	transition: 0.25s;
 	
-	background: #45484d; /* Old browsers */
-	background: -moz-linear-gradient(left,  #45484d 0%, #000000 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#45484d), color-stop(100%,#000000)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  #45484d 0%,#000000 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  #45484d 0%,#000000 100%); /* IE10+ */
-	background: linear-gradient(to right,  #45484d 0%,#000000 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
+	background: #45484d;
+	background: -moz-linear-gradient(left,  #45484d 0%, #000000 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#45484d), color-stop(100%,#000000));
+	background: -webkit-linear-gradient(left,  #45484d 0%,#000000 100%);
+	background: -o-linear-gradient(left,  #45484d 0%,#000000 100%);
+	background: -ms-linear-gradient(left,  #45484d 0%,#000000 100%);
+	background: linear-gradient(to right,  #45484d 0%,#000000 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=1 );
 }
 
 #navigationMenu .navigationFirstLevel{
@@ -242,6 +238,11 @@ footer{
 	text-transform: uppercase;
 }
 
+#navigationMenu .navigationFirstLevel p{
+	float:left;
+	margin-right: 5px;
+}
+
 #navigationMenu span a{
 	text-decoration: none;
 }
@@ -250,12 +251,13 @@ footer{
 
 #navigationMenu span:hover{
 	position: fixed;
-	top: -4px;
-	height: 100%;
+	top: 72px;
+	height: auto;
 }
 
 #navigationMenu .navigationFirstLevel:hover span{
-	width:auto;
+	width:100%;
+	height: auto;
 	padding:0 20px;
 	overflow:visible;
 }
@@ -293,9 +295,9 @@ footer{
 
 
 
-#content_page{
+/*#content_page{
 	margin-left: 75px;
-}
+}*/
 #content_body{
 	padding: 10px 50px;
 }
@@ -360,4 +362,9 @@ footer{
 
 #tip_chat{
 	height: auto;
+}
+
+.navbar-inner{
+	border: none !important;
+	border-radius: 0px !important;
 }

@@ -112,6 +112,28 @@ class AutocompleteMethod extends HttpServerConnection
   }
   
   /**
+   * Returns the Tag detail by label
+   * That method return ad atipical response
+   * @param string $label
+   *  
+   * @return array $serverResponce
+   */
+  public function findTagByLabel($label)
+  {
+    $this->setDatabase('ONTOLOGY');
+    $this->setCollection(':_tags');
+    $this->setDistinct(Tags::kTAG_LABEL.'.en');
+    $query1= $this->createNewQuery(Tags::kTAG_LABEL.'.en', Types::kTYPE_STRING, $label, Operators::kOPERATOR_CONTAINS_NOCASE);
+    $query2= $this->createNewQuery(Tags::kTAG_DATAPOINT_REFS, Types::kTYPE_INT, 0, Operators::kOPERATOR_GREAT);
+    $params= $this->createNewRequest('WS:OP:GET', Array($query1,$query2), NULL, 0);
+    
+    $response= $this->sendRequest($this->wrapper, $params);
+    //print_r($response);
+    //return  (array_key_exists(':WS:RESPONSE', $response))? $response : array('no trait found');
+    return $response[':WS:RESPONSE'];
+  }
+  
+  /**
    * Returns the TAXO requested
    * @param string $term
    * @param string $traitValue
