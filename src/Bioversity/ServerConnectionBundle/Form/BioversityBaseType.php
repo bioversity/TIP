@@ -96,9 +96,12 @@ class BioversityBaseType extends AbstractType
         }else if(array_key_exists(Tags::kTAG_TYPE, $tags[$id])){
             switch($tags[$id][Tags::kTAG_TYPE][0]){
                 case ':ENUM':
-                    $inputType= ':INPUT-CHOICE';
+                    $inputType= ':INPUT-MULTIPLE-CHOICE';
                     break;
                 case ':TEXT':
+                    $inputType= ':INPUT-TEXT';
+                    break;
+                case ':FLOAT':
                     $inputType= ':INPUT-TEXT';
                     break;
             }
@@ -118,6 +121,14 @@ class BioversityBaseType extends AbstractType
             case ':INPUT-MULTIPLE':
                     $defaultOptions['choices'] = $this->getOptions($id);
                     $defaultOptions['expanded'] = true;
+                    $defaultOptions['multiple'] = true;
+                    $defaultOptions['attr']['class'] = 'tree';
+                    return array(
+                        'type'      => 'choice',
+                        'options'   => $defaultOptions);
+            
+            case ':INPUT-MULTIPLE-CHOICE':
+                    $defaultOptions['choices'] = $this->getOptions($id);
                     $defaultOptions['multiple'] = true;
                     $defaultOptions['attr']['class'] = 'tree';
                     return array(

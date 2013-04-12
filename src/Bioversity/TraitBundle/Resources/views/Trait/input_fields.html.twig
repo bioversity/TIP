@@ -4,7 +4,12 @@
 %}
 
 <blockquote>
-    <legend>Fields related to <strong>{{ argument }}</strong></legend>
+    <legend>
+        Fields related to <strong>{{ argument }}</strong>
+        <span class="label label-inverse">
+            <a href="#" onclick="javascript: deleteFields(this);">Delete fields</a>
+        </span>
+    </legend>
     {{ form_errors(form) }}
     {{ form_widget(form) }}
     {{ form_rest(form) }}

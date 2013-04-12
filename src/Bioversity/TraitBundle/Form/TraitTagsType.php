@@ -38,7 +38,7 @@ class TraitTagsType extends BioversityBaseType
         foreach($tags as $tag)
         {
             if($tag != $id)
-                $string .= $tag.'_';
+                $string .= str_replace('.',':',$tag).'_';
         }
         
         return $string;

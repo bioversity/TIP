@@ -123,6 +123,9 @@ class HttpServerConnection
    */
   public function createNewQuery($subject, $type=null, $data=null, $operator = '$EQ')
   {
+    if(is_array($data))
+      $operator= Operators::kOPERATOR_IN;
+      
     if($subject == Tags::kTAG_LABEL){
       $subject= $subject.'.'.key($data);
       $data= $data[key($data)];

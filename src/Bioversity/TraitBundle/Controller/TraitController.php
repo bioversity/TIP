@@ -182,8 +182,6 @@ class TraitController extends Controller
         $server= new TraitConnection();
         $traits= $server->getTraits($word);
         
-        //print_r($traits);
-        
         $form= $this->createForm(new TraitTagsType($traits));
         
         return $this->render(
@@ -205,16 +203,19 @@ class TraitController extends Controller
         foreach($_POST as $key=>$value){
             if($value){
                 if($key !== '_token' && $key !== 'page'){
-                    $newKey= explode('_',$key);
-                    $formData[$newKey[0]][$newKey[count($newKey)-1]]= $value; 
+                    $newKeys= explode('_',$key);
+                    foreach($newKeys as $newKey=>$new){
+                        if($newKey !== 0){
+                            $formData[$newKeys[0]][$newKeys[str_replace(':','.',$newKey)]]= $value;
+                        }
+                    }
                 }
             }
         }
         
         $units= $server->getUnits($formData, $_POST['page']);
         
-        //print_r($units[':WS:RESPONSE']['_unit']);
-        //print_r($units[':WS:RESPONSE']['_tag']);
+        //print_r($units[':WS:REQUEST']);
         
         $data= array();
         $pagecount= ceil($units[':WS:STATUS'][':WS:AFFECTED-COUNT']/$units[':WS:PAGING'][':WS:PAGE-LIMIT']);
@@ -225,6 +226,7 @@ class TraitController extends Controller
             $session->getFlashBag()->set('error', NotificationManager::getNotice('not_found') );
         }
         
+        //TODO. use this to check the request type
         //print_r($request->isXmlHttpRequest());
         return $this->render(
             'BioversityTraitBundle:Trait:unit_list.html.twig',
