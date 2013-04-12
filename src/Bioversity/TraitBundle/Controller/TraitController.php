@@ -206,7 +206,7 @@ class TraitController extends Controller
                     $newKeys= explode('_',$key);
                     foreach($newKeys as $newKey=>$new){
                         if($newKey !== 0){
-                            $formData[$newKeys[0]][$newKeys[str_replace(':','.',$newKey)]]= $value;
+                            $formData[$newKeys[0]][str_replace(':','.',$newKeys[$newKey])]= $value;
                         }
                     }
                 }

@@ -184,12 +184,21 @@ class TraitConnection extends HttpServerConnection
   
   public function getTagKey($list)
   {
+    $keys= array();
     foreach($list as $key=>$value){
       $keys[]= array_values(array_unique(array_keys($value)));
     }
     
+    $tagkey= array();
     foreach($keys as $key=>$value){
-      $tagkey[]= $value[0];
+      if(is_array($value)){
+        foreach($value as $val=>$tag){
+          if(strpos($tag, '.') === false)
+            $tagkey[]= $tag;
+        }
+      }else{
+        $tagkey[]= $value[0];
+      }
     }
     
     return $tagkey;
