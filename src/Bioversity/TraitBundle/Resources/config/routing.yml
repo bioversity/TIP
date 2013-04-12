@@ -6,6 +6,15 @@ bioversity_trait_browse_trait_filter:
     pattern:  /trait/browse/filter
     defaults: { _controller: BioversityTraitBundle:Trait:bestFilter }
     
+bioversity_trait_find_trait:
+    pattern:  /trait/find
+    defaults: { _controller: BioversityTraitBundle:Trait:findTrait }
+    
+#-----------------JSON    
 bioversity_trait_json_trait_fields:
     pattern:  /trait/json/get/tag/fields/{word}
     defaults: { _controller: BioversityTraitBundle:Trait:jsonGetTagFields }
+    
+bioversity_trait_json_find_traits:
+    pattern:  /trait/json/find/trait
+    defaults: { _controller: BioversityTraitBundle:Trait:jsonFindTraits }

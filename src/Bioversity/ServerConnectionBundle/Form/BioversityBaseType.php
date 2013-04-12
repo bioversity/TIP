@@ -31,7 +31,12 @@ class BioversityBaseType extends AbstractType
         $terms= $records['_term'];       
         
         foreach($this->internationlization as $id){
-            $field= $this->getInputType($id, $terms, $tags);                
+            $tag= $id;
+            if(strpos($id,'_') !== false){
+                $idArray= explode('_', $id);
+                $tag= $idArray[count($idArray)-1];
+            }
+            $field= $this->getInputType($tag, $terms, $tags);                
             $builder->add((string)$id,$field['type'],$field['options']);
         }
     }
@@ -52,7 +57,8 @@ class BioversityBaseType extends AbstractType
         
         $server= new ServerConnection();
         //print_r($server->getTags($this->internationlization));
-        return $server->getTags($this->internationlization);
+        $tags= $this->clearTags($this->internationlization);
+        return $server->getTags($tags);
     }
     
     private function getInputType($id, $terms, $tags)
@@ -195,12 +201,24 @@ class BioversityBaseType extends AbstractType
     
     public function getFieldName($terms, $tags, $id)
     {
-        $name= '<i>'.str_replace(' ', ' ', $terms[$tags[$id][Tags::kTAG_PATH][count($tags[$id][Tags::kTAG_PATH])-1]][Tags::kTAG_LABEL]['en']).'</i>';
+        $name= ' <br/> '.'<i>'.str_replace(' ', ' ', $terms[$tags[$id][Tags::kTAG_PATH][count($tags[$id][Tags::kTAG_PATH])-1]][Tags::kTAG_LABEL]['en']).'</i>';
         
         if(count($tags[$id][Tags::kTAG_PATH]) > 1)
-            $name= str_replace(' ', ' ',$terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_LABEL]['en']).' <br/> '.$name;
+            $name= '<strong>'.str_replace(' ', ' ',$terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_LABEL]['en']).'</strong>'.$name;
             
         return $name;
+    }
+    
+    public function clearTags($tags)
+    {
+        foreach($tags as $key=>$tag){
+            if(strpos($tag,'_') !== false){
+                $tagArray= explode('_', $tag);
+                $tags[$key]= $tagArray[count($tagArray)-1];
+            }
+        }
+        
+        return $tags;
     }
     
 }

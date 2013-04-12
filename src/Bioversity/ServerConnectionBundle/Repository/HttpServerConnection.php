@@ -221,7 +221,7 @@ class HttpServerConnection
             );
     
     if($this->secondDB)
-      $request[]= ':WS:DATABASE-ONTOLOGY='.urlencode(json_encode($this->secondDB));
+      $request[]= ':WS:DATABASE-BIS='.urlencode(json_encode($this->secondDB));
     
     if($class)
       $request[]= ':WS:CLASS='.urlencode(json_encode($class));
@@ -388,7 +388,7 @@ class HttpServerConnection
             );
     
     if($this->secondDB)
-      $request[]= ':WS:DATABASE-ONTOLOGY='.urlencode(json_encode($this->secondDB));      
+      $request[]= ':WS:DATABASE-BIS='.urlencode(json_encode($this->secondDB));      
       
     if($this->distinct)
       $request[]= ':WS:DISTINCT='.urlencode(json_encode($this->distinct));

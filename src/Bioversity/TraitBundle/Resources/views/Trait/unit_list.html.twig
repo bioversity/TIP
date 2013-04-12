@@ -1,0 +1,85 @@
+{% if datalist|length > 0 %}
+    {% set path     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_PATH') %}
+    {% set label    = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LABEL') %}
+    {% set type     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_TYPE') %}
+    {% set domain   = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_DOMAIN') %}
+    {% set auth     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_AUTHORITY') %}
+    {% set lid      = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LID') %}
+    {% set namespace= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_NAMESPACE') %}
+    {% set version  = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_VERSION') %}
+    <table class="table table-striped">
+        <tr>
+            <td colspan="6">
+                We have found <strong>{{ totalunit }}</strong> results
+            </td>
+        </tr>
+        <tr>
+            <th>DOMAIN</th>
+            <th>AUTHORITY</th>
+            <th>LOCAL IDENTIFIER</th>
+            <th>NAMESPACE</th>
+            <th>VERSION</th>
+            <th style="text-align: right;">ACTION</th>
+        </tr>
+        {% for data in datalist['_unit'] %}
+            <tr>
+                <td>
+                    {% if datalist['_term'][data[domain]][label]['en'] is defined %}
+                        {{ datalist['_term'][data[domain]][label]['en'] }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if data[auth] is defined %}
+                        {{ data[auth] }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if data[lid] is defined %}
+                        {{ data[lid] }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if data[namespace] is defined %}
+                        {{ data[namespace] }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if data[version] is defined %}
+                        {{ data[version] }}
+                    {% endif %}
+                </td>
+                <td style="text-align: right;">
+                    <button id="hide_{{ data[lid] }}" class="btn hidden">close</button>
+                    <button id="show_{{ data[lid] }}" class="btn">see more</button>
+                </td>
+            </tr>
+            <tr id="detail_{{ data[lid] }}" class="hidden unit_detail">
+                <td colspan="6">
+                    {% include 'BioversityTraitBundle:Trait:more_detail.html.twig' with {'data' : data} %}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>        
+        {% if pagecount > 1 %}
+            {% if actualpage == 0 %}
+                {% set actualpage = 1 %}
+            {% endif %}
+            
+            <td colspan="4">
+                <strong>Page</strong> {{ actualpage }} <strong>of</strong> {{ pagecount }}
+            </td>
+            <td colspan="2" style="text-align: right;">
+                {% if actualpage > 1 %} <a href="#" onclick="javascript: setPage({{ actualpage - 1 }})" class="btn">Previous</a> {% endif %}
+                <input type="text" class="btn" id="pagenumber" name="pagenumber" style="margin-bottom: 0px !important;" value="{{ actualpage }}" />
+                {% if actualpage < pagecount %} <a href="#" onclick="javascript: setPage({{ actualpage +1 }})" class="btn">Next</a> {% endif %}
+                <input type="button" class="btn" value="go to page" onclick="javascript: setPage($('#pagenumber').val())" />
+            </td>
+        {% endif %}
+        </tr>
+    </table>
+{% else %}
+    <div class="alert alert-block">
+        <h4>Warning!</h4>
+        No elements founds. Looks with other keys
+    </div>
+{% endif %}

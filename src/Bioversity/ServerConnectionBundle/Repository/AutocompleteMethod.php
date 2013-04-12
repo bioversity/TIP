@@ -128,9 +128,8 @@ class AutocompleteMethod extends HttpServerConnection
     $params= $this->createNewRequest('WS:OP:GET', Array($query1,$query2), NULL, 0);
     
     $response= $this->sendRequest($this->wrapper, $params);
-    //print_r($response);
-    //return  (array_key_exists(':WS:RESPONSE', $response))? $response : array('no trait found');
-    return $response[':WS:RESPONSE'];
+    return  (array_key_exists(':WS:RESPONSE', $response))? $response[':WS:RESPONSE'] : array('no trait found');
+    //return $response[':WS:RESPONSE'];
   }
   
   /**

@@ -124,5 +124,74 @@ class TraitConnection extends HttpServerConnection
     }
     
     return $this->sendRequest($this->wrapper, $params);
+  }   
+  
+  /**
+   * Returns the DATA list requested
+   * @param string $tags
+   * @param string $location
+   * @param int $page
+   * @param string $species
+   *  
+   * @return array $serverResponce
+   */
+  public function getUnits($tags, $page=0)
+  {
+    $firstElement= ($page > 1) ? ($page*self::page_record)+1 : 0;
+    
+    $request= array(
+                ':WS:OPERATION=WS:OP:GetAnnotated',
+                ':WS:FORMAT=:JSON',
+                ':WS:DATABASE='.urlencode(json_encode('PGRSECURE')),
+                ':WS:DATABASE-BIS='.urlencode(json_encode('ONTOLOGY')),
+                ':WS:CONTAINER='.urlencode(json_encode(':_units')),
+                ':WS:LOG-REQUEST='.urlencode(json_encode(1)),
+                ':WS:PAGE-LIMIT='. urlencode(json_encode(10))
+            );
+    
+    if($firstElement > 1 )
+      $firstElement= (self::page_record*($firstElement-1))+1;
+    
+    $request[]=':WS:PAGE-START='. urlencode(json_encode($firstElement)) ;
+    
+    $request[]=':WS:QUERY='.urlencode(json_encode($this->createAND($tags)));
+    
+    return $this->sendRequest($this->wrapper, $request);
+  }
+  
+  public function createAND($list)
+  { 
+    $and=array();
+    foreach($list as $key=>$tag){
+      $and['$AND'][]= Array('$OR' => $this->createOR($tag));
+    }
+    
+    $keys= $this->getTagKey($list);
+    
+    $and['$AND'][]= $this->createNewQuery(Tags::kTAG_TAGS, Types::kTYPE_INT, $keys, Operators::kOPERATOR_IN);
+    
+    return $and;
+  }
+  
+  public function createOR($list)
+  {
+    $or=array();
+    foreach($list as $key=>$value){
+      $or[]= $this->createNewQuery($key, Types::kTYPE_STRING, $value, Operators::kOPERATOR_EQUAL);
+    }
+    return $or;
+  }
+  
+  public function getTagKey($list)
+  {
+    foreach($list as $key=>$value){
+      $keys[]= array_values(array_unique(array_keys($value)));
+    }
+    
+    foreach($keys as $key=>$value){
+      $tagkey[]= $value[0];
+    }
+    
+    return $tagkey;
   }
 }

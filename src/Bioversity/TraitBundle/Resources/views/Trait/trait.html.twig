@@ -54,15 +54,18 @@
         </form>
         
         <div class="clear"></div>
-        <form id="form_fields" action="" method="post">
+        <form id="form_fields" action="{{ path('bioversity_trait_find_trait') }}" method="post">
             <div id="form_fields_container"></div>
             
             <div class="clear"></div>
             <div class="form-actions">
-                <input class="btn btn-info" type="submit" value="Search" />
+                <input type="hidden" id="form_fields_page" name="page" value="0">
+                <input id="form_fields_search" class="btn btn-info" type="submit" value="Search" />
             </div>     
         </form>
         <div class="clear"></div>
+        
+        <div id="units_list"></div>
         
     </div>
 {% endblock %}
