@@ -2,28 +2,26 @@
   {% set currentPath = app.request.attributes.get('_route') %}
   <h3><i class="icon-bookmark"></i> Main menu</h3>
   <ul class="nav ">
-    <li class="root_page {% if(currentPath == 'bioversity_site_structure_homepage') %} active{% endif %}">
-      <a href="{{ path('bioversity_site_structure_homepage') }}">Home</a>
+    <li class="research_page {% if(currentPath == 'bioversity_slider_browse_slider') %} active{% endif %}">
+      <a href="{{ path('bioversity_slider_browse_slider') }}">Ontology</a>
     </li>
-    <li class="static_page {% if(currentPath == 'bioversity_site_structure_about') %} active{% endif %}">
-      <a href="{{ path('bioversity_site_structure_about') }}">About</a>
-    </li>
-    <li class="static_page {% if(currentPath == 'bioversity_site_structure_contact') %} active{% endif %}">
-      <a href="{{ path('bioversity_site_structure_contact') }}">Contact</a>
-    </li>
-    <li class="trait_page {% if(currentPath == 'bioversity_site_structure_browse_trait') %} active{% endif %}">
-      <a href="{{ path('bioversity_site_structure_browse_trait') }}">Trait</a>
+    <li class="conservation_page {% if(currentPath == 'bioversity_slider_national_inventories') %} active{% endif %}">
+      <a href="{{ path('bioversity_slider_national_inventories') }}">National Inventories</a>
     </li>
     <li class="conservation_page {% if(currentPath == 'bioversity_slider_conservaton_strategies') %} active{% endif %}">
       <a href="{{ path('bioversity_slider_conservaton_strategies') }}">Conservation Strategies</a>
     </li>
-    
-    <li class="conservation_page {% if(currentPath == 'bioversity_slider_national_inventories') %} active{% endif %}">
-      <a href="{{ path('bioversity_slider_national_inventories') }}">National Inventories</a>
+    <li class="trait_page {% if(currentPath == 'bioversity_site_structure_browse_trait') %} active{% endif %}">
+      <a href="{{ path('bioversity_site_structure_browse_trait') }}">Trait</a>
     </li>
-    
-    <li class="research_page {% if(currentPath == 'bioversity_slider_browse_slider') %} active{% endif %}">
-      <a href="{{ path('bioversity_slider_browse_slider') }}">Ontology</a>
+    <li class="static_page {% if(currentPath == 'bioversity_site_structure_contact') %} active{% endif %}">
+      <a href="{{ path('bioversity_site_structure_contact') }}">Contact</a>
+    </li>
+    <li class="static_page {% if(currentPath == 'bioversity_site_structure_about') %} active{% endif %}">
+      <a href="{{ path('bioversity_site_structure_about') }}">About</a>
+    </li>
+    <li class="root_page {% if(currentPath == 'bioversity_site_structure_homepage') %} active{% endif %}">
+      <a href="{{ path('bioversity_site_structure_homepage') }}">Home</a>
     </li>
   </ul>
   <div class="clear"></div>
