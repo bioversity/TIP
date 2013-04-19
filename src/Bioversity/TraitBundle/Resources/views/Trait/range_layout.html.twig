@@ -1,0 +1,53 @@
+{% block form_widget_simple %}
+    {% set type = type|default('text') %}
+    
+    {% set isrange= false %}
+    {% set minval = '' %}
+    {% set maxval = '' %}
+    
+    {% for attrname, attrvalue in attr %}
+        {% if attrname == 'class'%}
+            {% if attrvalue == 'range_field' %}
+                {% set isrange= true %}
+                {% set maxval= attr['maxval'] %}
+                {% set minval= attr['minval'] %}
+            {% endif%}
+        {% endif%}
+    {% endfor %}
+    
+    {% if isrange == true %}
+        from
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} placeholder="{{ minval }}"/>
+        to
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} placeholder="{{ maxval }}"/>
+    {% else %}
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% endif %}
+    
+    {% if help is defined %}
+        <span class="help">{{ help }}</span>
+    {% endif %}
+{% endblock form_widget_simple %}
+
+
+
+{% block widget_attributes %}
+{% spaceless %}
+    {% set field_name= full_name %}
+    
+    id="{{ id }}" disabled="disabled" {% if read_only %} readonly="readonly"{% endif %}{% if disabled %} disabled="disabled"{% endif %}{% if required %} required="required"{% endif %}{% if max_length %} maxlength="{{ max_length }}"{% endif %}{% if pattern %} pattern="{{ pattern }}"{% endif %}
+    
+    {% for attrname, attrvalue in attr %}
+        {% if attrname in ['placeholder', 'title'] %}
+            {{ attrname }}="{{ attrvalue|trans({}, translation_domain) }}"
+        {% else %}
+            {% if attrvalue == 'range_field' %}
+                {% set field_name= field_name~'[]' %}
+                {{ attrname }}="{{ attrvalue }}"
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    
+    name="{{ field_name }}"
+{% endspaceless %}
+{% endblock widget_attributes %}

@@ -156,19 +156,27 @@ class TraitConnection extends HttpServerConnection
     
     $request[]=':WS:QUERY='.urlencode(json_encode($this->createAND($tags)));
     
+    //print_r($this->unformatQuery($tags, $page));
+    
     return $this->sendRequest($this->wrapper, $request);
   }
   
   public function createAND($list)
-  { 
+  {
     $and=array();
     foreach($list as $key=>$tag){
       $and['$AND'][]= Array('$OR' => $this->createOR($tag));
+      //else{
+      //  foreach($tag as $field=>$value){
+      //    foreach($value as $k=>$v)
+      //      $and['$AND'][]= $this->createNewQuery($field, Types::kTYPE_INT, $v, Operators::kOPERATOR_EQUAL);
+      //  }
+      //}
     }
     
     $keys= $this->getTagKey($list);
     
-    $and['$AND'][]= $this->createNewQuery(Tags::kTAG_TAGS, Types::kTYPE_INT, $keys, Operators::kOPERATOR_IN);
+    //$and['$AND'][]= $this->createNewQuery(Tags::kTAG_TAGS, Types::kTYPE_INT, $keys, Operators::kOPERATOR_IN);
     
     return $and;
   }
@@ -176,8 +184,13 @@ class TraitConnection extends HttpServerConnection
   public function createOR($list)
   {
     $or=array();
+    $query= array();
     foreach($list as $key=>$value){
-      $or[]= $this->createNewQuery($key, Types::kTYPE_STRING, $value, Operators::kOPERATOR_EQUAL);
+      $query[]= $this->createNewQuery(Tags::kTAG_TAGS, Types::kTYPE_INT, $key, Operators::kOPERATOR_EQUAL);
+      if($value)
+        $query[]= $this->createNewQuery($key, Types::kTYPE_STRING, $value, Operators::kOPERATOR_EQUAL);
+      
+      $or[]['$AND']= $query;
     }
     return $or;
   }
@@ -202,5 +215,10 @@ class TraitConnection extends HttpServerConnection
     }
     
     return $tagkey;
+  }
+  
+  private function unformatQuery($tags, $page=0)
+  {
+    return  $this->createAND($tags);
   }
 }

@@ -202,11 +202,11 @@ footer{
 
 	/* Text properties */
 	font-family:'Myriad Pro',Arial, Helvetica, sans-serif;
-	font-size:18px;
+	/*font-size:18px;*/
 	font-weight:bold;
 	letter-spacing:0.6px;
 	white-space:nowrap;
-	line-height:39px;
+	/*line-height:39px;*/
 	text-align: left;
 	
 	/* CSS3 Transition: */
@@ -239,7 +239,7 @@ footer{
 }
 
 #navigationMenu .navigationFirstLevel p{
-	float:left;
+	float:right;
 	margin-right: 5px;
 }
 
@@ -258,7 +258,7 @@ footer{
 #navigationMenu .navigationFirstLevel:hover span{
 	width:100%;
 	height: auto;
-	padding:0 20px;
+	/*padding:0 20px;*/
 	overflow:visible;
 }
 #navigationMenu .navigationFirstLevel:hover{

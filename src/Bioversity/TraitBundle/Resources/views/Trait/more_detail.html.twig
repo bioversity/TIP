@@ -5,34 +5,36 @@
     
     {% else %}
         {% set term= datalist['_tag'][key][path][0]|base_term %}
-        <div class="{{ datalist['_tag'][key][type][0]|replace({':':'type_'}) }} node_label pull-left" style="margin-right: 4px;">
-            <strong>
+        <div class="{{ datalist['_tag'][key][type][0]|replace({':':'type_'}) }} node_detail pull-left">
+            <div class="node_detail_label">
                 {% for base in term %}
                     {{ datalist['_term'][base][label]['en'] }}</strong>
                 {% endfor %}
-            </strong>
-            {% if value|is_array %}
-                {% for subvalue in value%}
-                    {% if datalist['_tag'][key][type][0] == ':ENUM' %}
-                        {{ datalist['_term'][subvalue][label]['en'] }}
-                    {% else %}
-                        {{ subvalue }}
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-                {% if datalist['_tag'][key][type][0] == ':ENUM' %}
-                    <!--TODO: manage exception-->
-                    {% if datalist['_term'][value][label]['en'] is defined %}
-                        {{ datalist['_term'][value][label]['en'] }}
-                    {% else %}
-                        no-data-found ( {{ key }} - {{ value }} )
-                    {% endif%}
-                {% elseif datalist['_tag'][key][type][0] == ':URL' %}
-                    <a href="{{ value }}">{{ value }}</a>
+            </div>
+            <div class="node_detail_text">
+                {% if value|is_array %}
+                    {% for subvalue in value%}
+                        {% if datalist['_tag'][key][type][0] == ':ENUM' %}
+                            {{ datalist['_term'][subvalue][label]['en'] }}
+                        {% else %}
+                            {{ subvalue }}
+                        {% endif %}
+                    {% endfor %}
                 {% else %}
-                    {{ value }}
+                    {% if datalist['_tag'][key][type][0] == ':ENUM' %}
+                        <!--TODO: manage exception-->
+                        {% if datalist['_term'][value][label]['en'] is defined %}
+                            {{ datalist['_term'][value][label]['en'] }}
+                        {% else %}
+                            no-data-found ( {{ key }} - {{ value }} )
+                        {% endif%}
+                    {% elseif datalist['_tag'][key][type][0] == ':URL' %}
+                        <a href="{{ value }}">{{ value }}</a>
+                    {% else %}
+                        {{ value }}
+                    {% endif %}
                 {% endif %}
-            {% endif %}
+            </div>
         </div>
     {% endif %}
 {% endfor %}

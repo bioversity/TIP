@@ -1,3 +1,23 @@
 #form_fields{
     display: none;
 }
+
+.range_field{
+    width: 80px;
+}
+
+.node_detail{
+    margin: 4px;
+    border: 1px solid #eee;
+    width: 32%;
+}
+
+.node_detail_label{
+    padding: 4px;
+    background-color: #eee;
+    font-weight: bold;
+}
+
+.node_detail_text{
+    padding: 4px;
+}

@@ -49,11 +49,11 @@
                     {% endif %}
                 </td>
                 <td style="text-align: right;">
-                    <button id="hide_{{ data[lid] }}" class="btn hidden">close</button>
-                    <button id="show_{{ data[lid] }}" class="btn">see more</button>
+                    <button id="hide_{{ data[lid]|replace({' ':''}) }}" class="btn hidden">close</button>
+                    <button id="show_{{ data[lid]|replace({' ':''}) }}" class="btn">see more</button>
                 </td>
             </tr>
-            <tr id="detail_{{ data[lid] }}" class="hidden unit_detail">
+            <tr id="detail_{{ data[lid]|replace({' ':''}) }}" class="hidden unit_detail">
                 <td colspan="6">
                     {% include 'BioversityTraitBundle:Trait:more_detail.html.twig' with {'data' : data} %}
                 </td>

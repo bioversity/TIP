@@ -200,30 +200,51 @@ class TraitController extends Controller
         $server= new TraitConnection();
         
         $formData= array();
+        
         foreach($_POST as $key=>$value){
-            if($value){
-                if($key !== '_token' && $key !== 'page'){
-                    $newKeys= explode('_',$key);
-                    foreach($newKeys as $newKey=>$new){
-                        if($newKey !== 0){
-                            $formData[$newKeys[0]][str_replace(':','.',$newKeys[$newKey])]= $value;
-                        }
-                    }
+            if(is_array($value)){
+                foreach($value as $array=>$postdata){
+                    if(!$postdata)
+                        unset($value[$array]);
                 }
             }
+            
+            //if($value){
+                if($key !== '_token' && $key !== 'page'){
+                    $newKeys= explode('_',$key);
+                    //foreach($newKeys as $newKey=>$new){
+                        //if($newKey !== 0){
+                            $lastKey= $newKeys[count($newKeys)-1];
+                            if($lastKey != 'enabler'){
+                                $formData[$newKeys[0]][str_replace(':','.',$lastKey)]= $value;
+                            }
+                            //else{
+                            //    if(!array_key_exists($newKeys[count($newKeys)-2], $formData))
+                            //        $formData[str_replace(':','.',$newKeys[count($newKeys)-2])][str_replace(':','.',Tags::kTAG_TAGS)][]= $newKeys[count($newKeys)-2];
+                            //}
+                        //}
+                    //}
+                }
+            //}
         }
         
         $units= $server->getUnits($formData, $_POST['page']);
         
-        //print_r($units[':WS:REQUEST']);
+        //print_r($units);
         
         $data= array();
-        $pagecount= ceil($units[':WS:STATUS'][':WS:AFFECTED-COUNT']/$units[':WS:PAGING'][':WS:PAGE-LIMIT']);
+        $pagecount= 0;
+        $totalunit= 0;
         
-        if(array_key_exists(':WS:RESPONSE',$units)){
-            $data= $units[':WS:RESPONSE'];
-        }else{
-            $session->getFlashBag()->set('error', NotificationManager::getNotice('not_found') );
+        if($units){
+            $pagecount= ceil($units[':WS:STATUS'][':WS:AFFECTED-COUNT']/$units[':WS:PAGING'][':WS:PAGE-LIMIT']);
+            $totalunit= $units[':WS:STATUS'][':WS:AFFECTED-COUNT'];
+            
+            if(array_key_exists(':WS:RESPONSE',$units)){
+                $data= $units[':WS:RESPONSE'];
+            }else{
+                $session->getFlashBag()->set('error', NotificationManager::getNotice('not_found') );
+            }
         }
         
         //TODO. use this to check the request type
@@ -233,8 +254,8 @@ class TraitController extends Controller
             array(
                 'datalist'      => $data,
                 'pagecount'     => $pagecount,
-                'actualpage'    =>$_POST['page'],
-                'totalunit'     =>$units[':WS:STATUS'][':WS:AFFECTED-COUNT'],
+                'actualpage'    => $_POST['page'],
+                'totalunit'     => $totalunit,
                 'errors'        => $session->getFlashBag()->get('error'),
             ));
     }
@@ -267,3 +288,67 @@ class TraitController extends Controller
     //}
 
 }
+
+
+
+//array(
+//  '$AND' => array(
+//        array(
+//            '$OR' => array(
+//                array(
+//                    '$AND' => array(
+//                        array(
+//                            kOFFSET_QUERY_SUBJECT => "40",
+//                            kOFFSET_QUERY_OPERATOR => kOPERATOR_EQUAL,
+//                            kOFFSET_QUERY_TYPE => kTYPE_INT,
+//                            kOFFSET_QUERY_DATA => 218
+//                        ),
+//                        array(
+//                            kOFFSET_QUERY_SUBJECT => "218",
+//                            kOFFSET_QUERY_OPERATOR => kOPERATOR_IN,
+//                            kOFFSET_QUERY_TYPE => kTYPE_STRING,
+//                            kOFFSET_QUERY_DATA => array('MCPD:SAMPSTAT:100', 'MCPD:SAMPSTAT:200','MCPD:SAMPSTAT:300')
+//                        )
+//                    )
+//                ),
+//                array(
+//                    '$AND' => array(
+//                        array(
+//                            kOFFSET_QUERY_SUBJECT => "40",
+//                            kOFFSET_QUERY_OPERATOR => kOPERATOR_EQUAL,
+//                            kOFFSET_QUERY_TYPE => kTYPE_INT,
+//                            kOFFSET_QUERY_DATA => 220
+//                        ),
+//                        array(
+//                            kOFFSET_QUERY_SUBJECT => "220",
+//                            kOFFSET_QUERY_OPERATOR => kOPERATOR_IN,
+//                            kOFFSET_QUERY_TYPE => kTYPE_STRING,
+//                            kOFFSET_QUERY_DATA => array('MCPD:COLLSRC:10', 'MCPD:COLLSRC:20', 'MCPD:COLLSRC:30')
+//                        )
+//                    )
+//                )
+//            )
+//        ),
+//        array(
+//            '$OR' => array(
+//                array(
+//                  '$AND' => array(
+//                        array(
+//                            kOFFSET_QUERY_SUBJECT => "40",
+//                            kOFFSET_QUERY_OPERATOR => kOPERATOR_EQUAL,
+//                            kOFFSET_QUERY_TYPE => kTYPE_INT,
+//                            kOFFSET_QUERY_DATA => 211),
+//                        array(
+//                            kOFFSET_QUERY_SUBJECT => "211",
+//                            kOFFSET_QUERY_OPERATOR => kOPERATOR_IN,
+//                            kOFFSET_QUERY_TYPE => kTYPE_STRING,
+//                            kOFFSET_QUERY_DATA => array('ISO:3166:1:alpha-3:CIV')
+//                        )
+//                    )
+//                )
+//            )
+//        )
+//    )
+//);
+
+

@@ -9,6 +9,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Bioversity\ServerConnectionBundle\Repository\ServerConnection;
 use Bioversity\ServerConnectionBundle\Repository\Tags;
+use Bioversity\ServerConnectionBundle\Repository\InputType;
+use Bioversity\ServerConnectionBundle\Repository\InputField;
 use Bioversity\ServerConnectionBundle\Validator\Constraints\ContainsAlphanumeric;
 use Bioversity\ServerConnectionBundle\Validator\Constraints\ContainsLID;
 use Bioversity\ServerConnectionBundle\Validator\Constraints\ContainsNAMESPACE;
@@ -36,7 +38,8 @@ class BioversityBaseType extends AbstractType
                 $idArray= explode('_', $id);
                 $tag= $idArray[count($idArray)-1];
             }
-            $field= $this->getInputType($tag, $terms, $tags);                
+            $field= $this->getInputType($tag, $terms, $tags);
+                
             $builder->add((string)$id,$field['type'],$field['options']);
         }
     }
@@ -68,7 +71,7 @@ class BioversityBaseType extends AbstractType
                 $terms[$tags[$id][Tags::kTAG_PATH][count($tags[$id][Tags::kTAG_PATH])-1]][Tags::kTAG_DEFINITION] :
                 null;
         
-        //strange behaviour in mane generation, it don't work on _
+        //strange behaviour in name generation, it don't work on _
         $name= $this->getFieldName($terms, $tags, $id);
         
         if($this->checkRequiredField)
@@ -79,7 +82,7 @@ class BioversityBaseType extends AbstractType
         $constraints= array($this->getValidator($tags[$id][Tags::kTAG_GID]));
         
         if($required)
-            $constraints[]= new NotBlank();        
+            $constraints[]= new NotBlank();
         
         $defaultOptions= array(
             'required' => $required,
@@ -87,116 +90,19 @@ class BioversityBaseType extends AbstractType
             'attr' => array('title' => $this->getAttrTitle($definition) ),
             'constraints' => $constraints
         );
-        
-        $inputType= 'INPUT-HIDDEN';
-        
-        //print_r($tags[$id]);
-        if(array_key_exists(Tags::kTAG_INPUT, $tags[$id])){
-            $inputType= $tags[$id][Tags::kTAG_INPUT];
-        }else if(array_key_exists(Tags::kTAG_TYPE, $tags[$id])){
-            switch($tags[$id][Tags::kTAG_TYPE][0]){
-                case ':ENUM':
-                    $inputType= ':INPUT-MULTIPLE-CHOICE';
-                    break;
-                case ':TEXT':
-                    $inputType= ':INPUT-TEXT';
-                    break;
-                case ':FLOAT':
-                    $inputType= ':INPUT-TEXT';
-                    break;
-            }
-        }
-        
-        switch($inputType){
-            case ':INPUT-TEXTAREA':
-                return array(
-                    'type'      => 'textarea',
-                    'options'   => $defaultOptions);
             
-            case ':INPUT-TEXT':
-                return array(
-                    'type'      => 'text',
-                    'options'   => $defaultOptions);
+        //move this method in defaultOptionClass
+        if(array_key_exists(Tags::kTAG_MIN_VAL, $tags[$id]))
+            $defaultOptions['attr']['minval']= $tags[$id][Tags::kTAG_MIN_VAL];
             
-            case ':INPUT-MULTIPLE':
-                    $defaultOptions['choices'] = $this->getOptions($id);
-                    $defaultOptions['expanded'] = true;
-                    $defaultOptions['multiple'] = true;
-                    $defaultOptions['attr']['class'] = 'tree';
-                    return array(
-                        'type'      => 'choice',
-                        'options'   => $defaultOptions);
-            
-            case ':INPUT-MULTIPLE-CHOICE':
-                    $defaultOptions['choices'] = $this->getOptions($id);
-                    $defaultOptions['multiple'] = true;
-                    $defaultOptions['attr']['class'] = 'tree';
-                    return array(
-                        'type'      => 'choice',
-                        'options'   => $defaultOptions);
-                    
-            case ':INPUT-CHOICE':
-                    $defaultOptions['choices'] = $this->getOptions($id);
-                    $defaultOptions['expanded'] = false;
-                    $defaultOptions['multiple'] = false;
-                    $defaultOptions['empty_value'] = 'Choice value';
-                    return array(
-                        'type'      => 'choice',
-                        'options'   => $defaultOptions);
-                
-            case 'INPUT-HIDDEN':
-                return array(
-                    'type'      => 'hidden',
-                    'options'   => $defaultOptions);
-        }
-    }
-    
-    public function getOptions($id)
-    {
-        $server= new ServerConnection();
-        $optionsList= $server->getEnumOptions($id);
+        if(array_key_exists(Tags::kTAG_MAX_VAL, $tags[$id]))
+            $defaultOptions['attr']['maxval']= $tags[$id][Tags::kTAG_MAX_VAL];
         
-        return $this->buildOptions($optionsList);
-    }
-    
-    private function buildOptions($optionsList)
-    {
-        $levels= 1;
-        $options= array();
+        $inputTypeModel= new InputType($tags[$id]);
+        $inputFieldModel= new InputField();
+        $inputType= $inputTypeModel->getInputType();
         
-        if(array_key_exists(':WS:RESPONSE', $optionsList)){
-            $response= $optionsList[':WS:RESPONSE'];
-            $edges= $response['_edge'];
-            $nodes= $response['_node'];
-            $node= $response['_ids'][0];
-            
-            $options= $this->cicleOptions($edges, $nodes, $node, $levels);
-        }
-        
-        return $options;
-    }
-    
-    private function cicleOptions($edges, $nodes, $node, $levels=1)
-    {
-        $options= array();
-        $spacer= '';
-        if($levels > 1){
-            for($i=1; $i<$levels; $i++){
-                $spacer=$spacer.'___';
-            }
-            
-        }
-        foreach($edges as $option){
-            if($option[Tags::kTAG_OBJECT] == $node){
-                //var_dump($option[Tags::kTAG_OBJECT].'->'.$option[Tags::kTAG_SUBJECT].'<br/>');
-                //$options[]= array($nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_GID] => $spacer.$nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_LABEL]['en']);
-                $options[$nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_GID]]= $spacer.$nodes[$option[Tags::kTAG_SUBJECT]][Tags::kTAG_LABEL]['en'];
-                $options[]= $this->cicleOptions($edges, $nodes, $option[Tags::kTAG_SUBJECT],$levels+1);
-            }
-        }
-        
-        //var_dump($options);
-        return $options;
+        return $inputFieldModel->getInputField($id, $inputType, $defaultOptions);
     }
     
     public function getAttrTitle($definitions= null)
@@ -212,11 +118,14 @@ class BioversityBaseType extends AbstractType
     
     public function getFieldName($terms, $tags, $id)
     {
-        $name= ' <br/> '.'<i>'.str_replace(' ', ' ', $terms[$tags[$id][Tags::kTAG_PATH][count($tags[$id][Tags::kTAG_PATH])-1]][Tags::kTAG_LABEL]['en']).'</i>';
+        $name= '<i>'.str_replace(' ', ' ', $terms[$tags[$id][Tags::kTAG_PATH][count($tags[$id][Tags::kTAG_PATH])-1]][Tags::kTAG_LABEL]['en']).'</i>';
         
-        if(count($tags[$id][Tags::kTAG_PATH]) > 1)
-            $name= '<strong>'.str_replace(' ', ' ',$terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_LABEL]['en']).'</strong>'.$name;
-            
+        if(count($tags[$id][Tags::kTAG_PATH]) > 1){
+            $name= '<strong>'.str_replace(' ', ' ',$terms[$tags[$id][Tags::kTAG_PATH][0]][Tags::kTAG_LABEL]['en']).'</strong>'.' <br/> '.$name;
+        }else{
+            $name= '<strong>'.$name.'</strong>';
+        }
+        
         return $name;
     }
     

@@ -146,8 +146,12 @@ class HttpServerConnection
       '_query-operator'=>$operator
     );
     
-    if($type)
-    $query['_query-data-type']= $type;
+    if($type){
+      if($subject == Tags::kTAG_TAGS)
+        $type= Types::kTYPE_INT;
+        
+      $query['_query-data-type']= $type;
+    }
     
     if($data !== null)
       $query['_query-data']= $data;
@@ -308,8 +312,6 @@ class HttpServerConnection
   
   /**
    * This is a debug method
-   *
-   *
    */
   private function showUnformattedRequest($db, $operation, $query= NULL, $class= NULL, $log= self::logger)
   {
@@ -391,7 +393,7 @@ class HttpServerConnection
             );
     
     if($this->secondDB)
-      $request[]= ':WS:DATABASE-BIS='.urlencode(json_encode($this->secondDB));      
+      $request[]= ':WS:DATABASE-BIS='.urlencode(json_encode($this->secondDB));
       
     if($this->distinct)
       $request[]= ':WS:DISTINCT='.urlencode(json_encode($this->distinct));
