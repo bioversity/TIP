@@ -78,17 +78,38 @@ p{
   text-align: justify;
 }
 
-#tip_logo{
-  width: 45px;
-  float: left;
+#tip_logo{ display: none;}
+
+.navbar-fixed-top {
+    margin-bottom: 0px !important;
+}
+
+@media (min-width: 767px) {
+  #tip_logo{
+    display: block;
+    width: 50px;
+    float: left;
+    background-color: #F5F5F5;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    padding: 5px;
+    margin: 10px;
+  }
+  
+  .navbar-inner{
+     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
+  }
+}
+
+#pgr_logo{
+  width: 35px;
+  float: right;
   background-color: #F5F5F5;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 4px 4px 4px 4px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
-  padding-top: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-bottom: 0px;
+  padding: 5px;
   margin: 10px;
 }
 
@@ -191,7 +212,9 @@ p{
 }
 
 footer p{
-  color: #333 !important;
+  color: #333333 !important;
+  float: left;
+  padding: 10px;
 }
 
 .children.closed{
@@ -298,7 +321,6 @@ div.open.landrace_box .form_result{
 }
 
 .beta_release{
-  color: #FFFFFF !important;
   font-size: 12px;
 }
 

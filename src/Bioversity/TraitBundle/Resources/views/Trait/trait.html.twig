@@ -26,7 +26,7 @@
 {% block body %}
     <div>
         <h2>Trait</h2>
-        <h2><small>Choice your trait below:</small></h2>
+        <h2><small>Choice your term below:</small></h2>
       
         {% if errors %}
             {% for error in errors %}
@@ -48,7 +48,7 @@
         
         {{ form_errors(form_base) }}
         <form action="{{ path('bioversity_trait_browse_trait') }}" id="searchTrait" class="form-search" method="post">
-            {{ form_widget(form_base.trait, { 'attr': {'placeholder': 'Trait'} }) }}
+            {{ form_widget(form_base.trait, { 'attr': {'placeholder': 'Term'} }) }}
             <input id="searchTrait_search" class="btn btn-info" type="submit" value="Search" />
             {{ form_rest(form_base) }}
         </form>

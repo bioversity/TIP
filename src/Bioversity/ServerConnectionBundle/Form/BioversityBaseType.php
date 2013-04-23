@@ -110,7 +110,8 @@ class BioversityBaseType extends AbstractType
         $title= '';
         if($definitions)
             foreach($definitions as $key=>$definition){
-                $title = $title.'<p style="text-align:left;"><strong>'.$key.'</strong>:'.$definition.'</p>';
+                //$title = $title.'<p style="text-align:left;"><strong>'.$key.'</strong>:'.$definition.'</p>';
+                $title = $title.$definition;
             }
         
         return $title;

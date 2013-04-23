@@ -4,22 +4,44 @@
 
 <footer>
   <div id="footer_menu">
-    <p>All content on the database is protected by the <a target="_blank" href="http://eurisco.ecpgr.org/about/data_policy/terms_of_use.html">Term of Use</a></p>
-    <table>
-      <tbody>
-        <tr>
-          <td width="10%" valign="top">
-            <a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
-              <img alt="Creative Commons Licence" style="border-width: 0pt;" src="http://creativecommons.org/images/public/somerights20.png">
-            </a>
-          </td>
-          <td width="90%">
-            <p>
-              <small>All content on this website is protected by a Creative Commons Attribution Non-Commercial No Derivatives license. This license allows others to download works from this website and share them with others as long as they mention and link back to this website, but they can't change them in any way or use them commercially.</small>
-            </p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    
+    <h4>Other Links</h4>
+    <div class="footer_menu">
+      <p><a href="{{ path('bioversity_site_structure_homepage') }}">Home</a></p>
+      <p><a href="{{ path('b_s_login_path') }}">Login</a></p>
+      <p><a href="{{ path('b_s_registration') }}">Registration</a></p>
+      <p><a data-toggle="modal" href="#MenbersModal">Members</a></p>
+      <p><a data-toggle="modal" href="#OtherInformationModal">Other Information</a></p>
+      <p><a data-toggle="modal" href="#ProjectsModal">Projects</a></p>
+      <p><a data-toggle="modal" href="#PublicationsModal">Publications</a></p>
+      <p><a data-toggle="modal" href="#DataUsePolicyModal">Data Use Policy</a></p>
+      <p><a data-toggle="modal" href="#AdvisoryBoardModal">Advisory Board</a></p>
+      <p><a data-toggle="modal" href="#NewsArchiveModal">News Archive</a></p>
+      <p><a data-toggle="modal" href="#GovernanceModal">Governance</a></p>
+      <div class="clear"></div>
+    </div>
+    
+    <div class="clear"></div>
+    
+    <div class="footer_logos">
+      <img src="{{ asset('images/BioversityLogo.jpg') }}" />
+      <img src="{{ asset('images/TIP-logo.gif') }}" />
+      <img src="{{ asset('images/PGR_Secure.gif') }}" />
+    </div>
+    
+    <div class="clear"></div>
+    
+    <div id="footer_privacy">
+      <p>
+        All content on this website is protected by a Creative Commons Attribution Non-Commercial No Derivatives license. This license allows others to download works from this website and share them with others as long as they mention and link back to this website, but they can't change them in any way or use them commercially.
+      </p>
+      <p>
+        
+        <a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+          <img alt="Creative Commons Licence" style="border-width: 0pt;" src="http://creativecommons.org/images/public/somerights20.png">
+        </a>
+        All content on the database is protected by the <a target="_blank" href="http://eurisco.ecpgr.org/about/data_policy/terms_of_use.html">Term of Use</a>
+      </p>
+    </div>
+    
 </footer>

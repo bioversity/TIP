@@ -123,7 +123,7 @@ class HttpServerConnection
    */
   public function createNewQuery($subject, $type=null, $data=null, $operator = '$EQ')
   {
-    if(is_array($data))
+    if(is_array($data) && $operator != Operators::kOPERATOR_IRANGE)
       $operator= Operators::kOPERATOR_IN;
       
     if($subject == Tags::kTAG_LABEL){
@@ -147,7 +147,7 @@ class HttpServerConnection
     );
     
     if($type){
-      if($subject == Tags::kTAG_TAGS)
+      if($subject == Tags::kTAG_TAGS )
         $type= Types::kTYPE_INT;
         
       $query['_query-data-type']= $type;

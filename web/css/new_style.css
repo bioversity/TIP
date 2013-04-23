@@ -7,13 +7,70 @@
 body {
   /*padding-top: 100px;*/
   color: #666666;
-  font: 12px arial,sans-serif;
-  overflow-y: scroll;
-  background-color: #CDCDCD;
+  font-family: NettoOT,Arial,sans-serif;
+  overflow-y: scroll;;
+  padding: 0px !important;
+  background-color: #1E1E1E;
+  /*background: url("/images/PGR_Secure.gif") no-repeat scroll right bottom #FFFFFF;*/
+}
+
+.navbar-inner{
+	background-color: #fff !important;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
 }
 
 footer{
-	margin: 50px 0px;
+	background-color: #1E1E1E;
+	padding: 30px 70px;
+	border-top: 1px solid #DDDDDD;
+}
+
+footer h4{
+	color: #0093D0 !important;
+	font-size: 20px !important;
+	font-weight: normal;
+}
+
+.footer_menu{
+	/*text-align: center;
+	margin-right: 15px;
+	padding: 5px;*/
+	margin: 0 auto;
+}
+
+.footer_menu a{
+	color: #CCCCCC;
+}
+
+.footer_logos{
+	border-bottom: 1px solid;
+	border-top: 1px solid;
+	margin: 0 auto;
+	padding: 10px;
+	text-align: center;
+}
+
+.footer_logos img{
+	height: 40px;
+	border: 1px solid rgba(0, 0, 0, 0.05);
+	border-radius: 4px 4px 4px 4px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+	padding: 5px;
+}
+
+#footer_privacy{
+	margin-top: 10px;
+	padding-top: 10px;
+	color: #999999;
+}
+
+
+h1, h2, h3, h4, h5{ color: #E95F33; }
+
+hr {
+    background-color: #D8D8D8;
+    border-style: solid none none;
+    border-color: #CCCCCC -moz-use-text-color -moz-use-text-color !important;
 }
 
 .working{
@@ -23,102 +80,6 @@ footer{
 #navigation_menu{
 	height: 100%;
 }
-/*#navigation_menu{
-	background: #7d7e7d;
-	background: -moz-linear-gradient(left,  #7d7e7d 0%, #000000 10%);
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#7d7e7d), color-stop(10%,#000000));
-	background: -webkit-linear-gradient(left,  #7d7e7d 0%,#000000 10%);
-	background: -o-linear-gradient(left,  #7d7e7d 0%,#000000 10%);
-	background: -ms-linear-gradient(left,  #7d7e7d 0%,#000000 10%);
-	background: linear-gradient(to right,  #7d7e7d 0%,#000000 10%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#000000',GradientType=1 );
-}*/
-
-/*#navigation_menu.bioversity_site_structure_homepage{
-	background: #990033;
-	background: -moz-linear-gradient(left,  #990033 0%, #000000 10%);
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#990033), color-stop(10%,#000000));
-	background: -webkit-linear-gradient(left,  #990033 0%,#000000 10%);
-	background: -o-linear-gradient(left,  #990033 0%,#000000 10%);
-	background: -ms-linear-gradient(left,  #990033 0%,#000000 10%);
-	background: linear-gradient(to right,  #990033 0%,#000000 10%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#990033', endColorstr='#000000',GradientType=1 );
-}
-#navigation_menu.bioversity_site_structure_browse_trait{
-	background: #F1921A;
-	background: -moz-linear-gradient(left,  #F1921A 0%, #000000 10%);
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#F1921A), color-stop(10%,#000000));
-	background: -webkit-linear-gradient(left,  #F1921A 0%,#000000 10%);
-	background: -o-linear-gradient(left,  #F1921A 0%,#000000 10%);
-	background: -ms-linear-gradient(left,  #F1921A 0%,#000000 10%);
-	background: linear-gradient(to right,  #F1921A 0%,#000000 10%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F1921A', endColorstr='#000000',GradientType=1 );
-}
-#navigation_menu.bioversity_slider_browse_slider{
-	background: #FFCC00;
-	background: -moz-linear-gradient(left,  #FFCC00 0%, #000000 10%);
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#FFCC00), color-stop(10%,#000000));
-	background: -webkit-linear-gradient(left,  #FFCC00 0%,#000000 10%);
-	background: -o-linear-gradient(left,  #FFCC00 0%,#000000 10%);
-	background: -ms-linear-gradient(left,  #FFCC00 0%,#000000 10%);
-	background: linear-gradient(to right,  #FFCC00 0%,#000000 10%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFCC00', endColorstr='#000000',GradientType=1 );
-}
-#navigation_menu.bioversity_site_structure_about,
-#navigation_menu.bioversity_site_structure_contact{
-	background: #669966;
-	background: -moz-linear-gradient(left,  #669966 0%, #000000 10%);
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#669966), color-stop(10%,#000000));
-	background: -webkit-linear-gradient(left,  #669966 0%,#000000 10%);
-	background: -o-linear-gradient(left,  #669966 0%,#000000 10%);
-	background: -ms-linear-gradient(left,  #669966 0%,#000000 10%);
-	background: linear-gradient(to right,  #669966 0%,#000000 10%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#669966', endColorstr='#000000',GradientType=1 );
-}
-#navigation_menu.bioversity_slider_conservaton_strategies,
-#navigation_menu.bioversity_slider_national_inventories{
-	background: #679EC9;
-	background: -moz-linear-gradient(left,  #679EC9 0%, #000000 10%);
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#679EC9), color-stop(10%,#000000));
-	background: -webkit-linear-gradient(left,  #679EC9 0%,#000000 10%);
-	background: -o-linear-gradient(left,  #679EC9 0%,#000000 10%);
-	background: -ms-linear-gradient(left,  #679EC9 0%,#000000 10%);
-	background: linear-gradient(to right,  #679EC9 0%,#000000 10%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#679EC9', endColorstr='#000000',GradientType=1 );
-}*/
-
-/*#navigationMenu span{
-	-moz-box-shadow:inset 3px 0px 8px #7d7e7d;
-	-webkit-box-shadow:inset 3px 0px 8px #7d7e7d;
-	box-shadow:inset 3px 0px 8px #7d7e7d;
-}
-
-#navigationMenu span.bioversity_site_structure_homepage{
-	-moz-box-shadow:inset 3px 0px 8px #990033;
-	-webkit-box-shadow:inset 3px 0px 8px #990033;
-	box-shadow:inset 3px 0px 8px #990033;
-}
-#navigationMenu span.bioversity_site_structure_browse_trait{
-	-moz-box-shadow:inset 3px 0px 8px #F1921A;
-	-webkit-box-shadow:inset 3px 0px 8px #F1921A;
-	box-shadow:inset 3px 0px 8px #F1921A;
-}
-#navigationMenu span.bioversity_slider_browse_slider{
-	-moz-box-shadow:inset 3px 0px 8px #FFCC00;
-	-webkit-box-shadow:inset 3px 0px 8px #FFCC00;
-	box-shadow:inset 3px 0px 8px #FFCC00;
-}
-#navigationMenu span.bioversity_site_structure_about,
-#navigationMenu span.bioversity_site_structure_contact{
-	-moz-box-shadow:inset 3px 0px 8px #669966;
-	-webkit-box-shadow:inset 3px 0px 8px #669966;
-	box-shadow:inset 3px 0px 8px #669966;
-}
-#navigationMenu span.bioversity_site_structure_conservaton_strategies{
-	-moz-box-shadow:inset 3px 0px 8px #679EC9;
-	-webkit-box-shadow:inset 3px 0px 8px #679EC9;
-	box-shadow:inset 3px 0px 8px #679EC9;
-}*/
 
 .navigationFirstLevel .root_page{
   border-bottom: 3px solid #990033;
@@ -183,7 +144,7 @@ footer{
 .navigationTitle{
 	padding:2px;
 	/*border-bottom: 1px ridge;*/
-	text-shadow: 0 1px 0 #000000;
+	/*text-shadow: 0 1px 0 #000000;*/
 }
 
 .navigationTitle{
@@ -295,9 +256,11 @@ footer{
 
 
 
-/*#content_page{
-	margin-left: 75px;
-}*/
+#content_page{
+	background-color: #fff;
+	min-height: 650px;
+	width: 100% !important;
+}
 #content_body{
 	padding: 10px 50px;
 }
@@ -306,13 +269,14 @@ footer{
 	background: none repeat scroll 0 0 #191919;
 	height: 72px;
 	padding-bottom:2px;
+	padding-left:  0px !important;
+	padding-right:  0px !important;
 	border-bottom: 1px ridge;
 }
 
 .navbar .brand{
-	color: #fff !important;
 	font-size: 25px !important;
-	padding: 20px !important;
+	padding: 20px 10px !important;
 }
 
 .top-search{
@@ -352,7 +316,7 @@ footer{
 }
 
 .natinal_inventory a:hover{
-  color: #fff;
+  color: #0010F9;
 }
 
 .other_information a{

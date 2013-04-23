@@ -59,13 +59,14 @@
   </head>
   <body>
       
-    <div id="content_page">
+    <div id="content_page" class="container">
       {% block menuhead %}{% endblock %}
       <div id="content_body">
         {% block body %}{% endblock %}
-        {% block footer %}{% endblock %}
       </div>
     </div>
+    
+    {% block footer %}{% endblock %}
     
   </body>
 </html>

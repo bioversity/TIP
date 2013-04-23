@@ -1,13 +1,7 @@
 {% set currentPath = app.request.attributes.get('_route') %}
+
 <div id="navigation_menu" class="pull-right {{ currentPath }}">
-    <ul id="navigationMenu">        
-        <!--
-        <li>
-            <div class="navigationFirstLevel">
-                <img src="{{ asset('images/TIP-logo.gif') }}" />
-            </div>
-        </li>
-        -->
+    <ul id="navigationMenu">    
         
         <li>
             <div class="navigationFirstLevel">
@@ -16,7 +10,6 @@
                 Main menu
                 
                 <span class="{{ currentPath }}">
-                    <!--<div class="navigationTitle"></div>-->
                     <p class="research_page navigationLink"><a href="{{ path('bioversity_slider_browse_slider') }}">Ontology</a></p>
                     <p class="trait_page navigationLink"><a href="{{ path('bioversity_trait_browse_trait') }}">Trait</a></p>
                     <p class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_inventories') }}">National Inventories</a></p>
@@ -33,7 +26,6 @@
                 <i class="icon-user icon-white"></i>
                 <br/>User menu
                 <span class="{{ currentPath }}">
-                    <!--<div class="navigationTitle"></div>-->
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <p><a href="{{ path('bioversity_user_homepage') }}">Manage User</a></p>
                         <p><a href="{{ path('bioversity_site_structure_online_chat') }}">Who is online (chat)</a></p>
@@ -53,13 +45,12 @@
             </div>
         </li>
         
-        <li>
+        <!--<li>
             <div class="navigationFirstLevel">
                 <i class="icon-leaf icon-white"></i>
                 <br/>
                 Site menu
                 <span class="{{ currentPath }}">
-                    <!--<div class="navigationTitle"></div>-->
                     <p><a data-toggle="modal" href="#MenbersModal">Members</a></p>
                     <p><a data-toggle="modal" href="#OtherInformationModal">Other Information</a></p>
                     <p><a data-toggle="modal" href="#ProjectsModal">Projects</a></p>
@@ -70,6 +61,35 @@
                     <p><a data-toggle="modal" href="#GovernanceModal">Governance</a></p>
                 </span>
             </div>
-        </li>
+        </li>-->
     </ul>
 </div>
+    <!--<ul id="navigationMenu">
+        <li class="navigationFirstLevel root_page navigationLink"><a href="{{ path('bioversity_site_structure_homepage') }}">Home</a></li>
+        <li class="navigationFirstLevel static_page navigationLink"><a href="{{ path('bioversity_site_structure_about') }}">About</a></li>
+        <li class="navigationFirstLevel static_page navigationLink"><a href="{{ path('bioversity_site_structure_contact') }}">Contact</a></li>
+        <li class="navigationFirstLevel conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_conservaton_strategies') }}">Conservation Strategies</a></li>
+        <li class="navigationFirstLevel conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_inventories') }}">National Inventories</a></li>
+        <li class="navigationFirstLevel trait_page navigationLink"><a href="{{ path('bioversity_trait_browse_trait') }}">Trait</a></li>
+        <li class="navigationFirstLevel research_page navigationLink"><a href="{{ path('bioversity_slider_browse_slider') }}">Ontology</a></li>
+    </ul>
+    
+    <br/>
+    
+    <ul id="navigationMenu" style="float: right;">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li><a href="{{ path('bioversity_user_homepage') }}">Manage User</a></li>
+            <li><a href="{{ path('bioversity_site_structure_online_chat') }}">Who is online (chat)</a></li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('bioversity_user_homepage') }}">Manage User</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_ONTOLOGY') %}
+                <li><a href="{{ path('bioversity_ontology_browse_slider') }}">Manage Ontology</a></li>
+            {% endif %}
+            <li><a href="#">Profile</a></li>
+            <li><a href="{{ path('b_s_logout') }}">Sign Out</a></li>
+        {% else %}
+            <li><a href="{{ path('b_s_registration') }}">Registration</a></li>
+            <li><a href="{{ path('b_s_login_path') }}">Login</a></li>
+        {% endif %}
+    </ul>-->

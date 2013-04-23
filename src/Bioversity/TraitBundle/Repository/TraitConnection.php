@@ -5,6 +5,7 @@ namespace Bioversity\TraitBundle\Repository;
 use Bioversity\ServerConnectionBundle\Repository\Tags;
 use Bioversity\ServerConnectionBundle\Repository\Types;
 use Bioversity\ServerConnectionBundle\Repository\Operators;
+use Bioversity\ServerConnectionBundle\Repository\InputType;
 use Bioversity\ServerConnectionBundle\Repository\ServerConnection;
 use Bioversity\ServerConnectionBundle\Repository\HttpServerConnection;
 
@@ -154,11 +155,88 @@ class TraitConnection extends HttpServerConnection
     
     $request[]=':WS:PAGE-START='. urlencode(json_encode($firstElement)) ;
     
-    $request[]=':WS:QUERY='.urlencode(json_encode($this->createAND($tags)));
+    //$request[]=':WS:QUERY='.urlencode(json_encode($this->createAND($tags)));
+    $request[]=':WS:QUERY='.urlencode(json_encode($this->GenQuery($tags)));
     
     //print_r($this->unformatQuery($tags, $page));
     
     return $this->sendRequest($this->wrapper, $request);
+  }
+  
+  
+  function GenQuery( $theData )
+  {
+    $query = Array();
+    $count = count( $theData );
+    if( $count )
+    {
+      $query[ '$AND' ] = Array();
+      $ref = & $query[ '$AND' ];
+     
+      foreach( $theData as $trait => $scales )
+      {
+        $ref[] = Array();
+        $ref_trait = & $ref[ count( $query[ '$AND' ] ) - 1 ];
+        
+        $ref_trait = array( '$OR' => Array() );
+        $ref_trait = & $ref_trait[ '$OR' ];
+        
+        $group = Array();
+        foreach( $scales as $scale => $value )
+        {
+          $tmp = explode( '.', $scale );
+          $group[ $tmp[ count( $tmp ) - 1 ] ][] = array( $scale => $value );
+        }
+        
+        foreach( $group as $tag => $scales )
+        {
+          $ref_trait[] = Array();
+          $ref_scale = & $ref_trait[ count( $ref_trait ) - 1 ];
+          $ref_scale[ '$AND' ] = Array();
+          $ref_scale = & $ref_scale[ '$AND' ];
+          
+          $ref_scale[] = array( '_query-subject' => '40',
+                                '_query-operator' => '$EQ',
+                                '_query-data-type' => ':INT',
+                                '_query-data' => (int) $tag );
+          
+          $created = FALSE;
+          foreach( $scales as $scale )
+          {
+            if( current( $scale ) !== NULL && count(current( $scale )) > 0)
+            {
+              if( ! $created )
+              {	
+                $ref_scale[] = array( '$OR' => Array() );
+                $ref_scale = & $ref_scale[ count( $ref_scale ) - 1 ];
+                $ref_cur = & $ref_scale[ '$OR' ];
+                $created = TRUE;
+              }
+    
+              $server= new ServerConnection();
+              $tag= $server->getTags(array((string) key( $scale )));
+              $typeList= $tag[':WS:RESPONSE']['_tag'][key( $scale )][Tags::kTAG_TYPE];
+              
+              if(in_array(':INT',$typeList) ||
+               in_array(':INT32',$typeList) ||
+               in_array(':INT64',$typeList) ||
+               in_array(':FLOAT',$typeList)){
+                $operator= Operators::kOPERATOR_IRANGE;
+                $type= Types::kTYPE_INT;
+              }else{
+                $type= Types::kTYPE_STRING;
+                $operator= Operators::kOPERATOR_CONTAINS_NOCASE;
+              }
+              
+              
+              $ref_cur[]= $this->createNewQuery((string) key( $scale ), $type, current( $scale ), $operator);
+            }
+          }
+        }
+      }
+    }
+    
+    return $query;
   }
   
   public function createAND($list)
@@ -166,12 +244,6 @@ class TraitConnection extends HttpServerConnection
     $and=array();
     foreach($list as $key=>$tag){
       $and['$AND'][]= Array('$OR' => $this->createOR($tag));
-      //else{
-      //  foreach($tag as $field=>$value){
-      //    foreach($value as $k=>$v)
-      //      $and['$AND'][]= $this->createNewQuery($field, Types::kTYPE_INT, $v, Operators::kOPERATOR_EQUAL);
-      //  }
-      //}
     }
     
     $keys= $this->getTagKey($list);
@@ -183,15 +255,26 @@ class TraitConnection extends HttpServerConnection
   
   public function createOR($list)
   {
+    //print_r($list);
+    
     $or=array();
     $query= array();
+    $count= 0;
+    
     foreach($list as $key=>$value){
-      $query[]= $this->createNewQuery(Tags::kTAG_TAGS, Types::kTYPE_INT, $key, Operators::kOPERATOR_EQUAL);
-      if($value)
-        $query[]= $this->createNewQuery($key, Types::kTYPE_STRING, $value, Operators::kOPERATOR_EQUAL);
+      if(strpos($key, '.') === false)
+        $query[]= $this->createNewQuery(Tags::kTAG_TAGS, Types::kTYPE_INT, $key, Operators::kOPERATOR_EQUAL);
       
-      $or[]['$AND']= $query;
+      if(count($list) == 1){
+        if($value)
+          $query[]= $this->createNewQuery($key, Types::kTYPE_STRING, $value, Operators::kOPERATOR_EQUAL);
+      }else{
+        $query[$count]['$OR'][]= $this->createNewQuery($key, Types::kTYPE_STRING, $value, Operators::kOPERATOR_EQUAL);
+      }
+      
     }
+    $or[]['$AND']= $query;
+    
     return $or;
   }
   
