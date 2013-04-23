@@ -42,9 +42,9 @@
             {{ attrname }}="{{ attrvalue|trans({}, translation_domain) }}"
         {% else %}
             {% if attrvalue == 'range_field' %}
-                {% set field_name= field_name~'[]' %}
-                {{ attrname }}="{{ attrvalue }}"
+                {% set field_name= full_name~'[]' %}
             {% endif %}
+            {{ attrname }}="{{ attrvalue }}"
         {% endif %}
     {% endfor %}
     
