@@ -96,9 +96,6 @@ class InputType
         if(in_array(':TEXT',$type))
             return ':INPUT-TEXTAREA';
             
-        if(in_array(':FLOAT',$type))
-            return ':INPUT-TEXT';
-            
         return 'INPUT-HIDDEN';
     }
 }

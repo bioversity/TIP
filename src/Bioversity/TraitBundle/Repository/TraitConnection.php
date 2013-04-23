@@ -203,7 +203,18 @@ class TraitConnection extends HttpServerConnection
           $created = FALSE;
           foreach( $scales as $scale )
           {
-            if( current( $scale ) !== NULL && count(current( $scale )) > 0)
+            $pass= true;
+            
+            if(is_array(current( $scale ))){
+              foreach(current( $scale ) as $key=>$value){
+                if(!$value) $pass= false;
+              }
+            }else{
+              if(!strlen(current( $scale )))
+                $pass= false;
+            }
+            
+            if( $pass && count(current( $scale )) > 0)
             {
               if( ! $created )
               {	
@@ -213,9 +224,13 @@ class TraitConnection extends HttpServerConnection
                 $created = TRUE;
               }
     
+              $key= explode('.',key($scale));
+              $keyValue= $key[count($key)-1];
+              
               $server= new ServerConnection();
-              $tag= $server->getTags(array((string) key( $scale )));
-              $typeList= $tag[':WS:RESPONSE']['_tag'][key( $scale )][Tags::kTAG_TYPE];
+              $tag= $server->getTags(array((string) $keyValue));
+              
+              $typeList= $tag[':WS:RESPONSE']['_tag'][$keyValue][Tags::kTAG_TYPE];
               
               if(in_array(':INT',$typeList) ||
                in_array(':INT32',$typeList) ||
@@ -224,10 +239,12 @@ class TraitConnection extends HttpServerConnection
                 $operator= Operators::kOPERATOR_IRANGE;
                 $type= Types::kTYPE_INT;
               }else{
+                $operator= (in_array(':ENUM', $typeList) || in_array(':SET', $typeList))?
+                            Operators::kOPERATOR_EQUAL:
+                            Operators::kOPERATOR_CONTAINS_NOCASE;
+                            
                 $type= Types::kTYPE_STRING;
-                $operator= Operators::kOPERATOR_CONTAINS_NOCASE;
               }
-              
               
               $ref_cur[]= $this->createNewQuery((string) key( $scale ), $type, current( $scale ), $operator);
             }

@@ -99,8 +99,9 @@ class BioversityBaseType extends AbstractType
             $defaultOptions['attr']['maxval']= $tags[$id][Tags::kTAG_MAX_VAL];
         
         $inputTypeModel= new InputType($tags[$id]);
-        $inputFieldModel= new InputField();
         $inputType= $inputTypeModel->getInputType();
+        
+        $inputFieldModel= new InputField();
         
         return $inputFieldModel->getInputField($id, $inputType, $defaultOptions);
     }

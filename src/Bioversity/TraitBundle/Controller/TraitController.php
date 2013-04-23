@@ -82,11 +82,12 @@ class TraitController extends Controller
                             $lastKey= $newKeys[count($newKeys)-1];
                             if($lastKey != 'enabler'){
                                 $formData[$newKeys[0]][str_replace(':','.',$new)]= $value;
+                                //this unset is used to delete duplicate key
+                                unset($formData[str_replace(':','.',$new)]);
+                            }else{
+                                if(!array_key_exists($newKeys[count($newKeys)-2], $formData))
+                                    $formData[str_replace(':','.',$newKeys[count($newKeys)-2])][str_replace(':','.',$newKeys[count($newKeys)-2])][]= '';
                             }
-                            //else{
-                            //    if(!array_key_exists($newKeys[count($newKeys)-2], $formData))
-                            //        $formData[str_replace(':','.',$newKeys[count($newKeys)-2])][str_replace(':','.',Tags::kTAG_TAGS)][]= $newKeys[count($newKeys)-2];
-                            //}
                         }
                     }
                 }
