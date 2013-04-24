@@ -26,15 +26,18 @@
                 <i class="icon-user icon-white"></i>
                 <br/>User menu
                 <span class="{{ currentPath }}">
+                    <p><a href="{{ path('bioversity_site_structure_online_chat') }}">Who is online (chat)</a></p>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <p><a href="{{ path('bioversity_user_homepage') }}">Manage User</a></p>
-                        <p><a href="{{ path('bioversity_site_structure_online_chat') }}">Who is online (chat)</a></p>
+                        
                         {% if is_granted('ROLE_ADMIN') %}
                             <p><a href="{{ path('bioversity_user_homepage') }}">Manage User</a></p>
                         {% endif %}
+                        
                         {% if is_granted('ROLE_ONTOLOGY') %}
                             <p><a href="{{ path('bioversity_ontology_browse_slider') }}">Manage Ontology</a></p>
                         {% endif %}
+                        
                         <p><a href="#">Profile</a></p>
                         <p><a href="{{ path('b_s_logout') }}">Sign Out</a><p>
                     {% else %}

@@ -107,12 +107,15 @@ class TraitController extends Controller
         if($units){
             $pagecount= ceil($units[':WS:STATUS'][':WS:AFFECTED-COUNT']/$units[':WS:PAGING'][':WS:PAGE-LIMIT']);
             $totalunit= $units[':WS:STATUS'][':WS:AFFECTED-COUNT'];
+            $query= $units[':WS:REQUEST'];
             
             if(array_key_exists(':WS:RESPONSE',$units)){
                 $data= $units[':WS:RESPONSE'];
             }else{
                 $session->getFlashBag()->set('error', NotificationManager::getNotice('not_found') );
             }
+        }else{
+            $query= 'some error occurred';
         }
         
         //TODO. use this to check the request type
@@ -125,6 +128,7 @@ class TraitController extends Controller
                 'actualpage'    => $_POST['page'],
                 'totalunit'     => $totalunit,
                 'errors'        => $session->getFlashBag()->get('error'),
+                'query'         => $query
             ));
     }
 

@@ -152,9 +152,9 @@
  background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ededed", endColorstr="#dfdfdf");*/
  /*background-color:#ededed;*/
- -moz-border-radius:5px;
- -webkit-border-radius:5px;
- border-radius:5px;
+/* -moz-border-radius:5px;
+ -webkit-border-radius:5px;*/
+ /*border-radius:5px;*/
  border:1px solid #dcdcdc;
  display:inline-block;
  color:#777777;

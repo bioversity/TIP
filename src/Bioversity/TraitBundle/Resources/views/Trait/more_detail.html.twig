@@ -29,7 +29,7 @@
                             no-data-found ( {{ key }} - {{ value }} )
                         {% endif%}
                     {% elseif datalist['_tag'][key][type][0] == ':URL' %}
-                        <a href="{{ value }}">{{ value }}</a>
+                        <a href="{{ value }}" target="_blank">{{ value }}</a>
                     {% else %}
                         {{ value }}
                     {% endif %}

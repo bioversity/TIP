@@ -1,3 +1,66 @@
+
+
+{% if is_granted('ROLE_ADMIN') %}
+    <div class="query">
+        <pre>
+            :WS:FORMAT => {{ dump(query[':WS:FORMAT']) }}
+            :WS:OPERATION => {{ dump(query[':WS:OPERATION']) }}
+            :WS:DATABASE => {{ dump(query[':WS:DATABASE']) }}
+            :WS:CONTAINER => {{ dump(query[':WS:CONTAINER']) }}
+            :WS:PAGE-START => {{ dump(query[':WS:PAGE-START']) }}
+            :WS:PAGE-LIMIT => {{ dump(query[':WS:PAGE-LIMIT']) }}
+            
+            {% for level1,value1 in query[':WS:QUERY'] %}
+                {{ level1 }} =>
+                {% if(value1|is_array) %}
+                    {% for level2,value2 in value1 %}
+                        {{ level2 }} =>
+                        {% if(value2|is_array) %}
+                            {% for level3,value3 in value2 %}
+                                {{ level3 }} =>
+                                {% if(value3|is_array) %}
+                                    {% for level4,value4 in value3 %}
+                                        {{ level4 }} =>
+                                        {% if(value4|is_array) %}
+                                            {% for level5,value5 in value4 %}
+                                                {{ level5 }} =>
+                                                {% if(value5|is_array) %}
+                                                    {% for level6,value6 in value5 %}
+                                                        {{ level6 }} =>
+                                                        {% if(value6|is_array) %}
+                                                            {% for level7,value7 in value6 %}
+                                                                {{ level7 }} =>
+                                                                {{ dump(value7) }}
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            {{ dump(value6) }}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    {{ dump(value5) }}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            {{ dump(value4) }}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    {{ dump(value2) }}
+                                {% endif %}                            
+                            {% endfor %}
+                        {% else %}
+                            {{ dump(value2) }}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    {{ dump(value1) }}
+                {% endif %}
+            {% endfor %}
+        </pre>
+    </div>
+{% endif %}
+
+
 {% if datalist|length > 0 %}
     {% set path     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_PATH') %}
     {% set label    = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LABEL') %}

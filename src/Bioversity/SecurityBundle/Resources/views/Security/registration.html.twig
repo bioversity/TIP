@@ -1,9 +1,14 @@
 {% extends '::base.html.twig' %}
 
+{% form_theme form
+    '::error.html.twig'
+    '::form_div_layout.html.twig'
+%}
+
 {% block body %}
     
     <form id="form_user" action="#" method="post" {{ form_enctype(form) }}>
-        <h1><small>Registration account</small></h1>
+        <h1>Registration account</h1>
         
         {% if errors %}
             {% for error in errors %}
