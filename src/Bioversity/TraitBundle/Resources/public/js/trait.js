@@ -117,6 +117,9 @@ function getFieldsForm(value)
             $('#form_fields_container').append(data);
             $('#form_fields').fadeIn('slow');
         }
+    }).fail(function(){
+        $('#searchTrait_search').removeClass('working');
+        enableButton('searchTrait_search');
     });
 }
 
