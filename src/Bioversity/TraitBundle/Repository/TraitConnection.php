@@ -138,6 +138,8 @@ class TraitConnection extends HttpServerConnection
    */
   public function getUnits($tags, $page=0)
   {
+    $firstElement= 0;
+    
     $request= array(
                 ':WS:OPERATION=WS:OP:GetAnnotated',
                 ':WS:FORMAT=:JSON',
@@ -239,7 +241,7 @@ class TraitConnection extends HttpServerConnection
               }else{
                 $operator= (in_array(':ENUM', $typeList) || in_array(':SET', $typeList))?
                             Operators::kOPERATOR_EQUAL:
-                            Operators::kOPERATOR_CONTAINS_NOCASE;
+                            Operators::kOPERATOR_PREFIX;
                             
                 $type= Types::kTYPE_STRING;
               }
