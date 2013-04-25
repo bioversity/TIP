@@ -80,7 +80,7 @@ function autocomplateForm()
                     }
                 }
             }).fail(function(){
-                $(this).removeClass('working');
+                $("#TraitSearch_trait").removeClass('working');
                 enableButton('searchTrait_search');
             });
         },
@@ -103,13 +103,16 @@ function enableButton(button)
 }
 
 function getFieldsForm(value)
-{
-    
+{    
     $('#searchTrait_search').addClass('working');
     disableButton('searchTrait_search');
     
+    var jsonString = JSON.stringify(value);
+    
     $.ajax({
-        url: dev_stage+"/trait/json/get/tag/fields/"+value,
+        type: "POST",
+        url: dev_stage+"/trait/json/get/tag/fields",
+        data: {word : jsonString},
         dataType: "html",
         success: function( data ) {
             $('#searchTrait_search').removeClass('working');

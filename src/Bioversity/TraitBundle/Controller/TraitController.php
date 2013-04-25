@@ -42,8 +42,10 @@ class TraitController extends Controller
     
     
 //---------------JSON---------------//
-    public function jsonGetTagFieldsAction($word)
+    public function jsonGetTagFieldsAction(Request $request)
     {
+        $word = json_decode(stripslashes($_POST['word']));
+        
         $server= new TraitConnection();
         $traits= $server->getTraits($word);
         
@@ -96,6 +98,7 @@ class TraitController extends Controller
         
         
         //print_r($formData);
+        //print_r($_POST['page']);
         $units= $server->getUnits($formData, $_POST['page']);
         
         //print_r($units);
@@ -107,16 +110,17 @@ class TraitController extends Controller
         if($units){
             $pagecount= ceil($units[':WS:STATUS'][':WS:AFFECTED-COUNT']/$units[':WS:PAGING'][':WS:PAGE-LIMIT']);
             $totalunit= $units[':WS:STATUS'][':WS:AFFECTED-COUNT'];
-            $query= $units[':WS:REQUEST'];
+            //$query= $units[':WS:REQUEST'];
             
             if(array_key_exists(':WS:RESPONSE',$units)){
                 $data= $units[':WS:RESPONSE'];
             }else{
                 $session->getFlashBag()->set('error', NotificationManager::getNotice('not_found') );
             }
-        }else{
-            $query= 'some error occurred';
         }
+        //else{
+        //    $query= 'some error occurred';
+        //}
         
         //TODO. use this to check the request type
         //print_r($request->isXmlHttpRequest());
@@ -128,7 +132,7 @@ class TraitController extends Controller
                 'actualpage'    => $_POST['page'],
                 'totalunit'     => $totalunit,
                 'errors'        => $session->getFlashBag()->get('error'),
-                'query'         => $query
+                //'query'         => $query
             ));
     }
 

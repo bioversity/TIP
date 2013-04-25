@@ -138,8 +138,6 @@ class TraitConnection extends HttpServerConnection
    */
   public function getUnits($tags, $page=0)
   {
-    $firstElement= ($page > 1) ? ($page*self::page_record)+1 : 0;
-    
     $request= array(
                 ':WS:OPERATION=WS:OP:GetAnnotated',
                 ':WS:FORMAT=:JSON',
@@ -150,8 +148,8 @@ class TraitConnection extends HttpServerConnection
                 ':WS:PAGE-LIMIT='. urlencode(json_encode(10))
             );
     
-    if($firstElement > 1 )
-      $firstElement= (self::page_record*($firstElement-1))+1;
+    if($page > 1 )
+      $firstElement= (self::page_record*($page-1))+1;
     
     $request[]=':WS:PAGE-START='. urlencode(json_encode($firstElement)) ;
     
@@ -319,6 +317,6 @@ class TraitConnection extends HttpServerConnection
   
   private function unformatQuery($tags, $page=0)
   {
-    return  $this->createAND($tags);
+    return $this->GenQuery($tags);
   }
 }

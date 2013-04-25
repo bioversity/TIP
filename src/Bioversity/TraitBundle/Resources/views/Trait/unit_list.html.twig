@@ -1,5 +1,5 @@
 
-
+{#
 {% if is_granted('ROLE_ADMIN') %}
     <div class="query">
         <pre>
@@ -59,7 +59,7 @@
         </pre>
     </div>
 {% endif %}
-
+#}
 
 {% if datalist|length > 0 %}
     {% set path     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_PATH') %}
