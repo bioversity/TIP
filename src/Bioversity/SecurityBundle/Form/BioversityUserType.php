@@ -34,7 +34,8 @@ class BioversityUserType extends BioversityBaseType
             'choices'   => array(
                 'ROLE_ADMIN'    => 'Admin Role',
                 'ROLE_DATA'     => 'Data Entry Role',
-                'ROLE_ONTOLOGY' => 'Ontology Curator Role'
+                'ROLE_ONTOLOGY' => 'Ontology Curator Role',
+                'ROLE_GUEST'    => 'Test User',
                 ),
             'required' => true,
             'multiple' => true,

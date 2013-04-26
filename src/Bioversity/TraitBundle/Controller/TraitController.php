@@ -101,7 +101,9 @@ class TraitController extends Controller
         //print_r($_POST['page']);
         $units= $server->getUnits($formData, $_POST['page']);
         
-        //print_r($units);
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+          print_r($units);
+        }
         
         $data= array();
         $pagecount= 0;

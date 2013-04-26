@@ -1,8 +1,10 @@
 security:
     role_hierarchy:
-        ROLE_ADMIN:              [ROLE_DATA, ROLE_ONTOLOGY, ROLE_ANOMYMUS]
+        ROLE_ADMIN:              [ROLE_GUEST, ROLE_DATA, ROLE_ONTOLOGY, ROLE_ANOMYMUS]
         
     access_control:
+        - { path: ^/trait,    roles: ROLE_GUEST }
         - { path: ^/admin,    roles: ROLE_ADMIN }
         - { path: ^/ontology, roles: ROLE_ONTOLOGY }
         - { path: ^/data,     roles: ROLE_DATA }
+        - { path: ^/((?!.*(login|css|js|_wdt)).*)$, roles: ROLE_GUEST }

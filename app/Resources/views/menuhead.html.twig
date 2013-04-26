@@ -1,5 +1,89 @@
+<style>
+  #menu{ position: fixed; top: 0px;float: right; width: 100%; text-align:right; list-style:none;}
+  .menu_level{float: right; width: 100%; list-style: none; background-color: #1E1E1E; padding: 5px; margin: 0px;}
+  .menu_level li{float: left; background-color: #1E1E1E; margin-left: 10px;}
+  .menu_level li a{text-decoration: none; color: #fff; font-weight: bold; padding: 5px;}
+  #menu_opener{width: 100%; text-align: right; border-top: 2px solid #1E1E1E; color: #fff; cursor: pointer;}
+  #menu_opener span{ background-color: #1E1E1E; padding: 5px 20px;}
+  #menu_opener span:hover{ background-color: #1a1a1a;}
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    openmenu(-($('#menu').height() - $('#menu_opener').height()));
+    $(window).resize(function(){
+      openmenu(-($('#menu').height() - $('#menu_opener').height()));
+    });
+    $('#menu_opener span').click(function(){
+      if($('#menu_opener').hasClass('closed')){
+        openmenu(0);
+        $(this).removeClass('closed');
+      }
+      else{
+        openmenu(-($('#menu').height() - $('#menu_opener').height()));
+        $(this).addClass('closed');
+      }
+    });
+  });
+  
+  function openmenu(height)
+  {
+    $('#menu').animate({ top: height}, 500);
+  }
+</script>
+
+{% set currentPath = app.request.attributes.get('_route') %}
+<div id="menu">
+  <ul class="navigationFirstLevel menu_level">
+    <li><i class="icon-bookmark icon-white"></i></li>
+    <li class="root_page navigationLink"><a href="{{ path('bioversity_site_structure_homepage') }}">Home</a></li>
+    <li class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_about') }}">About</a></li>
+    <li class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_contact') }}">Contact</a></li>
+    <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_conservaton_strategies') }}">Conservation Strategies</a></li>
+    <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_inventories') }}">National Inventories</a></li>
+    <li class="trait_page navigationLink"><a href="{{ path('bioversity_trait_browse_trait') }}">Trait</a></li>
+    <li class="research_page navigationLink"><a href="{{ path('bioversity_slider_browse_slider') }}">Ontology</a></li>
+  </ul>
+  
+  <div class="clear"></div>
+  
+  <ul class="menu_level">
+    <li><i class="icon-user icon-white"></i></li>
+    <li><a href="{{ path('bioversity_site_structure_online_chat') }}">Who is online (chat)</a></li>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <li><a href="{{ path('bioversity_user_homepage') }}">Manage User</a></li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li><a href="{{ path('bioversity_user_homepage') }}">Manage User</a></li>
+        {% endif %}
+        {% if is_granted('ROLE_ONTOLOGY') %}
+            <li><a href="{{ path('bioversity_ontology_browse_slider') }}">Manage Ontology</a></li>
+        {% endif %}
+        <li><a href="#">Profile</a></li>
+        <li><a href="{{ path('b_s_logout') }}">Sign Out</a></li>
+    {% else %}
+        <li><a href="{{ path('b_s_registration') }}">Registration</a></li>
+        <li><a href="{{ path('b_s_login_path') }}">Login</a></li>
+    {% endif %}
+  </ul>
+
+  <div class="clear"></div>
+  
+  <div id="menu_opener" class="closed">
+    <span>
+      {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        Welcome <strong>{{ app.user.username }}</strong> &nbsp;
+      {% else %}
+        MENU &nbsp;
+      {% endif %}
+      <i class="icon-th icon-white"></i>
+    </span>
+  </div>
+</div>
+
+<div class="clear"></div>
+
 <div class="navbar">
-  <div class="navbar-inner menu_top_inner">
+  <div> <!--class="navbar-inner menu_top_inner"-->
     
     <div>
       
@@ -13,7 +97,7 @@
       </a>
       
       <div id="main_menu" class="first_row">
-        {% include '::mainMenu.html.twig' %}
+        {#{% include '::mainMenu.html.twig' %}#}
         {#{% include '::login.html.twig' %}#}
         {#{% include '::search.html.twig' %}#}
       </div>
