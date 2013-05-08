@@ -50,18 +50,20 @@
                 </div>
                 <div id="collapse{{ key }}" class="accordion-body collapse">
                     <div class="accordion-inner">
-                        <div class="node_detail pull-left">
-                            <div class="node_detail_label">
-                                <strong>Referred Unit</strong>
-                            </div>
-                            <div class="node_detail_text">
-                                {% if value['tag'] != null %}
+                        
+                        {% if value['tag'] != null %}
+                            <div class="node_detail pull-left">
+                                <div class="node_detail_label">
+                                    <strong>Referred Unit</strong>
+                                </div>
+                                <div class="node_detail_text">
                                     <a class="accordion-toggle trial_detail" href="{{ path('bioversity_trait_json_trials_detail', { 'unit' : value['tag']|url_encode })}}" value="{{ value['tag'] }}" target="_blank">
                                         {{ value['tag'] }}
                                     </a>
-                                {% endif %}
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
+                        
                         {% for k,v in value  %}        
                             {% if k != tagUnit and k != 'tag' and k != 'name' and not v|is_array %}
                                 <div class="node_detail pull-left">
