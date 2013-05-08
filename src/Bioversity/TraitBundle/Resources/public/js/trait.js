@@ -2,7 +2,56 @@
 $(document).ready(function(){
     autocomplateForm();
     bindButtons();
+    bindTrialButton();
+    //bindTrialDetail();
+    //loadMap('39.1667', '30.89136');
 });
+
+function bindTrialDetail() {
+    $(document).on("click", ".trial_detail", function(){
+        var jsonString = JSON.stringify($(this).attr('value'));
+        var trials= 'no trails founds';
+        
+        $('#TrialModal #loader').fadeIn('slow');
+        $('#TrialModal div#embedded_content_trial_detail').html('');
+        
+        $.ajax({
+            type: "POST",
+            url: dev_stage+'/modal-trial-detail',
+            data: {unit : jsonString},
+            dataType: "html",
+            success: function( data ) {
+                $('#TrialModal #loader').fadeOut();
+                $('#TrialModal div#embedded_content_trial_detail').html(data);
+                $('#TrialModal div#embedded_content_trial_detail').fadeIn('slow');
+            }
+        });
+    });
+}
+
+function bindTrialButton()
+{
+    $(document).on("click", ".show_trial", function(){
+        var jsonString = JSON.stringify($(this).attr('value'));
+        var trials= 'no trails founds';
+        
+        $('#TrialModal .modal-body div#embedded_content_trial_list').html('');
+        $('#TrialModal .modal-body div#embedded_content_trial_detail').html('');
+        $('#TrialModal #loader').fadeIn('slow');
+        
+        $.ajax({
+            type: "POST",
+            url: dev_stage+'/modal-trial',
+            data: {unit : jsonString},
+            dataType: "html",
+            success: function( data ) {
+                $('#TrialModal #loader').fadeOut();
+                $('#TrialModal .modal-body div#embedded_content_trial_list').html(data);
+                $('#TrialModal .modal-body div#embedded_content_trial_list').fadeIn('slow');
+            }
+        });
+    });    
+}
 
 function setPage(page)
 {
@@ -41,19 +90,30 @@ function bindButtons()
     });
     
     
-    $(document).on("click", "#units_list button", function(){
-        var html_id= $(this).attr('id');
-        var html_id_split= html_id.split('_');
-        var id= html_id_split[1];
-        var action= html_id_split[0];
+    $(document).on("click", "#units_list button", function(){        
+        if ($(this).hasClass('opener')) {
+            var html_id= $(this).attr('id');
+            var html_id_split= html_id.split('_');
+            var id= html_id_split[1];
+            var action= html_id_split[0];
+            
+            $(this).addClass('hidden');
         
-        $(this).addClass('hidden');
-        if(action == 'show'){
-            $('#hide_'+id).removeClass('hidden');
-            $('#detail_'+id).removeClass('hidden');
-        }else{
-            $('#show_'+id).removeClass('hidden');
-            $('#detail_'+id).addClass('hidden');
+            if(action == 'show'){
+                $('#hide_'+id).removeClass('hidden');
+                $('#detail_'+id).height(0);
+                $('#detail_'+id).removeClass('hidden');
+                $('#detail_'+id).fadeIn('slow');
+            }else{
+                $('#show_'+id).removeClass('hidden');
+                $('#detail_'+id).fadeOut('slow');
+                $('#detail_'+id).addClass('hidden');
+            }   
+        }else if ($(this).hasClass('map_button')) {
+            $('#MapModal #loader').fadeIn('slow');
+            $('#MapModal .modal-body div#embedded_content').html('');
+            $('#MapModal .modal-body div#embedded_content').html('<object height="400px" width="100%" data="'+dev_stage+'/modal-trial/get-map/'+$(this).attr('value')+'"><param value="aaa.pdf" name="src"/><param value="transparent" name="wmode"/></object>');
+            $('#MapModal .modal-body div#embedded_content').fadeIn('slow');
         }
     });
 }

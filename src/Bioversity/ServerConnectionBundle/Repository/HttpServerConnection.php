@@ -14,6 +14,7 @@ class HttpServerConnection
   var $domain= "TIP";
   var $operator= '$AND';
   var $distinct= null;
+  var $subDocument= null;
   //var $wrapper= "http://192.168.181.11/TIP/Wrapper.php";
   var $wrapper= "http://temp.wrapper.grinfo.net/TIP/Wrapper.php";
   
@@ -23,6 +24,11 @@ class HttpServerConnection
   public function setDatabase($db)
   {
     $this->db= $db;
+  }
+  
+  public function setSubDocument($key)
+  {
+    $this->subDocument= $key;
   }
   
   public function setCollection($collection)
@@ -235,6 +241,9 @@ class HttpServerConnection
     
     if($this->collection)
       $request[]=':WS:CONTAINER='.urlencode(json_encode($this->collection));
+    
+    if($this->subDocument)
+      $request[]=':WS:SUB-DOCUMENT='.urlencode(json_encode($this->subDocument));
     
     if($query)
       $request[]=':WS:QUERY='.urlencode(json_encode(Array($this->operator => $query)));

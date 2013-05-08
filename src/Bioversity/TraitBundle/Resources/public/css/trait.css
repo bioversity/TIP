@@ -9,7 +9,9 @@
 .node_detail{
     margin: 4px;
     border: 1px solid #eee;
+    overflow: auto;
     width: 32%;
+    height: 100px;
 }
 
 .node_detail_label{
@@ -20,4 +22,38 @@
 
 .node_detail_text{
     padding: 4px;
+}
+
+#TrialModal.modal,
+#MapModal.modal{
+  width: 90% !important;
+  heigth: 90% !important;
+  left: auto !important;
+  margin-left: auto !important;
+}
+
+#TrialModal.modal-body,
+#MapModal.modal-body{
+  max-height: 600px !important;
+  color: #000;
+}
+
+#TrialModal.modal-body .container,
+#MapModal.modal-body .container{
+  width: 100% !important;
+}
+
+#TrialModal .node_detail_text{
+    color: #fff;
+}
+
+#TrialModal .node_detail_label{
+    color: #000 !important;
+}
+#TrialModal .accordion-heading .accordion-toggle{
+    display: inline-block !important;
+}
+
+#embedded_content{
+    
 }

@@ -76,33 +76,30 @@ class TraitController extends Controller
                 }
             }
             
-            //if($value){
-                if($key !== '_token' && $key !== 'page'){
-                    $newKeys= explode('_',$key);
-                    foreach($newKeys as $newKey=>$new){
-                        if($newKey != 0){
-                            $lastKey= $newKeys[count($newKeys)-1];
-                            if($lastKey != 'enabler'){
-                                $formData[$newKeys[0]][str_replace(':','.',$new)]= $value;
-                                //this unset is used to delete duplicate key
-                                unset($formData[str_replace(':','.',$new)]);
-                            }else{
-                                if(!array_key_exists($newKeys[count($newKeys)-2], $formData))
-                                    $formData[str_replace(':','.',$newKeys[count($newKeys)-2])][str_replace(':','.',$newKeys[count($newKeys)-2])][]= '';
-                            }
+            if($key !== '_token' && $key !== 'page'){
+                $newKeys= explode('_',$key);
+                foreach($newKeys as $newKey=>$new){
+                    if($newKey != 0){
+                        $lastKey= $newKeys[count($newKeys)-1];
+                        if($lastKey != 'enabler'){
+                            $formData[$newKeys[0]][str_replace(':','.',$new)]= $value;
+                            //this unset is used to delete duplicate key
+                            unset($formData[str_replace(':','.',$new)]);
+                        }else{
+                            if(!array_key_exists($newKeys[count($newKeys)-2], $formData))
+                                $formData[str_replace(':','.',$newKeys[count($newKeys)-2])][str_replace(':','.',$newKeys[count($newKeys)-2])][]= '';
                         }
                     }
                 }
-            //}
+            }
         }
         
-        
-        //print_r($formData);
-        //print_r($_POST['page']);
         $units= $server->getUnits($formData, $_POST['page']);
         
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-          print_r($units);
+            print_r('<pre style="height:200px;overflow: auto;">');
+            print_r($units);
+            print_r('</pre>');
         }
         
         $data= array();
@@ -112,7 +109,6 @@ class TraitController extends Controller
         if($units){
             $pagecount= ceil($units[':WS:STATUS'][':WS:AFFECTED-COUNT']/$units[':WS:PAGING'][':WS:PAGE-LIMIT']);
             $totalunit= $units[':WS:STATUS'][':WS:AFFECTED-COUNT'];
-            //$query= $units[':WS:REQUEST'];
             
             if(array_key_exists(':WS:RESPONSE',$units)){
                 $data= $units[':WS:RESPONSE'];
@@ -120,9 +116,6 @@ class TraitController extends Controller
                 $session->getFlashBag()->set('error', NotificationManager::getNotice('not_found') );
             }
         }
-        //else{
-        //    $query= 'some error occurred';
-        //}
         
         //TODO. use this to check the request type
         //print_r($request->isXmlHttpRequest());
@@ -133,8 +126,76 @@ class TraitController extends Controller
                 'pagecount'     => $pagecount,
                 'actualpage'    => $_POST['page'],
                 'totalunit'     => $totalunit,
-                'errors'        => $session->getFlashBag()->get('error'),
-                //'query'         => $query
+                'errors'        => $session->getFlashBag()->get('error')
+            ));
+    }
+    
+    public function jsonGetTrialAction(Request $request, $unit, $structKey, $page)
+    {
+        //$unit = json_decode(stripslashes($_POST['unit']));
+        
+        $pagecount= 0;
+        $totalunit= 0;
+        
+        $server= new TraitConnection();
+        $trials= $server->getTrials(urldecode($structKey), urldecode($unit), $page);
+        
+        //print_r($trials);
+        
+        foreach($trials[':WS:RESPONSE']['_unit'] as $key=>$value){
+            foreach($value as $k=>$v){
+                if($k == Tags::kTAG_UNIT ){
+                    $tag= $server->getUnit($v);
+                    $trials[':WS:RESPONSE']['_unit'][$key]['tag']= $tag[':WS:RESPONSE']['_ids'][0];
+                    break;
+                }else{
+                    $trials[':WS:RESPONSE']['_unit'][$key]['tag']= null;
+                }
+            }
+        }
+        
+        $pagecount= ceil($trials[':WS:STATUS'][':WS:AFFECTED-COUNT']/$trials[':WS:PAGING'][':WS:PAGE-LIMIT']);
+        $totalunit= $trials[':WS:STATUS'][':WS:AFFECTED-COUNT'];
+        
+        //print_r($trials[':WS:RESPONSE']['_unit']);
+        
+        return $this->render(
+            'BioversityTraitBundle:Trait:trials_list.html.twig',
+            array(
+                'trials'     => $trials[':WS:RESPONSE']['_unit'],
+                'responce'   => $trials[':WS:RESPONSE'],
+                'pagecount'  => $pagecount,
+                'actualpage' => $page,
+                'totalunit'  => $totalunit,
+                'unit'       => $unit,
+                'structKey'  => $structKey
+            ));
+    }
+    
+    public function jsonGetTrialDetailAction(Request $request, $unit)
+    {
+        //$unit = json_decode(stripslashes($_POST['unit']));
+        
+        $server= new TraitConnection();
+        $trial= $server->getUnitByGID(urldecode($unit));
+        
+        return $this->render(
+            'BioversityTraitBundle:Trait:more_detail_page.html.twig',
+            array(
+                'data'       => $trial[':WS:RESPONSE']['_unit'][urldecode($unit)],
+                'datalist'   => $trial[':WS:RESPONSE'],
+                'unit'       => $unit
+            ));
+    }
+    
+    public function jsonGetTrialMapAction($coords){
+        $coordsArray= explode('_', $coords);
+        
+        return $this->render(
+            'BioversityTraitBundle:Trait:trials_map.html.twig',
+            array(
+                'long' => $coordsArray[1],
+                'lat'  => $coordsArray[0]
             ));
     }
 

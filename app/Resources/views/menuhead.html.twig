@@ -11,24 +11,35 @@
 <script type="text/javascript">
   $(document).ready(function(){
     openmenu(-($('#menu').height() - $('#menu_opener').height()));
+    
     $(window).resize(function(){
       openmenu(-($('#menu').height() - $('#menu_opener').height()));
     });
+    
+    
+
+    $('#menu').mouseenter(function(){
+      openmenu(0);
+    });
+    $('#menu').mouseleave(function(){
+      openmenu(-($('#menu').height() - $('#menu_opener').height()));
+    });
+
     $('#menu_opener span').click(function(){
       if($('#menu_opener').hasClass('closed')){
         openmenu(0);
-        $(this).removeClass('closed');
+        $('#menu_opener').removeClass('closed');
       }
       else{
         openmenu(-($('#menu').height() - $('#menu_opener').height()));
-        $(this).addClass('closed');
+        $('#menu_opener').addClass('closed');
       }
     });
   });
   
   function openmenu(height)
   {
-    $('#menu').animate({ top: height}, 500);
+    $('#menu').stop().animate({ top: height}, 500);
   }
 </script>
 

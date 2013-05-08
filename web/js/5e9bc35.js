@@ -60,7 +60,20 @@ var kTAG_USER_SOCIAL_NETWORK= '57';
 $(document).ready(function(){
     autocomplateForm();
     bindButtons();
+    bindTrailButton();
 });
+
+function bindTrailButton()
+{
+    console.log('start');
+    $(document).on("click", ".show_trail", function(){
+        console.log('click');
+        $('#TrialModal #loader').fadeIn('slow');
+        $('#TrialModal .modal-body div#embedded_content').html('');
+        $('#TrialModal .modal-body div#embedded_content').html('<object height="500px" width="700px" data="'+dev_stage+'/modal-trail/'+$(this).attr('value')+'"><param value="aaa.pdf" name="src"/><param value="transparent" name="wmode"/></object>');
+        $('#TrialModal .modal-body div#embedded_content').fadeIn('slow');
+    });    
+}
 
 function setPage(page)
 {
@@ -138,7 +151,7 @@ function autocomplateForm()
                     }
                 }
             }).fail(function(){
-                $(this).removeClass('working');
+                $("#TraitSearch_trait").removeClass('working');
                 enableButton('searchTrait_search');
             });
         },
@@ -161,13 +174,16 @@ function enableButton(button)
 }
 
 function getFieldsForm(value)
-{
-    
+{    
     $('#searchTrait_search').addClass('working');
     disableButton('searchTrait_search');
     
+    var jsonString = JSON.stringify(value);
+    
     $.ajax({
-        url: dev_stage+"/trait/json/get/tag/fields/"+value,
+        type: "POST",
+        url: dev_stage+"/trait/json/get/tag/fields",
+        data: {word : jsonString},
         dataType: "html",
         success: function( data ) {
             $('#searchTrait_search').removeClass('working');

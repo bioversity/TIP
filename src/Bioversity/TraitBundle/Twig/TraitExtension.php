@@ -10,7 +10,19 @@ class TraitExtension extends \Twig_Extension
             'is_array' => new \Twig_Filter_Method($this, 'isArray'),
             'base_term' => new \Twig_Filter_Method($this, 'getBaseTerm'),
             'ceil' => new \Twig_Filter_Method($this, 'ceil'),
+            'containkey' => new \Twig_Filter_Method($this, 'containKey'),
+            'url_decode' => new \Twig_Filter_Method($this, 'UrlDecode'),
         );
+    }
+    
+    public function containKey($item,$key)
+    {
+        $contain= false;
+        
+        if(array_key_exists($key, $item))
+            $contain= true;
+        
+        return $contain;
     }
 
     public function ceil($number)
@@ -31,5 +43,10 @@ class TraitExtension extends \Twig_Extension
     public function getName()
     {
         return 'trait_extension';
+    }
+    
+    public function UrlDecode($item)
+    {
+        return urldecode($item);
     }
 }

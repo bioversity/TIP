@@ -60,7 +60,7 @@ class TraitConnection extends HttpServerConnection
     $params= $this->createNewRequest('WS:OP:GetTag', array($query1,$query2),NULL,0);
     
     return $this->sendRequest($this->wrapper, $params);
-  }    
+  } 
   
   /**
    * Returns the Location requested
@@ -83,6 +83,26 @@ class TraitConnection extends HttpServerConnection
       
     return $this->sendRequest($this->wrapper, $params);
   }   
+  
+  /**
+   * Returns the TRIAL list requested
+   * @param string $tags
+   *  
+   * @return array $serverResponce
+   */
+  public function getTrials($structKey, $unit, $page= 0)
+  {
+    $firstElement= ($page > 1) ? ($page*self::page_record)+1 : 0;
+    
+    $this->setDatabase('PGRSECURE');
+    $this->setSecondDB('ONTOLOGY');
+    $this->setCollection(':_units');
+    $this->setSubDocument(array($structKey=>''));
+    $query= $this->createNewQuery(Tags::kTAG_GID, Types::kTYPE_STRING, $unit, Operators::kOPERATOR_EQUAL);
+    $params= $this->createNewRequest('WS:OP:GetSubDocument', array($query),NULL,$firstElement);
+    
+    return $this->sendRequest($this->wrapper, $params);
+  }    
   
   /**
    * Returns the DATA list requested
@@ -126,6 +146,42 @@ class TraitConnection extends HttpServerConnection
     
     return $this->sendRequest($this->wrapper, $params);
   }   
+  
+  /**
+   * Returns the Unit list requested
+   * @param array $nid
+   *  
+   * @return array $serverResponce
+   */
+  public function getUnit($nid)
+  {    
+    $this->setDatabase('PGRSECURE');
+    $this->setSecondDB('ONTOLOGY');
+    $this->setCollection(':_units');
+    $this->setSubDocument(null);
+    $query= $this->createQuery(Tags::kTAG_NID, Types::kTYPE_BINARY_STRING, $nid, Operators::kOPERATOR_EQUAL);
+    $params= $this->createNewRequest('WS:OP:GetAnnotated', array($query));
+    
+    return $this->sendRequest($this->wrapper, $params);
+  }  
+  
+  /**
+   * Returns the Unit list requested
+   * @param array $nid
+   *  
+   * @return array $serverResponce
+   */
+  public function getUnitByGID($gid)
+  {    
+    $this->setDatabase('PGRSECURE');
+    $this->setSecondDB('ONTOLOGY');
+    $this->setCollection(':_units');
+    $this->setSubDocument(null);
+    $query= $this->createQuery(Tags::kTAG_GID, Types::kTYPE_BINARY_STRING, $gid, Operators::kOPERATOR_EQUAL);
+    $params= $this->createNewRequest('WS:OP:GetAnnotated', array($query));
+    
+    return $this->sendRequest($this->wrapper, $params);
+  }  
   
   /**
    * Returns the DATA list requested

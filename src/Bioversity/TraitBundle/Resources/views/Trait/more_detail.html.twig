@@ -1,9 +1,17 @@
 {% set tagkey = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_TAGS') %}
+{% set nid    = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_NID') %}
+{% set gid    = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_GID') %}
+{% set path     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_PATH') %}
+{% set label    = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LABEL') %}
+{% set type     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_TYPE') %}
+{% set domain   = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_DOMAIN') %}
+{% set auth     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_AUTHORITY') %}
+{% set lid      = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LID') %}
+{% set namespace= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_NAMESPACE') %}
+{% set version  = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_VERSION') %}
 
 {% for key,value in data  %}
-    {% if key == '_id' or key == tagkey %}
-    
-    {% else %}
+    {% if key != '_id' and key != tagkey %}
         {% set term= datalist['_tag'][key][path][0]|base_term %}
         <div class="{{ datalist['_tag'][key][type][0]|replace({':':'type_'}) }} node_detail pull-left">
             <div class="node_detail_label">
@@ -30,6 +38,8 @@
                         {% endif%}
                     {% elseif datalist['_tag'][key][type][0] == ':URL' %}
                         <a href="{{ value }}" target="_blank">{{ value }}</a>
+                    {% elseif datalist['_tag'][key][type][0] == ':STRUCT' %}
+                        <a class="show_trial" href="{{ path('bioversity_trait_json_trials', { 'structKey': key|url_encode, 'unit' : data[gid]|url_encode, 'page' : 1 })}}" target="_blank" value="{{ data[gid] }}">{{ value }}</a>
                     {% else %}
                         {{ value }}
                     {% endif %}

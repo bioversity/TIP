@@ -1,66 +1,3 @@
-
-{#
-{% if is_granted('ROLE_ADMIN') %}
-    <div class="query">
-        <pre>
-            :WS:FORMAT => {{ dump(query[':WS:FORMAT']) }}
-            :WS:OPERATION => {{ dump(query[':WS:OPERATION']) }}
-            :WS:DATABASE => {{ dump(query[':WS:DATABASE']) }}
-            :WS:CONTAINER => {{ dump(query[':WS:CONTAINER']) }}
-            :WS:PAGE-START => {{ dump(query[':WS:PAGE-START']) }}
-            :WS:PAGE-LIMIT => {{ dump(query[':WS:PAGE-LIMIT']) }}
-            
-            {% for level1,value1 in query[':WS:QUERY'] %}
-                {{ level1 }} =>
-                {% if(value1|is_array) %}
-                    {% for level2,value2 in value1 %}
-                        {{ level2 }} =>
-                        {% if(value2|is_array) %}
-                            {% for level3,value3 in value2 %}
-                                {{ level3 }} =>
-                                {% if(value3|is_array) %}
-                                    {% for level4,value4 in value3 %}
-                                        {{ level4 }} =>
-                                        {% if(value4|is_array) %}
-                                            {% for level5,value5 in value4 %}
-                                                {{ level5 }} =>
-                                                {% if(value5|is_array) %}
-                                                    {% for level6,value6 in value5 %}
-                                                        {{ level6 }} =>
-                                                        {% if(value6|is_array) %}
-                                                            {% for level7,value7 in value6 %}
-                                                                {{ level7 }} =>
-                                                                {{ dump(value7) }}
-                                                            {% endfor %}
-                                                        {% else %}
-                                                            {{ dump(value6) }}
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                {% else %}
-                                                    {{ dump(value5) }}
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% else %}
-                                            {{ dump(value4) }}
-                                        {% endif %}
-                                    {% endfor %}
-                                {% else %}
-                                    {{ dump(value2) }}
-                                {% endif %}                            
-                            {% endfor %}
-                        {% else %}
-                            {{ dump(value2) }}
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
-                    {{ dump(value1) }}
-                {% endif %}
-            {% endfor %}
-        </pre>
-    </div>
-{% endif %}
-#}
-
 {% if datalist|length > 0 %}
     {% set path     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_PATH') %}
     {% set label    = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LABEL') %}
@@ -112,8 +49,17 @@
                     {% endif %}
                 </td>
                 <td style="text-align: right;">
-                    <button id="hide_{{ data[lid]|replace({' ':'', ':':''}) }}" class="btn hidden">close</button>
-                    <button id="show_{{ data[lid]|replace({' ':'', ':':''}) }}" class="btn">see more</button>
+                    {% if data|containkey(97) and data|containkey(100) %}
+                        <button id="geo_{{ data[lid]|replace({' ':'', ':':''}) }}" data-toggle="modal" href="#MapModal" value="{{ data[97] }}_{{ data[100] }}" class="btn map_button">
+                            <i class="icon-map-marker icon-white"></i> show map
+                        </button>
+                    {% endif %}
+                    <button id="hide_{{ data[lid]|replace({' ':'', ':':''}) }}" class="btn hidden opener">
+                        <i class="icon-chevron-up icon-white"></i> close
+                    </button>
+                    <button id="show_{{ data[lid]|replace({' ':'', ':':''}) }}" class="btn opener">
+                        <i class="icon-chevron-down icon-white"></i> see more
+                    </button>
                 </td>
             </tr>
             <tr id="detail_{{ data[lid]|replace({' ':'', ':':''}) }}" class="hidden unit_detail">
@@ -140,9 +86,50 @@
         {% endif %}
         </tr>
     </table>
+      
 {% else %}
     <div class="alert alert-block">
         <h4>Warning!</h4>
         No elements founds. Looks with other keys
     </div>
 {% endif %}
+
+<div class="modal hide fade" id="TrialModal">
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="modal-header">
+        <div class="modal_menu">
+          <h3><i class="icon-bookmark"></i> Related Trial</h3>
+          <a class="pull-right top_menu" data-dismiss="modal" href="#"><i class="icon-remove icon-white"></i></a>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div id="embedded_content">
+          <div id="embedded_content_trial_list"></div>
+        </div>
+        <div id="embedded_content_trial_detail" class="embedded_content_trial_detail pull-right">
+        </div>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal hide fade" id="MapModal">
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="modal-header">
+        <div class="modal_menu">
+          <h3><i class="icon-globe"></i> Show in map</h3>
+          <a class="pull-right top_menu" data-dismiss="modal" href="#"><i class="icon-remove icon-white"></i></a>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div style="background: transparent url({{ asset('bundles/bioversityontology/images/loader.gif') }}) no-repeat">
+          <div id="embedded_content"></div>
+        </div>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>

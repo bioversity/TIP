@@ -18,3 +18,16 @@ bioversity_trait_json_trait_fields:
 bioversity_trait_json_find_traits:
     pattern:  /trait/json/find/trait
     defaults: { _controller: BioversityTraitBundle:Trait:jsonFindTraits }
+    
+bioversity_trait_json_trials:
+    pattern:  /modal-trial/{page}/{structKey}/{unit}
+    defaults: { _controller: BioversityTraitBundle:Trait:jsonGetTrial }
+    
+bioversity_trait_json_trials_detail:
+    pattern:  /modal-trial-detail/{unit}
+    defaults: { _controller: BioversityTraitBundle:Trait:jsonGetTrialDetail }
+    
+    
+bioversity_trait_json_trials_map:
+    pattern:  /modal-trial/get-map/{coords}
+    defaults: { _controller: BioversityTraitBundle:Trait:jsonGetTrialMap }

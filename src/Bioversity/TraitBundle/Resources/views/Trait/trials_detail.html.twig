@@ -1,0 +1,19 @@
+{% set tagUnit = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_UNIT') %}
+{% set path     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_PATH') %}
+{% set label    = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LABEL') %}
+{% set type     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_TYPE') %}
+{% set domain   = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_DOMAIN') %}
+{% set auth     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_AUTHORITY') %}
+{% set lid      = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LID') %}
+{% set namespace= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_NAMESPACE') %}
+{% set version  = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_VERSION') %}
+{% set nid      = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_NID') %}
+
+{% for key,value in trial  %}
+    {% if key != tagUnit and key != 'tag' and key != 'name' and key != nid %}
+        <div class="node_detail_label">
+            <strong>{{ [key] }}</strong>
+        </div>
+        <div class="node_detail_text">{{ value }}</div>
+    {% endif %}
+{% endfor %}
