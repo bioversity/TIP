@@ -7,11 +7,31 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Bioversity\SiteStructureBundle\Form\searchTraitType;
 
+use Symfony\Component\ClassLoader\ClassMapGenerator;
+
 
 class SiteStructureController extends Controller
 {
-    public function indexAction()
+    public function generateSiteMapStructureAction()
     {
+        $generator= new ClassMapGenerator();
+        $map= $generator->createMap(__DIR__ . '/../../../');
+        
+        foreach($map as $file=>$path){
+            $regex_pattern = '/function/';
+            $matches = preg_grep($regex_pattern,file($path));
+            
+            $new_map[$path]= $matches;
+        }    
+        
+        print_r('<pre>');
+        print_r($new_map);
+        print_r('</pre>');
+        die();
+    }
+    
+    public function indexAction()
+    {  
         return $this->render('BioversitySiteStructureBundle:SiteStructure:index.html.twig');
     }
     

@@ -58,6 +58,10 @@ bioversity_site_structure_contribute_data:
     pattern:  /contribute-data
     defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:contributeData }
 
+bioversity_site_structure_map:
+    pattern:  /map
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:generateSiteMapStructure }
+
 #----------------------------------------------------------------------------
 #-----------------------ADMIN AREA-------------------------------------------
 #----------------------------------------------------------------------------
