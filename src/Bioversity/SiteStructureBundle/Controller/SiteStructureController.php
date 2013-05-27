@@ -31,7 +31,7 @@ class SiteStructureController extends Controller
     }
     
     public function indexAction()
-    {  
+    {
         return $this->render('BioversitySiteStructureBundle:SiteStructure:index.html.twig');
     }
     
@@ -149,5 +149,10 @@ class SiteStructureController extends Controller
     public function contributeDataAction()
     {
         return $this->render('BioversitySiteStructureBundle:SiteStructure:contribute_data.html.twig');
+    }
+    
+    public function showApiDocAction()
+    {
+        return $this->render('BioversitySiteStructureBundle:SiteStructure:api_doc.html.twig');
     }
 }

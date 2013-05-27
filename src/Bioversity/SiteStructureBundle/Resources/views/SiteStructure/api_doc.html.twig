@@ -1,0 +1,243 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('ul.urls li a').click(function(event){
+            event.preventDefault();
+            var url= $(this).html();
+            var description= $(this).attr('value');
+            var requirement= '';
+            var nodeId= new RegExp('{nodeId}');
+            var node_id= new RegExp('{node_id}');
+            var term= new RegExp('{term}');
+            var page= new RegExp('{page}');
+            var page= new RegExp('{page}');
+            var gid= new RegExp('{gid}');
+            var label= new RegExp('{label}');
+            var namesp= new RegExp('{namespace}');
+            var lid= new RegExp('{lid}');
+            var word= new RegExp('{word}');
+            var unit= new RegExp('{unit}');
+            var structKey= new RegExp('{structKey}');
+            var coords= new RegExp('{coords}');
+            
+            if (url.match(nodeId) || url.match(node_id))
+                requirement= requirement + '<strong>nodeId:</strong> the node id, integer like 17757<br/>';
+            
+            if (url.match(structKey))
+                requirement= requirement + '<strong>structKey:</strong> the key that identifies the list of unit\'s subdocument,That key is always a :STRUCT type , type: int<br/>';
+            
+            if (url.match(unit))
+                requirement= requirement + '<strong>unit:</strong> the unit gid, type: string<br/>';
+            
+            if (url.match(term))
+               requirement= requirement + '<strong>term:</strong> the label (o part of it) thet you want filter by, type: string<br/>';
+            
+            if (url.match(page))
+               requirement= requirement + '<strong>page:</strong> the page requested<br/>';
+            
+            if (url.match(gid))
+               requirement= requirement + '<strong>gid:</strong> global identifier for the element, type: string<br/>';
+            
+            if (url.match(label))
+               requirement= requirement + '<strong>label:</strong> the label of a element or part of it, type: string<br/>';
+            
+            if (url.match(namesp))
+               requirement= requirement + '<strong>namespace:</strong> the namespace of a element or part of it, type: string<br/>';
+            
+            if (url.match(word))
+               requirement= requirement + '<strong>word:</strong> the word that identify the element\'s namespace, type: string<br/>';
+            
+            if (url.match(lid))
+               requirement= requirement + '<strong>lid:</strong> the Local identifier of a element or part of it, type: string<br/>';
+            
+            if (url.match(coords))
+               requirement= requirement + '<strong>coords:</strong> unit latitude and longitude joined by _, type: string<br/>';
+            
+            if (requirement.length == 0)
+                requirement= 'no parameter are required';
+            
+            url= url.replace('{node_id}', 17757); //MCPD:INSTCODE
+            url= url.replace('{nodeId}', 17757); //MCPD:INSTCODE
+            url= url.replace('{term}', 'a');
+            url= url.replace('{page}', '0');
+            url= url.replace('{gid}', 'MCPD:INSTCODE');
+            url= url.replace('{label}', 'Plant');
+            url= url.replace('{namespace}', 'GR');
+            url= url.replace('{lid}', 'GROWTH');
+            url= url.replace('{structKey}', 130);
+            url= url.replace('{unit}',  '%253ADOMAIN-ACCESSION%253A%252F%252FUSA022%252F1712497%253B');
+            url= url.replace('{coords}', '39.1667_-5.04833');
+            url= url.replace('{word}', 'GR');
+            
+            $.ajax({
+                url:        dev_stage+url,
+                success: function( data ) {
+                    $('#response pre').html('');
+                    $('#response pre').html(data);
+                    
+                    $('#description p').html('');
+                    $('#description p').html(description);
+                    
+                    $('#requirement p').html('');
+                    $('#requirement p').html(requirement);
+                    
+                }
+            });
+        });
+    });
+</script>
+
+<div id="url_detail" style="float: left; width: 50%;">
+    <div id="description">
+        <h3>Description</h3>
+        <p></p>
+    </div>
+    <div id="requirement">
+        <h3>Requirement</h3>
+        <p></p>
+    </div>
+    <div id="response">
+        <h3>Example of response</h3>
+        <pre style="height: 300px; overflow: auto; "></pre>
+    </div>
+</div>
+
+<div id="accordion2" class="accordion" style="float: right;">
+    <!--
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a href="#collapseOne" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
+          ONTOLOGY
+        </a>
+      </div>
+      <div class="accordion-body in collapse" id="collapseOne" style="height: auto;">
+        <div class="accordion-inner">
+          <ul class="urls">
+            <li>no public api in that section</li>
+            <li><a href="#" value="">/ontology/browse-slider</a></li>
+            <li><a href="#" value="">/ontology/term/new</a></li>
+            <li><a href="#" value="">/ontology/namespace/new</a></li>
+            <li><a href="#" value="">/ontology/node/new/{term}</a></li>
+            <li><a href="#" value="">/ontology/predicate/new/{node}</a></li>
+            <li><a href="#" value="">/ontology/partial/term/new</a></li>
+            <li><a href="#" value="">/ontology/partial/predicate/new</a></li>
+            <li><a href="#" value="">/ontology/partial/node/new/{term}</a></li>
+            <li><a href="#" value="">/ontology/modal/term/new</a></li>
+            <li><a href="#" value="">/ontology/modal/node/new/{term}</a></li>
+            <li><a href="#" value="">/ontology/modal/namespace/new</a></li>
+            <li><a href="#" value="">/ontology/modal/predicate/new/{node}</a></li>
+            <li><a href="#" value="">/ontology/json/term/new</a></li>
+            <li><a href="#" value="">/ontology/json/predicate/new</a></li>
+            <li><a href="#" value="">/ontology/json/node/new/{term}</a></li>
+            <li><a href="#" value="">/ontology/json/relation/new/{object}/{predicate}/{subject}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a href="#collapseTwo" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
+          SECURITY
+        </a>
+      </div>
+      <div class="accordion-body collapse" id="collapseTwo" style="height: 0px;">
+        <div class="accordion-inner">
+          <ul class="urls">
+            <li><a href="#" value="">/login</a></li>
+            <li><a href="#" value="">/login_check</a></li>
+            <li><a href="#" value="">/logout</a></li>
+            <li><a href="#" value="">/registration:</a></li>
+            <li><a href="#" value="">/mok_user_authentication</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    -->
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a href="#collapseThree" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
+          SERVER CONNECTION
+        </a>
+      </div>
+      <div class="accordion-body collapse" id="collapseThree" style="height: 0px;">
+        <div class="accordion-inner">
+          <ul class="urls">
+            <li><a href="#" value="This method returns less information about the element requested. That is used for utocomplete methods or to get basically information">/serverconnection/json/find/gid/{gid}</a></li>
+            <li><a href="#" value="This method returns all element contained the requested words in the label. That is used for utocomplete methods or to get basically information">/serverconnection/json/find/label/{label}</a></li>
+            <li><a href="#" value="This method returns less information about the element requested. That is used for utocomplete methods or to get basically information">/serverconnection/json/find/lid/{lid}/{namespace}</a></li>
+            <li><a href="#" value="This method returns less information about the element requested. That is used for utocomplete methods or to get basically information">/serverconnection/json/find/lid/{lid}</a></li>
+            <li><a href="#" value="This method returns all element contained the requested words in the label. That is used for utocomplete methods or to get basically information">/serverconnection/json/find/namespace/{word}</a></li>
+            <li><a href="#" value="This method returns all element contained the requested words in the label. That is used for utocomplete methods or to get basically information">/serverconnection/json/find/trait/{word}</a></li>
+            <li><a href="#" value="This method returns all element contained the requested words in the label. That is used for utocomplete methods or to get basically information">/serverconnection/json/find/tag/label/{word}</a></li>
+            <li><a href="#" value="This method returns all term detail">/serverconnection/json/get/term/{lid}/{namespace}</a></li>
+            <li><a href="#" value="This method returns all term detail">/serverconnection/json/get/term/{lid}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a href="#collapseFour" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
+          SLIDER
+        </a>
+      </div>
+      <div class="accordion-body collapse" id="collapseFour" style="height: 0px;">
+        <div class="accordion-inner">
+          <ul class="urls">
+            <!--<li><a href="#" value="">/browse-slider</a></li>-->
+            <li><a href="#" value="This method returns the node position inside the slider tool">/modal-slider/{node_id}</a></li>
+            <li><a href="#" value="This method returns all node cataloged as root">/get-root-nodes</a></li>
+            <li><a href="#" value="This method returns all node relations">/get-node-relations/{nodeId}</a></li>
+            <li><a href="#" value="This method returns all node details">/get-node-details/{nodeId}</a></li>
+            <li><a href="#" value="This method returns only the list of connected elements to the requested node">/get-node-relation-in/{nodeId}</a></li>
+            <li><a href="#" value="This method returns only the list of connected elements from the requested node">/get-node-relation-out/{nodeId}</a></li>
+            <li><a href="#" value="This method returns all elements filtered by the requested term and connected to the requested node">/search-node-relation-in/{nodeId}/{term}</a></li>
+            <li><a href="#" value="This method returns all elements filtered by the requested term and connected from the requested node">/search-node-relation-out/{nodeId}/{term}</a></li>
+            <li><a href="#" value="This method returns only the list of connected elements to the requested node in the requested page">/get-node-relation-pager-in/{nodeId}/{page}</a></li>
+            <li><a href="#" value="This method returns only the list of connected elements from the requested node in the requested page">/get-node-relation-pager-out/{nodeId}/{page}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a href="#collapseFive" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
+          TRAIT
+        </a>
+      </div>
+      <div class="accordion-body collapse" id="collapseFive" style="height: 0px;">
+        <div class="accordion-inner">          
+          <ul class="urls">
+            <li><a href="#" value="">/modal-trial/{page}/{structKey}/{unit}</a></li>
+            <li><a href="#" value="">/modal-trial-detail/{unit}</a></li>
+            <!--<li><a href="#" value="">/modal-trial/get-map/{coords}</a></li>-->
+          </ul>
+        </div>
+      </div>
+    </div>
+<!--    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a href="#collapseSix" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
+          USER
+        </a>
+      </div>
+      <div class="accordion-body collapse" id="collapseSix" style="height: 0px;">
+        <div class="accordion-inner">
+          <ul class="urls">
+            <li><a href="#" value="">/admin/manage-user</a></li>
+            <li><a href="#" value="">/admin/manage-user/new</a></li>
+            <li><a href="#" value="">/admin/manage-user/delete/{code}</a></li>
+            <li><a href="#" value="">/admin/manage-user/edit/{code}</a></li>
+            <li><a href="#" value="">/admin/manage-user/new-user</a></li>
+            <li><a href="#" value="">/datasetuser/manage-dataset/new</a></li>
+            <li><a href="#" value="">/datasetuser/manage-dataset</a></li>
+            <li><a href="#" value="">/curator/manage-dataset</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>-->
+</div>
+{% endblock %}
