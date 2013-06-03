@@ -4,7 +4,7 @@ namespace Bioversity\ServerConnectionBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DefaultControllerTest extends WebTestCase
+class ServerConnectionControllerTest extends WebTestCase
 {
     public function testIndex()
     {

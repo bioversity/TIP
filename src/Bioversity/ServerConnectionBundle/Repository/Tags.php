@@ -2,7 +2,13 @@
 
 namespace Bioversity\ServerConnectionBundle\Repository;
 
-class Tags{
+use Bioversity\ServerConnectionBundle\Repository\Tags;
+use Bioversity\ServerConnectionBundle\Repository\Operators;
+use Bioversity\ServerConnectionBundle\Repository\ServerQueryManager;
+use Bioversity\ServerConnectionBundle\Repository\ServerRequestManager;
+
+class Tags
+{
   const kTAG_NID= '_id';
   const kTAG_LID= '1';
   const kTAG_GID= '2';
@@ -60,5 +66,24 @@ class Tags{
   const kTAG_USER_INSTITUTE_NAME= '54';
   const kTAG_USER_INSTITUTE_ADDRESS= '55';
   const kTAG_USER_INSTITUTE_COUNTRY= '56';
-  const kTAG_USER_SOCIAL_NETWORK= '57';
+  const kTAG_USER_SOCIAL_NETWORK= '57';  
+  
+  /**
+   * This method return the server response for requested tag
+   * @param string $tag
+   * @param const $field (es: Tags::kTAG_GID)
+   *
+   * @return array $requestManager
+   */
+  public function getTagBy($tag, $field)
+  {
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase('ONTOLOGY');
+    $requestManager->setOperation('WS:OP:GetTag');
+    $requestManager->setCollection(':_tags');
+    $requestManager->setPageLimit(50);
+    $requestManager->setQuery($field, Types::kTYPE_STRING, $tag, Operators::kOPERATOR_EQUAL);
+    
+    return $requestManager->sendRequest();
+  }
 }
