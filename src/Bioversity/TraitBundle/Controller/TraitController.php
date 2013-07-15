@@ -174,6 +174,7 @@ class TraitController extends Controller
                 'trials'     => $units,
                 'response'   => $trials->getResponse(),
                 'tags'       => $trials->getResponse()->getTag(),
+                'terms'      => $trials->getResponse()->getTerm(),
                 'pagecount'  => $pagecount,
                 'actualpage' => $page,
                 'totalunit'  => $totalunit,

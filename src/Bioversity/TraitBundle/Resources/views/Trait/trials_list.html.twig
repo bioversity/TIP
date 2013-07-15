@@ -70,7 +70,18 @@
                                     <div class="node_detail_label">
                                         <strong>{{ tags[k][label]['en'] }}</strong>
                                     </div>
-                                    <div class="node_detail_text">{{ v }}</div>
+                                    <div class="node_detail_text">
+                                        {% if tags[k][type][0] == ':ENUM' %}
+                                            <!--TODO: manage exception-->
+                                            {% if terms[v][label]['en'] is defined %}
+                                                {{ terms[v][label]['en'] }}
+                                            {% else %}
+                                                no-data-found ( {{ key }} - {{ value }} )
+                                            {% endif%}
+                                        {% else %}
+                                            {{ v }}
+                                        {% endif %}                                    
+                                    </div>
                                 </div>
                             {% endif %}   
                         {% endfor %}
