@@ -24,8 +24,8 @@
         {% for data in units %}
             <tr>
                 <td>
-                    {% if term[data[domain]][label]['en'] is defined %}
-                        {{ term[data[domain]][label]['en'] }}
+                    {% if terms[data[domain]][label]['en'] is defined %}
+                        {{ terms[data[domain]][label]['en'] }}
                     {% endif %}
                 </td>
                 <td>
