@@ -12,6 +12,8 @@ use Bioversity\ServerConnectionBundle\Repository\ServerResponseManager;
 class TraitConnection
 {  
   
+  const page_record= 10;
+  
   /**
    * Returns the TRAIT list requested
    * @param string $word

@@ -8,6 +8,8 @@ use Bioversity\ServerConnectionBundle\Repository\ServerResponseRequestQueryManag
 
 class ServerRequestManager
 {
+    const page_record= 10;
+    
     protected $databaseOntology  = 'ONTOLOGY';
     protected $databasePGRSecure = 'PGRSECURE';
     protected $databaseUsers     = 'USERS';
