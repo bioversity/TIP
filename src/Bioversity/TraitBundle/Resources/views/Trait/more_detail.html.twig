@@ -31,8 +31,8 @@
                 {% else %}
                     {% if tags[key][type][0] == ':ENUM' %}
                         <!--TODO: manage exception-->
-                        {% if tags[value][label]['en'] is defined %}
-                            {{ tags[value][label]['en'] }}
+                        {% if terms[value][label]['en'] is defined %}
+                            {{ terms[value][label]['en'] }}
                         {% else %}
                             no-data-found ( {{ key }} - {{ value }} )
                         {% endif%}
