@@ -50,6 +50,7 @@
     <li class="root_page navigationLink"><a href="{{ path('bioversity_site_structure_homepage') }}">Home</a></li>
     <li class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_about') }}">About</a></li>
     <li class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_contact') }}">Contact</a></li>
+    <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_checklists') }}">National Checklists</a></li>
     <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_conservaton_strategies') }}">Conservation Strategies</a></li>
     <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_inventories') }}">National Inventories</a></li>
     <li class="trait_page navigationLink"><a href="{{ path('bioversity_trait_browse_trait') }}">Trait</a></li>
@@ -62,7 +63,6 @@
     <li><i class="icon-user icon-white"></i></li>
     <li><a href="{{ path('bioversity_site_structure_online_chat') }}">Who is online (chat)</a></li>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <li><a href="{{ path('bioversity_user_homepage') }}">Manage User</a></li>
         {% if is_granted('ROLE_ADMIN') %}
             <li><a href="{{ path('bioversity_user_homepage') }}">Manage User</a></li>
         {% endif %}

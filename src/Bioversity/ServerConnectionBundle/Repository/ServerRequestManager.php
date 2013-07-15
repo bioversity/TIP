@@ -2,12 +2,17 @@
 
 namespace Bioversity\ServerConnectionBundle\Repository;
 
+use Symfony\Component\HttpFoundation\Session\Session;
 use Bioversity\ServerConnectionBundle\Repository\ServerResponseManager;
 use Bioversity\ServerConnectionBundle\Repository\ServerResponseRequestQueryManager;
 
 class ServerRequestManager
 {
-    protected $wrapper= "http://temp.wrapper.grinfo.net/TIP/Wrapper.php";
+    protected $databaseOntology  = 'ONTOLOGY';
+    protected $databasePGRSecure = 'PGRSECURE';
+    protected $databaseUsers     = 'USERS';
+    
+    protected $wrapper= "http://temp.wrapper.grinfo.net/TIP/Wrapper.php";   
     
     protected $format;
     protected $operation;
@@ -17,6 +22,7 @@ class ServerRequestManager
     protected $container;
     protected $pageLimit;
     protected $query= array();
+    protected $subquery= array();
     protected $select;
     protected $collection;
     protected $subDocument;
@@ -25,11 +31,67 @@ class ServerRequestManager
     protected $distinct;
     protected $pageRecord;
     protected $wsclass;
+    protected $relation;
+    protected $obj;
+    protected $criteria;
+    
+    public function __construct()
+    {
+        if(array_key_exists('isTestEnv', $_SESSION['_sf2_attributes']))
+        {
+            if($_SESSION['_sf2_attributes']['isTestEnv'] == 'test')
+            {
+                $this->wrapper= "http://temp.wrapper.grinfo.net/TIP/Wrapper.test.php";
+                $this->setDatabaseOntology('TEST-'.$this->getDatabaseOntology());
+                $this->setDatabasePGRSecure('TEST-'.$this->getDatabasePGRSecure());
+                $this->setDatabaseUsers('TEST-'.$this->getDatabaseUsers());
+            }
+        }
+    }
+    
+    public function setWrapper($url)
+    {
+        $this->wrapper= $url;
+    }
+    
+    public function getWrapper()
+    {
+        return $this->wrapper;
+    }
+    
+    public function setDatabaseOntology($name= 'ONTOLOGY')
+    {
+        $this->databaseOntology= $name;
+    }
+    
+    public function getDatabaseOntology()
+    {
+        return $this->databaseOntology;
+    }
+    
+    public function setDatabasePGRSecure($name= 'PGRSECURE')
+    {
+        $this->databasePGRSecure= $name;
+    }
+    
+    public function getDatabasePGRSecure()
+    {
+        return $this->databasePGRSecure;
+    }
+    
+    public function setDatabaseUsers($name= 'USERS')
+    {
+        $this->databaseUsers= $name;
+    }
+    
+    public function getDatabaseUsers()
+    {
+        return $this->databaseUsers;
+    }
     
     public function sendRequest()
     {
         return new ServerResponseManager(json_decode(file_get_contents( $this->wrapper.'?'.implode( '&', $this->getRequest() ) ), true));
-        //return json_decode(file_get_contents( $this->wrapper.'?'.implode( '&', $this->getRequest() ) ), true);
     }
     
     public function getRequest()
@@ -40,6 +102,12 @@ class ServerRequestManager
                     ':WS:DATABASE='.urlencode(json_encode($this->database))
                 );
         
+        if($this->relation)
+            $request[]= ':WS:RELATION='.urlencode(json_encode($this->relation));
+      
+        if($this->select)
+            $request[]= ':WS:SELECT='.urlencode(json_encode($this->select));
+      
         if($this->secondDatabase)
           $request[]= ':WS:DATABASE-BIS='.urlencode(json_encode($this->secondDatabase));
         
@@ -52,12 +120,28 @@ class ServerRequestManager
         if($this->subDocument)
           $request[]=':WS:SUB-DOCUMENT='.urlencode(json_encode($this->subDocument));
         
+        if($this->obj)
+            $request[]=':WS:OBJECT='.urlencode(json_encode($this->obj));
+            
         if($this->query){
             $queryList= array();
+            
             foreach($this->query as $query){
+                if(count($this->query) > 1)
+                    $queryList[]= Array($this->operator => $query);
+                else
+                    $queryList[$this->operator]=  $query;
+            }
+                
+            $request[]=':WS:QUERY='.urlencode(json_encode($queryList));
+        }
+        
+        if($this->subquery){
+            $queryList= array();
+            foreach($this->subquery as $query){
                 $queryList[]= Array($this->operator => $query);
             }
-            $request[]=':WS:QUERY='.urlencode(json_encode($queryList));
+            $request[]=':WS:SUBQUERY='.urlencode(json_encode($queryList));
         }
         
         if($this->log)
@@ -75,9 +159,52 @@ class ServerRequestManager
         if($this->pageLimit !== NULL)
           $request[]=':WS:PAGE-LIMIT='. urlencode(json_encode($this->pageLimit)) ;
         
+        if($this->criteria)
+            $request[]=':WS:CRITERIA='.urlencode(json_encode($this->criteria)) ;
+            
         //return $this->showUnformattedRequest($db, $operation, $query, $class, $log);
         
         return $request;
+    }
+
+    public function getCriteria()
+    {
+        return $this->criteria;
+    }
+
+    public function setCriteria($criteria)
+    {
+        $this->criteria= $criteria;
+    }
+
+    public function getRelation()
+    {
+        return $this->relation;
+    }
+
+    public function setRelation($relation)
+    {
+        $this->relation= $relation;
+    }
+
+    public function getObject()
+    {
+        return $this->obj;
+    }
+
+    public function setObject($object)
+    {
+        $this->obj= $object;
+    }
+
+    public function getWsClass()
+    {
+        return $this->wsclass;
+    }
+
+    public function setWsClass($wsClass)
+    {
+        $this->wsclass=$wsClass;
     }
 
     public function getFormat()
@@ -233,11 +360,42 @@ class ServerRequestManager
         $this->query[]= array($serverQueryManager->getQuery());
     }
     
+    public function getSubQuery()
+    {
+        return $this->subquery;
+    }
+    
+    public function setSubQuery($querySubject, $queryDataType, $queryData, $queryOperator)
+    {
+        $serverQueryManager= new ServerQueryManager();
+        $serverQueryManager->setQuery($querySubject, $queryDataType, $queryData, $queryOperator);
+        
+        $this->subquery[]= array($serverQueryManager->getQuery());
+    }
+    
     public function addQuery($querySubject, $queryDataType, $queryData, $queryOperator)
     {
         $serverQueryManager= new ServerQueryManager();
         $serverQueryManager->setQuery($querySubject, $queryDataType, $queryData, $queryOperator);
         
         $this->query[count($this->query)-1][]= $serverQueryManager->getQuery();
+    }
+    
+    public function addSubQuery($querySubject, $queryDataType, $queryData, $queryOperator)
+    {
+        $serverQueryManager= new ServerQueryManager();
+        $serverQueryManager->setQuery($querySubject, $queryDataType, $queryData, $queryOperator);
+        
+        $this->subquery[count($this->subquery)-1][]= $serverQueryManager->getQuery();
+    }
+    
+    public function setCustomQuery($query)
+    {
+        $this->query= $query;
+    }
+    
+    public function setCustomSubQuery($subquery)
+    {
+        $this->subquery= $subquery;
     }
 }

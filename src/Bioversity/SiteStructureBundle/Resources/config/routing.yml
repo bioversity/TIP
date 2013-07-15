@@ -14,6 +14,10 @@ bioversity_site_structure_national_inventories:
     pattern:  /national_inventories
     defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:nationalInventories }
     
+bioversity_site_structure_national_checklists:
+    pattern:  /national_checklists
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:nationalChecklists }
+    
 bioversity_site_structure_contact:
     pattern:  /contact
     defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:contact }

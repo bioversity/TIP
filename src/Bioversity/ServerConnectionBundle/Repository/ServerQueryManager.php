@@ -23,8 +23,8 @@ class ServerQueryManager
     
     public function setQuery($subject, $type=null, $data=null, $operator = '$EQ')
     {
-        if(is_array($data) && $operator != Operators::kOPERATOR_IRANGE)
-          $operator= Operators::kOPERATOR_IN;
+        //if(is_array($data) && $operator != Operators::kOPERATOR_IRANGE)
+        //  $operator= Operators::kOPERATOR_IN;
           
         if($subject == Tags::kTAG_LABEL){
           $subject= $subject.'.'.key($data);
@@ -32,14 +32,14 @@ class ServerQueryManager
           $operator= Operators::kOPERATOR_CONTAINS_NOCASE;
         }
         
-        if(
-          $subject == Tags::kTAG_KIND ||
-          $subject == Tags::kTAG_TYPE ||
-          $subject == Tags::kTAG_SYNONYMS ||
-          $subject == Tags::kTAG_CATEGORY
-          ){
-          $operator= Operators::kOPERATOR_IN;
-        }
+        //if(
+        //  $subject == Tags::kTAG_KIND ||
+        //  $subject == Tags::kTAG_TYPE ||
+        //  $subject == Tags::kTAG_SYNONYMS ||
+        //  $subject == Tags::kTAG_CATEGORY
+        //  ){
+        //  $operator= Operators::kOPERATOR_IN;
+        //}
         
         $query= Array(
           $this->setQuerySubject($subject),

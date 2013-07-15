@@ -15,12 +15,24 @@ class ServerResponseResponseManager
     public function __construct($response)
     {
         $this->allResponse= $response;
-        array_key_exists('_ids', $response)?  $this->setIds($response['_ids']):null;
-        array_key_exists('_term', $response)? $this->setTerm($response['_term']):null;
-        array_key_exists('_tag', $response)?  $this->setTag($response['_tag']):null;
-        array_key_exists('_node', $response)? $this->setNode($response['_node']):null;
-        array_key_exists('_edge', $response)? $this->setEdge($response['_edge']):null;
-        array_key_exists('_unit', $response)? $this->setUnit($response['_unit']):null;
+        if($response){
+            array_key_exists('_ids', $response)?  $this->setIds($response['_ids']):null;
+            array_key_exists('_term', $response)? $this->setTerm($response['_term']):null;
+            array_key_exists('_tag', $response)?  $this->setTag($response['_tag']):null;
+            array_key_exists('_node', $response)? $this->setNode($response['_node']):null;
+            array_key_exists('_edge', $response)? $this->setEdge($response['_edge']):null;
+            array_key_exists('_unit', $response)? $this->setUnit($response['_unit']):null;
+        }
+    }
+    
+    public function getKey($key)
+    {
+        return $this->allResponse[$key];
+    }
+    
+    public function setKey($key, $value)
+    {
+        $this->allResponse[$key]= $value;
     }
     
     public function getAllResponse()

@@ -4,7 +4,8 @@ namespace Bioversity\ServerConnectionBundle\Repository;
 
 class Types{
     const kTYPE_ANY= 		':ANY';
-    const kTYPE_STRING=		':TEXT';
+    const kTYPE_TEXT=           ':TEXT';
+    const kTYPE_STRING=		':STRING';
     const kTYPE_INT=		':INT';
     const kTYPE_FLOAT=		':FLOAT';
     const kTYPE_BOOLEAN=	':BOOLEAN';

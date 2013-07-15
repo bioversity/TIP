@@ -23,15 +23,15 @@ class UserController extends Controller
         $webServer= new ServerConnection();
         
         if($this->get('security.context')->isGranted('ROLE_ADMIN')){
-            $userList= $webServer->getUserList();
+            $userList= $webServer->getUserList()->getResponse()->getAllResponse();
         }else{
-            $userList= array(':WS:RESPONSE'=>array());
+            $userList= array();
         }
         
         $response = $this->render(
             'BioversityUserBundle:User:index.html.twig',
             array(
-                'user_list' => $userList[':WS:RESPONSE'],
+                'user_list' => $userList,
                 'notice' => $session->getFlashBag()->get('notice'),
                 'errors' => $session->getFlashBag()->get('error')
             )
@@ -74,13 +74,13 @@ class UserController extends Controller
         $form = $this->createForm(new BioversityUserType());
         $formClass= new BioversityUserType();
         
-        if(array_key_exists(':WS:RESPONSE', $user)){
+        if($user->getStatus()->getAffectedCount() > 0){
             foreach($formClass->getFields() as $key){
-                if(array_key_exists($key, $user[':WS:RESPONSE']))
-                    $form->get($key)->setData($user[':WS:RESPONSE'][$key]);
+                if(array_key_exists($key, $user->getResponse()->getAllResponse()))
+                    $form->get($key)->setData($user->getResponse()->getAllResponse()[$key]);
             }
             //TO-DO: need to find a solution for Role field
-            $form->get(Tags::kTAG_USER_ROLE)->setData($user[':WS:RESPONSE'][Tags::kTAG_USER_ROLE]);
+            $form->get(Tags::kTAG_USER_ROLE)->setData($user->getResponse()->getAllResponse()[Tags::kTAG_USER_ROLE]);
         }else{
             $session->getFlashBag()->set('error', NotificationManager::getNotice('not_found'));
             
@@ -101,6 +101,7 @@ class UserController extends Controller
         ));
     }
     
+    //TODO:
     public function deleteAction($code)
     {
         $saver= new ServerConnection();
@@ -109,17 +110,18 @@ class UserController extends Controller
         return $this->redirect($this->generateUrl('bioversity_user_homepage'), 301);
     }
     
+    //TODO:
     private function saveUser($session, $form, $action)
     {
         $user= $form->getData();
         $saver= new ServerConnection();
         $save= $saver->$action(DataFormatterHelper::clearSubmittedData($user));
         
-        if($save[':WS:STATUS'][':STATUS-CODE'] === 0){
-            $session->getFlashBag()->set('notice',  NotificationManager::getNotice($save[':WS:STATUS'][':STATUS-CODE']) );
+        if($save->getStatus()->getStatusCode() === 0){
+            $session->getFlashBag()->set('notice',  NotificationManager::getNotice($save->getStatus()->getStatusCode()) );
             return $this->redirect($this->generateUrl('bioversity_user_homepage'), 301);
         }else{
-            $session->getFlashBag()->set('errors', NotificationManager::getNotice($save[':WS:STATUS'][':STATUS-CODE']) );
+            $session->getFlashBag()->set('errors', NotificationManager::getNotice($save->getStatus()->getStatusCode()) );
         }   
     }
 }

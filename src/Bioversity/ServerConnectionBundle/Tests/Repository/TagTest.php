@@ -11,12 +11,12 @@ class TagRepositoryTest extends WebTestCase
     private $mokedResponse;
     private $mokedResponseClass;
     
-    //public function setUp()
-    //{
-    //    $this->mokedResponseClass= new MokResponse();
-    //    $this->mokedResponse= $this->mokedResponseClass->getResponse();
-    //    $this->serverResponseClass= new ServerResponseManager($this->mokedResponse);
-    //}
+    public function setUp()
+    {
+        //$this->mokedResponseClass= new MokResponse();
+        //$this->mokedResponse= $this->mokedResponseClass->getResponse();
+        //$this->serverResponseClass= new ServerResponseManager($this->mokedResponse);
+    }
     
     public function testGetTag()
     {

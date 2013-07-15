@@ -13,12 +13,17 @@ class OntologyNamespaceType extends BioversityBaseType
         return 'OntologyNamespace';
     }
     
-    var $internationlization= array(
-        Tags::kTAG_NAMESPACE,
-        Tags::kTAG_LID,
-        Tags::kTAG_LABEL,
-        Tags::kTAG_DEFINITION,
-        Tags::kTAG_SYNONYMS,
-        Tags::kTAG_CATEGORY
-    );
+    public function __construct()
+    {
+        $internationalization= array(
+                                    Tags::kTAG_NAMESPACE,
+                                    Tags::kTAG_LID,
+                                    Tags::kTAG_LABEL,
+                                    Tags::kTAG_DEFINITION,
+                                    Tags::kTAG_SYNONYMS,
+                                    Tags::kTAG_CATEGORY
+				);
+        
+        $this->setInternationlization($internationalization);
+    }
 }

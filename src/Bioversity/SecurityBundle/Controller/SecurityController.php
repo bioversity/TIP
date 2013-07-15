@@ -3,7 +3,6 @@
 namespace Bioversity\SecurityBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Bioversity\SecurityBundle\Repository\ServerConnection;
 use Bioversity\SecurityBundle\Form\BioversityUserRegistrationType;
 use Bioversity\SecurityBundle\Form\BioversityGenericUserType;
 use Symfony\Component\HttpFoundation\Request;

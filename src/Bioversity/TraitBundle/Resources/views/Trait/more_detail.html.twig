@@ -12,33 +12,33 @@
 
 {% for key,value in data  %}
     {% if key != '_id' and key != tagkey %}
-        {% set term= datalist['_tag'][key][path][0]|base_term %}
-        <div class="{{ datalist['_tag'][key][type][0]|replace({':':'type_'}) }} node_detail pull-left">
+        {% set term= tags[key][path][0]|base_term %}
+        <div class="{{ tags[key][type][0]|replace({':':'type_'}) }} node_detail pull-left">
             <div class="node_detail_label">
                 {% for base in term %}
-                    {{ datalist['_term'][base][label]['en'] }}</strong>
+                    {{ terms[base][label]['en'] }}</strong>
                 {% endfor %}
             </div>
             <div class="node_detail_text">
                 {% if value|is_array %}
                     {% for subvalue in value%}
-                        {% if datalist['_tag'][key][type][0] == ':ENUM' %}
-                            {{ datalist['_term'][subvalue][label]['en'] }}
+                        {% if tags[key][type][0] == ':ENUM' %}
+                            {{ terms[subvalue][label]['en'] }}
                         {% else %}
                             {{ subvalue }}
                         {% endif %}
                     {% endfor %}
                 {% else %}
-                    {% if datalist['_tag'][key][type][0] == ':ENUM' %}
+                    {% if tags[key][type][0] == ':ENUM' %}
                         <!--TODO: manage exception-->
-                        {% if datalist['_term'][value][label]['en'] is defined %}
-                            {{ datalist['_term'][value][label]['en'] }}
+                        {% if tags[value][label]['en'] is defined %}
+                            {{ tags[value][label]['en'] }}
                         {% else %}
                             no-data-found ( {{ key }} - {{ value }} )
                         {% endif%}
-                    {% elseif datalist['_tag'][key][type][0] == ':URL' %}
+                    {% elseif tags[key][type][0] == ':URL' %}
                         <a href="{{ value }}" target="_blank">{{ value }}</a>
-                    {% elseif datalist['_tag'][key][type][0] == ':STRUCT' %}
+                    {% elseif tags[key][type][0] == ':STRUCT' %}
                         <a class="show_trial" href="{{ path('bioversity_trait_json_trials', { 'structKey': key|url_encode, 'unit' : data[gid]|url_encode, 'page' : 1 })}}" target="_blank" value="{{ data[gid] }}">{{ value }}</a>
                     {% else %}
                         {{ value }}

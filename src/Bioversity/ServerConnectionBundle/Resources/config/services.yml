@@ -1,6 +1,0 @@
-#parameters:
-#    bioversity_server_connection.class: Bioversity\ServerConnectionBundle\MokAction
-#
-#services:
-#    bioversity_server_connection:
-#        class: %bioversity_server_connection.class%

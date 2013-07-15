@@ -68,7 +68,7 @@
                             {% if k != tagUnit and k != 'tag' and k != 'name' and not v|is_array %}
                                 <div class="node_detail pull-left">
                                     <div class="node_detail_label">
-                                        <strong>{{ responce['_tag'][k][label]['en'] }}</strong>
+                                        <strong>{{ tags[k][label]['en'] }}</strong>
                                     </div>
                                     <div class="node_detail_text">{{ v }}</div>
                                 </div>

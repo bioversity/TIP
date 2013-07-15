@@ -18,13 +18,13 @@ class WebserviceUserProvider implements UserProviderInterface
         $WebServer= new ServerConnection();
         $userData = $WebServer->findUserForAuthentication($username);
         
-        if (array_key_exists(':WS:RESPONSE', $userData)) {
-            $email= $userData[':WS:RESPONSE'][Tags::kTAG_USER_MAIL];
-            $profile= $userData[':WS:RESPONSE'][Tags::kTAG_USER_PROFILE];
-            $manager= $userData[':WS:RESPONSE'][Tags::kTAG_USER_MANAGER];
-            $domain= array( $userData[':WS:RESPONSE'][Tags::kTAG_USER_DOMAIN]);
-            $password = $userData[':WS:RESPONSE'][Tags::kTAG_USER_PASS];
-            $roles= $userData[':WS:RESPONSE'][Tags::kTAG_USER_ROLE];
+        if ($userData->getStatus()->getAffectedCount() > 0) {
+            $email= $userData->getResponse()->getAllResponse()[Tags::kTAG_USER_MAIL];
+            $profile= $userData->getResponse()->getAllResponse()[Tags::kTAG_USER_PROFILE];
+            $manager= $userData->getResponse()->getAllResponse()[Tags::kTAG_USER_MANAGER];
+            $domain= array( $userData->getResponse()->getAllResponse()[Tags::kTAG_USER_DOMAIN]);
+            $password = $userData->getResponse()->getAllResponse()[Tags::kTAG_USER_PASS];
+            $roles= $userData->getResponse()->getAllResponse()[Tags::kTAG_USER_ROLE];
             $salt= '';
             
             return new WebserviceUser($username, $email, $profile, $domain, $manager, $password, $salt, $roles);

@@ -8,15 +8,19 @@ use Bioversity\ServerConnectionBundle\Repository\Tags;
 
 class SliderSearchNodeType extends BioversityBaseType
 {
-    var $checkRequiredField= false;
-    
-    var $internationlization= array(
-        Tags::kTAG_GID,
-	Tags::kTAG_LABEL,
-	Tags::kTAG_SYNONYMS,
-	Tags::kTAG_KIND,
-	Tags::kTAG_TYPE,
-    );
+    public function __construct()
+    {
+        $internationalization= array(
+				    Tags::kTAG_GID,
+				    Tags::kTAG_LABEL,
+				    Tags::kTAG_SYNONYMS,
+				    Tags::kTAG_KIND,
+				    Tags::kTAG_TYPE,
+				);
+        
+        $this->setInternationlization($internationalization);
+	$this->setCheckRequiredField(false);
+    }
 
     public function getName()
     {

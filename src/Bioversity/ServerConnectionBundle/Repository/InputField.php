@@ -3,12 +3,11 @@
 namespace Bioversity\ServerConnectionBundle\Repository;
 
 use Bioversity\ServerConnectionBundle\Repository\Tags;
-use Bioversity\ServerConnectionBundle\Repository\ServerConnection;
 
 class InputField
 {
     public function getInputField($id, $inputType, $defaultOptions)
-    {        
+    { 
         switch($inputType){
             case ':INPUT-RANGE':
                 $defaultOptions['attr']['class'] = 'range_field';
@@ -75,22 +74,25 @@ class InputField
     
     public function getOptions($id)
     {
-        $server= new ServerConnection();
-        $optionsList= $server->getEnumOptions($id);
+        $requestManager= new ServerRequestManager();
+        $requestManager->setDatabase($requestManager->getDatabaseOntology());
+        $requestManager->setOperation('WS:OP:GetEnums');
+        $requestManager->setWsClass('COntologyTag');
+        $requestManager->setQuery(Tags::kTAG_NID, Types::kTYPE_INT, $id, Operators::kOPERATOR_EQUAL);
         
-        return $this->buildOptions($optionsList);
+        return $this->buildOptions($requestManager->sendRequest());
     }
     
-    private function buildOptions($optionsList)
+    private function buildOptions(ServerResponseManager $optionsList)
     {
         $levels= 1;
         $options= array();
-        
-        if(array_key_exists(':WS:RESPONSE', $optionsList)){
-            $response= $optionsList[':WS:RESPONSE'];
-            $edges= $response['_edge'];
-            $nodes= $response['_node'];
-            $node= $response['_ids'][0];
+
+        if($optionsList->getStatus()->getAffectedCount() > 0){
+            $response= $optionsList->getResponse();
+            $edges= $response->getEdge();
+            $nodes= $response->getNode();
+            $node= $response->getIds()[0];
             
             $options= $this->cicleOptions($edges, $nodes, $node, $levels);
         }

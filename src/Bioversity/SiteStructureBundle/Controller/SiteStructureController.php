@@ -56,6 +56,11 @@ class SiteStructureController extends Controller
         return $this->render('BioversitySiteStructureBundle:SiteStructure:national_inventories.html.twig');
     }
     
+    public function nationalChecklistsAction()
+    {
+        return $this->render('BioversitySiteStructureBundle:SiteStructure:national_checklists.html.twig');
+    }
+    
     public function contactAction()
     {
         return $this->render('BioversitySiteStructureBundle:SiteStructure:contact.html.twig');

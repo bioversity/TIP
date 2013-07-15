@@ -24,12 +24,18 @@ class BioversityUserType extends BioversityBaseType
         Tags::kTAG_USER_INSTITUTE_ADDRESS,
         Tags::kTAG_USER_INSTITUTE_COUNTRY
     );
+     
+    public function __construct()
+    {        
+        $this->setInternationlization($this->internationlization);
+    }
     
     public function getFields(){
         return $this->internationlization;
     }
     
-    public function buildForm(FormBuilderInterface $builder, array $options){
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder->add(Tags::kTAG_USER_ROLE, 'choice', array(
             'choices'   => array(
                 'ROLE_ADMIN'    => 'Admin Role',
@@ -42,6 +48,7 @@ class BioversityUserType extends BioversityBaseType
             'expanded' => true,
             'label' => 'Roles'
             ));
+        
         parent::buildForm($builder, $options);
     }
 
@@ -66,23 +73,4 @@ class BioversityUserType extends BioversityBaseType
     
         return $roles;
     }
-    
-    //public function buildForm(FormBuilderInterface $builder, array $options)
-    //{
-    //    $builder->add('fullname', 'text', array('required' => true));
-    //    $builder->add('username', 'text', array('required' => true));
-    //    $builder->add('password', 'text', array('required' => true));
-    //    $builder->add('email', 'email', array('required' => true));
-    //    $builder->add('roles', 'choice', array(
-    //        'choices'   => array(
-    //            'ROLE_ADMIN'    => 'Admin Role',
-    //            'ROLE_DATA'     => 'Data Entry Role',
-    //            'ROLE_ONTOLOGY' => 'Ontology Curator Role'
-    //            ),
-    //        'required' => true,
-    //        'multiple' => true,
-    //        'expanded' => true
-    //        )
-    //    );
-    //}
 }

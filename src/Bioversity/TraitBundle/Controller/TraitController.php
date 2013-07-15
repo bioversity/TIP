@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Bioversity\ServerConnectionBundle\Repository\Tags;
 use Bioversity\SecurityBundle\Repository\NotificationManager;
 use Bioversity\TraitBundle\Form\TraitType;
-use Bioversity\TraitBundle\Form\BestFilterType;
 use Bioversity\TraitBundle\Form\TraitTagsType;
 use Bioversity\TraitBundle\Repository\TraitConnection;
 
@@ -44,7 +43,8 @@ class TraitController extends Controller
 //---------------JSON---------------//
     public function jsonGetTagFieldsAction(Request $request)
     {
-        $word = json_decode(stripslashes($_POST['word']));
+        $word= json_decode(stripslashes($request->get('word')));
+        //$word = json_decode(stripslashes($_POST['word']));
         
         $server= new TraitConnection();
         $traits= $server->getTraits($word);
@@ -61,14 +61,16 @@ class TraitController extends Controller
     
     public function jsonFindTraitsAction(Request $request)
     {
-        $request = $this->getRequest();
+        //$request = $this->getRequest();
         $session = $request->getSession();
         
         $server= new TraitConnection();
         
         $formData= array();
         
-        foreach($_POST as $key=>$value){
+        $postValue= $this->get('request')->request;
+        
+        foreach($postValue as $key=>$value){
             if(is_array($value)){
                 foreach($value as $array=>$postdata){
                     if(!$postdata)
@@ -94,24 +96,34 @@ class TraitController extends Controller
             }
         }
         
-        $units= $server->getUnits($formData, $_POST['page']);
-        
-        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        //print_r($formData);
+        //return new Response(json_encode($postValue));
+        $unitsList= $server->getUnits($formData, $postValue->get('page'));
+                
+        if (
+            $this->get('security.context')->isGranted('ROLE_ADMIN') &&
+            ($this->get('kernel')->getEnvironment() != 'test') //hack to blok request print in test
+        ){
             print_r('<pre style="height:200px;overflow: auto;">');
-            print_r($units);
+            print_r($unitsList);
             print_r('</pre>');
         }
         
-        $data= array();
+        $units= array();
+        $tags= array();
+        $terms= array();
         $pagecount= 0;
         $totalunit= 0;
         
-        if($units){
-            $pagecount= ceil($units[':WS:STATUS'][':WS:AFFECTED-COUNT']/$units[':WS:PAGING'][':WS:PAGE-LIMIT']);
-            $totalunit= $units[':WS:STATUS'][':WS:AFFECTED-COUNT'];
+        if($unitsList->getStatus()->getAffectedCount() > 0){
+            $pagecount= ceil($unitsList->getStatus()->getAffectedCount()/$unitsList->getPaging()->getPageLimit());
+            $totalunit= $unitsList->getStatus()->getAffectedCount();
             
-            if(array_key_exists(':WS:RESPONSE',$units)){
-                $data= $units[':WS:RESPONSE'];
+            if($unitsList->getResponse()){
+                $data  = $unitsList->getResponse();
+                $units = $data->getUnit();
+                $tags  = $data->getTag();
+                $terms = $data->getTerm();
             }else{
                 $session->getFlashBag()->set('error', NotificationManager::getNotice('not_found') );
             }
@@ -122,9 +134,11 @@ class TraitController extends Controller
         return $this->render(
             'BioversityTraitBundle:Trait:unit_list.html.twig',
             array(
-                'datalist'      => $data,
+                'units'         => $units,
+                'tags'          => $tags,
+                'terms'         => $terms,
                 'pagecount'     => $pagecount,
-                'actualpage'    => $_POST['page'],
+                'actualpage'    => $postValue->get('page'),
                 'totalunit'     => $totalunit,
                 'errors'        => $session->getFlashBag()->get('error')
             ));
@@ -132,38 +146,34 @@ class TraitController extends Controller
     
     public function jsonGetTrialAction(Request $request, $unit, $structKey, $page)
     {
-        //$unit = json_decode(stripslashes($_POST['unit']));
-        
         $pagecount= 0;
         $totalunit= 0;
         
         $server= new TraitConnection();
         $trials= $server->getTrials(urldecode($structKey), urldecode($unit), $page);
         
-        //print_r($trials);
-        
-        foreach($trials[':WS:RESPONSE']['_unit'] as $key=>$value){
+        $units= $trials->getResponse()->getUnit();
+        foreach($trials->getResponse()->getUnit() as $key=>$value){
             foreach($value as $k=>$v){
+                $tag= $server->getUnit($v);
                 if($k == Tags::kTAG_UNIT ){
-                    $tag= $server->getUnit($v);
-                    $trials[':WS:RESPONSE']['_unit'][$key]['tag']= $tag[':WS:RESPONSE']['_ids'][0];
+                    $units[$key]['tag']= $tag->getResponse()->getIds()[0];
                     break;
                 }else{
-                    $trials[':WS:RESPONSE']['_unit'][$key]['tag']= null;
+                    $units[$key]['tag']= null;
                 }
             }
         }
         
-        $pagecount= ceil($trials[':WS:STATUS'][':WS:AFFECTED-COUNT']/$trials[':WS:PAGING'][':WS:PAGE-LIMIT']);
-        $totalunit= $trials[':WS:STATUS'][':WS:AFFECTED-COUNT'];
-        
-        //print_r($trials[':WS:RESPONSE']['_unit']);
+        $pagecount= ceil($trials->getStatus()->getAffectedCount()/$trials->getPaging()->getPageLimit());
+        $totalunit= $trials->getStatus()->getAffectedCount();
         
         return $this->render(
             'BioversityTraitBundle:Trait:trials_list.html.twig',
             array(
-                'trials'     => $trials[':WS:RESPONSE']['_unit'],
-                'responce'   => $trials[':WS:RESPONSE'],
+                'trials'     => $units,
+                'response'   => $trials->getResponse(),
+                'tags'       => $trials->getResponse()->getTag(),
                 'pagecount'  => $pagecount,
                 'actualpage' => $page,
                 'totalunit'  => $totalunit,
@@ -173,17 +183,17 @@ class TraitController extends Controller
     }
     
     public function jsonGetTrialDetailAction(Request $request, $unit)
-    {
-        //$unit = json_decode(stripslashes($_POST['unit']));
-        
+    {        
         $server= new TraitConnection();
         $trial= $server->getUnitByGID(urldecode($unit));
         
         return $this->render(
             'BioversityTraitBundle:Trait:more_detail_page.html.twig',
             array(
-                'data'       => $trial[':WS:RESPONSE']['_unit'][urldecode($unit)],
-                'datalist'   => $trial[':WS:RESPONSE'],
+                'data'       => $trial->getResponse()->getUnit()[urldecode($unit)],
+                'tags'       => $trial->getResponse()->getTag(),
+                'terms'      => $trial->getResponse()->getTerm(),
+                'datalist'   => $trial->getResponse(),
                 'unit'       => $unit
             ));
     }
@@ -215,227 +225,5 @@ class TraitController extends Controller
         
         return $tags;
     }
-    
-    //private function getTagList($traits)
-    //{
-    //    $tags= array();
-    //    foreach($traits[':WS:RESPONSE']['_ids'] as $key=>$value){
-    //        $tags[]= $traits[':WS:RESPONSE']['_tags'][$value][Tags::kTAG_PATH][];
-    //    }
-    //    
-    //    return $tags;
-    //}
 
 }
-
-
-
-//array(
-//  '$AND' => array(
-//        array(
-//            '$OR' => array(
-//                array(
-//                    '$AND' => array(
-//                        array(
-//                            kOFFSET_QUERY_SUBJECT => "40",
-//                            kOFFSET_QUERY_OPERATOR => kOPERATOR_EQUAL,
-//                            kOFFSET_QUERY_TYPE => kTYPE_INT,
-//                            kOFFSET_QUERY_DATA => 218
-//                        ),
-//                        array(
-//                            kOFFSET_QUERY_SUBJECT => "218",
-//                            kOFFSET_QUERY_OPERATOR => kOPERATOR_IN,
-//                            kOFFSET_QUERY_TYPE => kTYPE_STRING,
-//                            kOFFSET_QUERY_DATA => array('MCPD:SAMPSTAT:100', 'MCPD:SAMPSTAT:200','MCPD:SAMPSTAT:300')
-//                        )
-//                    )
-//                ),
-//                array(
-//                    '$AND' => array(
-//                        array(
-//                            kOFFSET_QUERY_SUBJECT => "40",
-//                            kOFFSET_QUERY_OPERATOR => kOPERATOR_EQUAL,
-//                            kOFFSET_QUERY_TYPE => kTYPE_INT,
-//                            kOFFSET_QUERY_DATA => 220
-//                        ),
-//                        array(
-//                            kOFFSET_QUERY_SUBJECT => "220",
-//                            kOFFSET_QUERY_OPERATOR => kOPERATOR_IN,
-//                            kOFFSET_QUERY_TYPE => kTYPE_STRING,
-//                            kOFFSET_QUERY_DATA => array('MCPD:COLLSRC:10', 'MCPD:COLLSRC:20', 'MCPD:COLLSRC:30')
-//                        )
-//                    )
-//                )
-//            )
-//        ),
-//        array(
-//            '$OR' => array(
-//                array(
-//                  '$AND' => array(
-//                        array(
-//                            kOFFSET_QUERY_SUBJECT => "40",
-//                            kOFFSET_QUERY_OPERATOR => kOPERATOR_EQUAL,
-//                            kOFFSET_QUERY_TYPE => kTYPE_INT,
-//                            kOFFSET_QUERY_DATA => 211),
-//                        array(
-//                            kOFFSET_QUERY_SUBJECT => "211",
-//                            kOFFSET_QUERY_OPERATOR => kOPERATOR_IN,
-//                            kOFFSET_QUERY_TYPE => kTYPE_STRING,
-//                            kOFFSET_QUERY_DATA => array('ISO:3166:1:alpha-3:CIV')
-//                        )
-//                    )
-//                )
-//            )
-//        )
-//    )
-//);
-
-//$query = array
-//(
-//      '$AND' => array
-//        (
-//                //
-//                // Gruppo 1.
-//                //
-//                array
-//                (
-//                        '$OR' => array
-//                        (
-//                                //
-//                                // Gruppo 1 elemento 1.
-//                                //
-//                                array
-//                                (
-//                                        '$AND' => array
-//                                        (
-//                                                array
-//                                                (
-//                                                        kOFFSET_QUERY_SUBJECT => "40",
-//                                                        kOFFSET_QUERY_OPERATOR => kOPERATOR_EQUAL,
-//                                                        kOFFSET_QUERY_TYPE => kTYPE_INT,
-//                                                        kOFFSET_QUERY_DATA => 218
-//                                                ),
-//                                                array
-//                                                (
-//                                                        '$OR' => array
-//                                                        (
-//                                                                array
-//                                                                (
-//                                                                        kOFFSET_QUERY_SUBJECT => "218",
-//                                                                        kOFFSET_QUERY_OPERATOR => kOPERATOR_IN,
-//                                                                        kOFFSET_QUERY_TYPE => kTYPE_STRING,
-//                                                                        kOFFSET_QUERY_DATA => array
-//                                                                        (
-//                                                                                'MCPD:SAMPSTAT:100',
-//                                                                                'MCPD:SAMPSTAT:200',
-//                                                                                'MCPD:SAMPSTAT:300'
-//                                                                        )
-//                                                                ),
-//                                                                array
-//                                                                (
-//                                                                        kOFFSET_QUERY_SUBJECT => "1360.218",
-//                                                                        kOFFSET_QUERY_OPERATOR => kOPERATOR_IN,
-//                                                                        kOFFSET_QUERY_TYPE => kTYPE_STRING,
-//                                                                        kOFFSET_QUERY_DATA => array
-//                                                                        (
-//                                                                                'MCPD:SAMPSTAT:100',
-//                                                                                'MCPD:SAMPSTAT:200',
-//                                                                                'MCPD:SAMPSTAT:300'
-//                                                                        )
-//                                                                )
-//                                                        )
-//                                                ),
-//                                        )
-//                                ),
-//                                //
-//                                // Gruppo 1 elemento 2.
-//                                //
-//                                array
-//                                (
-//                                        '$AND' => array
-//                                        (
-//                                                array
-//                                                (
-//                                                        kOFFSET_QUERY_SUBJECT => "40",
-//                                                        kOFFSET_QUERY_OPERATOR => kOPERATOR_EQUAL,
-//                                                        kOFFSET_QUERY_TYPE => kTYPE_INT,
-//                                                        kOFFSET_QUERY_DATA => 220
-//                                                ),
-//                                                array
-//                                                (
-//                                                        '$OR' => array
-//                                                        (
-//                                                                array
-//                                                                (
-//                                                                        kOFFSET_QUERY_SUBJECT => "220",
-//                                                                        kOFFSET_QUERY_OPERATOR => kOPERATOR_IN,
-//                                                                        kOFFSET_QUERY_TYPE => kTYPE_STRING,
-//                                                                        kOFFSET_QUERY_DATA => array
-//                                                                        (
-//                                                                                'MCPD:COLLSRC:10',
-//                                                                                'MCPD:COLLSRC:20',
-//                                                                                'MCPD:COLLSRC:30'
-//                                                                        )
-//                                                                ),
-//                                                                array
-//                                                                (
-//                                                                        kOFFSET_QUERY_SUBJECT => "130.220",
-//                                                                        kOFFSET_QUERY_OPERATOR => kOPERATOR_IN,
-//                                                                        kOFFSET_QUERY_TYPE => kTYPE_STRING,
-//                                                                        kOFFSET_QUERY_DATA => array
-//                                                                        (
-//                                                                                'MCPD:COLLSRC:10',
-//                                                                                'MCPD:COLLSRC:20',
-//                                                                                'MCPD:COLLSRC:30'
-//                                                                        )
-//                                                                )
-//                                                        )
-//                                                )
-//                                        )
-//                                )
-//                        )
-//                ),
-//                //
-//                // Gruppo 2.
-//                //
-//                array
-//                (
-//                        '$OR' => array
-//                        (
-//                                //
-//                                // Gruppo 2 elemento 1.
-//                                //
-//                                array
-//                                (
-//                                        '$AND' => array
-//                                        (
-//                                                array
-//                                                (
-//                                                        kOFFSET_QUERY_SUBJECT => "40",
-//                                                        kOFFSET_QUERY_OPERATOR => kOPERATOR_EQUAL,
-//                                                        kOFFSET_QUERY_TYPE => kTYPE_INT,
-//                                                        kOFFSET_QUERY_DATA => 211
-//                                                ),
-//                                                array
-//                                                (
-//                                                        '$OR' => array
-//                                                        (
-//                                                                array
-//                                                                (
-//                                                                        kOFFSET_QUERY_SUBJECT => "211",
-//                                                                        kOFFSET_QUERY_OPERATOR => kOPERATOR_IN,
-//                                                                        kOFFSET_QUERY_TYPE => kTYPE_STRING,
-//                                                                        kOFFSET_QUERY_DATA => array
-//                                                                        (
-//                                                                                'ISO:3166:1:alpha-3:CIV'
-//                                                                        )
-//                                                                )
-//                                                        )
-//                                                )
-//                                        )
-//                                )
-//                        )
-//                )
-//        )
-//);
-//

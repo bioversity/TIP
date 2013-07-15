@@ -12,3 +12,13 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+security:
+    firewalls:
+        secured_area:
+            http_basic:
+                realm: "Area demo protetta"
+            form_login:
+                login_path:  /login
+                check_path:  /login_check
+                failure_path: /login

@@ -68,6 +68,23 @@ class Tags
   const kTAG_USER_INSTITUTE_COUNTRY= '56';
   const kTAG_USER_SOCIAL_NETWORK= '57';  
   
+   
+  /**
+   * Returns the tags language list
+   * @param string $tags
+   *  
+   * @return array $serverResponce
+   */
+  public function getTags($tags)
+  {
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase($requestManager->getDatabaseOntology());
+    $requestManager->setOperation('WS:OP:GetTag');
+    $requestManager->setQuery(Tags::kTAG_NID, Types::kTYPE_INT, $tags, Operators::kOPERATOR_IN);
+    
+    return $requestManager->sendRequest();
+  }
+
   /**
    * This method return the server response for requested tag
    * @param string $tag
@@ -78,7 +95,7 @@ class Tags
   public function getTagBy($tag, $field)
   {
     $requestManager= new ServerRequestManager();
-    $requestManager->setDatabase('ONTOLOGY');
+    $requestManager->setDatabase($requestManager->getDatabaseOntology());
     $requestManager->setOperation('WS:OP:GetTag');
     $requestManager->setCollection(':_tags');
     $requestManager->setPageLimit(50);

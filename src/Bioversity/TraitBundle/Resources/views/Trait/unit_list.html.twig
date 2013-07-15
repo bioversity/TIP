@@ -1,4 +1,4 @@
-{% if datalist|length > 0 %}
+{% if units|length > 0 %}
     {% set path     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_PATH') %}
     {% set label    = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LABEL') %}
     {% set type     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_TYPE') %}
@@ -21,11 +21,11 @@
             <th>VERSION</th>
             <th style="text-align: right;">ACTION</th>
         </tr>
-        {% for data in datalist['_unit'] %}
+        {% for data in units %}
             <tr>
                 <td>
-                    {% if datalist['_term'][data[domain]][label]['en'] is defined %}
-                        {{ datalist['_term'][data[domain]][label]['en'] }}
+                    {% if term[data[domain]][label]['en'] is defined %}
+                        {{ term[data[domain]][label]['en'] }}
                     {% endif %}
                 </td>
                 <td>

@@ -38,14 +38,16 @@ class SliderController extends Controller
             if ($form->isValid()) {
                 $formData= $form->getData();
                 
+                //return print_r(DataFormatterHelper::clearSubmittedData($formData));
                 if($formData[Tags::kTAG_GID]){
                     foreach($formData as $key=>$value){
                         if($key != Tags::kTAG_GID)
                             unset($formData[$key]);
                     }
                 }
+            
                 $saver= new ServerConnection();
-                $nodeList= $saver->getNodes(DataFormatterHelper::clearSubmittedData($formData), $page);
+                $nodeList= $saver->getNodes(DataFormatterHelper::clearSubmittedData($formData), $page)->getServerResponse();
                 
                 return new Response(json_encode(array('term'=> $nodeList)));
             }
@@ -76,7 +78,7 @@ class SliderController extends Controller
     public function JsonRootNodeAction(){
         $server= new ServerConnection();
         
-        return new Response($server->getRootNodes());
+        return new Response(json_encode($server->getRootNodes()->getServerResponse()));
     }
     
     /**
@@ -96,7 +98,7 @@ class SliderController extends Controller
     public function JsonNodeDetailsAction($nodeId){
         $server= new ServerConnection();
         
-        return new Response($server->getNodeDetails($nodeId));
+        return new Response(json_encode($server->getNodeDetails($nodeId)->getServerResponse()));
     }
     
     /**
@@ -106,7 +108,7 @@ class SliderController extends Controller
     public function JsonNodeRelationINAction($nodeId, $page=null){
         $server= new ServerConnection();
         
-        return new Response($server->getNodeRelationIN($nodeId, $page));
+        return new Response(json_encode($server->getNodeRelationIN($nodeId, $page)->getServerResponse()));
     }
     
     /**
@@ -116,7 +118,7 @@ class SliderController extends Controller
     public function JsonNodeRelationOUTAction($nodeId, $page=null){
         $server= new ServerConnection();
         
-        return new Response($server->getNodeRelationOUT($nodeId, $page));
+        return new Response(json_encode($server->getNodeRelationOUT($nodeId, $page)->getServerResponse()));
     }
     
     /**
@@ -126,7 +128,7 @@ class SliderController extends Controller
     public function JsonSearchNodeRelationINAction($nodeId, $term=null){
         $server= new ServerConnection();
         
-        return new Response($server->searchNodeRelationIN($nodeId, $term));
+        return new Response(json_encode($server->searchNodeRelationIN($nodeId, $term)->getServerResponse()));
     }
     
     /**
@@ -136,6 +138,6 @@ class SliderController extends Controller
     public function JsonSearchNodeRelationOUTAction($nodeId, $term=null){
         $server= new ServerConnection();
         
-        return new Response($server->searchNodeRelationOUT($nodeId, $term));
+        return new Response(json_encode($server->searchNodeRelationOUT($nodeId, $term)->getServerResponse()));
     }
 }

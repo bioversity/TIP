@@ -19,14 +19,21 @@ class ServerResponseManager
     protected $request;
     protected $paging;
     protected $response;
+    protected $serverResponse;
     
     
     public function __construct($serverResponse)
     {
-        $this->status  = $serverResponse[':WS:STATUS'];
-        $this->request = $serverResponse[':WS:REQUEST'];
-        $this->paging  = $serverResponse[':WS:PAGING'];
+        $this->serverResponse= $serverResponse;
+        $this->status  = array_key_exists(':WS:STATUS',$serverResponse)? $serverResponse[':WS:STATUS']: null;
+        $this->request = array_key_exists(':WS:REQUEST',$serverResponse)? $serverResponse[':WS:REQUEST']: null;
+        $this->paging  = array_key_exists(':WS:PAGING',$serverResponse)? $serverResponse[':WS:PAGING']: null;
         $this->response= array_key_exists(':WS:RESPONSE',$serverResponse)? $serverResponse[':WS:RESPONSE']: null;
+    }
+    
+    public function getServerResponse()
+    {
+        return $this->serverResponse;
     }
     
     public function getResponse()
@@ -55,6 +62,26 @@ class ServerResponseManager
         $serverResponseStatusManager= new ServerResponseStatusManager($this->status);
         
         return $serverResponseStatusManager/*->getStatus()*/;
+    }
+    
+    public function setResponse($response)
+    {
+        $this->response= $response;
+    }
+    
+    public function setRequest($request)
+    {
+        $this->request= $request;
+    }
+    
+    public function setPaging($paging)
+    {
+        $this->paging= $paging;
+    }
+    
+    public function setStatus($status)
+    {
+        $this->status= $status;
     }
     
 }

@@ -6,10 +6,10 @@ use Bioversity\ServerConnectionBundle\Repository\Tags;
 use Bioversity\ServerConnectionBundle\Repository\Types;
 use Bioversity\ServerConnectionBundle\Repository\Operators;
 use Bioversity\ServerConnectionBundle\Repository\InputType;
-use Bioversity\ServerConnectionBundle\Repository\ServerConnection;
-use Bioversity\ServerConnectionBundle\Repository\HttpServerConnection;
+use Bioversity\ServerConnectionBundle\Repository\ServerRequestManager;
+use Bioversity\ServerConnectionBundle\Repository\ServerResponseManager;
 
-class TraitConnection extends HttpServerConnection
+class TraitConnection
 {  
   
   /**
@@ -20,13 +20,14 @@ class TraitConnection extends HttpServerConnection
    */
   public function getTraits($word)
   {
-    $this->setDatabase('ONTOLOGY');
-    $this->setCollection(':_tags');
-    $query1= $this->createQuery(Tags::kTAG_LABEL.'.en', Types::kTYPE_STRING, $word, Operators::kOPERATOR_CONTAINS_NOCASE);
-    $query2= $this->createNewQuery(Tags::kTAG_DATAPOINT_REFS, Types::kTYPE_INT, 0, Operators::kOPERATOR_GREAT);
-    $params= $this->createNewRequest('WS:OP:GetTag', array($query1,$query2),NULL,0);
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase($requestManager->getDatabaseOntology());
+    $requestManager->setOperation('WS:OP:GetTag');
+    $requestManager->setCollection(':_tags');
+    $requestManager->setQuery(Tags::kTAG_LABEL.'.en', Types::kTYPE_STRING, $word, Operators::kOPERATOR_CONTAINS_NOCASE);
+    $requestManager->addQuery(Tags::kTAG_DATAPOINT_REFS, Types::kTYPE_INT, 0, Operators::kOPERATOR_GREAT);
     
-    return $this->sendRequest($this->wrapper, $params);
+    return $requestManager->sendRequest();
   } 
   
   /**
@@ -37,12 +38,13 @@ class TraitConnection extends HttpServerConnection
    */
   public function getTrait($gid)
   {
-    $this->setDatabase('ONTOLOGY');
-    $this->setCollection(':_terms');
-    $query= $this->createQuery(Tags::kTAG_GID, Types::kTYPE_STRING, $gid, Operators::kOPERATOR_EQUAL);
-    $params= $this->createRequest('WS:OP:GET', $query);
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase($requestManager->getDatabaseOntology());
+    $requestManager->setOperation('WS:OP:GET');
+    $requestManager->setCollection(':_terms');
+    $requestManager->setQuery(Tags::kTAG_GID, Types::kTYPE_STRING, $gid, Operators::kOPERATOR_EQUAL);
     
-    return $this->sendRequest($this->wrapper, $params);
+    return $requestManager->sendRequest();
   }
   
   /**
@@ -53,36 +55,15 @@ class TraitConnection extends HttpServerConnection
    */
   public function getTags($tags)
   {
-    $this->setDatabase('ONTOLOGY');
-    $this->setCollection(NULL);
-    $query1= $this->createNewQuery(Tags::kTAG_NID, Types::kTYPE_INT, $tags, Operators::kOPERATOR_IN);
-    $query2= $this->createNewQuery(Tags::kTAG_DATAPOINT_REFS, Types::kTYPE_INT, 0, Operators::kOPERATOR_GREAT);
-    $params= $this->createNewRequest('WS:OP:GetTag', array($query1,$query2),NULL,0);
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase($requestManager->getDatabaseOntology());
+    $requestManager->setOperation('WS:OP:GetTag');
+    $requestManager->setCollection(NULL);
+    $requestManager->setQuery(Tags::kTAG_NID, Types::kTYPE_INT, $tags, Operators::kOPERATOR_IN);
+    $requestManager->setQuery(Tags::kTAG_DATAPOINT_REFS, Types::kTYPE_INT, 0, Operators::kOPERATOR_GREAT);
     
-    return $this->sendRequest($this->wrapper, $params);
+    return $requestManager->sendRequest();
   } 
-  
-  /**
-   * Returns the Location requested
-   * @param string $distinct
-   * @param string $trait
-   *  
-   * @return array $serverResponce
-   */
-  public function getLocations($distinct, $tags)
-  {    
-    $this->setDatabase('PGRSECURE');
-    $this->setSecondDB('ONTOLOGY');
-    $this->setCollection(':_units');
-    $this->setOperator('$OR');
-    $this->setDistinct($distinct);
-    foreach($tags as $key=>$tag)
-      $or[]= $this->createNewQuery($tag, NULL, NULL, Operators::kOPERATOR_NOT_NULL);
-      
-    $params= $this->createFuckingBastardDuplicatedRequest('WS:OP:GET', $or, null, NULL, 0);
-      
-    return $this->sendRequest($this->wrapper, $params);
-  }   
   
   /**
    * Returns the TRIAL list requested
@@ -94,58 +75,17 @@ class TraitConnection extends HttpServerConnection
   {
     $firstElement= ($page > 1) ? ($page*self::page_record)+1 : 0;
     
-    $this->setDatabase('PGRSECURE');
-    $this->setSecondDB('ONTOLOGY');
-    $this->setCollection(':_units');
-    $this->setSubDocument(array($structKey=>''));
-    $query= $this->createNewQuery(Tags::kTAG_GID, Types::kTYPE_STRING, $unit, Operators::kOPERATOR_EQUAL);
-    $params= $this->createNewRequest('WS:OP:GetSubDocument', array($query),NULL,$firstElement);
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
+    $requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
+    $requestManager->setOperation('WS:OP:GetSubDocument');
+    $requestManager->setSubDocument(array($structKey=>''));
+    $requestManager->setCollection(':_units');
+    $requestManager->setQuery(Tags::kTAG_GID, Types::kTYPE_STRING, $unit, Operators::kOPERATOR_EQUAL);
+    $requestManager->setPageStart($firstElement);
     
-    return $this->sendRequest($this->wrapper, $params);
+    return $requestManager->sendRequest();
   }    
-  
-  /**
-   * Returns the DATA list requested
-   * @param string $tags
-   * @param string $location
-   * @param int $page
-   * @param string $species
-   *  
-   * @return array $serverResponce
-   */
-  public function getData($tags, $location=null, $page=0, $species=null)
-  {
-    $firstElement= ($page > 1) ? ($page*self::page_record)+1 : 0;
-    
-    $this->setDatabase('PGRSECURE');
-    $this->setSecondDB('ONTOLOGY');
-    $this->setCollection(':_units');
-    $this->setOperator('$OR');
-    foreach($tags as $key=>$tag)
-      $or[]= $this->createNewQuery($tag, NULL, NULL, Operators::kOPERATOR_NOT_NULL);
-      
-    $params= $this->createFuckingBastardDuplicatedRequest('WS:OP:GetAnnotated', $or, null, NULL,$firstElement);
-    
-    $and= array();
-    
-    if($location){
-      $server= new ServerConnection();
-      $term= $server->getTerm('MCPD:ORIGCTY');
-      $tag= $term[':WS:RESPONSE']['_term'][$term[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_FEATURES][0];
-      $and[]= $this->createNewQuery($tag, Types::kTYPE_STRING, $location, Operators::kOPERATOR_EQUAL);
-      $params= $this->createFuckingBastardDuplicatedRequest('WS:OP:GetAnnotated', $or, $and, NULL,$firstElement);
-    }
-    
-    if($species){
-      $server= new ServerConnection();
-      $term= $server->getTerm('GR:TAXON');
-      $tag= $term[':WS:RESPONSE']['_term'][$term[':WS:RESPONSE']['_ids'][0]][Tags::kTAG_FEATURES][0];
-      $and[]= $this->createNewQuery($tag, Types::kTYPE_STRING, $species, Operators::kOPERATOR_EQUAL);
-      $params= $this->createFuckingBastardDuplicatedRequest('WS:OP:GetAnnotated', $or, $and, NULL,$firstElement);
-    }
-    
-    return $this->sendRequest($this->wrapper, $params);
-  }   
   
   /**
    * Returns the Unit list requested
@@ -154,15 +94,15 @@ class TraitConnection extends HttpServerConnection
    * @return array $serverResponce
    */
   public function getUnit($nid)
-  {    
-    $this->setDatabase('PGRSECURE');
-    $this->setSecondDB('ONTOLOGY');
-    $this->setCollection(':_units');
-    $this->setSubDocument(null);
-    $query= $this->createQuery(Tags::kTAG_NID, Types::kTYPE_BINARY_STRING, $nid, Operators::kOPERATOR_EQUAL);
-    $params= $this->createNewRequest('WS:OP:GetAnnotated', array($query));
+  {
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
+    $requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
+    $requestManager->setOperation('WS:OP:GetAnnotated');
+    $requestManager->setCollection(':_units');
+    $requestManager->setQuery(Tags::kTAG_NID, Types::kTYPE_BINARY_STRING, $nid, Operators::kOPERATOR_EQUAL);
     
-    return $this->sendRequest($this->wrapper, $params);
+    return $requestManager->sendRequest();
   }  
   
   /**
@@ -172,15 +112,15 @@ class TraitConnection extends HttpServerConnection
    * @return array $serverResponce
    */
   public function getUnitByGID($gid)
-  {    
-    $this->setDatabase('PGRSECURE');
-    $this->setSecondDB('ONTOLOGY');
-    $this->setCollection(':_units');
-    $this->setSubDocument(null);
-    $query= $this->createQuery(Tags::kTAG_GID, Types::kTYPE_BINARY_STRING, $gid, Operators::kOPERATOR_EQUAL);
-    $params= $this->createNewRequest('WS:OP:GetAnnotated', array($query));
+  {
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
+    $requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
+    $requestManager->setOperation('WS:OP:GetAnnotated');
+    $requestManager->setCollection(':_units');
+    $requestManager->setQuery(Tags::kTAG_GID, Types::kTYPE_BINARY_STRING, $gid, Operators::kOPERATOR_EQUAL);
     
-    return $this->sendRequest($this->wrapper, $params);
+    return $requestManager->sendRequest();
   }  
   
   /**
@@ -196,29 +136,19 @@ class TraitConnection extends HttpServerConnection
   {
     $firstElement= 0;
     
-    $request= array(
-                ':WS:OPERATION=WS:OP:GetAnnotated',
-                ':WS:FORMAT=:JSON',
-                ':WS:DATABASE='.urlencode(json_encode('PGRSECURE')),
-                ':WS:DATABASE-BIS='.urlencode(json_encode('ONTOLOGY')),
-                ':WS:CONTAINER='.urlencode(json_encode(':_units')),
-                ':WS:LOG-REQUEST='.urlencode(json_encode(1)),
-                ':WS:PAGE-LIMIT='. urlencode(json_encode(10))
-            );
-    
     if($page > 1 )
       $firstElement= (self::page_record*($page-1))+1;
+      
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
+    $requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
+    $requestManager->setOperation('WS:OP:GetAnnotated');
+    $requestManager->setCollection(':_units');
+    $requestManager->setPageStart($firstElement);
+    $requestManager->setCustomQuery($this->GenQuery($tags));
     
-    $request[]=':WS:PAGE-START='. urlencode(json_encode($firstElement)) ;
-    
-    //$request[]=':WS:QUERY='.urlencode(json_encode($this->createAND($tags)));
-    $request[]=':WS:QUERY='.urlencode(json_encode($this->GenQuery($tags)));
-    
-    //print_r($this->unformatQuery($tags, $page));
-    
-    return $this->sendRequest($this->wrapper, $request);
+    return $requestManager->sendRequest();
   }
-  
   
   function GenQuery( $theData )
   {
@@ -283,10 +213,10 @@ class TraitConnection extends HttpServerConnection
               $key= explode('.',key($scale));
               $keyValue= $key[count($key)-1];
               
-              $server= new ServerConnection();
+              $server= new Tags();
               $tag= $server->getTags(array((string) $keyValue));
               
-              $typeList= $tag[':WS:RESPONSE']['_tag'][$keyValue][Tags::kTAG_TYPE];
+              $typeList= $tag->getResponse()->getTag()[$keyValue][Tags::kTAG_TYPE];
               
               if(in_array(':INT',$typeList) ||
                in_array(':INT32',$typeList) ||
@@ -302,12 +232,61 @@ class TraitConnection extends HttpServerConnection
                 $type= Types::kTYPE_STRING;
               }
               
-              $ref_cur[]= $this->createNewQuery((string) key( $scale ), $type, current( $scale ), $operator);
+              $ref_cur[]= $this->createQuery((string) key( $scale ), $type, current( $scale ), $operator);
             }
           }
         }
       }
     }
+    
+    return $query;
+  }
+
+  /*
+   * Create the query array for the request
+   *
+   * @param string $subject
+   * @param string $type
+   * @param string $data
+   *
+   * @return array $query
+   */
+  public function createQuery($subject, $type=null, $data=null, $operator = '$EQ')
+  {
+    if(is_array($data) && $operator != Operators::kOPERATOR_IRANGE)
+      $operator= Operators::kOPERATOR_IN;
+      
+    if($subject == Tags::kTAG_LABEL){
+      $subject= $subject.'.'.key($data);
+      $data= $data[key($data)];
+      $operator= Operators::kOPERATOR_CONTAINS_NOCASE;
+    }
+    
+    if(
+      $subject == Tags::kTAG_KIND ||
+      $subject == Tags::kTAG_TYPE ||
+      $subject == Tags::kTAG_SYNONYMS ||
+      $subject == Tags::kTAG_CATEGORY
+      ){
+      $operator= Operators::kOPERATOR_IN;
+    }
+    
+    $query= Array(
+      '_query-subject'=>$subject,
+      '_query-operator'=>$operator
+    );
+    
+    if($type){
+      if($subject == Tags::kTAG_TAGS )
+        $type= Types::kTYPE_INT;
+        
+      $query['_query-data-type']= $type;
+    }
+    
+    if($data !== null)
+      $query['_query-data']= $data;
+    
+    
     
     return $query;
   }
@@ -320,8 +299,6 @@ class TraitConnection extends HttpServerConnection
     }
     
     $keys= $this->getTagKey($list);
-    
-    //$and['$AND'][]= $this->createNewQuery(Tags::kTAG_TAGS, Types::kTYPE_INT, $keys, Operators::kOPERATOR_IN);
     
     return $and;
   }

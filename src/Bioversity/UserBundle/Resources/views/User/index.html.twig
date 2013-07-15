@@ -24,7 +24,7 @@
         <div class="clear"></div>
         
         <blockquote>
-            <table class="table table-striped">
+            <table id="user_list" class="table table-striped">
                 <thead>
                   <tr>
                     <th>Full name</th>
@@ -39,23 +39,24 @@
                     {% set user_code= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_USER_CODE') %}
                     {% set user_mail= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_USER_MAIL') %}
                     {% set user_role= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_USER_ROLE') %}
+                    {% set user_id  = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_NID') %}
                     {% for user in user_list %}
-                        <tr>
-                          <td>{{ user[user_name] }}</td>
-                          <td>{{ user[user_code] }}</td>
-                          <td>{{ user[user_mail] }}</td>
-                          <td>
+                        <tr class="user_row">
+                          <td class="user_attribute">{{ user[user_name] }}</td>
+                          <td class="user_attribute">{{ user[user_code] }}</td>
+                          <td class="user_attribute">{{ user[user_mail] }}</td>
+                          <td class="user_attribute">
                             {% for role in user[user_role] %}
                                 {{ role }}
                                 <br/>
                             {% endfor %}
                           </td>
-                          <td>
+                          <td class="user_attribute">
                             <a href="{{ path('bioversity_user_edit', {'code':user[user_code]}) }}" class="btn btn-primary pull-left" type="button">Edit</a>
                             <div class="btn-group pull-left">
                                 <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle">Delete <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                  <li><a href="{{ path('bioversity_user_delete', {'code':user[user_code]}) }}">Are you sure?</a></li>
+                                  <li><a href="{{ path('bioversity_user_delete', {'code':user[user_id]}) }}">Are you sure?</a></li>
                                 </ul>
                             </div>
                           </td>
