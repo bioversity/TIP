@@ -20,12 +20,13 @@ class ServerResponseResponseRepositoryTest extends WebTestCase
     
     public function testClassHierarchy()
     {   
-        $ids  = $this->serverResponseClass->getResponse()->getIds();
-        $tag  = $this->serverResponseClass->getResponse()->getTag();
-        $term = $this->serverResponseClass->getResponse()->getTerm();
-        $unit = $this->serverResponseClass->getResponse()->getUnit();
-        $edge = $this->serverResponseClass->getResponse()->getEdge();
-        $node = $this->serverResponseClass->getResponse()->getNode();
+        $ids      = $this->serverResponseClass->getResponse()->getIds();
+        $tag      = $this->serverResponseClass->getResponse()->getTag();
+        $term     = $this->serverResponseClass->getResponse()->getTerm();
+        $unit     = $this->serverResponseClass->getResponse()->getUnit();
+        $edge     = $this->serverResponseClass->getResponse()->getEdge();
+        $node     = $this->serverResponseClass->getResponse()->getNode();
+        $distinct = $this->serverResponseClass->getResponse()->getDistinct();
         
         $this->assertTrue($ids    == array(1,271));
         $this->assertTrue(array_key_exists('19', $tag));
@@ -48,5 +49,7 @@ class ServerResponseResponseRepositoryTest extends WebTestCase
                                             '9'=>array(':KIND-ROOT'),
                                             '21'=>array('en'=>'This represents the default ontology')
                                           ));
+        $this->assertTrue(count($distinct) == 1);
+        $this->assertTrue(count($distinct->getTagsValues($distinct->getTags()[0])) == 5);
     }
 }

@@ -68,6 +68,15 @@ class MokResponse
                 )
             ),
             '_edge'=>array(),
+            '_distinct'=>array(
+                '218' => array(
+                    'MCPD:SAMPSTAT:100' => 418,
+                    'MCPD:SAMPSTAT:999' => 12827,
+                    'MCPD:SAMPSTAT:500' => 12057,
+                    'MCPD:SAMPSTAT:400' => 15752,
+                    'MCPD:SAMPSTAT:300' => 58942,
+                )
+            ),
             '_tag'=>array(
                 '19'=>array(
                     '35'=>array(':LABEL'),

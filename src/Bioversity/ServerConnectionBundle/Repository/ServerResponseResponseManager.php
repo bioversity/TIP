@@ -2,6 +2,8 @@
 
 namespace Bioversity\ServerConnectionBundle\Repository;
 
+use Bioversity\ServerConnectionBundle\Repository\ServerResponseResponseDistinctManager;
+
 class ServerResponseResponseManager
 {
     protected $ids;
@@ -10,6 +12,7 @@ class ServerResponseResponseManager
     protected $node;
     protected $edge;
     protected $unit;
+    protected $distinct;
     protected $allResponse;
     
     public function __construct($response)
@@ -22,6 +25,7 @@ class ServerResponseResponseManager
             array_key_exists('_node', $response)? $this->setNode($response['_node']):null;
             array_key_exists('_edge', $response)? $this->setEdge($response['_edge']):null;
             array_key_exists('_unit', $response)? $this->setUnit($response['_unit']):null;
+            array_key_exists('_distinct', $response)? $this->setDistinct($response['_distinct']):null;
         }
     }
     
@@ -70,6 +74,11 @@ class ServerResponseResponseManager
         return $this->unit;
     }
     
+    public function getDistinct()
+    {
+        return new ServerResponseResponseDistinctManager($this->distinct);
+    }
+    
     public function setAllResponse($response)
     {
         $this->allResponse= $response;
@@ -103,6 +112,11 @@ class ServerResponseResponseManager
     public function setNode($node)
     {
         $this->node=$node;
+    }
+    
+    public function setDistinct($distinct)
+    {
+        $this->distinct=$distinct;
     }
     
 }
