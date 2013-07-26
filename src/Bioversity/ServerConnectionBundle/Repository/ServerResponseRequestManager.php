@@ -14,6 +14,7 @@ class ServerResponseRequestManager
     protected $pageLimit;
     protected $query;
     protected $select;
+    protected $pagestart;
     
     
     public function __construct($serverResponseRequest)
@@ -24,7 +25,13 @@ class ServerResponseRequestManager
         $this->container = $serverResponseRequest[':WS:CONTAINER'];
         $this->pageLimit = $serverResponseRequest[':WS:PAGE-LIMIT'];
         $this->query     = $serverResponseRequest[':WS:QUERY'];
-        $this->select    = $serverResponseRequest[':WS:SELECT'];
+        $this->pagestart = array_key_exists(':WS:PAGE-START',$serverResponseRequest)? $serverResponseRequest[':WS:PAGE-START']: null;
+        $this->select    = array_key_exists(':WS:SELECT',$serverResponseRequest)? $serverResponseRequest[':WS:SELECT']: null;
+    }
+    
+    public function getPageStart()
+    {
+        return $this->pagestart;
     }
     
     public function getFormat()

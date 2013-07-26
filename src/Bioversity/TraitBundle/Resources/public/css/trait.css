@@ -57,3 +57,12 @@
 #embedded_content{
     
 }
+
+.distinct_key{
+    float: left;
+    margin-left: 15px;
+}
+
+.distinct_value{
+    float: right;
+}

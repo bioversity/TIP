@@ -128,9 +128,7 @@ class TraitConnection
   /**
    * Returns the DATA list requested
    * @param string $tags
-   * @param string $location
    * @param int $page
-   * @param string $species
    *  
    * @return array $serverResponce
    */
@@ -150,6 +148,99 @@ class TraitConnection
     $requestManager->setCustomQuery($this->GenQuery($tags));
     
     return $requestManager->sendRequest();
+  }
+  
+  /**
+   * Returns the DATA list requested
+   * @param string $tags
+   * @param int $page
+   *  
+   * @return array $serverResponce
+   */
+  public function sendUrl($url)
+  {
+    $requestManager= new ServerRequestManager();
+    
+    return $requestManager->sendUrl($url);
+  }
+  
+  /**
+   * Returns the DATA summary requested
+   * @param string $tags
+   *  
+   * @return array $serverResponce
+   */
+  public function getUnitSummary($tags)
+  {
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
+    $requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
+    $requestManager->setOperation('WS:OP:GetAnnotated');
+    $requestManager->setCollection(':_units');
+    $requestManager->setCustomQuery($this->GenQuery($tags));
+    
+    $requestManager->setDistinct(array(Tags::kTAG_DOMAIN));
+    
+    return $requestManager->sendRequest();
+  }
+  
+  /**
+   * Returns the DATA url requested filtered by domain
+   * @param string $tags
+   * @param string $domain
+   *  
+   * @return array $serverResponce
+   */
+  public function getUnitsFilterByDomain($tags, $domain)
+  {
+    //Hack to add domain in query fields
+    $tags['DOMAIN']= array(Tags::kTAG_DOMAIN => $domain);
+    
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
+    $requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
+    $requestManager->setOperation('WS:OP:GetAnnotated');
+    $requestManager->setCollection(':_units');
+    $requestManager->setCustomQuery($this->GenQuery($tags));
+    $requestManager->setPageLimit(self::page_record);
+    
+    return $requestManager->getRequestUrl();
+  }
+  
+  public function getNextPage(ServerResponseManager $query)
+  {
+    $startpage= $query->getRequest()->getPageStart()+1;    
+    
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
+    $requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
+    $requestManager->setOperation('WS:OP:GetAnnotated');
+    $requestManager->setCollection(':_units');
+    $requestManager->setCustomQuery($query->getServerResponse()[':WS:REQUEST'][':WS:QUERY']);
+    $requestManager->setPageLimit(10);
+    $requestManager->setPageStart($startpage);
+    
+    return $requestManager->getRequestUrl();
+  }
+  
+  public function getPrevPage(ServerResponseManager $query)
+  {
+    if($query->getRequest()->getPageStart()){
+      $startpage= $query->getRequest()->getPageStart()-1;
+      
+      $requestManager= new ServerRequestManager();
+      $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
+      $requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
+      $requestManager->setOperation('WS:OP:GetAnnotated');
+      $requestManager->setCollection(':_units');
+      $requestManager->setCustomQuery($query->getServerResponse()[':WS:REQUEST'][':WS:QUERY']);
+      $requestManager->setPageLimit(10);
+      $requestManager->setPageStart($startpage);
+      
+      return $requestManager->getRequestUrl();
+    }
+    
+    return null;
   }
   
   function GenQuery( $theData )
@@ -183,10 +274,12 @@ class TraitConnection
           $ref_scale[ '$AND' ] = Array();
           $ref_scale = & $ref_scale[ '$AND' ];
           
-          $ref_scale[] = array( '_query-subject' => '40',
-                                '_query-operator' => '$EQ',
-                                '_query-data-type' => ':INT',
-                                '_query-data' => (int) $tag );
+          if($tag != Tags::kTAG_DOMAIN){
+            $ref_scale[] = array( '_query-subject' => '40',
+                                  '_query-operator' => '$EQ',
+                                  '_query-data-type' => ':INT',
+                                  '_query-data' => (int) $tag );
+          }
           
           $created = FALSE;
           foreach( $scales as $scale )

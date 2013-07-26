@@ -53,10 +53,33 @@ function bindTrialButton()
     });    
 }
 
-function setPage(page)
+function setPage(url)
 {
-    $('#form_fields_page').val(page);
-    $('#form_fields').submit();
+    sendLink(url);
+    //$('#form_fields_page').val(page);
+    //$('#form_fields').submit();
+}
+
+//function setPage(page)
+//{
+//    $('#form_fields_page').val(page);
+//    $('#form_fields').submit();
+//}
+
+function sendLink(link)
+{
+    if (link != '') {
+        $('#units_list').html('');
+        $.ajax({
+            type:       "POST",
+            url:        dev_stage+'/trait/json/find/trait',
+            dataType:   "html",
+            data:       {'url':link},
+            success: function( data ) {
+                $('#units_list').append(data);
+            }
+        });     
+    }
 }
 
 function bindButtons()
@@ -70,24 +93,55 @@ function bindButtons()
     $('#form_fields').submit(function(event){
         event.preventDefault();
         
+        $('#summary').html('');
         $('#units_list').html('');
         $('#form_fields_search').addClass('working');
         disableButton('form_fields_search');
         $.ajax({
             type:       "POST",
-            url:        dev_stage+'/trait/json/find/trait',
+            url:        dev_stage+'/trait/json/find/summary/trait',
             dataType:   "html",
             data:       $(this).serializeArray(),
             success: function( data ) {
                 $('#form_fields_search').removeClass('working');
                 enableButton('form_fields_search');
-                $('#units_list').append(data);
+                $('#summary').append(data);
             }
         }).fail(function(){
             $('#form_fields_search').removeClass('working');
             enableButton('form_fields_search');
         });
     });
+    
+    
+    $(document).on("click", "#summary a", function(event){
+        event.preventDefault();
+        
+        sendLink($(this).attr('href'));
+    });
+    
+    
+    //$('#form_fields').submit(function(event){
+    //    event.preventDefault();
+    //    
+    //    $('#units_list').html('');
+    //    $('#form_fields_search').addClass('working');
+    //    disableButton('form_fields_search');
+    //    $.ajax({
+    //        type:       "POST",
+    //        url:        dev_stage+'/trait/json/find/trait',
+    //        dataType:   "html",
+    //        data:       $(this).serializeArray(),
+    //        success: function( data ) {
+    //            $('#form_fields_search').removeClass('working');
+    //            enableButton('form_fields_search');
+    //            $('#units_list').append(data);
+    //        }
+    //    }).fail(function(){
+    //        $('#form_fields_search').removeClass('working');
+    //        enableButton('form_fields_search');
+    //    });
+    //});
     
     
     $(document).on("click", "#units_list button", function(){        

@@ -15,6 +15,10 @@ bioversity_trait_json_trait_fields:
     pattern:  /trait/json/get/tag/fields
     defaults: { _controller: BioversityTraitBundle:Trait:jsonGetTagFields }
     
+bioversity_trait_json_find_summary_traits:
+    pattern:  /trait/json/find/summary/trait
+    defaults: { _controller: BioversityTraitBundle:Trait:jsonFindSummaryTraits }
+    
 bioversity_trait_json_find_traits:
     pattern:  /trait/json/find/trait
     defaults: { _controller: BioversityTraitBundle:Trait:jsonFindTraits }

@@ -59,9 +59,8 @@ class TraitController extends Controller
             ));
     }
     
-    public function jsonFindTraitsAction(Request $request)
+    public function jsonFindSummaryTraitsAction(Request $request)
     {
-        //$request = $this->getRequest();
         $session = $request->getSession();
         
         $server= new TraitConnection();
@@ -96,10 +95,69 @@ class TraitController extends Controller
             }
         }
         
-        //print_r($formData);
-        //return new Response(json_encode($postValue));
-        $unitsList= $server->getUnits($formData, $postValue->get('page'));
-                
+        $summaryList= $server->getUnitSummary($formData);
+        
+        $units= array();
+        $tags= array();
+        $terms= array();
+        $distincts= array();
+        $links= array();
+        $pagecount= 0;
+        $totalunit= 0;
+        
+        if($summaryList->getStatus()->getAffectedCount() > 0){
+            $pagecount= ceil($summaryList->getStatus()->getAffectedCount()/$summaryList->getPaging()->getPageLimit());
+            $totalunit= $summaryList->getStatus()->getAffectedCount();
+            
+            if($summaryList->getResponse()){
+                $data      = $summaryList->getResponse();
+                $units     = $data->getUnit();
+                $tags      = $data->getTag();
+                $terms     = $data->getTerm();
+                $distincts = $data->getDistinct();
+                foreach($distincts as $key=>$value){
+                    foreach($value as $k=>$v)
+                        $links[$k]= $server->getUnitsFilterByDomain($formData, $k);
+                }                
+            }else{
+                $session->getFlashBag()->set('error', NotificationManager::getNotice('not_found') );
+            }
+        }
+        
+        if (
+            $this->get('security.context')->isGranted('ROLE_ADMIN') &&
+            ($this->get('kernel')->getEnvironment() != 'test') //hack to blok request print in test
+        ){
+            print_r('<pre style="height:200px;overflow: auto;">');
+            print_r($summaryList);
+            print_r('</pre>');
+        }
+        
+        return $this->render(
+            'BioversityTraitBundle:Trait:summary.html.twig',
+            array(
+                'units'         => $units,
+                'tags'          => $tags,
+                'terms'         => $terms,
+                'distincts'     => $distincts,
+                'links'         => $links,
+                'pagecount'     => $pagecount,
+                'actualpage'    => $postValue->get('page'),
+                'totalunit'     => $totalunit,
+                'errors'        => $session->getFlashBag()->get('error')
+            ));
+    }
+    
+    public function jsonFindTraitsAction(Request $request)
+    {
+        $session = $request->getSession();
+        
+        $server= new TraitConnection();
+        
+        $postValue= $request->get('url');
+        
+        $unitsList= $server->sendUrl($postValue);
+        
         if (
             $this->get('security.context')->isGranted('ROLE_ADMIN') &&
             ($this->get('kernel')->getEnvironment() != 'test') //hack to blok request print in test
@@ -129,8 +187,10 @@ class TraitController extends Controller
             }
         }
         
-        //TODO. use this to check the request type
-        //print_r($request->isXmlHttpRequest());
+        $nextpage= $server->getNextPage($unitsList);
+        $prevpage= $server->getPrevPage($unitsList);
+        $actualpage= ceil($unitsList->getRequest()->getPageStart()/10);
+        
         return $this->render(
             'BioversityTraitBundle:Trait:unit_list.html.twig',
             array(
@@ -138,8 +198,10 @@ class TraitController extends Controller
                 'tags'          => $tags,
                 'terms'         => $terms,
                 'pagecount'     => $pagecount,
-                'actualpage'    => $postValue->get('page'),
                 'totalunit'     => $totalunit,
+                'actualpage'    => $actualpage,
+                'nextpage'      => $nextpage,
+                'prevpage'      => $prevpage,
                 'errors'        => $session->getFlashBag()->get('error')
             ));
     }

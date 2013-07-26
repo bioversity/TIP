@@ -96,6 +96,16 @@ class ServerRequestManager
         return new ServerResponseManager(json_decode(file_get_contents( $this->wrapper.'?'.implode( '&', $this->getRequest() ) ), true));
     }
     
+    public function sendUrl($url)
+    {
+        return new ServerResponseManager(json_decode(file_get_contents($url), true));
+    }
+    
+    public function getRequestUrl()
+    {
+        return $this->wrapper.'?'.implode( '&', $this->getRequest() );
+    }
+    
     public function getRequest()
     {
         $request= array(

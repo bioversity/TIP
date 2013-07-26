@@ -13,6 +13,7 @@ class TraitConnectionRepositoryTest extends WebTestCase
     private $structKey= 130;
     private $unit= ':DOMAIN-ACCESSION://USA016/1347800;';
     private $units= Array ( 'GENESYSTRAIT802' => Array( '130.928' => Array(), '928' => Array() ) ) ;
+    private $unitsummary= Array ( 'GRGENUS' => Array( '88' => 'Oryza' ) ) ;
     private $page=1;
     private $nid= Array('type' => ':BINARY','data' => 'bd6b9490572349d3c16fbb04776389fb');
     
@@ -89,113 +90,33 @@ class TraitConnectionRepositoryTest extends WebTestCase
         $response= $this->repo->getUnits($this->units);
         
         $this->assertTrue($response->getStatus()->getAffectedCount() == 2881 );
-        $this->assertTrue($response->getResponse()->getIds() == array(
-                                                                    ':DOMAIN-ACCESSION://USA016/1552134;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1155828;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1394238;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1421734;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1460132;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1445616;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458564;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1041491;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1422165;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458236;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1370248;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1427814;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1455444;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1421692;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458367;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1551547;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1554194;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1445790;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1370255;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1554228;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1551583;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1153934;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1552190;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1427812;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458680;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1230499;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1550265;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458224;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1437663;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1462919;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1125504;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458061;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1428700;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458530;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1370152;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1308355;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1422087;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1455395;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1554237;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1230278;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1228832;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1421684;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458604;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1007542;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1483811;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1227526;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1217030;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1442903;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1389937;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1428767;',));
-        $this->assertTrue(count(array_keys($response->getResponse()->getTerm())) == 80);
+        $this->assertTrue(count($response->getResponse()->getIds()) == 50);
+        $this->assertTrue(count(array_keys($response->getResponse()->getTerm())) == 82);
         $this->assertTrue($response->getResponse()->getNode() == array());
         $this->assertTrue($response->getResponse()->getEdge() == array());
         $this->assertTrue(count($response->getResponse()->getTag()) == 52);
         $this->assertTrue(count($response->getResponse()->getUnit()) == 50);
-        $this->assertTrue(array_keys($response->getResponse()->getUnit()) == array(
-                                                                    ':DOMAIN-ACCESSION://USA016/1552134;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1155828;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1394238;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1421734;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1460132;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1445616;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458564;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1041491;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1422165;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458236;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1370248;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1427814;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1455444;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1421692;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458367;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1551547;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1554194;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1445790;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1370255;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1554228;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1551583;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1153934;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1552190;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1427812;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458680;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1230499;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1550265;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458224;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1437663;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1462919;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1125504;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458061;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1428700;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458530;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1370152;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1308355;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1422087;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1455395;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1554237;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1230278;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1228832;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1421684;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1458604;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1007542;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1483811;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1227526;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1217030;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1442903;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1389937;',
-                                                                    ':DOMAIN-ACCESSION://USA016/1428767;',
-                                                                        ));
+    }
+    
+    public function testGetUnitSummary()
+    {        
+        $response= $this->repo->getUnitSummary($this->unitsummary);
+        
+        $this->assertTrue($response->getStatus()->getAffectedCount() == 1 );
+        $this->assertTrue(count($response->getResponse()->getIds()) == 1);
+        $this->assertTrue(count(array_keys($response->getResponse()->getTerm())) == 13);
+        $this->assertTrue($response->getResponse()->getNode() == array());
+        $this->assertTrue($response->getResponse()->getEdge() == array());
+        $this->assertTrue(count($response->getResponse()->getTag()) == 12);
+        $this->assertTrue($response->getResponse()->getUnit() == array());
+        $this->assertTrue(get_class($response->getResponse()->getDistinct()) == 'Bioversity\ServerConnectionBundle\Repository\ServerResponseResponseDistinctManager');
+        $this->assertTrue($response->getResponse()->getDistinct()->getTags() == array(6));
+    }
+    
+    public function testGetUnitsFilterByDomain()
+    {        
+        $response= $this->repo->getUnitsFilterByDomain($this->unitsummary, ':DOMAIN-ACCESSION');
+        
+        $this->assertTrue($response == 'http://temp.wrapper.grinfo.net/TIP/Wrapper.test.php?:WS:OPERATION=WS:OP:GetAnnotated&:WS:FORMAT=:JSON&:WS:DATABASE=%22TEST-PGRSECURE%22&:WS:DATABASE-BIS=%22TEST-ONTOLOGY%22&:WS:CONTAINER=%22%3A_units%22&:WS:QUERY=%7B%22%24AND%22%3A%5B%7B%22%24OR%22%3A%5B%7B%22%24AND%22%3A%5B%7B%22_query-subject%22%3A%2240%22%2C%22_query-operator%22%3A%22%24EQ%22%2C%22_query-data-type%22%3A%22%3AINT%22%2C%22_query-data%22%3A88%7D%2C%7B%22%24OR%22%3A%5B%7B%22_query-subject%22%3A%2288%22%2C%22_query-operator%22%3A%22%24PX%22%2C%22_query-data-type%22%3A%22%3ASTRING%22%2C%22_query-data%22%3A%22Oryza%22%7D%5D%7D%5D%7D%5D%7D%2C%7B%22%24OR%22%3A%5B%7B%22%24AND%22%3A%5B%7B%22%24OR%22%3A%5B%7B%22_query-subject%22%3A%226%22%2C%22_query-operator%22%3A%22%24EQ%22%2C%22_query-data-type%22%3A%22%3ASTRING%22%2C%22_query-data%22%3A%22%3ADOMAIN-ACCESSION%22%7D%5D%7D%5D%7D%5D%7D%5D%7D&:WS:LOG-REQUEST=1&:WS:PAGE-START=0' );
     }
 }

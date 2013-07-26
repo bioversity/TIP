@@ -8,11 +8,11 @@ use Bioversity\ServerConnectionBundle\Repository\AutocompleteMethod;
 class AutocompleteMethodRepositoryTest extends WebTestCase
 {
     private $repo;
-    private $lid= 'GROWTH';
+    private $lid= 'OBJECT';
     private $label_for_trait= 'Rice tungro virus';
     private $trait= 'Flower ground color';
     private $gid= 'MCPD:INSTCODE';
-    private $namespace= 'GR';
+    private $namespace= ':ONTOLOGY';
     private $label= 'Plant width in centimeters';
     
     protected function setUp()
@@ -23,7 +23,10 @@ class AutocompleteMethodRepositoryTest extends WebTestCase
     public function testFindLID()
     {
         $response= $this->repo->findLID($this->lid, $this->namespace);
-        $this->assertTrue($response == array (array ('GID' => "GR:GROWTH",'LID' =>"GROWTH",'LABEL' =>"Growth (GR:GROWTH)")) );
+        $this->assertTrue($response == array (array (
+            'GID' => ":ONTOLOGY:OBJECT",
+            'LID' =>"OBJECT",
+            'LABEL' =>"Object (:ONTOLOGY:OBJECT)")) );
     }
     
     public function testFindLABEL()
@@ -35,7 +38,10 @@ class AutocompleteMethodRepositoryTest extends WebTestCase
     public function testFindNAMESPACE()
     {
         $response= $this->repo->findNAMESPACE($this->namespace);
-        $this->assertTrue(in_array(array ('GID' => "GR",'LID' =>"GR",'LABEL' =>"Genetic Resources Information (GR)"), $response) );
+        $this->assertTrue(in_array(array (
+            'GID' => ":ONTOLOGY:ENUM:DOMAIN",
+            'LID' =>"DOMAIN",
+            'LABEL' =>"Domain (:ONTOLOGY:ENUM:DOMAIN)"), $response) );
     }
     
     public function testFindGID()

@@ -1,0 +1,41 @@
+{% if distincts|length > 0 %}
+    {% set path     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_PATH') %}
+    {% set label    = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LABEL') %}
+    {% set type     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_TYPE') %}
+    {% set kind     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_KIND') %}
+    {% set domain   = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_DOMAIN') %}
+    {% set auth     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_AUTHORITY') %}
+    {% set lid      = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LID') %}
+    {% set namespace= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_NAMESPACE') %}
+    {% set version  = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_VERSION') %}
+    <table class="table table-striped">
+        {% for distinct in distincts %}
+            {% for key,value in distinct %}
+                <tr>
+                    <td>
+                        <span class="distinct_key">
+                        {% if terms[key][kind][0] == ':KIND-ENUMERATION' %}
+                            {% if terms[key][label]['en'] is defined %}
+                                {{ terms[key][label]['en'] }}
+                            {% else %}
+                                no-data-found ( {{ key }} - {{ value }} )
+                            {% endif%}
+                        {% else %}
+                            {{ key }}
+                        {% endif %}
+                        </span>
+                        <span class="distinct_value">
+                            <a href="{{ links[key] }}">{{ value }}</a>
+                        </span>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </table>
+      
+{% else %}
+    <div class="alert alert-block">
+        <h4>Warning!</h4>
+        No elements founds. Looks with other keys
+    </div>
+{% endif %}

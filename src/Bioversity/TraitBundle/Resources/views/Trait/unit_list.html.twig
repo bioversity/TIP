@@ -14,7 +14,7 @@
             </td>
         </tr>
         <tr>
-            <th>DOMAIN</th>
+            <!--<th>DOMAIN</th>-->
             <th>AUTHORITY</th>
             <th>LOCAL IDENTIFIER</th>
             <th>NAMESPACE</th>
@@ -23,11 +23,13 @@
         </tr>
         {% for data in units %}
             <tr>
+                <!--
                 <td>
-                    {% if terms[data[domain]][label]['en'] is defined %}
+                    {#{% if terms[data[domain]][label]['en'] is defined %}
                         {{ terms[data[domain]][label]['en'] }}
-                    {% endif %}
+                    {% endif %}#}
                 </td>
+                -->
                 <td>
                     {% if data[auth] is defined %}
                         {{ data[auth] }}
@@ -78,10 +80,10 @@
                 <strong>Page</strong> {{ actualpage }} <strong>of</strong> {{ pagecount }}
             </td>
             <td colspan="2" style="text-align: right;">
-                {% if actualpage > 1 %} <a href="#" onclick="javascript: setPage({{ actualpage - 1 }})" class="btn">Previous</a> {% endif %}
-                <input type="text" class="btn" id="pagenumber" name="pagenumber" style="margin-bottom: 0px !important;" value="{{ actualpage }}" />
-                {% if actualpage < pagecount %} <a href="#" onclick="javascript: setPage({{ actualpage +1 }})" class="btn">Next</a> {% endif %}
-                <input type="button" class="btn" value="go to page" onclick="javascript: setPage($('#pagenumber').val())" />
+                {% if actualpage > 1 %} <a href="#" onclick="javascript: setPage('{{ prevpage }}')" class="btn">Previous</a> {% endif %}
+                {{ actualpage }}
+                {% if actualpage < pagecount %} <a href="#" onclick="javascript: setPage('{{ nextpage }}')" class="btn">Next</a> {% endif %}
+                <!--<input type="button" class="btn" value="go to page" onclick="javascript: setPage($('#pagenumber').val())" />-->
             </td>
         {% endif %}
         </tr>
