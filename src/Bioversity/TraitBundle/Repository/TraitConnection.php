@@ -209,7 +209,8 @@ class TraitConnection
   
   public function getNextPage(ServerResponseManager $query)
   {
-    $startpage= $query->getRequest()->getPageStart()+1;    
+    $requiredpage= $query->getRequest()->getPageStart();
+    $startpage= ($requiredpage == 0)? 2: (($requiredpage-1)/self::page_record)+2;
     
     $requestManager= new ServerRequestManager();
     $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
@@ -225,8 +226,10 @@ class TraitConnection
   
   public function getPrevPage(ServerResponseManager $query)
   {
-    if($query->getRequest()->getPageStart()){
-      $startpage= $query->getRequest()->getPageStart()-1;
+    $requiredpage= $query->getRequest()->getPageStart();
+    
+    if($requiredpage){
+      $startpage= ($requiredpage-1)/self::page_record;
       
       $requestManager= new ServerRequestManager();
       $requestManager->setDatabase($requestManager->getDatabasePGRSecure());

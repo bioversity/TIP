@@ -76,13 +76,16 @@
                 {% set actualpage = 1 %}
             {% endif %}
             
-            <td colspan="4">
+            <td colspan="5" style="text-align: right;">
+                {% if actualpage > 1 %}
+                    <a href="#" id="prev_page" class="btn">Previous</a>
+                {% endif %}
                 <strong>Page</strong> {{ actualpage }} <strong>of</strong> {{ pagecount }}
-            </td>
-            <td colspan="2" style="text-align: right;">
-                {% if actualpage > 1 %} <a href="#" onclick="javascript: setPage('{{ prevpage }}')" class="btn">Previous</a> {% endif %}
-                {{ actualpage }}
-                {% if actualpage < pagecount %} <a href="#" onclick="javascript: setPage('{{ nextpage }}')" class="btn">Next</a> {% endif %}
+                {% if actualpage < pagecount %}
+                    <a href="#" id="next_page" class="btn">Next</a>
+                {% endif %}
+                <input type="hidden" id="next_page_value" value="{{ nextpage }}" />
+                <input type="hidden" id="prev_page_value" value="{{ prevpage }}" />
                 <!--<input type="button" class="btn" value="go to page" onclick="javascript: setPage($('#pagenumber').val())" />-->
             </td>
         {% endif %}

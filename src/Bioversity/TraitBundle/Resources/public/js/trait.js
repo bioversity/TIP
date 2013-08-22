@@ -120,6 +120,18 @@ function bindButtons()
         sendLink($(this).attr('href'));
     });
     
+    $(document).on("click", "#prev_page", function(event){
+        event.preventDefault();
+        
+        sendLink($('#prev_page_value').val());
+    });
+    
+    $(document).on("click", "#next_page", function(event){
+        event.preventDefault();
+        
+        sendLink($('#next_page_value').val());
+    });
+    
     
     //$('#form_fields').submit(function(event){
     //    event.preventDefault();

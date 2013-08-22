@@ -158,14 +158,14 @@ class TraitController extends Controller
         
         $unitsList= $server->sendUrl($postValue);
         
-        if (
-            $this->get('security.context')->isGranted('ROLE_ADMIN') &&
-            ($this->get('kernel')->getEnvironment() != 'test') //hack to blok request print in test
-        ){
-            print_r('<pre style="height:200px;overflow: auto;">');
-            print_r($unitsList);
-            print_r('</pre>');
-        }
+        //if (
+        //    $this->get('security.context')->isGranted('ROLE_ADMIN') &&
+        //    ($this->get('kernel')->getEnvironment() != 'test') //hack to blok request print in test
+        //){
+        //    print_r('<pre style="height:200px;overflow: auto;">');
+        //    print_r($unitsList);
+        //    print_r('</pre>');
+        //}
         
         $units= array();
         $tags= array();
