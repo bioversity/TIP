@@ -5,6 +5,9 @@ namespace Bioversity\ServerConnectionBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Bioversity\ServerConnectionBundle\Repository\Tags;
+use Bioversity\ServerConnectionBundle\Repository\Terms;
+use Bioversity\ServerConnectionBundle\Repository\Nodes;
 use Bioversity\ServerConnectionBundle\Repository\AutocompleteMethod;
 use Bioversity\ServerConnectionBundle\Repository\ServerConnection;
 
@@ -54,8 +57,9 @@ class ServerConnectionController extends Controller
     
     public function jsonGetTermAction($lid, $namespace=null)
     {
-        $server= new ServerConnection();
-        return  new Response(json_encode($server->getTerm($lid,$namespace)));
+        $server= new Terms();
+        $response= $server->getTerm($lid,$namespace);
+        return new Response(json_encode($response->getResponse()->getAllResponse()));
     }
     
 }

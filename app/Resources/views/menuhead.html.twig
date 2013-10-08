@@ -46,7 +46,7 @@
 {% set currentPath = app.request.attributes.get('_route') %}
 <div id="menu">
   <ul class="navigationFirstLevel menu_level">
-    <li><i class="icon-bookmark icon-white"></i></li>
+    <li><i class="icon-bookmark icon-white"></i>Main Menu</li>
     <li class="root_page navigationLink"><a href="{{ path('bioversity_site_structure_homepage') }}">Home</a></li>
     <li class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_about') }}">About</a></li>
     <li class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_contact') }}">Contact</a></li>
@@ -54,13 +54,24 @@
     <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_conservaton_strategies') }}">Conservation Strategies</a></li>
     <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_inventories') }}">National Inventories</a></li>
     <li class="trait_page navigationLink"><a href="{{ path('bioversity_trait_browse_trait') }}">Trait</a></li>
+  </ul>
+
+  <div class="clear"></div>
+  
+  <ul id="under_construction" class="navigationFirstLevel menu_level">
+    <li><i class="icon-wrench icon-white"></i>Under Development</li>
     <li class="research_page navigationLink"><a href="{{ path('bioversity_slider_browse_slider') }}">Ontology</a></li>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if is_granted('ROLE_ONTOLOGY') %}
+            <li><a href="{{ path('bioversity_ontology_browse_slider') }}">Manage Ontology</a></li>
+        {% endif %}
+    {% endif %}
   </ul>
   
   <div class="clear"></div>
   
   <ul class="menu_level">
-    <li><i class="icon-user icon-white"></i></li>
+    <li><i class="icon-user icon-white"></i>Logged Menu</li>
     <li><a href="{{ path('bioversity_site_structure_online_chat') }}">Who is online (chat)</a></li>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         {% if is_granted('ROLE_ADMIN') %}
@@ -76,7 +87,7 @@
         <li><a href="{{ path('b_s_login_path') }}">Login</a></li>
     {% endif %}
   </ul>
-
+  
   <div class="clear"></div>
   
   <div id="menu_opener" class="closed">

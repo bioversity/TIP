@@ -85,7 +85,7 @@ function initSlider()
 {
   //console.log('initSlider');
   getRootNodeList();
-  createSearchPoint();
+  createSearchPoint(); //defined in search.js
   hideSlider();
 }
 

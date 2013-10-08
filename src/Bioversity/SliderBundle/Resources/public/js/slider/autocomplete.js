@@ -148,7 +148,7 @@ function getTermDetail(term, gid)
         url: dev_stage+"/serverconnection/json/get/term/"+getUrlParams(gid),
         dataType: "json",
         success: function( data ) {
-            var response= data[':WS:RESPONSE'];
+            var response= data;
             if(response !== undefined){
                 unvalorizeAllField();
                 var entity= response['_term'][gid];

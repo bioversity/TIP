@@ -104,7 +104,7 @@ class TraitConnectionRepositoryTest extends WebTestCase
         
         $this->assertTrue($response->getStatus()->getAffectedCount() == 1 );
         $this->assertTrue(count($response->getResponse()->getIds()) == 1);
-        $this->assertTrue(count(array_keys($response->getResponse()->getTerm())) == 13);
+        $this->assertTrue(count(array_keys($response->getResponse()->getTerm())) == 15);
         $this->assertTrue($response->getResponse()->getNode() == array());
         $this->assertTrue($response->getResponse()->getEdge() == array());
         $this->assertTrue(count($response->getResponse()->getTag()) == 12);
@@ -117,6 +117,6 @@ class TraitConnectionRepositoryTest extends WebTestCase
     {        
         $response= $this->repo->getUnitsFilterByDomain($this->unitsummary, ':DOMAIN-ACCESSION');
         
-        $this->assertTrue($response == 'http://temp.wrapper.grinfo.net/TIP/Wrapper.test.php?:WS:OPERATION=WS:OP:GetAnnotated&:WS:FORMAT=:JSON&:WS:DATABASE=%22TEST-PGRSECURE%22&:WS:DATABASE-BIS=%22TEST-ONTOLOGY%22&:WS:CONTAINER=%22%3A_units%22&:WS:QUERY=%7B%22%24AND%22%3A%5B%7B%22%24OR%22%3A%5B%7B%22%24AND%22%3A%5B%7B%22_query-subject%22%3A%2240%22%2C%22_query-operator%22%3A%22%24EQ%22%2C%22_query-data-type%22%3A%22%3AINT%22%2C%22_query-data%22%3A88%7D%2C%7B%22%24OR%22%3A%5B%7B%22_query-subject%22%3A%2288%22%2C%22_query-operator%22%3A%22%24PX%22%2C%22_query-data-type%22%3A%22%3ASTRING%22%2C%22_query-data%22%3A%22Oryza%22%7D%5D%7D%5D%7D%5D%7D%2C%7B%22%24OR%22%3A%5B%7B%22%24AND%22%3A%5B%7B%22%24OR%22%3A%5B%7B%22_query-subject%22%3A%226%22%2C%22_query-operator%22%3A%22%24EQ%22%2C%22_query-data-type%22%3A%22%3ASTRING%22%2C%22_query-data%22%3A%22%3ADOMAIN-ACCESSION%22%7D%5D%7D%5D%7D%5D%7D%5D%7D&:WS:LOG-REQUEST=1&:WS:PAGE-START=0' );
+        $this->assertTrue($response == 'http://temp.wrapper.grinfo.net/TIP/Wrapper.test.php?:WS:OPERATION=WS:OP:GetAnnotated&:WS:FORMAT=:JSON&:WS:DATABASE=%22TEST-PGRSECURE%22&:WS:DATABASE-BIS=%22TEST-ONTOLOGY%22&:WS:CONTAINER=%22%3A_units%22&:WS:QUERY=%7B%22%24AND%22%3A%5B%7B%22%24OR%22%3A%5B%7B%22%24AND%22%3A%5B%7B%22_query-subject%22%3A%2240%22%2C%22_query-operator%22%3A%22%24EQ%22%2C%22_query-data-type%22%3A%22%3AINT%22%2C%22_query-data%22%3A88%7D%2C%7B%22%24OR%22%3A%5B%7B%22_query-subject%22%3A%2288%22%2C%22_query-operator%22%3A%22%24PX%22%2C%22_query-data-type%22%3A%22%3ASTRING%22%2C%22_query-data%22%3A%22Oryza%22%7D%5D%7D%5D%7D%5D%7D%2C%7B%22%24OR%22%3A%5B%7B%22%24AND%22%3A%5B%7B%22%24OR%22%3A%5B%7B%22_query-subject%22%3A%226%22%2C%22_query-operator%22%3A%22%24EQ%22%2C%22_query-data-type%22%3A%22%3ASTRING%22%2C%22_query-data%22%3A%22%3ADOMAIN-ACCESSION%22%7D%5D%7D%5D%7D%5D%7D%5D%7D&:WS:LOG-REQUEST=1&:WS:PAGE-START=0&:WS:PAGE-LIMIT=10' );
     }
 }

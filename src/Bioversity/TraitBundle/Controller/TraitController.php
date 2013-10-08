@@ -158,14 +158,14 @@ class TraitController extends Controller
         
         $unitsList= $server->sendUrl($postValue);
         
-        //if (
-        //    $this->get('security.context')->isGranted('ROLE_ADMIN') &&
-        //    ($this->get('kernel')->getEnvironment() != 'test') //hack to blok request print in test
-        //){
-        //    print_r('<pre style="height:200px;overflow: auto;">');
-        //    print_r($unitsList);
-        //    print_r('</pre>');
-        //}
+        if (
+            $this->get('security.context')->isGranted('ROLE_ADMIN') &&
+            ($this->get('kernel')->getEnvironment() != 'test') //hack to blok request print in test
+        ){
+            print_r('<pre style="height:200px;overflow: auto;">');
+            print_r($unitsList);
+            print_r('</pre>');
+        }
         
         $units= array();
         $tags= array();
@@ -214,6 +214,8 @@ class TraitController extends Controller
         $server= new TraitConnection();
         $trials= $server->getTrials(urldecode($structKey), urldecode($unit), $page);
         
+        $trial= $server->getUnitByGID(urldecode($unit));
+        
         $units= $trials->getResponse()->getUnit();
         foreach($trials->getResponse()->getUnit() as $key=>$value){
             foreach($value as $k=>$v){
@@ -233,6 +235,7 @@ class TraitController extends Controller
         return $this->render(
             'BioversityTraitBundle:Trait:trials_list.html.twig',
             array(
+                'trial'      => $trial->getResponse()->getAllResponse(),
                 'trials'     => $units,
                 'response'   => $trials->getResponse(),
                 'tags'       => $trials->getResponse()->getTag(),

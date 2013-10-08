@@ -66,22 +66,6 @@ function setPage(url)
 //    $('#form_fields').submit();
 //}
 
-function sendLink(link)
-{
-    if (link != '') {
-        $('#units_list').html('');
-        $.ajax({
-            type:       "POST",
-            url:        dev_stage+'/trait/json/find/trait',
-            dataType:   "html",
-            data:       {'url':link},
-            success: function( data ) {
-                $('#units_list').append(data);
-            }
-        });     
-    }
-}
-
 function bindButtons()
 {
     $('#searchTrait').submit(function(event){
@@ -111,12 +95,12 @@ function bindButtons()
             $('#form_fields_search').removeClass('working');
             enableButton('form_fields_search');
         });
-    });
-    
+    });    
     
     $(document).on("click", "#summary a", function(event){
         event.preventDefault();
         
+        $(this).parents().find('td').addClass('working');
         sendLink($(this).attr('href'));
     });
     
@@ -131,30 +115,6 @@ function bindButtons()
         
         sendLink($('#next_page_value').val());
     });
-    
-    
-    //$('#form_fields').submit(function(event){
-    //    event.preventDefault();
-    //    
-    //    $('#units_list').html('');
-    //    $('#form_fields_search').addClass('working');
-    //    disableButton('form_fields_search');
-    //    $.ajax({
-    //        type:       "POST",
-    //        url:        dev_stage+'/trait/json/find/trait',
-    //        dataType:   "html",
-    //        data:       $(this).serializeArray(),
-    //        success: function( data ) {
-    //            $('#form_fields_search').removeClass('working');
-    //            enableButton('form_fields_search');
-    //            $('#units_list').append(data);
-    //        }
-    //    }).fail(function(){
-    //        $('#form_fields_search').removeClass('working');
-    //        enableButton('form_fields_search');
-    //    });
-    //});
-    
     
     $(document).on("click", "#units_list button", function(){        
         if ($(this).hasClass('opener')) {
@@ -183,6 +143,24 @@ function bindButtons()
         }
     });
 }
+
+function sendLink(link)
+{
+    if (link != '') {
+        $('#units_list').html('');
+        $.ajax({
+            type:       "POST",
+            url:        dev_stage+'/trait/json/find/trait',
+            dataType:   "html",
+            data:       {'url':link},
+            success: function( data ) {
+                $('.working').removeClass('working');
+                $('#units_list').append(data);
+            }
+        });     
+    }
+}
+
 
 function autocomplateForm()
 {    

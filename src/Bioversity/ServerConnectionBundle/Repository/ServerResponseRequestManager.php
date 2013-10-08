@@ -23,7 +23,8 @@ class ServerResponseRequestManager
         $this->operation = $serverResponseRequest[':WS:OPERATION'];
         $this->database  = $serverResponseRequest[':WS:DATABASE'];
         $this->container = $serverResponseRequest[':WS:CONTAINER'];
-        $this->pageLimit = $serverResponseRequest[':WS:PAGE-LIMIT'];
+        //$this->pageLimit = $serverResponseRequest[':WS:PAGE-LIMIT'];
+        $this->pageLimit= array_key_exists(':WS:PAGE-LIMIT', $serverResponseRequest)? $serverResponseRequest[':WS:PAGE-LIMIT']:null;
         $this->query     = $serverResponseRequest[':WS:QUERY'];
         $this->pagestart = array_key_exists(':WS:PAGE-START',$serverResponseRequest)? $serverResponseRequest[':WS:PAGE-START']: null;
         $this->select    = array_key_exists(':WS:SELECT',$serverResponseRequest)? $serverResponseRequest[':WS:SELECT']: null;
