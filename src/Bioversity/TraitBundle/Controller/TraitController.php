@@ -69,34 +69,9 @@ class TraitController extends Controller
         
         $postValue= $this->get('request')->request;
         
-        foreach($postValue as $key=>$value){
-            if(is_array($value)){
-                foreach($value as $array=>$postdata){
-                    if(!$postdata)
-                        unset($value[$array]);
-                }
-            }
-            
-            if($key !== '_token' && $key !== 'page'){
-                $newKeys= explode('_',$key);
-                foreach($newKeys as $newKey=>$new){
-                    if($newKey != 0){
-                        $lastKey= $newKeys[count($newKeys)-1];
-                        if($lastKey != 'enabler'){
-                            $formData[$newKeys[0]][str_replace(':','.',$new)]= $value;
-                            //this unset is used to delete duplicate key
-                            unset($formData[str_replace(':','.',$new)]);
-                        }else{
-                            if(!array_key_exists($newKeys[count($newKeys)-2], $formData))
-                                $formData[str_replace(':','.',$newKeys[count($newKeys)-2])][str_replace(':','.',$newKeys[count($newKeys)-2])][]= '';
-                        }
-                    }
-                }
-            }
-        }
+        $formData= $this->getFeaturedData($postValue);
         
-        $summaryList= $server->getUnitSummary($formData);
-        
+        $summaryList= $server->GetFeatured($formData, true);
         $units= array();
         $tags= array();
         $terms= array();
@@ -116,8 +91,11 @@ class TraitController extends Controller
                 $terms     = $data->getTerm();
                 $distincts = $data->getDistinct();
                 foreach($distincts as $key=>$value){
-                    foreach($value as $k=>$v)
-                        $links[$k]= $server->getUnitsFilterByDomain($formData, $k);
+                    foreach($value as $k=>$v){
+                        //$links[$k]= $server->getUnitsFilterByDomain($formData, $k);
+                        $links[$k]= $formData;
+                        $links[$k][]= $server->createQuery(Tags::kTAG_DOMAIN,null,$k);
+                    }
                 }                
             }else{
                 $session->getFlashBag()->set('error', NotificationManager::getNotice('not_found') );
@@ -140,7 +118,7 @@ class TraitController extends Controller
                 'tags'          => $tags,
                 'terms'         => $terms,
                 'distincts'     => $distincts,
-                'links'         => $links,
+                'links'         => json_encode($links),
                 'pagecount'     => $pagecount,
                 'actualpage'    => $postValue->get('page'),
                 'totalunit'     => $totalunit,
@@ -156,7 +134,18 @@ class TraitController extends Controller
         
         $postValue= $request->get('url');
         
-        $unitsList= $server->sendUrl($postValue);
+        //$unitsList= $server->sendUrl($postValue);
+        $formData= json_decode($postValue);
+        
+        $page= 0;
+        foreach($formData as $array=>$value){
+            if(array_key_exists('pagerequired', $value)){
+               $page= $value->pagerequired;
+               unset($formData[$array]);
+            }
+        }
+        
+        $unitsList=  $server->GetFeatured($formData, null, $page);
         
         if (
             $this->get('security.context')->isGranted('ROLE_ADMIN') &&
@@ -187,8 +176,11 @@ class TraitController extends Controller
             }
         }
         
-        $nextpage= $server->getNextPage($unitsList);
-        $prevpage= $server->getPrevPage($unitsList);
+        
+        $nextpage= $formData;
+        $prevpage= $formData;
+        $nextpage[]= array('pagerequired'=>$server->getNextPage($unitsList->getRequest()->getPageStart()));
+        $prevpage[]= array('pagerequired'=>$server->getPrevPage($unitsList->getRequest()->getPageStart())); //$server->getPrevPage($formData, $unitsList->getRequest()->getPageStart());
         $actualpage= ceil($unitsList->getRequest()->getPageStart()/10);
         
         return $this->render(
@@ -200,8 +192,8 @@ class TraitController extends Controller
                 'pagecount'     => $pagecount,
                 'totalunit'     => $totalunit,
                 'actualpage'    => $actualpage,
-                'nextpage'      => $nextpage,
-                'prevpage'      => $prevpage,
+                'nextpage'      => json_encode($nextpage),
+                'prevpage'      => json_encode($prevpage),
                 'errors'        => $session->getFlashBag()->get('error')
             ));
     }
@@ -278,6 +270,44 @@ class TraitController extends Controller
     
 //--------------PRIVATE-------------//
 
+    private function getFeaturedData($postValue)
+    {
+        $server= new TraitConnection();
+        
+        $formData= array();
+        
+        foreach($postValue as $key=>$value){
+            if(is_array($value)){
+                foreach($value as $array=>$postdata){
+                    if(!$postdata)
+                        unset($value[$array]);
+                }
+            }
+            
+            if($key !== '_token' && $key !== 'page'){
+                $newKeys= explode('_',$key);
+                foreach($newKeys as $newKey=>$new){
+                    if($newKey != 0){
+                        $lastKey= $newKeys[count($newKeys)-1];
+                        if($lastKey != 'enabler'){
+                            if(!preg_match('*:*',$new)){
+                                if(count($value) == 0){
+                                    $formData[]= (int)$new;
+                                }else{
+                                    $formData[]= $server->createQuery($new, null, $value);
+                                }
+                            }
+                            //this unset is used to delete duplicate key
+                            unset($formData[str_replace(':','.',$new)]);
+                        }
+                    }
+                }
+            }
+        }
+        
+        //return $server->getUnitSummary($formData);
+        return $formData;
+    }
     
     private function getTags($elements)
     {

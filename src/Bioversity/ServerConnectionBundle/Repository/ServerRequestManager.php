@@ -93,6 +93,7 @@ class ServerRequestManager
     
     public function sendRequest()
     {
+        //print_r(implode( '&', $this->getRequest() ));
         return new ServerResponseManager(json_decode(file_get_contents( $this->wrapper.'?'.implode( '&', $this->getRequest() ) ), true));
     }
     
@@ -139,10 +140,14 @@ class ServerRequestManager
             $queryList= array();
             
             foreach($this->query as $query){
+                if($this->operator === null){
+                    $queryList= $this->query;
+                }else{
                 if(count($this->query) > 1)
                     $queryList[]= Array($this->operator => $query);
                 else
                     $queryList[$this->operator]=  $query;
+                }
             }
                 
             $request[]=':WS:QUERY='.urlencode(json_encode($queryList));

@@ -12,6 +12,7 @@ class TraitExtension extends \Twig_Extension
             'ceil' => new \Twig_Filter_Method($this, 'ceil'),
             'containkey' => new \Twig_Filter_Method($this, 'containKey'),
             'url_decode' => new \Twig_Filter_Method($this, 'UrlDecode'),
+            'get_url' => new \Twig_Filter_Method($this, 'getUrl'),
         );
     }
     
@@ -48,5 +49,10 @@ class TraitExtension extends \Twig_Extension
     public function UrlDecode($item)
     {
         return urldecode($item);
+    }
+    
+    public function getUrl($item, $key)
+    {
+        return json_encode(json_decode($item)->$key);
     }
 }

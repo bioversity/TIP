@@ -185,6 +185,33 @@ class TraitConnection
   }
   
   /**
+   * Returns the DATA summary requested
+   * @param string $tags
+   *  
+   * @return array $serverResponce
+   */
+  public function GetFeatured($tags, $distinct= false, $page= null)
+  {
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
+    $requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
+    $requestManager->setOperation('WS:OP:GetFeatured');
+    $requestManager->setCollection(':_units');
+    $requestManager->setOperator(null);
+    $requestManager->setCustomQuery($tags);  
+      $requestManager->setPageLimit(self::page_record);
+    
+    if($distinct)
+      $requestManager->setDistinct(array(Tags::kTAG_DOMAIN));
+      
+    if($page){
+      $requestManager->setPageStart($page);
+    }
+    
+    return $requestManager->sendRequest();
+  }
+  
+  /**
    * Returns the DATA url requested filtered by domain
    * @param string $tags
    * @param string $domain
@@ -194,56 +221,59 @@ class TraitConnection
   public function getUnitsFilterByDomain($tags, $domain)
   {
     //Hack to add domain in query fields
-    $tags['DOMAIN']= array(Tags::kTAG_DOMAIN => $domain);
+    $tags[]= $this->createQuery(Tags::kTAG_DOMAIN,null,$domain);
     
     $requestManager= new ServerRequestManager();
     $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
     $requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
-    $requestManager->setOperation('WS:OP:GetAnnotated');
+    $requestManager->setOperation('WS:OP:GetFeatured');
     $requestManager->setCollection(':_units');
-    $requestManager->setCustomQuery($this->GenQuery($tags));
+    $requestManager->setOperator(null);
+    $requestManager->setCustomQuery($tags);
     $requestManager->setPageLimit(self::page_record);
     
     return $requestManager->getRequestUrl();
   }
   
-  public function getNextPage(ServerResponseManager $query)
+  public function getNextPage($requiredpage= 0)
   {
-    $requiredpage= $query->getRequest()->getPageStart();
-    $startpage= ($requiredpage == 0)? 2: (($requiredpage-1)/self::page_record)+2;
+    //print_r($query->getRequest()->getQuery());
+    //$requiredpage= $query->getRequest()->getPageStart();
+    return $startpage= ($requiredpage == 0)? 2: (($requiredpage-1)/self::page_record)+2;
     
-    $requestManager= new ServerRequestManager();
-    $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
-    $requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
-    $requestManager->setOperation('WS:OP:GetAnnotated');
-    $requestManager->setCollection(':_units');
-    $requestManager->setCustomQuery($query->getServerResponse()[':WS:REQUEST'][':WS:QUERY']);
-    $requestManager->setPageLimit(10);
-    $requestManager->setPageStart($startpage);
+    //$requestManager= new ServerRequestManager();
+    //$requestManager->setDatabase($requestManager->getDatabasePGRSecure());
+    //$requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
+    //$requestManager->setOperation('WS:OP:GetFeatured');
+    //$requestManager->setCollection(':_units');
+    //$requestManager->setOperator(null);
+    //$requestManager->setCustomQuery($query);
+    //$requestManager->setPageLimit(10);
+    //$requestManager->setPageStart($startpage);
     
     return $requestManager->getRequestUrl();
   }
   
-  public function getPrevPage(ServerResponseManager $query)
+  public function getPrevPage($requiredpage= null)
   {
-    $requiredpage= $query->getRequest()->getPageStart();
+    //$requiredpage= $query->getRequest()->getPageStart();
     
-    if($requiredpage){
-      $startpage= ($requiredpage-1)/self::page_record;
-      
-      $requestManager= new ServerRequestManager();
-      $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
-      $requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
-      $requestManager->setOperation('WS:OP:GetAnnotated');
-      $requestManager->setCollection(':_units');
-      $requestManager->setCustomQuery($query->getServerResponse()[':WS:REQUEST'][':WS:QUERY']);
-      $requestManager->setPageLimit(10);
-      $requestManager->setPageStart($startpage);
-      
-      return $requestManager->getRequestUrl();
-    }
+    if($requiredpage)
+      $requiredpage= ($requiredpage-1)/self::page_record;
+    //  
+    //  $requestManager= new ServerRequestManager();
+    //  $requestManager->setDatabase($requestManager->getDatabasePGRSecure());
+    //  $requestManager->setSecondDatabase($requestManager->getDatabaseOntology());
+    //  $requestManager->setOperation('WS:OP:GetFeatured');
+    //  $requestManager->setCollection(':_units');
+    //  $requestManager->setCustomQuery($query->getServerResponse()[':WS:REQUEST'][':WS:QUERY']);
+    //  $requestManager->setPageLimit(10);
+    //  $requestManager->setPageStart($startpage);
+    //  
+    //  return $requestManager->getRequestUrl();
+    //}
     
-    return null;
+    return $requiredpage;
   }
   
   function GenQuery( $theData )
@@ -351,6 +381,25 @@ class TraitConnection
    */
   public function createQuery($subject, $type=null, $data=null, $operator = '$EQ')
   {
+    $server= new Tags();
+    $tag= $server->getTags(array((string) $subject));
+    
+    $typeList= $tag->getResponse()->getTag()[$subject][Tags::kTAG_TYPE];
+    
+    if(in_array(':INT',$typeList) ||
+     in_array(':INT32',$typeList) ||
+     in_array(':INT64',$typeList) ||
+     in_array(':FLOAT',$typeList)){
+      $operator= Operators::kOPERATOR_IRANGE;
+      $type= Types::kTYPE_INT;
+    }else{
+      $operator= (in_array(':ENUM', $typeList) || in_array(':SET', $typeList))?
+                  Operators::kOPERATOR_EQUAL:
+                  Operators::kOPERATOR_PREFIX;
+                  
+      $type= Types::kTYPE_STRING;
+    }
+              
     if(is_array($data) && $operator != Operators::kOPERATOR_IRANGE)
       $operator= Operators::kOPERATOR_IN;
       

@@ -100,7 +100,7 @@ function bindButtons()
     $(document).on("click", "#summary a", function(event){
         event.preventDefault();
         
-        $(this).parents().find('td').addClass('working');
+        $(this).find('.distinct_value').addClass('working');
         sendLink($(this).attr('href'));
     });
     
