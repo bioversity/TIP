@@ -291,23 +291,17 @@ class TraitController extends Controller
         foreach($postValue as $key=>$value){
             if($key !== '_token' && $key !== 'page'){
                 $newKeys= explode('_',$key);
+                $lastKey= $newKeys[count($newKeys)-1];
+                
                 foreach($newKeys as $newKey=>$new){
-                    $lastKey= $newKeys[count($newKeys)-1];
                     if($lastKey == 'enabler'){
                         $keychild= str_replace('_enabler','',$key);
                         if(array_key_exists($keychild, $postValue)){
                             unset($postValue [$key]);
                         }
-                    }else{
-                        //if(!preg_match('*:*',$new)){
-                        //    if(count($value) == 0){
-                        //        $formData[]= (int)$new;
-                        //    }else{
-                        //        $formData[]= $server->createQuery($new, null, $value);
-                        //    }
-                        //}
                     }
                 }
+                
             }
         }
         
@@ -328,6 +322,7 @@ class TraitController extends Controller
             }
         }
         
+        var_dump($formData);
         //return $server->getUnitSummary($formData);
         return $formData;
     }
