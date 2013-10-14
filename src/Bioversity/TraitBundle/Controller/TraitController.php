@@ -67,7 +67,7 @@ class TraitController extends Controller
         
         $formData= array();
         
-        $postValue= $this->get('request')->request;
+        $postValue= $this->get('request')->request->all();
         
         $formData= $this->getFeaturedData($postValue);
         
@@ -120,7 +120,7 @@ class TraitController extends Controller
                 'distincts'     => $distincts,
                 'links'         => json_encode($links),
                 'pagecount'     => $pagecount,
-                'actualpage'    => $postValue->get('page'),
+                'actualpage'    => $postValue['page'],
                 'totalunit'     => $totalunit,
                 'errors'        => $session->getFlashBag()->get('error')
             ));
@@ -282,24 +282,47 @@ class TraitController extends Controller
                     if(!$postdata)
                         unset($value[$array]);
                 }
+            }else{
+                if($value == null)
+                    unset($postValue[$key]);
             }
-            
+        }
+                
+        foreach($postValue as $key=>$value){
             if($key !== '_token' && $key !== 'page'){
                 $newKeys= explode('_',$key);
                 foreach($newKeys as $newKey=>$new){
-                    if($newKey != 0){
-                        $lastKey= $newKeys[count($newKeys)-1];
-                        if($lastKey != 'enabler'){
-                            if(!preg_match('*:*',$new)){
-                                if(count($value) == 0){
-                                    $formData[]= (int)$new;
-                                }else{
-                                    $formData[]= $server->createQuery($new, null, $value);
-                                }
-                            }
-                            //this unset is used to delete duplicate key
-                            unset($formData[str_replace(':','.',$new)]);
+                    $lastKey= $newKeys[count($newKeys)-1];
+                    if($lastKey == 'enabler'){
+                        $keychild= str_replace('_enabler','',$key);
+                        if(array_key_exists($keychild, $postValue)){
+                            unset($postValue [$key]);
                         }
+                    }else{
+                        //if(!preg_match('*:*',$new)){
+                        //    if(count($value) == 0){
+                        //        $formData[]= (int)$new;
+                        //    }else{
+                        //        $formData[]= $server->createQuery($new, null, $value);
+                        //    }
+                        //}
+                    }
+                }
+            }
+        }
+        
+        foreach($postValue as $key=>$value){
+            $newKeys= explode('_',$key);
+            $lastKey= $newKeys[count($newKeys)-1];
+             
+            if(is_array($value)){
+                $formData[]= $server->createQuery($lastKey, null, $value);
+            }else{
+                if($lastKey == 'enabler'){
+                    $formData[]= $newKeys[count($newKeys)-2];
+                }else{
+                    if($lastKey !== 'page'){
+                        $formData[]= $server->createQuery($lastKey, null, $value);
                     }
                 }
             }
