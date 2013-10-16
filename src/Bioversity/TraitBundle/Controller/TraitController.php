@@ -322,7 +322,6 @@ class TraitController extends Controller
             }
         }
         
-        var_dump($formData);
         //return $server->getUnitSummary($formData);
         return $formData;
     }

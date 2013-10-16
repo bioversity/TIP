@@ -51,6 +51,11 @@ class SiteStructureController extends Controller
         return $this->render('BioversitySiteStructureBundle:SiteStructure:conservation_strategies.html.twig');
     }
     
+    public function linksAction()
+    {
+        return $this->render('BioversitySiteStructureBundle:SiteStructure:links.html.twig');
+    }
+    
     public function nationalInventoriesAction()
     {
         return $this->render('BioversitySiteStructureBundle:SiteStructure:national_inventories.html.twig');

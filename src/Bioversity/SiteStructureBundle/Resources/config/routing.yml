@@ -1,6 +1,10 @@
 bioversity_site_structure_homepage:
     pattern:  /
     defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:index }
+
+bioversity_site_structure_links:
+    pattern:  /links
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:links }
     
 bioversity_site_structure_conservaton_strategies:
     pattern:  /conservation_strategies
