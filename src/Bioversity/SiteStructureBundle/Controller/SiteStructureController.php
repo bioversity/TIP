@@ -48,6 +48,7 @@ class SiteStructureController extends Controller
     
     public function conservatonStrategiesAction()
     {
+        
         return $this->render('BioversitySiteStructureBundle:SiteStructure:conservation_strategies.html.twig');
     }
     

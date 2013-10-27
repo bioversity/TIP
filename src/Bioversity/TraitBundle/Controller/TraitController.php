@@ -135,13 +135,15 @@ class TraitController extends Controller
         $postValue= $request->get('url');
         
         //$unitsList= $server->sendUrl($postValue);
-        $formData= json_decode($postValue);
+        $formData= json_decode($postValue, true);
         
         $page= 0;
         foreach($formData as $array=>$value){
-            if(array_key_exists('pagerequired', $value)){
-               $page= $value->pagerequired;
-               unset($formData[$array]);
+            if(is_array($value)){
+                if(array_key_exists('pagerequired', $value)){
+                   $page= $value['pagerequired'];
+                   unset($formData[$array]);
+                }
             }
         }
         
@@ -176,7 +178,6 @@ class TraitController extends Controller
             }
         }
         
-        
         $nextpage= $formData;
         $prevpage= $formData;
         $nextpage[]= array('pagerequired'=>$server->getNextPage($unitsList->getRequest()->getPageStart()));
@@ -209,14 +210,18 @@ class TraitController extends Controller
         $trial= $server->getUnitByGID(urldecode($unit));
         
         $units= $trials->getResponse()->getUnit();
+        $first= null;
         foreach($trials->getResponse()->getUnit() as $key=>$value){
             foreach($value as $k=>$v){
+                if($first === null) $first= $v;
                 $tag= $server->getUnit($v);
                 if($k == Tags::kTAG_UNIT ){
                     $units[$key]['tag']= $tag->getResponse()->getIds()[0];
+                    $units[$key]['term']= null;
                     break;
                 }else{
                     $units[$key]['tag']= null;
+                    $units[$key]['term']= $first;
                 }
             }
         }
@@ -278,16 +283,19 @@ class TraitController extends Controller
         
         foreach($postValue as $key=>$value){
             if(is_array($value)){
-                foreach($value as $array=>$postdata){
-                    if(!$postdata)
-                        unset($value[$array]);
+                foreach($value as $subkey=>$postdata){
+                    if($postdata === null || strlen($postdata) === 0 || $postdata == '')
+                        unset($postValue[$key][$subkey]);
+                        
+                    if(count($postValue[$key]) == 0)
+                        unset($postValue[$key]);
                 }
             }else{
                 if($value == null)
                     unset($postValue[$key]);
             }
         }
-                
+              
         foreach($postValue as $key=>$value){
             if($key !== '_token' && $key !== 'page'){
                 $newKeys= explode('_',$key);
@@ -322,6 +330,9 @@ class TraitController extends Controller
             }
         }
         
+        //var_dump($postValue);
+        //var_dump($formData);
+        //die();
         //return $server->getUnitSummary($formData);
         return $formData;
     }

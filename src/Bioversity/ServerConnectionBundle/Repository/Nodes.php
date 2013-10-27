@@ -16,6 +16,22 @@ class Nodes
    *  
    * @return array $serverResponce
    */
+  public function getNodeByNID($nid)
+  {
+    $requestManager= new ServerRequestManager();
+    $requestManager->setDatabase($requestManager->getDatabaseOntology());
+    $requestManager->setOperation('WS:OP:GetVertex');
+    $requestManager->setQuery(Tags::kTAG_NID, Types::kTYPE_INT32, $nid, Operators::kOPERATOR_EQUAL);
+    
+    return $requestManager->sendRequest();
+  }
+  
+  /**
+   * Returns the Node list requested
+   * @param string $nid
+   *  
+   * @return array $serverResponce
+   */
   public function getNodeByNIDTerm($nid)
   {
     $requestManager= new ServerRequestManager();

@@ -46,14 +46,15 @@ class DefaultControllerTest extends WebTestCase
     {
         $crawler = $this->client->request('POST','/trait/json/find/summary/trait',$this->potData);
 
-        $this->assertTrue($crawler->filter('.distinct_key')->count() > 0);
+        $this->assertTrue($crawler->filter('.distinct_value')->count() > 0);
     }
     
     public function testJsonFindTraits()
     {
         $crawler = $this->client->request('POST','/trait/json/find/trait',array('url' => $this->url));
 
-        $this->assertTrue($crawler->filter('html:contains("We have found 1006 results")')->count() > 0);
+        $this->assertTrue($crawler->filter('html:contains("Accession")')->count() > 0);
+        $this->assertTrue($crawler->filter('html:contains("Trial")')->count() > 0);
     }
     
     public function testJsonGetTrials()

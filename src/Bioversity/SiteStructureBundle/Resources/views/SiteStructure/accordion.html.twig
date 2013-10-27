@@ -1,5 +1,4 @@
 {% block form_row %}
-    {% spaceless %}
     <div class="accordion-group">
         <div class="accordion-heading">
           <a href="#collapse{{form.name}}" data-parent="#accordion{{form.name}}" data-toggle="collapse" class="accordion-toggle collapsed">
@@ -12,6 +11,5 @@
             {{ form_widget(form) }}
           </div>
         </div>
-    </div>    
-    {% spaceless %}
+    </div>  
 {% endblock %}

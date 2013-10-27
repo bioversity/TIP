@@ -42,10 +42,10 @@
             <div class="accordion-group">
                 <div class="accordion-heading">
                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{ key }}">
-                        {% if structKey == 130 %}
+                        {% if value['tag'] is not null %}
                             {{ value['tag'] }}
                         {% else %}
-                            {{ value[93] }}
+                            {{ value['term'] }}
                         {% endif %}
                         <i class="icon-plus"></i>
                     </a>
@@ -54,7 +54,7 @@
                 <div id="collapse{{ key }}" class="accordion-body collapse">
                     <div class="accordion-inner">
                         
-                        {% if value['tag'] != null %}
+                        {% if value['tag'] is not null %}
                             <div class="node_detail pull-left">
                                 <div class="node_detail_label">
                                     <strong>Referred Unit</strong>
@@ -68,7 +68,7 @@
                         {% endif %}
                         
                         {% for k,v in value  %}        
-                            {% if k != tagUnit and k != 'tag' and k != 'name' and not v|is_array %}
+                            {% if k != tagUnit and k != 'term' and k != 'tag' and k != 'name' and not v|is_array %}
                                 <div class="node_detail pull-left">
                                     <div class="node_detail_label">
                                         <strong>{{ tags[k][label]['en'] }}</strong>

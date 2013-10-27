@@ -1,3 +1,7 @@
+bioversity_dinamic_form:
+    resource: "@BioversityDinamicFormBundle/Resources/config/routing.yml"
+    prefix:   /
+
 bioversity_trait:
     resource: "@BioversityTraitBundle/Resources/config/routing.yml"
     prefix:   /
