@@ -48,8 +48,16 @@ class SiteStructureController extends Controller
     
     public function conservatonStrategiesAction()
     {
+        $dir= $this->get('kernel')->getRootDir() . '/../web/conservationstrategies';
         
-        return $this->render('BioversitySiteStructureBundle:SiteStructure:conservation_strategies.html.twig');
+        $files= $this->ListIn($dir);
+        
+        return $this->render(
+            'BioversitySiteStructureBundle:SiteStructure:conservation_strategies.html.twig',
+            array(
+                'directory' => $files
+            )
+        );
     }
     
     public function linksAction()
@@ -165,5 +173,39 @@ class SiteStructureController extends Controller
     public function showApiDocAction()
     {
         return $this->render('BioversitySiteStructureBundle:SiteStructure:api_doc.html.twig');
+    }
+    
+    public function downloadFileAction($folder, $filename)
+    {
+        $path = $this->get('kernel')->getRootDir() . '/../web/conservationstrategies/' . $folder . '/' . $filename;
+        $content = file_get_contents($path);
+
+        $response = new Response();
+
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
+
+        $response->setContent($content);
+        return $response;
+    }
+    
+    //PRIVATE------------------------
+    
+    private function ListIn($dir, $prefix = '') {
+        
+        $dir = rtrim($dir, '\\/');
+        $result = array();
+      
+        foreach (scandir($dir,1) as $f) {
+            if ($f !== '.' and $f !== '..') {
+                if (is_dir("$dir/$f")) {
+                    $result = array_merge($result, $this->ListIn("$dir/$f", "$prefix$f"));
+                } else {
+                    $result[$prefix][] = $f;
+                }
+            }
+        }
+      
+        return $result;
     }
 }

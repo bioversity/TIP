@@ -10,6 +10,10 @@ bioversity_site_structure_conservaton_strategies:
     pattern:  /conservation_strategies
     defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:conservatonStrategies }
     
+bioversity_site_structure_download:
+    pattern:  /downloads/{folder}/{filename}
+    defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:downloadFile }
+    
 bioversity_site_structure_online_chat:
     pattern:  /online-chat
     defaults: { _controller: BioversitySiteStructureBundle:SiteStructure:onlineChat }

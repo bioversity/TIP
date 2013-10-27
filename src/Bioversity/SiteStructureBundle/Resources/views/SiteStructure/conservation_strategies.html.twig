@@ -4,4 +4,42 @@
     <div>
       <h2>Conservation Strategies</h2>
     </div>
+    
+    {% for folder,files in directory %}
+      <div class="accordion-group">
+          <div class="accordion-heading">
+              <a href="#collapse{{ folder }}" data-parent="#accordion{{ folder }}" data-toggle="collapse" class="accordion-toggle collapsed">
+                  <i class="icon-folder-close"></i> {{ folder|upper }}
+              </a>
+          </div>
+          <div class="accordion-body collapse" id="collapse{{ folder }}" style="height: 0px;">
+              <div class="accordion-inner">
+                <table class="table table-striped">
+                  <tr>
+                    <th><h4>Last File Version</h4></th>
+                    <td>
+                      <a href="downloads/{{ folder }}/{{ files[0] }}" class="btn btn-primary btn-large pull-right">
+                        <i class="icon-file"></i> {{ files[0] }}
+                      </a>
+                    </td>
+                  </tr>
+                  {% for files,file in files %}
+                    <tr>
+                      <th>  
+                          <small><i class="icon-arrow-right"></i> older file version</small>
+                      </th>
+                      <td>
+                        <a href="downloads/{{ folder }}/{{ file }}" class="btn btn-small pull-right">
+                          <i class="icon-file"></i> {{ file }}
+                        </a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </table>
+                <div class="clear"></div>
+              </div>
+          </div>
+      </div>      
+    {% endfor %}
+    
 {% endblock %}
