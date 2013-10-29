@@ -10,6 +10,9 @@
 {% set namespace= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_NAMESPACE') %}
 {% set version  = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_VERSION') %}
 
+<!-- fare check sul count e inibire coordion se <= 1 -->
+<!-- come etichetta dell'accordion se non esiste metto codice -->
+
 {% for key,value in data  %}
     {% if key != '_id' and key != tagkey %}
         {% set term= tags[key][path][0]|base_term %}
