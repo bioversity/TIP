@@ -39,6 +39,7 @@
                     {% elseif tags[key][type][0] == ':URL' %}
                         <a href="{{ value }}" target="_blank">{{ value }}</a>
                     {% elseif tags[key][type][0] == ':STRUCT' %}
+                        <!-- check on type. If contain array nothing change else explod the value -->
                         <a class="show_trial" href="{{ path('bioversity_trait_json_trials', { 'structKey': key|url_encode, 'unit' : data[gid]|url_encode, 'page' : 1 })}}" target="_blank" value="{{ data[gid] }}">{{ value }}</a>
                     {% else %}
                         {{ value }}
