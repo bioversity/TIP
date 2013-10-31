@@ -37,62 +37,101 @@
     <div class="page-header">
         <h1>{{ trial['_term'][trial['_unit'][unit|url_decode][6]][label]['en'] }} <small>{{ unit|url_decode }}</small></h1>
     </div>
-    {% for key,value in trials  %}
-        <div class="accordion" id="accordion2">
-            <div class="accordion-group">
-                <div class="accordion-heading">
-                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{ key }}">
-                        {% if value['tag'] is not null %}
-                            {{ value['tag'] }}
-                        {% else %}
-                            {{ value['term'] }}
-                        {% endif %}
-                        <i class="icon-plus"></i>
-                    </a>
-                    <div class="clear"></div>
-                </div>
-                <div id="collapse{{ key }}" class="accordion-body collapse">
-                    <div class="accordion-inner">
-                        
-                        {% if value['tag'] is not null %}
-                            <div class="node_detail pull-left">
-                                <div class="node_detail_label">
-                                    <strong>Referred Unit</strong>
-                                </div>
-                                <div class="node_detail_text">
-                                    <a class="accordion-toggle trial_detail" href="{{ path('bioversity_trait_json_trials_detail', { 'unit' : value['tag']|url_encode })}}" value="{{ value['tag'] }}" target="_blank">
-                                        {{ value['tag'] }}
-                                    </a>
-                                </div>
-                            </div>
-                        {% endif %}
-                        
-                        {% for k,v in value  %}        
-                            {% if k != tagUnit and k != 'term' and k != 'tag' and k != 'name' and not v|is_array %}
+    {% if(trials|length > 1) %}
+        {% for key,value in trials  %}
+            <div class="accordion" id="accordion2">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{ key }}">
+                            {% if value['tag'] is not null %}
+                                {{ value['tag'] }}
+                            {% else %}
+                                {{ value['term'] }}
+                            {% endif %}
+                            <i class="icon-plus"></i>
+                        </a>
+                        <div class="clear"></div>
+                    </div>
+                    <div id="collapse{{ key }}" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            
+                            {% if value['tag'] is not null %}
                                 <div class="node_detail pull-left">
                                     <div class="node_detail_label">
-                                        <strong>{{ tags[k][label]['en'] }}</strong>
+                                        <strong>Referred Unit</strong>
                                     </div>
                                     <div class="node_detail_text">
-                                        {% if tags[k][type][0] == ':ENUM' %}
-                                            <!--TODO: manage exception-->
-                                            {% if terms[v][label]['en'] is defined %}
-                                                {{ terms[v][label]['en'] }}
-                                            {% else %}
-                                                no-data-found ( {{ key }} - {{ value }} )
-                                            {% endif%}
-                                        {% else %}
-                                            {{ v }}
-                                        {% endif %}                                    
+                                        <a class="accordion-toggle trial_detail" href="{{ path('bioversity_trait_json_trials_detail', { 'unit' : value['tag']|url_encode })}}" value="{{ value['tag'] }}" target="_blank">
+                                            {{ value['tag'] }}
+                                        </a>
                                     </div>
                                 </div>
-                            {% endif %}   
-                        {% endfor %}
+                            {% endif %}
+                            
+                            {% for k,v in value  %}        
+                                {% if k != tagUnit and k != 'term' and k != 'tag' and k != 'name' and not v|is_array %}
+                                    <div class="node_detail pull-left">
+                                        <div class="node_detail_label">
+                                            <strong>{{ tags[k][label]['en'] }}</strong>
+                                        </div>
+                                        <div class="node_detail_text">
+                                            {% if tags[k][type][0] == ':ENUM' %}
+                                                <!--TODO: manage exception-->
+                                                {% if terms[v][label]['en'] is defined %}
+                                                    {{ terms[v][label]['en'] }}
+                                                {% else %}
+                                                    no-data-found ( {{ key }} - {{ value }} )
+                                                {% endif%}
+                                            {% else %}
+                                                {{ v }}
+                                            {% endif %}                                    
+                                        </div>
+                                    </div>
+                                {% endif %}   
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    {% endfor %}
+            </div>            
+        {% endfor %}
+    {% else %}
+        {% for key,value in trials  %}
+            {% if value['tag'] is not null %}
+                <div class="node_detail pull-left">
+                    <div class="node_detail_label">
+                        <strong>Referred Unit</strong>
+                    </div>
+                    <div class="node_detail_text">
+                        <a class="accordion-toggle trial_detail" href="{{ path('bioversity_trait_json_trials_detail', { 'unit' : value['tag']|url_encode })}}" value="{{ value['tag'] }}" target="_blank">
+                            {{ value['tag'] }}
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+            
+            {% for k,v in value  %}        
+                {% if k != tagUnit and k != 'term' and k != 'tag' and k != 'name' and not v|is_array %}
+                    <div class="node_detail pull-left">
+                        <div class="node_detail_label">
+                            <strong>{{ tags[k][label]['en'] }}</strong>
+                        </div>
+                        <div class="node_detail_text">
+                            {% if tags[k][type][0] == ':ENUM' %}
+                                <!--TODO: manage exception-->
+                                {% if terms[v][label]['en'] is defined %}
+                                    {{ terms[v][label]['en'] }}
+                                {% else %}
+                                    no-data-found ( {{ key }} - {{ value }} )
+                                {% endif%}
+                            {% else %}
+                                {{ v }}
+                            {% endif %}                                    
+                        </div>
+                    </div>
+                {% endif %}   
+            {% endfor %}
+        {% endfor %}    
+    {% endif %}
 
     {% if pagecount > 1 %}
         <table style="margin: 0 auto; text-align: center;">
