@@ -4,9 +4,6 @@ jms_security_extra:
 
 security:
     firewalls:
-        dev:
-            pattern:    ^/
-            security: false
         secured_area:
             pattern:    ^/
             anonymous: ~

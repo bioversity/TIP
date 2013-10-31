@@ -1,0 +1,42 @@
+
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a href="#collapse{{ subdirectory|replace({' ': ""}) }}" data-parent="#accordion{{ subdirectory|replace({' ': ""}) }}" data-toggle="collapse" class="accordion-toggle collapsed">
+                <i class="icon-folder-close"></i> {{ subdirectory|upper }}
+            </a>
+        </div>
+        <div class="accordion-body collapse" id="collapse{{ subdirectory|replace({' ': ""}) }}" style="height: 0px;">
+            <div class="accordion-inner">
+                <table class="table table-striped">
+                    <tr>
+                        <th><h4>Last File Version</h4></th>
+                        <td>
+                            <a href="downloads/{{ folder~'/'~subdirectory }}/{{ file[0] }}" class="btn btn-primary btn-large pull-right">
+                                <i class="icon-file"></i> {{ file[0] }}
+                            </a>
+                        </td>
+                    </tr>
+                    {% for subfolder,subfile in file %}
+                        {% include 'BioversitySiteStructureBundle:SiteStructure:isnotarray.html.twig' with {'folder': folder ~ '/' ~subdirectory, 'file' : subfile} %}
+                    {% endfor %}
+                </table>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+<!--
+{#
+                    
+    #}
+    -->
+                    
+{#
+{% for subfolder,subfiles in subdirectory %}
+    
+            {% for subfiles,subfile in subfiles %}
+              {% if subfile|is_array %}
+                {% include 'BioversitySiteStructureBundle:SiteStructure:isarray.html.twig' with {'subdirectory': subfile} %}
+              {% endif %}
+            {% endfor %}
+#}

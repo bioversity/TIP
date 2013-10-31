@@ -31,7 +31,6 @@ class SliderControllerTest extends WebTestCase
         $form = $crawler1->selectButton('Search')->form();
         $crawler2 = $this->client->submit($form, $this->potData);
         
-        print_r($crawler2->text());
         $this->assertTrue($crawler2->text() == '{"term":{":WS:STATUS":{":STATUS-LEVEL":":IDLE",":STATUS-CODE":0,":WS:AFFECTED-COUNT":2},":WS:REQUEST":{":WS:FORMAT":":JSON",":WS:OPERATION":"WS:OP:GET",":WS:DATABASE":"TEST-ONTOLOGY",":WS:CONTAINER":":_nodes",":WS:PAGE-START":0,":WS:QUERY":{"$AND":[{"_query-subject":2,"_query-operator":"$EQ","_query-data-type":":STRING","_query-data":"GENESYS:TRAIT:554"}]}},":WS:PAGING":{":WS:PAGE-START":0,":WS:PAGE-LIMIT":50,":WS:PAGE-COUNT":2},":WS:RESPONSE":[{"_id":18487,"1":"554","2":"GENESYS:TRAIT:554","19":{"en":"Plant size"},"9":[":KIND-FEATURE"],"29":{"type":":BINARY","data":"2070b15e65df95f18c2a924ff8c8c30f"},"11":"COntologyMasterVertex"},{"_id":25217,"1":"554","2":"GENESYS:TRAIT:554","19":{"en":"Plant size"},"42":[575],"29":{"type":":BINARY","data":"2070b15e65df95f18c2a924ff8c8c30f"},"4":"GENESYS:PARAMETER:505","131":"505","11":"COntologyAliasVertex","30":18487}]}}');
     }
     

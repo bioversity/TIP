@@ -191,21 +191,25 @@ class SiteStructureController extends Controller
     
     //PRIVATE------------------------
     
-    private function ListIn($dir, $prefix = '') {
-        
-        $dir = rtrim($dir, '\\/');
+    private function ListIn($dir, $tab = 4) {
         $result = array();
-      
-        foreach (scandir($dir,1) as $f) {
-            if ($f !== '.' and $f !== '..') {
-                if (is_dir("$dir/$f")) {
-                    $result = array_merge($result, $this->ListIn("$dir/$f", "$prefix$f"));
-                } else {
-                    $result[$prefix][] = $f;
-                }
-            }
+
+        $cdir = scandir($dir,1);
+        foreach ($cdir as $key => $value)
+        {
+           if (!in_array($value,array(".","..")))
+           {
+              if (is_dir($dir . DIRECTORY_SEPARATOR . $value))
+              {
+                 $result[$value] = self::ListIn($dir . DIRECTORY_SEPARATOR . $value);
+              }
+              else
+              {
+                 $result[] = $value;
+              }
+           }
         }
-      
-        return $result;
+        
+        return $result; 
     }
 }
