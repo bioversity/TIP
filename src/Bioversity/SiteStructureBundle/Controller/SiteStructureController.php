@@ -175,14 +175,25 @@ class SiteStructureController extends Controller
         return $this->render('BioversitySiteStructureBundle:SiteStructure:api_doc.html.twig');
     }
     
-    public function downloadFileAction($folder, $filename)
+    public function downloadFileAction($folder, $subfolder= null, $filename)
     {
-        $path = $this->get('kernel')->getRootDir() . '/../web/conservationstrategies/' . $folder . '/' . $filename;
+        $path = $this->get('kernel')->getRootDir() .
+                '/../web/conservationstrategies';
+                
+        if($folder)
+            $path .= '/' . $folder;
+            
+        if($subfolder)
+            $path .= '/' . $subfolder;
+            
+        if($filename)
+            $path .=  '/' . $filename;
+        
         $content = file_get_contents($path);
 
         $response = new Response();
 
-        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Type', 'text/pdf');
         $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
 
         $response->setContent($content);
