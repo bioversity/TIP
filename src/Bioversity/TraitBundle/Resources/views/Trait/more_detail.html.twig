@@ -10,6 +10,11 @@
 {% set namespace= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_NAMESPACE') %}
 {% set version  = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_VERSION') %}
 
+{% set type_enum   = constant('Bioversity\\ServerConnectionBundle\\Repository\\Types::kTYPE_ENUM') %}
+{% set type_url    = constant('Bioversity\\ServerConnectionBundle\\Repository\\Types::kTYPE_URL_STRING') %}
+{% set type_struct = constant('Bioversity\\ServerConnectionBundle\\Repository\\Types::kTYPE_STRUCT') %}
+{% set type_set    = constant('Bioversity\\ServerConnectionBundle\\Repository\\Types::kTYPE_ENUM_SET') %}
+
 <!-- fare check sul count e inibire coordion se <= 1 -->
 <!-- come etichetta dell'accordion se non esiste metto codice -->
 
@@ -25,23 +30,23 @@
             <div class="node_detail_text">
                 {% if value|is_array %}
                     {% for subvalue in value%}
-                        {% if tags[key][type][0] == ':ENUM' %}
+                        {% if (tags[key][type][0] == type_enum or tags[key][type][0] == type_set)  %}
                             {{ terms[subvalue][label]['en'] }}
                         {% else %}
                             {{ subvalue }}
                         {% endif %}
                     {% endfor %}
                 {% else %}
-                    {% if tags[key][type][0] == ':ENUM' %}
+                    {% if (tags[key][type][0] == type_enum or tags[key][type][0] == type_set)  %}
                         <!--TODO: manage exception-->
                         {% if terms[value][label]['en'] is defined %}
                             {{ terms[value][label]['en'] }}
                         {% else %}
                             no-data-found ( {{ key }} - {{ value }} )
                         {% endif%}
-                    {% elseif tags[key][type][0] == ':URL' %}
+                    {% elseif tags[key][type][0] == type_url %}
                         <a href="{{ value }}" target="_blank">{{ value }}</a>
-                    {% elseif tags[key][type][0] == ':STRUCT' %}
+                    {% elseif tags[key][type][0] == type_struct %}
                         <!-- check on type. If contain array nothing change else explod the value -->
                         <a class="show_trial" href="{{ path('bioversity_trait_json_trials', { 'structKey': key|url_encode, 'unit' : data[gid]|url_encode, 'page' : 1 })}}" target="_blank" value="{{ data[gid] }}">{{ value }}</a>
                     {% else %}

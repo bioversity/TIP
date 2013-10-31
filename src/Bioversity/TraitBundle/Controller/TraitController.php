@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Bioversity\ServerConnectionBundle\Repository\Tags;
+use Bioversity\ServerConnectionBundle\Repository\Types;
 use Bioversity\SecurityBundle\Repository\NotificationManager;
 use Bioversity\TraitBundle\Form\TraitType;
 use Bioversity\TraitBundle\Form\TraitTagsType;
@@ -211,9 +212,11 @@ class TraitController extends Controller
         
         $units= $trials->getResponse()->getUnit();
         $first= null;
+        
         foreach($trials->getResponse()->getUnit() as $key=>$value){
             foreach($value as $k=>$v){
-                if($first === null) $first= $v;
+                
+                if($first === null && in_array(Types::kTYPE_ARRAY, $trial->getResponse()->getTag()[$structKey][Tags::kTAG_TYPE])) $first= $v;
                 $tag= $server->getUnit($v);
                 if($k == Tags::kTAG_UNIT ){
                     $units[$key]['tag']= $tag->getResponse()->getIds()[0];
@@ -229,6 +232,13 @@ class TraitController extends Controller
         $pagecount= ceil($trials->getStatus()->getAffectedCount()/$trials->getPaging()->getPageLimit());
         $totalunit= $trials->getStatus()->getAffectedCount();
         
+        //var_dump($units);
+        //print_r('<pre style="height:200px;overflow: auto;">');
+        //print_r($units);
+        //print_r('</pre>');
+        //print_r('<pre style="height:200px;overflow: auto;">');
+        //print_r($trials);
+        //print_r('</pre>');
         return $this->render(
             'BioversityTraitBundle:Trait:trials_list.html.twig',
             array(
