@@ -35,9 +35,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                    {% set user_name= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_USER_NAME') %}
+                    {% set user_name= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_NAME') %}
                     {% set user_code= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_USER_CODE') %}
-                    {% set user_mail= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_USER_MAIL') %}
+                    {% set user_mail= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_EMAIL') %}
                     {% set user_role= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_USER_ROLE') %}
                     {% set user_id  = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_NID') %}
                     {% for user in user_list %}

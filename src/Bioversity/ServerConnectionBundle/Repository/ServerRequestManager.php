@@ -10,13 +10,22 @@ class ServerRequestManager
 {
     const page_record= 10;
     
-    protected $databaseOntology  = 'ONTOLOGY';
-    protected $databasePGRSecure = 'PGRSECURE';
-    protected $databaseUsers     = 'USERS';
-    
-    protected $wrapper= "http://temp.wrapper.grinfo.net/TIP/Wrapper.php";   
-    
-    protected $format;
+    protected $databaseOntology  = 'METADATA';
+    protected $databasePGRSecure = 'DATA';
+    protected $databaseUsers     = 'DATA';
+
+	//
+	// Server connection.
+	//
+//	protected $wrapper= "http://temp.wrapper.grinfo.net/TIP/Wrapper.php";
+
+	//
+	// Development connection.
+	//
+	protected $wrapper= "http://localhost/mywrapper/MongoPortalWrapper.php";
+
+
+	protected $format;
     protected $operation;
     protected $operator= '$AND';
     protected $database;

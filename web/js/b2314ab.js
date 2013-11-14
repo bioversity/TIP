@@ -43,18 +43,15 @@ var kTAG_OFFSETS= '41';
 var kTAG_FEATURES= '42';
 var kTAG_METHODS= '43';
 var kTAG_SCALES= '44';
-var kTAG_USER_NAME= '45';
+var kTAG_NAME= '45';
 var kTAG_USER_CODE= '46';
 var kTAG_USER_PASS= '47';
-var kTAG_USER_MAIL= '48';
+var kTAG_EMAIL= '48';
 var kTAG_USER_ROLE= '49';
 var kTAG_USER_PROFILE= '50';
-var kTAG_USER_MANAGER= '51';
+var kTAG_AFFILIATION= '51';
 var kTAG_USER_DOMAIN= '52';
-var kTAG_USER_INSTITUTE_CODE= '53';
-var kTAG_USER_INSTITUTE_NAME= '54';
-var kTAG_USER_INSTITUTE_ADDRESS= '55';
-var kTAG_USER_INSTITUTE_COUNTRY= '56';
+var kTAG_NATIONALITY= '56';
 var kTAG_USER_SOCIAL_NETWORK= '57';
 /**
  *	Global plugin setup file.

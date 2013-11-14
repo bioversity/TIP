@@ -24,7 +24,7 @@ class ServerConnection
     $requestManager= new ServerRequestManager();
     $requestManager->setDatabase($requestManager->getDatabaseUsers());
     $requestManager->setOperation('WS:OP:GET-ONE');
-    $requestManager->setCollection('CUser');
+    $requestManager->setCollection(':_entities');
     $requestManager->setQuery(Tags::kTAG_USER_CODE,Types::kTYPE_STRING, $username, Operators::kOPERATOR_EQUAL);
     $requestManager->addQuery(Tags::kTAG_USER_DOMAIN,Types::kTYPE_STRING,'TIP', Operators::kOPERATOR_EQUAL);
     
@@ -41,7 +41,7 @@ class ServerConnection
     $requestManager= new ServerRequestManager();
     $requestManager->setDatabase($requestManager->getDatabaseUsers());
     $requestManager->setOperation('WS:OP:GET');
-    $requestManager->setCollection('CUser');
+    $requestManager->setCollection(':_entities');
     $requestManager->setQuery(Tags::kTAG_USER_DOMAIN,Types::kTYPE_STRING,'TIP', Operators::kOPERATOR_EQUAL);
     
     return $requestManager->sendRequest();
@@ -67,7 +67,7 @@ class ServerConnection
     $requestManager= new ServerRequestManager();
     $requestManager->setDatabase($requestManager->getDatabaseUsers());
     $requestManager->setOperation('WS:OP:NewUser');
-    $requestManager->setCollection('CUser');
+    $requestManager->setCollection(':_entities');
     $requestManager->setObject($object);
     
     return $requestManager->sendRequest();
@@ -88,7 +88,7 @@ class ServerConnection
     $requestManager= new ServerRequestManager();
     $requestManager->setDatabase($requestManager->getDatabaseUsers());
     $requestManager->setOperation('WS:OP:MODIFY');
-    $requestManager->setCollection('CUser');
+    $requestManager->setCollection(':_entities');
     $requestManager->setQuery(Tags::kTAG_NID, Types::kTYPE_STRING, $userData[Tags::kTAG_USER_CODE], Operators::kOPERATOR_EQUAL, false);
     $requestManager->setCriteria($criteria);
     
@@ -111,7 +111,7 @@ class ServerConnection
     $requestManager= new ServerRequestManager();
     $requestManager->setDatabase($requestManager->getDatabaseUsers());
     $requestManager->setOperation('WS:OP:DELETE');
-    $requestManager->setCollection('CUser');
+    $requestManager->setCollection(':_entities');
     $requestManager->setObject($id);
     $requestManager->setQuery(Tags::kTAG_USER_CODE,'_id', $id, Operators::kOPERATOR_EQUAL);
     $requestManager->addQuery(Tags::kTAG_USER_DOMAIN,Types::kTYPE_STRING,'TIP', Operators::kOPERATOR_EQUAL);
