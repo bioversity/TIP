@@ -22,7 +22,7 @@ class ServerRequestManager
 	//
 	// Development connection.
 	//
-	protected $wrapper= "http://localhost/mywrapper/MongoPortalWrapper.php";
+	protected $wrapper= "http://localhost/services/Wrappers/PGRDG/MongoWrapper.php";
 
 
 	protected $format;
@@ -32,6 +32,7 @@ class ServerRequestManager
     protected $secondDatabase;
     protected $container;
     protected $pageLimit;
+	protected $sort;
     protected $query= array();
     protected $subquery= array();
     protected $select;
@@ -181,10 +182,13 @@ class ServerRequestManager
         
         if($this->distinct)
           $request[]= ':WS:DISTINCT='.urlencode(json_encode($this->distinct));
-        
-        if($this->pageLimit !== NULL)
-          $request[]=':WS:PAGE-LIMIT='. urlencode(json_encode($this->pageLimit)) ;
-        
+
+	    if($this->pageLimit !== NULL)
+		    $request[]=':WS:PAGE-LIMIT='. urlencode(json_encode($this->pageLimit)) ;
+
+	    if($this->sort !== NULL)
+		    $request[]=':WS:SORT='. urlencode(json_encode($this->sort)) ;
+
         if($this->criteria)
             $request[]=':WS:CRITERIA='.urlencode(json_encode($this->criteria)) ;
             
@@ -292,17 +296,27 @@ class ServerRequestManager
     {
         $this->container=$container;
     }
-    
-    public function getPageLimit()
-    {
-        return $this->pageLimit;
-    }
-    
-    public function setPageLimit($pageLimit)
-    {
-        $this->pageLimit=$pageLimit;
-    }
-    
+
+	public function getPageLimit()
+	{
+		return $this->pageLimit;
+	}
+
+	public function getSort()
+	{
+		return $this->sort;
+	}
+
+	public function setPageLimit($pageLimit)
+	{
+		$this->pageLimit=$pageLimit;
+	}
+
+	public function setSort($sort)
+	{
+		$this->sort=$sort;
+	}
+
     public function getPageStart()
     {
         return $this->pageStart;

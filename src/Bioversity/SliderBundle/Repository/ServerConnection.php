@@ -30,15 +30,16 @@ class ServerConnection
   }
   
   public function getRootNodes()
-  { 
+  {
     $requestManager= new ServerRequestManager();
     $requestManager->setDatabase($requestManager->getDatabaseOntology());
     $requestManager->setOperation('WS:OP:GetVertex');
     $requestManager->setCollection(':_nodes');
-    $requestManager->setPageLimit(50);
+	$requestManager->setPageLimit(200);
+	$requestManager->setSort(array( Tags::kTAG_LABEL.'.en' => 1 ));
     $requestManager->setSelect(Array(Tags::kTAG_GID,Tags::kTAG_LABEL,Tags::kTAG_DEFINITION,Tags::kTAG_DESCRIPTION,Tags::kTAG_KIND,Tags::kTAG_TYPE));
     $requestManager->setQuery(Tags::kTAG_KIND, Types::kTYPE_STRING, ':KIND-ROOT', Operators::kOPERATOR_EQUAL);
-    
+
     return $requestManager->sendRequest();
   }
   

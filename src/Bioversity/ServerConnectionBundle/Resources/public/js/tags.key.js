@@ -26,7 +26,7 @@
  *	@subpackage	Definitions
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 25/11/2012
+ *	@version	1.00 19/11/2013
  */
 
 /*=======================================================================================
@@ -144,6 +144,16 @@ var kTAG_DOMAIN = '8';
 var kTAG_AUTHORITY = '9';
 
 /**
+ * COLLECTION.
+ *
+ * Collection.
+ *
+ * This string attribute represents the collection identifier, it acts as a namespace for
+ * identifiers and as a collection for objects.
+ */
+var kTAG_COLLECTION = '10';
+
+/**
  * CATEGORY.
  *
  * Category.
@@ -151,7 +161,7 @@ var kTAG_AUTHORITY = '9';
  * This attribute is an enumerated set that contains all the categories to which the hosting
  * object belongs to.
  */
-var kTAG_CATEGORY = '10';
+var kTAG_CATEGORY = '11';
 
 /**
  * KIND.
@@ -160,7 +170,7 @@ var kTAG_CATEGORY = '10';
  *
  * This attribute is an enumerated set that defines the kind of the hosting object.
  */
-var kTAG_KIND = '11';
+var kTAG_KIND = '12';
 
 /**
  * TYPE.
@@ -170,7 +180,7 @@ var kTAG_KIND = '11';
  * This attribute is an enumerated set that contains a combination of data type and
  * cardinality indicators which, combined, represet the data type of the hosting object.
  */
-var kTAG_TYPE = '12';
+var kTAG_TYPE = '13';
 
 /**
  * INDEX.
@@ -180,7 +190,7 @@ var kTAG_TYPE = '12';
  * This attribute is an integer that represets the relative position of the object within
  * its container.
  */
-var kTAG_INDEX = '13';
+var kTAG_INDEX = '14';
 
 /**
  * RANK.
@@ -189,7 +199,7 @@ var kTAG_INDEX = '13';
  *
  * This attribute defines the rank of the object.
  */
-var kTAG_RANK = '14';
+var kTAG_RANK = '15';
 
 /**
  * CLASS.
@@ -200,7 +210,7 @@ var kTAG_RANK = '14';
  * is used to instantiate the correct class once an object has been retrieved from its
  * container.
  */
-var kTAG_CLASS = '15';
+var kTAG_CLASS = '16';
 
 /*=======================================================================================
  *	REPRESENTATION ATTRIBUTES															*
@@ -214,7 +224,7 @@ var kTAG_CLASS = '15';
  * This attribute represents the enumerated set for the suggested or preferred input type
  * that should be used in a form to manage the value of the referenced property.
  */
-var kTAG_INPUT = '16';
+var kTAG_INPUT = '17';
 
 /**
  * PATTERN.
@@ -224,7 +234,7 @@ var kTAG_INPUT = '16';
  * This attribute represents the regular expression pattern that can be used to validate the
  * value of the referenced property.
  */
-var kTAG_PATTERN = '17';
+var kTAG_PATTERN = '18';
 
 /**
  * LENGTH.
@@ -234,7 +244,7 @@ var kTAG_PATTERN = '17';
  * This attribute represents the maximum number of characters that may comprise the value of
  * the referenced property.
  */
-var kTAG_LENGTH = '18';
+var kTAG_LENGTH = '19';
 
 /**
  * MIN.
@@ -243,7 +253,7 @@ var kTAG_LENGTH = '18';
  *
  * This attribute represents the minimum value that the referenced property may hold.
  */
-var kTAG_MIN_VAL = '19';
+var kTAG_MIN_VAL = '20';
 
 /**
  * MAX.
@@ -252,7 +262,7 @@ var kTAG_MIN_VAL = '19';
  *
  * This attribute represents the maximum value that the referenced property may hold.
  */
-var kTAG_MAX_VAL = '20';
+var kTAG_MAX_VAL = '21';
 
 /*=======================================================================================
  *	DESCRIPTION ATTRIBUTES																*
@@ -266,7 +276,7 @@ var kTAG_MAX_VAL = '20';
  * This attribute represents the name of the referenced object.
  * It is a {@link kTYPE_STRING} scalar which does not have a language component.
  */
-var kTAG_NAME = '21';
+var kTAG_NAME = '22';
 
 /**
  * LABEL.
@@ -277,7 +287,7 @@ var kTAG_NAME = '21';
  * It is a {@link kTYPE_LSTRING} structure in which the label can be expressed in several
  * languages.
  */
-var kTAG_LABEL = '22';
+var kTAG_LABEL = '23';
 
 /**
  * DEFINITION.
@@ -288,7 +298,7 @@ var kTAG_LABEL = '22';
  * {@link kTYPE_LSTRING} structure in which the definition can be expressed in several
  + languages. A definition is independent of the context.
  */
-var kTAG_DEFINITION = '23';
+var kTAG_DEFINITION = '24';
 
 /**
  * DESCRIPTION.
@@ -299,7 +309,7 @@ var kTAG_DEFINITION = '23';
  * {@link kTYPE_LSTRING} structure in which the description can be expressed in several
  * languages. A description depends on the context.
  */
-var kTAG_DESCRIPTION = '24';
+var kTAG_DESCRIPTION = '25';
 
 /**
  * NOTES.
@@ -310,7 +320,7 @@ var kTAG_DESCRIPTION = '24';
  * It is a {@link kTYPE_LSTRING} structure in which the description can be expressed in
  * several languages.
  */
-var kTAG_NOTES = '25';
+var kTAG_NOTES = '26';
 
 /**
  * EXAMPLES.
@@ -320,7 +330,7 @@ var kTAG_NOTES = '25';
  * This attribute represents the examples or templates of the referenced object.
  * It is a list of strings where each string represents an example or template.
  */
-var kTAG_EXAMPLES = '26';
+var kTAG_EXAMPLES = '27';
 
 /*=======================================================================================
  *	AUTHORSHIP ATTRIBUTES																*
@@ -333,7 +343,7 @@ var kTAG_EXAMPLES = '26';
  *
  * This attribute represents a list of authors, it is an array of author names.
  */
-var kTAG_AUTHORS = '27';
+var kTAG_AUTHORS = '28';
 
 /**
  * ACKNOWLEDGMENTS.
@@ -342,7 +352,7 @@ var kTAG_AUTHORS = '27';
  *
  * This attribute represents a list of generic acknowledgments, it is an array of strings.
  */
-var kTAG_ACKNOWLEDGMENTS = '28';
+var kTAG_ACKNOWLEDGMENTS = '29';
 
 /**
  * BIBLIOGRAPHY.
@@ -351,7 +361,7 @@ var kTAG_ACKNOWLEDGMENTS = '28';
  *
  * This attribute represents a list of bibliographic references, it is an array of strings.
  */
-var kTAG_BIBLIOGRAPHY = '29';
+var kTAG_BIBLIOGRAPHY = '30';
 
 /**
  * VERSION.
@@ -360,7 +370,7 @@ var kTAG_BIBLIOGRAPHY = '29';
  *
  * This attribute represents the object's version.
  */
-var kTAG_VERSION = '30';
+var kTAG_VERSION = '31';
 
 /*=======================================================================================
  *	REFERENCE ATTRIBUTES																*
@@ -373,7 +383,7 @@ var kTAG_VERSION = '30';
  *
  * This attribute contains a reference to a unit object.
  */
-var kTAG_UNIT = '31';
+var kTAG_UNIT = '32';
 
 /**
  * ENTITY.
@@ -382,7 +392,7 @@ var kTAG_UNIT = '31';
  *
  * This attribute contains a reference to an entity object.
  */
-var kTAG_ENTITY = '32';
+var kTAG_ENTITY = '33';
 
 /**
  * TERM.
@@ -392,7 +402,7 @@ var kTAG_ENTITY = '32';
  * This attribute contains a reference to an object that represents the term of the
  * attribute host.
  */
-var kTAG_TERM = '33';
+var kTAG_TERM = '34';
 
 /**
  * NODE.
@@ -402,7 +412,7 @@ var kTAG_TERM = '33';
  * This attribute contains a reference to an object that represents the master node of the
  * attribute host.
  */
-var kTAG_NODE = '34';
+var kTAG_NODE = '35';
 
 /**
  * TAG.
@@ -411,7 +421,7 @@ var kTAG_NODE = '34';
  *
  * This attribute contains a reference to an object that represents a tag.
  */
-var kTAG_TAG = '35';
+var kTAG_TAG = '36';
 
 /**
  * SUBJECT.
@@ -421,7 +431,7 @@ var kTAG_TAG = '35';
  * This attribute contains a reference to an object that represents the start, origin or
  * subject vertex of a <tt>subject</tt>/<tt>predicate</tt>/<tt>object</tt> relationship.
  */
-var kTAG_SUBJECT = '36';
+var kTAG_SUBJECT = '37';
 
 /**
  * kTAG_OBJECT.
@@ -431,7 +441,7 @@ var kTAG_SUBJECT = '36';
  * This attribute contains a reference to an object that represents the end, destination or
  * object vertex of a <tt>subject</tt>/<tt>predicate</tt>/<tt>object</tt> relationship.
  */
-var kTAG_OBJECT = '37';
+var kTAG_OBJECT = '38';
 
 /**
  * PREDICATE.
@@ -441,7 +451,7 @@ var kTAG_OBJECT = '37';
  * This attribute contains a reference to an object that represents the predicate term of a
  * <tt>subject</tt>/<tt>predicate</tt>/<tt>object</tt> relationship.
  */
-var kTAG_PREDICATE = '38';
+var kTAG_PREDICATE = '39';
 
 /**
  * PATH.
@@ -452,7 +462,7 @@ var kTAG_PREDICATE = '38';
  * <tt>vertex</tt> elements whose concatenation represents a path between an origin vertex
  * and a destination vertex.
  */
-var kTAG_PATH = '39';
+var kTAG_PATH = '40';
 
 /*=======================================================================================
  *	COLLECTION ATTRIBUTES																*
@@ -466,7 +476,7 @@ var kTAG_PATH = '39';
  * This integer attribute counts how many times external objects have referenced the current
  * one as a namespace.
  */
-var kTAG_NAMESPACE_REFS = '40';
+var kTAG_NAMESPACE_REFS = '41';
 
 /**
  * DATAPOINT-REFS.
@@ -475,7 +485,7 @@ var kTAG_NAMESPACE_REFS = '40';
  *
  * This integer attribute counts how many times the current tag was used to annotate data.
  */
-var kTAG_DATAPOINT_REFS = '41';
+var kTAG_DATAPOINT_REFS = '42';
 
 /**
  * NODES.
@@ -485,7 +495,7 @@ var kTAG_DATAPOINT_REFS = '41';
  * This attribute is a collection of node references, it is an array of node object native
  * identifiers who reference the current object.
  */
-var kTAG_NODES = '42';
+var kTAG_NODES = '43';
 
 /**
  * EDGES.
@@ -495,7 +505,7 @@ var kTAG_NODES = '42';
  * This attribute is a collection of edge references, it is an array of edge object native
  * identifiers who reference the current object.
  */
-var kTAG_EDGES = '43';
+var kTAG_EDGES = '44';
 
 /**
  * TAGS.
@@ -505,7 +515,7 @@ var kTAG_EDGES = '43';
  * This attribute is a collection of tag references, it is an array of tag object native
  * identifiers referenced by the current object.
  */
-var kTAG_TAGS = '44';
+var kTAG_TAGS = '45';
 
 /**
  * OFFSETS.
@@ -515,7 +525,7 @@ var kTAG_TAGS = '44';
  * This attribute is a collection of offsets, that is, an array of strings representing a
  * set of offsets.
  */
-var kTAG_OFFSETS = '45';
+var kTAG_OFFSETS = '46';
 
 /**
  * FEATURES.
@@ -525,7 +535,7 @@ var kTAG_OFFSETS = '45';
  * This attribute is a collection of feature references, it is an array of object native
  * identifiers that reference the current object as a feature or trait.
  */
-var kTAG_FEATURES = '46';
+var kTAG_FEATURES = '47';
 
 /**
  * METHODS.
@@ -535,7 +545,7 @@ var kTAG_FEATURES = '46';
  * This attribute is a collection of method references, it is an array of object native
  * identifiers that reference the current object as a method or modifier.
  */
-var kTAG_METHODS = '47';
+var kTAG_METHODS = '48';
 
 /**
  * SCALES.
@@ -545,7 +555,7 @@ var kTAG_METHODS = '47';
  * This attribute is a collection of scale references, it is an array of object native
  * identifiers that reference the current object as a scale or unit.
  */
-var kTAG_SCALES = '48';
+var kTAG_SCALES = '49';
 
 /**
  * MERGED.
@@ -556,7 +566,7 @@ var kTAG_SCALES = '48';
  * object domains, the value of the tags in this list is automatically set into the current
  * tag.
  */
-var kTAG_MERGED = '49';
+var kTAG_MERGED = '50';
 
 /*=======================================================================================
  *	OBJECT CATEGORIES																	*
@@ -567,70 +577,70 @@ var kTAG_MERGED = '49';
  *
  * Inventory attributes.
  */
-var kTAG_INVENTORY = '50';
+var kTAG_INVENTORY = '51';
 
 /**
  * STATUS.
  *
  * Status attributes.
  */
-var kTAG_STATUS = '51';
+var kTAG_STATUS = '52';
 
 /**
  * EVENT.
  *
  * Event.
  */
-var kTAG_EVENT = '52';
+var kTAG_EVENT = '53';
 
 /**
  * OCCURRENCE.
  *
  * Occurrence.
  */
-var kTAG_OCCURRENCE = '53';
+var kTAG_OCCURRENCE = '54';
 
 /**
  * TAXON.
  *
  * Taxon attributes.
  */
-var kTAG_TAXON = '54';
+var kTAG_TAXON = '55';
 
 /**
  * LOCATION.
  *
  * Location attributes.
  */
-var kTAG_LOCATION = '55';
+var kTAG_LOCATION = '56';
 
 /**
  * ENVIRONMENT.
  *
  * Environment attributes.
  */
-var kTAG_ENVIRONMENT = '56';
+var kTAG_ENVIRONMENT = '57';
 
 /**
  * BIOCLIMATIC.
  *
  * Bio-climatic attributes.
  */
-var kTAG_BIOCLIMATIC = '57';
+var kTAG_BIOCLIMATIC = '58';
 
 /**
  * TEMPERATURE.
  *
  * Monthly temperature attributes.
  */
-var kTAG_TEMPERATURE = '58';
+var kTAG_TEMPERATURE = '59';
 
 /**
  * PRECIPITATION.
  *
  * Monthly precipitation attributes.
  */
-var kTAG_PRECIPITATION = '59';
+var kTAG_PRECIPITATION = '60';
 
 /*=======================================================================================
  *	INVENTORY ATTRIBUTES																*
@@ -641,14 +651,14 @@ var kTAG_PRECIPITATION = '59';
  *
  * National inventory.
  */
-var kTAG_NICODE = '60';
+var kTAG_NICODE = '61';
 
 /**
  * FAO:INSTCODE.
  *
  * Responsible institution.
  */
-var kTAG_INSTCODE = '61';
+var kTAG_INSTCODE = '62';
 
 /*=======================================================================================
  *	STATUS ATTRIBUTES																	*
@@ -659,7 +669,7 @@ var kTAG_INSTCODE = '61';
  *
  * Available.
  */
-var kTAG_AVAILABLE = '62';
+var kTAG_AVAILABLE = '63';
 
 /*=======================================================================================
  *	TAXON ATTRIBUTES																	*
@@ -670,28 +680,28 @@ var kTAG_AVAILABLE = '62';
  *
  * Taxon name.
  */
-var kTAG_TAXON_NAME = '63';
+var kTAG_TAXON_NAME = '64';
 
 /**
  * TAXON-RANK.
  *
  * Taxon rank.
  */
-var kTAG_TAXON_RANK = '64';
+var kTAG_TAXON_RANK = '65';
 
 /**
  * CROP.
  *
  * Taxon crop.
  */
-var kTAG_CROP = '65';
+var kTAG_CROP = '66';
 
 /**
  * ANNEX1.
  *
  * Taxon name.
  */
-var kTAG_ANNEX1 = '66';
+var kTAG_ANNEX1 = '67';
 
 /*=======================================================================================
  *	LOCATION ATTRIBUTES																	*
@@ -702,7 +712,31 @@ var kTAG_ANNEX1 = '66';
  *
  * Location coordinates.
  */
-var kTAG_COORDINATES = '67';
+var kTAG_COORDINATES = '68';
+
+/**
+ * LATITUDE-DISPLAY.
+ *
+ * Location display latitude.
+ *
+ * This attribute represents the display latitude, that is, the latitude that should be
+ * displayed on a map. This is useful in cases where there are coordinates restrictions:
+ * when displaying a point on a map, this coordinate will be used in place of the true
+ * coordinate.
+ */
+var kTAG_LATITUDE_DISPLAY = '69';
+
+/**
+ * LONGITUDE-DISPLAY.
+ *
+ * Location display longitude.
+ *
+ * This attribute represents the display longitude, that is, the longitude that should be
+ * displayed on a map. This is useful in cases where there are coordinates restrictions:
+ * when displaying a point on a map, this coordinate will be used in place of the true
+ * coordinate.
+ */
+var kTAG_LONGITUDE_DISPLAY = '70';
 
 /*=======================================================================================
  *	ENVIRONMENT ATTRIBUTES																*
@@ -713,21 +747,41 @@ var kTAG_COORDINATES = '67';
  *
  * Global Environment Stratification.
  */
-var kTAG_GENS = '68';
+var kTAG_GENS = '71';
 
 /**
  * GENS-CLIM.
  *
  * Climatic Zone.
  */
-var kTAG_GENS_CLIM = '69';
+var kTAG_GENS_CLIM = '72';
 
 /**
  * GENS-ENV.
  *
  * Environmental Zone.
  */
-var kTAG_GENS_ENV = '70';
+var kTAG_GENS_ENV = '73';
+
+/**
+ * CLIM-MIN.
+ *
+ * Minimum environment elevation.
+ *
+ * This attribute records the minimum elevation of the climatic area, that is, the minimum
+ * elevation found when retrieving climatic data.
+ */
+var kTAG_CLIM_ELEV_MIN = '74';
+
+/**
+ * CLIM-MAX.
+ *
+ * Maximum environment elevation.
+ *
+ * This attribute records the maximum elevation of the climatic area, that is, the maximum
+ * elevation found when retrieving climatic data.
+ */
+var kTAG_CLIM_ELEV_MAX = '75';
 
 /*=======================================================================================
  *	BIO-CLIMATIC ATTRIBUTES																*
@@ -740,7 +794,7 @@ var kTAG_GENS_ENV = '70';
  *
  * Annual mean temperature (C° × 10).
  */
-var kTAG_BIO1 = '71';
+var kTAG_BIO1 = '76';
 
 /**
  * BIO2.
@@ -749,7 +803,7 @@ var kTAG_BIO1 = '71';
  *
  * Mean diurnal range: mean of monthly (max temp - min temp) (C° × 10).
  */
-var kTAG_BIO2 = '72';
+var kTAG_BIO2 = '77';
 
 /**
  * BIO3.
@@ -758,7 +812,7 @@ var kTAG_BIO2 = '72';
  *
  * Isothermality ((Mean Diurnal Range / Temperature Annual Range) × 100).
  */
-var kTAG_BIO3 = '73';
+var kTAG_BIO3 = '78';
 
 /**
  * BIO4.
@@ -767,7 +821,7 @@ var kTAG_BIO3 = '73';
  *
  * Temperature seasonality (standard deviation × 100).
  */
-var kTAG_BIO4 = '74';
+var kTAG_BIO4 = '79';
 
 /**
  * BIO5.
@@ -776,7 +830,7 @@ var kTAG_BIO4 = '74';
  *
  * Maximum temperature of warmest month (C° × 10).
  */
-var kTAG_BIO5 = '75';
+var kTAG_BIO5 = '80';
 
 /**
  * BIO6.
@@ -785,7 +839,7 @@ var kTAG_BIO5 = '75';
  *
  * Minimum temperature of coldest month (C° × 10).
  */
-var kTAG_BIO6 = '76';
+var kTAG_BIO6 = '81';
 
 /**
  * BIO7.
@@ -795,7 +849,7 @@ var kTAG_BIO6 = '76';
  * Temperature annual range (Maximum Temperature of Warmest Month - Minimum Temperature of
  * Coldest Month).
  */
-var kTAG_BIO7 = '77';
+var kTAG_BIO7 = '82';
 
 /**
  * BIO8.
@@ -804,7 +858,7 @@ var kTAG_BIO7 = '77';
  *
  * Mean temperature of wettest quarter (C° × 10).
  */
-var kTAG_BIO8 = '78';
+var kTAG_BIO8 = '83';
 
 /**
  * BIO9.
@@ -813,7 +867,7 @@ var kTAG_BIO8 = '78';
  *
  * Mean temperature of driest quarter (C° × 10).
  */
-var kTAG_BIO9 = '79';
+var kTAG_BIO9 = '84';
 
 /**
  * BIO10.
@@ -822,7 +876,7 @@ var kTAG_BIO9 = '79';
  *
  * Mean temperature of warmest quarter (C° × 10).
  */
-var kTAG_BIO10 = '80';
+var kTAG_BIO10 = '85';
 
 /**
  * BIO11.
@@ -831,28 +885,28 @@ var kTAG_BIO10 = '80';
  *
  * Mean temperature of coldest quarter (C° × 10).
  */
-var kTAG_BIO11 = '81';
+var kTAG_BIO11 = '86';
 
 /**
  * BIO12.
  *
  * Annual Precipitation.
  */
-var kTAG_BIO12 = '82';
+var kTAG_BIO12 = '87';
 
 /**
  * BIO13.
  *
  * Precipitation of Wettest Month.
  */
-var kTAG_BIO13 = '83';
+var kTAG_BIO13 = '88';
 
 /**
  * BIO14.
  *
  * Precipitation of Driest Month.
  */
-var kTAG_BIO14 = '84';
+var kTAG_BIO14 = '89';
 
 /**
  * BIO15.
@@ -861,282 +915,282 @@ var kTAG_BIO14 = '84';
  *
  * Precipitation seasonality (Coefficient of Variation).
  */
-var kTAG_BIO15 = '85';
+var kTAG_BIO15 = '90';
 
 /**
  * BIO16.
  *
  * Precipitation of Wettest Quarter.
  */
-var kTAG_BIO16 = '86';
+var kTAG_BIO16 = '91';
 
 /**
  * BIO17.
  *
  * Precipitation of Driest Quarter.
  */
-var kTAG_BIO17 = '87';
+var kTAG_BIO17 = '92';
 
 /**
  * BIO18.
  *
  * Precipitation of Warmest Quarter.
  */
-var kTAG_BIO18 = '88';
+var kTAG_BIO18 = '93';
 
 /**
  * BIO19.
  *
  * Precipitation of Coldest Quarter.
  */
-var kTAG_BIO19 = '89';
+var kTAG_BIO19 = '94';
 
 /*=======================================================================================
  *	MONTHLY TEMPERATURE ATTRIBUTES														*
  *======================================================================================*/
 
 /**
- * TEMP01.
+ * TEMP1.
  *
  * January mean temperature.
  *
  * January mean temperature (C° × 10).
  */
-var kTAG_TEMP01 = '90';
+var kTAG_TEMP1 = '95';
 
 /**
- * TEMP01-MIN.
+ * TEMP1-MIN.
  *
  * January minimum temperature.
  *
  * January minimum temperature (C° × 10).
  */
-var kTAG_TEMP01_MIN = '91';
+var kTAG_TEMP1_MIN = '96';
 
 /**
- * TEMP01-MAX.
+ * TEMP1-MAX.
  *
  * January maximum temperature.
  *
  * January maximum temperature (C° × 10).
  */
-var kTAG_TEMP01_MAX = '92';
+var kTAG_TEMP1_MAX = '97';
 
 /**
- * TEMP02.
+ * TEMP2.
  *
  * February mean temperature.
  *
  * February mean temperature (C° × 10).
  */
-var kTAG_TEMP02 = '93';
+var kTAG_TEMP2 = '98';
 
 /**
- * TEMP02-MIN.
+ * TEMP2-MIN.
  *
  * February minimum temperature.
  *
  * February minimum temperature (C° × 10).
  */
-var kTAG_TEMP02_MIN = '94';
+var kTAG_TEMP2_MIN = '99';
 
 /**
- * TEMP02-MAX.
+ * TEMP2-MAX.
  *
  * February maximum temperature.
  *
  * February maximum temperature (C° × 10).
  */
-var kTAG_TEMP02_MAX = '95';
+var kTAG_TEMP2_MAX = '100';
 
 /**
- * TEMP03.
+ * TEMP3.
  *
  * March mean temperature.
  *
  * March mean temperature (C° × 10).
  */
-var kTAG_TEMP03 = '96';
+var kTAG_TEMP3 = '101';
 
 /**
- * TEMP03-MIN.
+ * TEMP3-MIN.
  *
  * March minimum temperature.
  *
  * March minimum temperature (C° × 10).
  */
-var kTAG_TEMP03_MIN = '97';
+var kTAG_TEMP3_MIN = '102';
 
 /**
- * TEMP03-MAX.
+ * TEMP3-MAX.
  *
  * March maximum temperature.
  *
  * March maximum temperature (C° × 10).
  */
-var kTAG_TEMP03_MAX = '98';
+var kTAG_TEMP3_MAX = '103';
 
 /**
- * TEMP04.
+ * TEMP4.
  *
  * April mean temperature.
  *
  * April mean temperature (C° × 10).
  */
-var kTAG_TEMP04 = '99';
+var kTAG_TEMP4 = '104';
 
 /**
- * TEMP04-MIN.
+ * TEMP4-MIN.
  *
  * April minimum temperature.
  *
  * April minimum temperature (C° × 10).
  */
-var kTAG_TEMP04_MIN = '199';
+var kTAG_TEMP4_MIN = '105';
 
 /**
- * TEMP04-MAX.
+ * TEMP4-MAX.
  *
  * April maximum temperature.
  *
  * April maximum temperature (C° × 10).
  */
-var kTAG_TEMP04_MAX = '101';
+var kTAG_TEMP4_MAX = '106';
 
 /**
- * TEMP05.
+ * TEMP5.
  *
  * May mean temperature.
  *
  * May mean temperature (C° × 10).
  */
-var kTAG_TEMP05 = '102';
+var kTAG_TEMP5 = '107';
 
 /**
- * TEMP05-MIN.
+ * TEMP5-MIN.
  *
  * May minimum temperature.
  *
  * May minimum temperature (C° × 10).
  */
-var kTAG_TEMP05_MIN = '103';
+var kTAG_TEMP5_MIN = '108';
 
 /**
- * TEMP05-MAX.
+ * TEMP5-MAX.
  *
  * May maximum temperature.
  *
  * May maximum temperature (C° × 10).
  */
-var kTAG_TEMP05_MAX = '104';
+var kTAG_TEMP5_MAX = '109';
 
 /**
- * TEMP06.
+ * TEMP6.
  *
  * June mean temperature.
  *
  * June mean temperature (C° × 10).
  */
-var kTAG_TEMP06 = '105';
+var kTAG_TEMP6 = '110';
 
 /**
- * TEMP06-MIN.
+ * TEMP6-MIN.
  *
  * June minimum temperature.
  *
  * June minimum temperature (C° × 10).
  */
-var kTAG_TEMP06_MIN = '106';
+var kTAG_TEMP6_MIN = '111';
 
 /**
- * TEMP06-MAX.
+ * TEMP6-MAX.
  *
  * June maximum temperature.
  *
  * June maximum temperature (C° × 10).
  */
-var kTAG_TEMP06_MAX = '107';
+var kTAG_TEMP6_MAX = '112';
 
 /**
- * TEMP07.
+ * TEMP7.
  *
  * July mean temperature.
  *
  * July mean temperature (C° × 10).
  */
-var kTAG_TEMP07 = '108';
+var kTAG_TEMP7 = '113';
 
 /**
- * TEMP07-MIN.
+ * TEMP7-MIN.
  *
  * July minimum temperature.
  *
  * July minimum temperature (C° × 10).
  */
-var kTAG_TEMP07_MIN = '109';
+var kTAG_TEMP7_MIN = '114';
 
 /**
- * TEMP07-MAX.
+ * TEMP7-MAX.
  *
  * July maximum temperature.
  *
  * July maximum temperature (C° × 10).
  */
-var kTAG_TEMP07_MAX = '110';
+var kTAG_TEMP7_MAX = '115';
 
 /**
- * TEMP08.
+ * TEMP8.
  *
  * August mean temperature.
  *
  * August mean temperature (C° × 10).
  */
-var kTAG_TEMP08 = '111';
+var kTAG_TEMP8 = '116';
 
 /**
- * TEMP08-MIN.
+ * TEMP8-MIN.
  *
  * August minimum temperature.
  *
  * August minimum temperature (C° × 10).
  */
-var kTAG_TEMP08_MIN = '112';
+var kTAG_TEMP8_MIN = '117';
 
 /**
- * TEMP08-MAX.
+ * TEMP8-MAX.
  *
  * August maximum temperature.
  *
  * August maximum temperature (C° × 10).
  */
-var kTAG_TEMP08_MAX = '113';
+var kTAG_TEMP8_MAX = '118';
 
 /**
- * TEMP09.
+ * TEMP9.
  *
  * September mean temperature.
  *
  * September mean temperature (C° × 10).
  */
-var kTAG_TEMP09 = '114';
+var kTAG_TEMP9 = '119';
 
 /**
- * TEMP09-MIN.
+ * TEMP9-MIN.
  *
  * September minimum temperature.
  *
  * September minimum temperature (C° × 10).
  */
-var kTAG_TEMP09_MIN = '115';
+var kTAG_TEMP9_MIN = '120';
 
 /**
- * TEMP09-MAX.
+ * TEMP9-MAX.
  *
  * September maximum temperature.
  *
  * September maximum temperature (C° × 10).
  */
-var kTAG_TEMP09_MAX = '116';
+var kTAG_TEMP9_MAX = '121';
 
 /**
  * TEMP10.
@@ -1145,7 +1199,7 @@ var kTAG_TEMP09_MAX = '116';
  *
  * October mean temperature (C° × 10).
  */
-var kTAG_TEMP10 = '117';
+var kTAG_TEMP10 = '122';
 
 /**
  * TEMP10-MIN.
@@ -1154,7 +1208,7 @@ var kTAG_TEMP10 = '117';
  *
  * October minimum temperature (C° × 10).
  */
-var kTAG_TEMP10_MIN = '118';
+var kTAG_TEMP10_MIN = '123';
 
 /**
  * TEMP10-MAX.
@@ -1163,7 +1217,7 @@ var kTAG_TEMP10_MIN = '118';
  *
  * October maximum temperature (C° × 10).
  */
-var kTAG_TEMP10_MAX = '119';
+var kTAG_TEMP10_MAX = '124';
 
 /**
  * TEMP11.
@@ -1172,7 +1226,7 @@ var kTAG_TEMP10_MAX = '119';
  *
  * November mean temperature (C° × 10).
  */
-var kTAG_TEMP11 = '120';
+var kTAG_TEMP11 = '125';
 
 /**
  * TEMP11-MIN.
@@ -1181,7 +1235,7 @@ var kTAG_TEMP11 = '120';
  *
  * November minimum temperature (C° × 10).
  */
-var kTAG_TEMP11_MIN = '121';
+var kTAG_TEMP11_MIN = '126';
 
 /**
  * TEMP11-MAX.
@@ -1190,7 +1244,7 @@ var kTAG_TEMP11_MIN = '121';
  *
  * November maximum temperature (C° × 10).
  */
-var kTAG_TEMP11_MAX = '122';
+var kTAG_TEMP11_MAX = '127';
 
 /**
  * TEMP12.
@@ -1199,7 +1253,7 @@ var kTAG_TEMP11_MAX = '122';
  *
  * December mean temperature (C° × 10).
  */
-var kTAG_TEMP12 = '123';
+var kTAG_TEMP12 = '128';
 
 /**
  * TEMP12-MIN.
@@ -1208,7 +1262,7 @@ var kTAG_TEMP12 = '123';
  *
  * December minimum temperature (C° × 10).
  */
-var kTAG_TEMP12_MIN = '124';
+var kTAG_TEMP12_MIN = '129';
 
 /**
  * TEMP12-MAX.
@@ -1217,119 +1271,263 @@ var kTAG_TEMP12_MIN = '124';
  *
  * December maximum temperature (C° × 10).
  */
-var kTAG_TEMP12_MAX = '125';
+var kTAG_TEMP12_MAX = '130';
 
 /*=======================================================================================
  *	MONTHLY PRECIPITATION ATTRIBUTES													*
  *======================================================================================*/
 
 /**
- * PREC01.
+ * PREC1.
  *
- * January precipitation.
- *
- * January precipitation (mm.).
+ * January mean precipitation (mm.).
  */
-var kTAG_PREC01 = '126';
+var kTAG_PREC1 = '131';
 
 /**
- * PREC02.
+ * PREC1-MIN.
  *
- * February precipitation.
- *
- * February precipitation (mm.).
+ * January minimum precipitation (mm.).
  */
-var kTAG_PREC02 = '127';
+var kTAG_PREC1_MIN = '132';
 
 /**
- * PREC03.
+ * PREC1-MAX.
  *
- * March precipitation.
- *
- * February precipitation (mm.).
+ * January maximum precipitation (mm.).
  */
-var kTAG_PREC03 = '128';
+var kTAG_PREC1_MAX = '133';
 
 /**
- * PREC04.
+ * PREC2.
  *
- * April precipitation.
- *
- * January precipitation (mm.).
+ * February mean precipitation (mm.).
  */
-var kTAG_PREC04 = '129';
+var kTAG_PREC2 = '134';
 
 /**
- * PREC05.
+ * PREC2-MIN.
  *
- * May precipitation.
- *
- * May precipitation (mm.).
+ * February minimum precipitation (mm.).
  */
-var kTAG_PREC05 = '130';
+var kTAG_PREC2_MIN = '135';
 
 /**
- * PREC06.
+ * PREC2-MAX.
  *
- * June precipitation.
- *
- * June precipitation (mm.).
+ * February maximum precipitation (mm.).
  */
-var kTAG_PREC06 = '131';
+var kTAG_PREC2_MAX = '136';
 
 /**
- * PREC07.
+ * PREC3.
  *
- * July precipitation.
- *
- * July precipitation (mm.).
+ * March mean precipitation (mm.).
  */
-var kTAG_PREC07 = '132';
+var kTAG_PREC3 = '137';
 
 /**
- * PREC08.
+ * PREC3-MIN.
  *
- * August precipitation.
- *
- * August precipitation (mm.).
+ * March minimum precipitation (mm.).
  */
-var kTAG_PREC08 = '133';
+var kTAG_PREC3_MIN = '138';
 
 /**
- * PREC09.
+ * PREC3-MAX.
  *
- * September precipitation.
- *
- * September precipitation (mm.).
+ * March maximum precipitation (mm.).
  */
-var kTAG_PREC09 = '134';
+var kTAG_PREC3_MAX = '139';
+
+/**
+ * PREC4.
+ *
+ * April mean precipitation (mm.).
+ */
+var kTAG_PREC4 = '140';
+
+/**
+ * PREC4-MIN.
+ *
+ * April minimum precipitation (mm.).
+ */
+var kTAG_PREC4_MIN = '141';
+
+/**
+ * PREC4-MAX.
+ *
+ * April maximum precipitation (mm.).
+ */
+var kTAG_PREC4_MAX = '142';
+
+/**
+ * PREC5.
+ *
+ * May mean precipitation (mm.).
+ */
+var kTAG_PREC5 = '143';
+
+/**
+ * PREC5-MIN.
+ *
+ * May minimum precipitation (mm.).
+ */
+var kTAG_PREC5_MIN = '144';
+
+/**
+ * PREC5-MAX.
+ *
+ * May maximum precipitation (mm.).
+ */
+var kTAG_PREC5_MAX = '145';
+
+/**
+ * PREC6.
+ *
+ * June mean precipitation (mm.).
+ */
+var kTAG_PREC6 = '146';
+
+/**
+ * PREC6-MIN.
+ *
+ * June minimum precipitation (mm.).
+ */
+var kTAG_PREC6_MIN = '147';
+
+/**
+ * PREC6-MAX.
+ *
+ * June maximum precipitation (mm.).
+ */
+var kTAG_PREC6_MAX = '148';
+
+/**
+ * PREC7.
+ *
+ * July mean precipitation (mm.).
+ */
+var kTAG_PREC7 = '149';
+
+/**
+ * PREC7-MIN.
+ *
+ * July minimum precipitation (mm.).
+ */
+var kTAG_PREC7_MIN = '150';
+
+/**
+ * PREC7-MAX.
+ *
+ * July maximum precipitation (mm.).
+ */
+var kTAG_PREC7_MAX = '151';
+
+/**
+ * PREC8.
+ *
+ * August mean precipitation (mm.).
+ */
+var kTAG_PREC8 = '152';
+
+/**
+ * PREC8-MIN.
+ *
+ * August minimum precipitation (mm.).
+ */
+var kTAG_PREC8_MIN = '153';
+
+/**
+ * PREC8-MAX.
+ *
+ * August maximum precipitation (mm.).
+ */
+var kTAG_PREC8_MAX = '154';
+
+/**
+ * PREC9.
+ *
+ * September mean precipitation (mm.).
+ */
+var kTAG_PREC9 = '155';
+
+/**
+ * PREC9-MIN.
+ *
+ * September minimum precipitation (mm.).
+ */
+var kTAG_PREC9_MIN = '156';
+
+/**
+ * PREC9-MAX.
+ *
+ * September maximum precipitation (mm.).
+ */
+var kTAG_PREC9_MAX = '157';
 
 /**
  * PREC10.
  *
- * October precipitation.
- *
- * October precipitation (mm.).
+ * October mean precipitation (mm.).
  */
-var kTAG_PREC10 = '135';
+var kTAG_PREC10 = '158';
+
+/**
+ * PREC10-MIN.
+ *
+ * October minimum precipitation (mm.).
+ */
+var kTAG_PREC10_MIN = '159';
+
+/**
+ * PREC10-MAX.
+ *
+ * October maximum precipitation (mm.).
+ */
+var kTAG_PREC10_MAX = '160';
 
 /**
  * PREC11.
  *
- * November precipitation.
- *
- * November precipitation (mm.).
+ * November mean precipitation (mm.).
  */
-var kTAG_PREC11 = '136';
+var kTAG_PREC11 = '161';
+
+/**
+ * PREC11-MIN.
+ *
+ * November minimum precipitation (mm.).
+ */
+var kTAG_PREC11_MIN = '162';
+
+/**
+ * PREC11-MAX.
+ *
+ * November maximum precipitation (mm.).
+ */
+var kTAG_PREC11_MAX = '163';
 
 /**
  * PREC12.
  *
- * December precipitation.
- *
- * December precipitation (mm.).
+ * December mean precipitation (mm.).
  */
-var kTAG_PREC12 = '137';
+var kTAG_PREC12 = '164';
+
+/**
+ * PREC12-MIN.
+ *
+ * December minimum precipitation (mm.).
+ */
+var kTAG_PREC12_MIN = '165';
+
+/**
+ * PREC12-MAX.
+ *
+ * December maximum precipitation (mm.).
+ */
+var kTAG_PREC12_MAX = '166';
 
 /*=======================================================================================
  *	ENTITY OBJECT ATTRIBUTES															*
@@ -1342,7 +1540,7 @@ var kTAG_PREC12 = '137';
  *
  * The entity first name, in case of an individual.
  */
-var kTAG_FIRST_NAME = '138';
+var kTAG_FIRST_NAME = '167';
 
 /**
  * LAST-NAME.
@@ -1351,7 +1549,7 @@ var kTAG_FIRST_NAME = '138';
  *
  * The entity surname, in case of an individual.
  */
-var kTAG_LAST_NAME = '139';
+var kTAG_LAST_NAME = '168';
 
 /**
  * MAIL.
@@ -1360,7 +1558,7 @@ var kTAG_LAST_NAME = '139';
  *
  * The mailing address of an entity.
  */
-var kTAG_MAIL = '140';
+var kTAG_MAIL = '169';
 
 /**
  * EMAIL.
@@ -1369,7 +1567,7 @@ var kTAG_MAIL = '140';
  *
  * The e-mail address of an entity.
  */
-var kTAG_EMAIL = '141';
+var kTAG_EMAIL = '170';
 
 /**
  * PHONE.
@@ -1378,7 +1576,7 @@ var kTAG_EMAIL = '141';
  *
  * The telephone number of an entity.
  */
-var kTAG_PHONE = '142';
+var kTAG_PHONE = '171';
 
 /**
  * FAX.
@@ -1387,7 +1585,7 @@ var kTAG_PHONE = '142';
  *
  * The telefax number of an entity.
  */
-var kTAG_FAX = '143';
+var kTAG_FAX = '172';
 
 /**
  * WEB-SITE.
@@ -1396,7 +1594,7 @@ var kTAG_FAX = '143';
  *
  * The entity internet web site address.
  */
-var kTAG_WEB_SITE = '144';
+var kTAG_WEB_SITE = '173';
 
 /**
  * AFFILIATION.
@@ -1405,7 +1603,7 @@ var kTAG_WEB_SITE = '144';
  *
  * The reference to the entity with which the current entity is affiliated.
  */
-var kTAG_AFFILIATION = '145';
+var kTAG_AFFILIATION = '174';
 
 /**
  * NATIONALITY.
@@ -1414,7 +1612,7 @@ var kTAG_AFFILIATION = '145';
  *
  * The country of an entity.
  */
-var kTAG_NATIONALITY = '146';
+var kTAG_NATIONALITY = '175';
 
 /**
  * ENTITY-KIND.
@@ -1423,7 +1621,7 @@ var kTAG_NATIONALITY = '146';
  *
  * The entity kind.
  */
-var kTAG_ENTITY_KIND = '147';
+var kTAG_ENTITY_KIND = '176';
 
 /**
  * ENTITY-TYPE.
@@ -1432,7 +1630,7 @@ var kTAG_ENTITY_KIND = '147';
  *
  * The entity type.
  */
-var kTAG_ENTITY_TYPE = '148';
+var kTAG_ENTITY_TYPE = '177';
 
 /*=======================================================================================
  *	USER OBJECT ATTRIBUTES																*
@@ -1446,7 +1644,7 @@ var kTAG_ENTITY_TYPE = '148';
  * The code by which a user is known to the system, it may be equal to the entity
  * identifier.
  */
-var kTAG_USER_CODE = '149';
+var kTAG_USER_CODE = '178';
 
 /**
  * USER-PASS.
@@ -1455,7 +1653,7 @@ var kTAG_USER_CODE = '149';
  *
  * The password by which a user is known to the system.
  */
-var kTAG_USER_PASS = '150';
+var kTAG_USER_PASS = '179';
 
 /**
  * USER-ROLE.
@@ -1464,7 +1662,7 @@ var kTAG_USER_PASS = '150';
  *
  * The roles assigned to the user.
  */
-var kTAG_USER_ROLE = '151';
+var kTAG_USER_ROLE = '180';
 
 /**
  * USER-PROFILE.
@@ -1473,7 +1671,7 @@ var kTAG_USER_ROLE = '151';
  *
  * The profile role name assigned to the user.
  */
-var kTAG_USER_PROFILE = '152';
+var kTAG_USER_PROFILE = '181';
 
 /**
  * USER-DOMAIN.
@@ -1482,11 +1680,141 @@ var kTAG_USER_PROFILE = '152';
  *
  * List of domains the user has access to.
  */
-var kTAG_USER_DOMAIN = '153';
+var kTAG_USER_DOMAIN = '182';
 
 /**
  * USER-SOCIAL-NETWORK.
  *
  * User social network.
  */
-var kTAG_USER_SOCIAL_NETWORK = '154';
+var kTAG_USER_SOCIAL_NETWORK = '183';
+
+/*=======================================================================================
+ *	CUSTOM TYPE SUB ATTRIBUTES															*
+ *======================================================================================*/
+
+/**
+ * type.
+ *
+ * Custom data object type.
+ *
+ * This tag is used as the default offset for indicating a custom data type, in general it
+ * is used in a structure in conjunction with the {@link kTAG_CUSTOM_DATA} offset to
+ * indicate the data type of the item.
+ *
+ * Version 1: (kTAG_CUSTOM_TYPE)[type]
+ */
+var kTAG_CUSTOM_TYPE = 'type';
+
+/**
+ * data.
+ *
+ * Custom data object data.
+ *
+ * This tag is used as the default offset for indicating a custom data type content, in
+ * general this tag is used in conjunction with the {@link kTAG_CUSTOM_TYPE} to wrap a
+ * custom data type in a standard structure.
+ *
+ * Version 1: (kTAG_CUSTOM_DATA)[data]
+ */
+var kTAG_CUSTOM_DATA = 'data';
+
+/**
+ * coordinates.
+ *
+ * Custom data object coordinates.
+ *
+ * This tag is used as the default offset for indicating the coordinate values of a shape.
+ *
+ * Version 1: (kTAG_CUSTOM_COORDINATES)[coordinates]
+ */
+var kTAG_CUSTOM_COORDINATES = 'coordinates';
+
+/*=======================================================================================
+ *	CUSTOM TIMESTAMP SUB-ATTRIBUTES														*
+ *======================================================================================*/
+
+/**
+ * sec.
+ *
+ * Seconds.
+ *
+ * This tag defines the number of seconds since January 1st, 1970.
+ *
+ * Version 1: (kTYPE_STAMP_SEC)[sec]
+ */
+var kTAG_STAMP_SEC = 'sec';
+
+/**
+ * usec.
+ *
+ * Microseconds.
+ *
+ * This tag defines microseconds.
+ *
+ * Version 1: (kTYPE_STAMP_USEC)[usec]
+ */
+var kTAG_STAMP_USEC = 'usec';
+
+/*=======================================================================================
+ *	CUSTOM TYPED LIST SUB-ATTRIBUTES													*
+ *======================================================================================*/
+
+/**
+ * t.
+ *
+ * Type.
+ *
+ * This tag defines the typed list element type offset.
+ *
+ * Version 1: (kTAG_TYPED_TYPE)[tp]
+ */
+var kTAG_TYPED_TYPE = 'tp';
+
+/**
+ * d.
+ *
+ * Data.
+ *
+ * This tag defines the typed list element data offset.
+ *
+ * Version 1: (kTAG_TYPED_DATA)[dt]
+ */
+var kTAG_TYPED_DATA = 'dt';
+
+/*=======================================================================================
+ *	CUSTOM RANGE SUB-ATTRIBUTES															*
+ *======================================================================================*/
+
+/**
+ * l.
+ *
+ * Minimum.
+ *
+ * This tag defines the minimum value offset.
+ *
+ * Version 1: (kTAG_RANGE_MIN)[l]
+ */
+var kTAG_RANGE_MIN = 'l';
+
+/**
+ * m.
+ *
+ * Mean.
+ *
+ * This tag defines the mean value offset.
+ *
+ * Version 1: (kTAG_RANGE_MEAN)[m]
+ */
+var kTAG_RANGE_MEAN = 'm';
+
+/**
+ * h.
+ *
+ * Maximum.
+ *
+ * This tag defines the maximum value offset.
+ *
+ * Version 1: (kTAG_RANGE_MAX)[h]
+ */
+var kTAG_RANGE_MAX = 'h';
