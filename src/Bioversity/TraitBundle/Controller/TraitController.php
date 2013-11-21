@@ -245,23 +245,7 @@ class TraitController extends Controller
 	    // MILKO
 	    //
 	    $tags_list = $trials->getResponse()->getTag();
-	    foreach( $units as $k1 => $v1 )
-	    {
-		    //
-		    // Reference unit.
-		    //
-	        $ref_unit = & $units[ $k1 ];
-
-		    //
-		    // Iterate unit tags.
-		    //
-		    $unit_tags = array_keys( $ref_unit );
-		    foreach( $unit_tags as $unit_tag )
-		    {
-			    if( in_array( Types::kTYPE_HIDDEN, $tags_list[ $unit_tag ] ) )
-				    unset( $ref_unit[ $unit_tag ]);
-		    }
-	    }
+	    $this->hideUnitOffsets( $units, $tags_list );
 
         return $this->render(
             'BioversityTraitBundle:Trait:trials_list.html.twig',
@@ -307,7 +291,64 @@ class TraitController extends Controller
             ));
     }
 
-    
+//--------------PROTECTED-------------//
+
+	//
+	// Unset offsets that are hidden or restricted.
+	// MILKO
+	//
+	// &$theUnits: The units list reference.
+	// &$theTags: Tags response section (read-only).
+	//
+	protected function hideUnitOffsets( &$theUnits, &$theTags )
+	{
+		//
+		// Iterate unit.
+		//
+		foreach( $theUnits as $key => $value )
+		{
+			//
+			// Reference unit.
+			//
+			$ref_unit = & $theUnits[ $key ];
+
+			//
+			// Iterate unit offsets.
+			//
+			$offsets = array_keys( $ref_unit );
+			foreach( $offsets as $offset )
+				$this->hideOffset( $ref_unit, $theTags, $offset );
+
+		} // Iterating units.
+
+	} // hideOffsets.
+
+
+	//
+	// Unset offsets that are hidden or restricted.
+	// MILKO
+	//
+	// &$theUnit: The units list reference.
+	// &$theTags: Tags response section (read-only).
+	//  $theOffset: Unit and tag offset.
+	//
+	protected function hideOffset( &$theUnit, &$theTags, $theOffset )
+	{
+		//
+		// Hide offset.
+		//
+		if( in_array( Types::kTYPE_HIDDEN, $theTags[ $theOffset ] ) )
+			unset( $theUnit[ $theOffset ] );
+
+		//
+		// Recurse structure.
+		//
+		elseif( is_array( $theUnit[ $theOffset ] )
+			 && in_array( Types::kTYPE_STRUCT, $theTags[ $theOffset ] ) )
+			$this->hideUnitOffsets( $theUnit[ $theOffset ], $theTags );
+
+	} // hideOffset.
+
 //--------------PRIVATE-------------//
 
     private function getFeaturedData($postValue)

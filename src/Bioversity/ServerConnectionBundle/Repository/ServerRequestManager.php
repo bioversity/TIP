@@ -24,7 +24,6 @@ class ServerRequestManager
 	//
 	protected $wrapper= "http://localhost/services/Wrappers/PGRDG/MongoWrapper.php";
 
-
 	protected $format;
     protected $operation;
     protected $operator= '$AND';
