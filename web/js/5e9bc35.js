@@ -2013,7 +2013,7 @@ function autocomplateForm()
         select: function( event, ui ) {
                     if(ui.item)
                         getFieldsForm(ui.item.value);
-                }
+                },
     });
 }
 

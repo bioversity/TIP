@@ -13,16 +13,20 @@
             {% for key,value in distinct %}
                 <li class="">
                   <a href="{{ links|get_url(key) }}">
-                    <span class="badge pull-right distinct_value">{{ value }}</span>            
-                    {% if terms[key][kind][0] == ':KIND-ENUMERATION' %}
-                        {% if terms[key][label]['en'] is defined %}
-                            {{ terms[key][label]['en'] }}
+                    <span class="badge pull-right distinct_value">{{ value }}</span>
+                      {% if terms[key][kind] is defined %}
+                        {% if terms[key][kind][0] == ':KIND-ENUMERATION' %}
+                            {% if terms[key][label]['en'] is defined %}
+                                {{ terms[key][label]['en'] }}
+                            {% else %}
+                                no-data-found ( {{ key }} - {{ value }} )
+                            {% endif%}
                         {% else %}
-                            no-data-found ( {{ key }} - {{ value }} )
-                        {% endif%}
-                    {% else %}
-                        {{ key }}
-                    {% endif %}
+                            {{ key }}
+                        {% endif %}
+                      {% else %}
+                          {{ key }}
+                      {% endif %}
                   </a>
                 </li>
             {% endfor %}

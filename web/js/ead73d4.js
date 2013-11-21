@@ -1986,7 +1986,7 @@ function startAutocomplete()
                     if(ui.item){
                         getTermDetail(ui.item.value, ui.item.label);
                     }
-                }
+                },
     });
     
     $( "#OntologyTerm_"+kTAG_NAMESPACE+", #OntologyNamespace_"+kTAG_NAMESPACE ).autocomplete({
@@ -2012,7 +2012,7 @@ function startAutocomplete()
         select: function( event, ui ) {
                     if(ui.item)
                         getTermDetail(ui.item.value, ui.item.label);
-                }
+                },
     });
 }
 

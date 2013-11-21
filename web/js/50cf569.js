@@ -2295,7 +2295,7 @@ function startAutocomplete(form)
                     if(ui.item){
                         getTermDetail(ui.item.value, ui.item.label);
                     }
-                }
+                },
     });
      
     $( "#"+form+"_"+kTAG_NAMESPACE ).autocomplete({
@@ -2323,7 +2323,7 @@ function startAutocomplete(form)
         select: function( event, ui ) {
                     //if(ui.item)
                         //getTermDetail(ui.item.value, ui.item.label);
-                }
+                },
     });
     
     $( "#"+form+"_"+kTAG_LABEL ).autocomplete({
@@ -2341,7 +2341,7 @@ function startAutocomplete(form)
                             subvalue= item.GID;
                             return {
                                 label: item.LABEL,
-                                value: item.GID
+                                value: item.GID,
                             }
                         }));
                     }
@@ -2353,7 +2353,7 @@ function startAutocomplete(form)
                     if(ui.item){
                         getTermDetail(ui.item.value, ui.item.value);
                     }
-                }
+                },
     });
     
     $( "#"+form+"_"+kTAG_GID ).autocomplete({
@@ -2370,7 +2370,7 @@ function startAutocomplete(form)
                         response( $.map( data, function( item ) {
                             return {
                                 label: item.LABEL,
-                                value: item.GID
+                                value: item.GID,
                             }
                         }));
                     }
@@ -2382,7 +2382,7 @@ function startAutocomplete(form)
                     if(ui.item){
                         getTermDetail(ui.item.value, ui.item.value);
                     }
-                }
+                },
     });
      
 }

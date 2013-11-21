@@ -239,19 +239,44 @@ class TraitController extends Controller
         //print_r('<pre style="height:200px;overflow: auto;">');
         //print_r($trials);
         //print_r('</pre>');
+
+	    //
+	    // Remove hidden tags.
+	    // MILKO
+	    //
+	    $tags_list = $trials->getResponse()->getTag();
+	    foreach( $units as $k1 => $v1 )
+	    {
+		    //
+		    // Reference unit.
+		    //
+	        $ref_unit = & $units[ $k1 ];
+
+		    //
+		    // Iterate unit tags.
+		    //
+		    $unit_tags = array_keys( $ref_unit );
+		    foreach( $unit_tags as $unit_tag )
+		    {
+			    if( in_array( Types::kTYPE_HIDDEN, $tags_list[ $unit_tag ] ) )
+				    unset( $ref_unit[ $unit_tag ]);
+		    }
+	    }
+
         return $this->render(
             'BioversityTraitBundle:Trait:trials_list.html.twig',
             array(
                 'trial'      => $trial->getResponse()->getAllResponse(),
                 'trials'     => $units,
                 'response'   => $trials->getResponse(),
-                'tags'       => $trials->getResponse()->getTag(),
+                'tags'       => $tags_list,
                 'terms'      => $trials->getResponse()->getTerm(),
                 'pagecount'  => $pagecount,
                 'actualpage' => $page,
                 'totalunit'  => $totalunit,
                 'unit'       => $unit,
-                'structKey'  => $structKey
+                'structKey'  => $structKey,
+	            'domain_tag' => Tags::kTAG_DOMAIN
             ));
     }
     
