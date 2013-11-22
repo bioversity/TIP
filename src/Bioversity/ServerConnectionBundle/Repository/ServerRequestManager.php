@@ -4,25 +4,26 @@ namespace Bioversity\ServerConnectionBundle\Repository;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 use Bioversity\ServerConnectionBundle\Repository\ServerResponseManager;
-use Bioversity\ServerConnectionBundle\Repository\ServerResponseRequestQueryManager;
+//use Bioversity\ServerConnectionBundle\Repository\ServerResponseRequestQueryManager;
+
+//
+// Global configurations file.
+// MILKO
+//
+require_once( "/Library/WebServer/Configuration/PGRDG/Server.inc.php" );
+
 
 class ServerRequestManager
 {
     const page_record= 10;
-    
-    protected $databaseOntology  = 'METADATA';
-    protected $databasePGRSecure = 'DATA';
-    protected $databaseUsers     = 'DATA';
 
 	//
-	// Server connection.
+	// Database and wrapper settings.
 	//
-//	protected $wrapper= "http://temp.wrapper.grinfo.net/TIP/Wrapper.php";
-
-	//
-	// Development connection.
-	//
-	protected $wrapper= "http://localhost/services/Wrappers/PGRDG/MongoWrapper.php";
+	protected $databaseOntology  = kSERVER_METADATA;
+	protected $databaseUsers     = kSERVER_ENTITIES;
+	protected $databasePGRSecure = kSERVER_DATA;
+	protected $wrapper           = kSERVER_WRAPPER;
 
 	protected $format;
     protected $operation;
