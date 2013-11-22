@@ -671,6 +671,13 @@ var kTAG_INSTCODE = '62';
  */
 var kTAG_AVAILABLE = '63';
 
+/**
+ * RESTRICTIONS.
+ *
+ * Restrictions.
+ */
+var kTAG_RESTRICTIONS = '64';
+
 /*=======================================================================================
  *	TAXON ATTRIBUTES																	*
  *======================================================================================*/
@@ -680,28 +687,28 @@ var kTAG_AVAILABLE = '63';
  *
  * Taxon name.
  */
-var kTAG_TAXON_NAME = '64';
+var kTAG_TAXON_NAME = '65';
 
 /**
  * TAXON-RANK.
  *
  * Taxon rank.
  */
-var kTAG_TAXON_RANK = '65';
+var kTAG_TAXON_RANK = '66';
 
 /**
  * CROP.
  *
  * Taxon crop.
  */
-var kTAG_CROP = '66';
+var kTAG_CROP = '67';
 
 /**
  * ANNEX1.
  *
  * Taxon name.
  */
-var kTAG_ANNEX1 = '67';
+var kTAG_ANNEX1 = '68';
 
 /*=======================================================================================
  *	LOCATION ATTRIBUTES																	*
@@ -712,7 +719,7 @@ var kTAG_ANNEX1 = '67';
  *
  * Location coordinates.
  */
-var kTAG_COORDINATES = '68';
+var kTAG_COORDINATES = '69';
 
 /**
  * LATITUDE-DISPLAY.
@@ -724,7 +731,7 @@ var kTAG_COORDINATES = '68';
  * when displaying a point on a map, this coordinate will be used in place of the true
  * coordinate.
  */
-var kTAG_LATITUDE_DISPLAY = '69';
+var kTAG_LATITUDE_DISPLAY = '70';
 
 /**
  * LONGITUDE-DISPLAY.
@@ -736,7 +743,7 @@ var kTAG_LATITUDE_DISPLAY = '69';
  * when displaying a point on a map, this coordinate will be used in place of the true
  * coordinate.
  */
-var kTAG_LONGITUDE_DISPLAY = '70';
+var kTAG_LONGITUDE_DISPLAY = '71';
 
 /*=======================================================================================
  *	ENVIRONMENT ATTRIBUTES																*
@@ -747,41 +754,81 @@ var kTAG_LONGITUDE_DISPLAY = '70';
  *
  * Global Environment Stratification.
  */
-var kTAG_GENS = '71';
+var kTAG_GENS = '72';
 
 /**
  * GENS-CLIM.
  *
  * Climatic Zone.
  */
-var kTAG_GENS_CLIM = '72';
+var kTAG_GENS_CLIM = '73';
 
 /**
  * GENS-ENV.
  *
  * Environmental Zone.
  */
-var kTAG_GENS_ENV = '73';
+var kTAG_GENS_ENV = '74';
 
 /**
- * CLIM-MIN.
+ * CLIM-ELEV-MIN.
  *
  * Minimum environment elevation.
  *
  * This attribute records the minimum elevation of the climatic area, that is, the minimum
  * elevation found when retrieving climatic data.
  */
-var kTAG_CLIM_ELEV_MIN = '74';
+var kTAG_CLIM_ELEV_MIN = '75';
 
 /**
- * CLIM-MAX.
+ * CLIM-ELEV-MEAN.
+ *
+ * Mean environment elevation.
+ *
+ * This attribute records the mean elevation of the climatic area, that is, the mean
+ * elevation found when retrieving climatic data.
+ */
+var kTAG_CLIM_ELEV_MEAN = '76';
+
+/**
+ * CLIM-ELEV-MAX.
  *
  * Maximum environment elevation.
  *
  * This attribute records the maximum elevation of the climatic area, that is, the maximum
  * elevation found when retrieving climatic data.
  */
-var kTAG_CLIM_ELEV_MAX = '75';
+var kTAG_CLIM_ELEV_MAX = '77';
+
+/**
+ * CLIM-DIST-MIN.
+ *
+ * Minimum environment distance.
+ *
+ * This attribute records the minimum distance of the climatic area from the provided
+ * geometry.
+ */
+var kTAG_CLIM_DIST_MIN = '78';
+
+/**
+ * CLIM-DIST-MEAN.
+ *
+ * Mean environment distance.
+ *
+ * This attribute records the mean distance of the climatic area from the provided
+ * geometry.
+ */
+var kTAG_CLIM_DIST_MEAN = '79';
+
+/**
+ * CLIM-DIST-MAX.
+ *
+ * Maximum environment distance.
+ *
+ * This attribute records the maximum distance of the climatic area from the provided
+ * geometry.
+ */
+var kTAG_CLIM_DIST_MAX = '80';
 
 /*=======================================================================================
  *	BIO-CLIMATIC ATTRIBUTES																*
@@ -792,18 +839,18 @@ var kTAG_CLIM_ELEV_MAX = '75';
  *
  * Annual Mean Temperature.
  *
- * Annual mean temperature (C° × 10).
+ * Annual mean temperature (C°).
  */
-var kTAG_BIO1 = '76';
+var kTAG_BIO1 = '81';
 
 /**
  * BIO2.
  *
  * Mean Diurnal Range.
  *
- * Mean diurnal range: mean of monthly (max temp - min temp) (C° × 10).
+ * Mean diurnal range: mean of monthly (max temp - min temp) (C°).
  */
-var kTAG_BIO2 = '77';
+var kTAG_BIO2 = '82';
 
 /**
  * BIO3.
@@ -812,7 +859,7 @@ var kTAG_BIO2 = '77';
  *
  * Isothermality ((Mean Diurnal Range / Temperature Annual Range) × 100).
  */
-var kTAG_BIO3 = '78';
+var kTAG_BIO3 = '83';
 
 /**
  * BIO4.
@@ -821,25 +868,25 @@ var kTAG_BIO3 = '78';
  *
  * Temperature seasonality (standard deviation × 100).
  */
-var kTAG_BIO4 = '79';
+var kTAG_BIO4 = '84';
 
 /**
  * BIO5.
  *
  * Maximum Temperature of Warmest Month.
  *
- * Maximum temperature of warmest month (C° × 10).
+ * Maximum temperature of warmest month (C°).
  */
-var kTAG_BIO5 = '80';
+var kTAG_BIO5 = '85';
 
 /**
  * BIO6.
  *
  * Minimum Temperature of Coldest Month.
  *
- * Minimum temperature of coldest month (C° × 10).
+ * Minimum temperature of coldest month (C°).
  */
-var kTAG_BIO6 = '81';
+var kTAG_BIO6 = '86';
 
 /**
  * BIO7.
@@ -849,64 +896,64 @@ var kTAG_BIO6 = '81';
  * Temperature annual range (Maximum Temperature of Warmest Month - Minimum Temperature of
  * Coldest Month).
  */
-var kTAG_BIO7 = '82';
+var kTAG_BIO7 = '87';
 
 /**
  * BIO8.
  *
  * Mean Temperature of Wettest Quarter.
  *
- * Mean temperature of wettest quarter (C° × 10).
+ * Mean temperature of wettest quarter (C°).
  */
-var kTAG_BIO8 = '83';
+var kTAG_BIO8 = '88';
 
 /**
  * BIO9.
  *
  * Mean Temperature of Driest Quarter.
  *
- * Mean temperature of driest quarter (C° × 10).
+ * Mean temperature of driest quarter (C°).
  */
-var kTAG_BIO9 = '84';
+var kTAG_BIO9 = '89';
 
 /**
  * BIO10.
  *
  * Mean Temperature of Warmest Quarter.
  *
- * Mean temperature of warmest quarter (C° × 10).
+ * Mean temperature of warmest quarter (C°).
  */
-var kTAG_BIO10 = '85';
+var kTAG_BIO10 = '90';
 
 /**
  * BIO11.
  *
  * Mean Temperature of Coldest Quarter.
  *
- * Mean temperature of coldest quarter (C° × 10).
+ * Mean temperature of coldest quarter (C°).
  */
-var kTAG_BIO11 = '86';
+var kTAG_BIO11 = '91';
 
 /**
  * BIO12.
  *
  * Annual Precipitation.
  */
-var kTAG_BIO12 = '87';
+var kTAG_BIO12 = '92';
 
 /**
  * BIO13.
  *
  * Precipitation of Wettest Month.
  */
-var kTAG_BIO13 = '88';
+var kTAG_BIO13 = '93';
 
 /**
  * BIO14.
  *
  * Precipitation of Driest Month.
  */
-var kTAG_BIO14 = '89';
+var kTAG_BIO14 = '94';
 
 /**
  * BIO15.
@@ -915,35 +962,35 @@ var kTAG_BIO14 = '89';
  *
  * Precipitation seasonality (Coefficient of Variation).
  */
-var kTAG_BIO15 = '90';
+var kTAG_BIO15 = '95';
 
 /**
  * BIO16.
  *
  * Precipitation of Wettest Quarter.
  */
-var kTAG_BIO16 = '91';
+var kTAG_BIO16 = '96';
 
 /**
  * BIO17.
  *
  * Precipitation of Driest Quarter.
  */
-var kTAG_BIO17 = '92';
+var kTAG_BIO17 = '97';
 
 /**
  * BIO18.
  *
  * Precipitation of Warmest Quarter.
  */
-var kTAG_BIO18 = '93';
+var kTAG_BIO18 = '98';
 
 /**
  * BIO19.
  *
  * Precipitation of Coldest Quarter.
  */
-var kTAG_BIO19 = '94';
+var kTAG_BIO19 = '99';
 
 /*=======================================================================================
  *	MONTHLY TEMPERATURE ATTRIBUTES														*
@@ -954,324 +1001,324 @@ var kTAG_BIO19 = '94';
  *
  * January mean temperature.
  *
- * January mean temperature (C° × 10).
+ * January mean temperature (C°).
  */
-var kTAG_TEMP1 = '95';
+var kTAG_TEMP1 = '100';
 
 /**
  * TEMP1-MIN.
  *
  * January minimum temperature.
  *
- * January minimum temperature (C° × 10).
+ * January minimum temperature (C°).
  */
-var kTAG_TEMP1_MIN = '96';
+var kTAG_TEMP1_MIN = '101';
 
 /**
  * TEMP1-MAX.
  *
  * January maximum temperature.
  *
- * January maximum temperature (C° × 10).
+ * January maximum temperature (C°).
  */
-var kTAG_TEMP1_MAX = '97';
+var kTAG_TEMP1_MAX = '102';
 
 /**
  * TEMP2.
  *
  * February mean temperature.
  *
- * February mean temperature (C° × 10).
+ * February mean temperature (C°).
  */
-var kTAG_TEMP2 = '98';
+var kTAG_TEMP2 = '103';
 
 /**
  * TEMP2-MIN.
  *
  * February minimum temperature.
  *
- * February minimum temperature (C° × 10).
+ * February minimum temperature (C°).
  */
-var kTAG_TEMP2_MIN = '99';
+var kTAG_TEMP2_MIN = '104';
 
 /**
  * TEMP2-MAX.
  *
  * February maximum temperature.
  *
- * February maximum temperature (C° × 10).
+ * February maximum temperature (C°).
  */
-var kTAG_TEMP2_MAX = '100';
+var kTAG_TEMP2_MAX = '105';
 
 /**
  * TEMP3.
  *
  * March mean temperature.
  *
- * March mean temperature (C° × 10).
+ * March mean temperature (C°).
  */
-var kTAG_TEMP3 = '101';
+var kTAG_TEMP3 = '106';
 
 /**
  * TEMP3-MIN.
  *
  * March minimum temperature.
  *
- * March minimum temperature (C° × 10).
+ * March minimum temperature (C°).
  */
-var kTAG_TEMP3_MIN = '102';
+var kTAG_TEMP3_MIN = '107';
 
 /**
  * TEMP3-MAX.
  *
  * March maximum temperature.
  *
- * March maximum temperature (C° × 10).
+ * March maximum temperature (C°).
  */
-var kTAG_TEMP3_MAX = '103';
+var kTAG_TEMP3_MAX = '108';
 
 /**
  * TEMP4.
  *
  * April mean temperature.
  *
- * April mean temperature (C° × 10).
+ * April mean temperature (C°).
  */
-var kTAG_TEMP4 = '104';
+var kTAG_TEMP4 = '109';
 
 /**
  * TEMP4-MIN.
  *
  * April minimum temperature.
  *
- * April minimum temperature (C° × 10).
+ * April minimum temperature (C°).
  */
-var kTAG_TEMP4_MIN = '105';
+var kTAG_TEMP4_MIN = '110';
 
 /**
  * TEMP4-MAX.
  *
  * April maximum temperature.
  *
- * April maximum temperature (C° × 10).
+ * April maximum temperature (C°).
  */
-var kTAG_TEMP4_MAX = '106';
+var kTAG_TEMP4_MAX = '111';
 
 /**
  * TEMP5.
  *
  * May mean temperature.
  *
- * May mean temperature (C° × 10).
+ * May mean temperature (C°).
  */
-var kTAG_TEMP5 = '107';
+var kTAG_TEMP5 = '112';
 
 /**
  * TEMP5-MIN.
  *
  * May minimum temperature.
  *
- * May minimum temperature (C° × 10).
+ * May minimum temperature (C°).
  */
-var kTAG_TEMP5_MIN = '108';
+var kTAG_TEMP5_MIN = '113';
 
 /**
  * TEMP5-MAX.
  *
  * May maximum temperature.
  *
- * May maximum temperature (C° × 10).
+ * May maximum temperature (C°).
  */
-var kTAG_TEMP5_MAX = '109';
+var kTAG_TEMP5_MAX = '114';
 
 /**
  * TEMP6.
  *
  * June mean temperature.
  *
- * June mean temperature (C° × 10).
+ * June mean temperature (C°).
  */
-var kTAG_TEMP6 = '110';
+var kTAG_TEMP6 = '115';
 
 /**
  * TEMP6-MIN.
  *
  * June minimum temperature.
  *
- * June minimum temperature (C° × 10).
+ * June minimum temperature (C°).
  */
-var kTAG_TEMP6_MIN = '111';
+var kTAG_TEMP6_MIN = '116';
 
 /**
  * TEMP6-MAX.
  *
  * June maximum temperature.
  *
- * June maximum temperature (C° × 10).
+ * June maximum temperature (C°).
  */
-var kTAG_TEMP6_MAX = '112';
+var kTAG_TEMP6_MAX = '117';
 
 /**
  * TEMP7.
  *
  * July mean temperature.
  *
- * July mean temperature (C° × 10).
+ * July mean temperature (C°).
  */
-var kTAG_TEMP7 = '113';
+var kTAG_TEMP7 = '118';
 
 /**
  * TEMP7-MIN.
  *
  * July minimum temperature.
  *
- * July minimum temperature (C° × 10).
+ * July minimum temperature (C°).
  */
-var kTAG_TEMP7_MIN = '114';
+var kTAG_TEMP7_MIN = '119';
 
 /**
  * TEMP7-MAX.
  *
  * July maximum temperature.
  *
- * July maximum temperature (C° × 10).
+ * July maximum temperature (C°).
  */
-var kTAG_TEMP7_MAX = '115';
+var kTAG_TEMP7_MAX = '120';
 
 /**
  * TEMP8.
  *
  * August mean temperature.
  *
- * August mean temperature (C° × 10).
+ * August mean temperature (C°).
  */
-var kTAG_TEMP8 = '116';
+var kTAG_TEMP8 = '121';
 
 /**
  * TEMP8-MIN.
  *
  * August minimum temperature.
  *
- * August minimum temperature (C° × 10).
+ * August minimum temperature (C°).
  */
-var kTAG_TEMP8_MIN = '117';
+var kTAG_TEMP8_MIN = '122';
 
 /**
  * TEMP8-MAX.
  *
  * August maximum temperature.
  *
- * August maximum temperature (C° × 10).
+ * August maximum temperature (C°).
  */
-var kTAG_TEMP8_MAX = '118';
+var kTAG_TEMP8_MAX = '123';
 
 /**
  * TEMP9.
  *
  * September mean temperature.
  *
- * September mean temperature (C° × 10).
+ * September mean temperature (C°).
  */
-var kTAG_TEMP9 = '119';
+var kTAG_TEMP9 = '124';
 
 /**
  * TEMP9-MIN.
  *
  * September minimum temperature.
  *
- * September minimum temperature (C° × 10).
+ * September minimum temperature (C°).
  */
-var kTAG_TEMP9_MIN = '120';
+var kTAG_TEMP9_MIN = '125';
 
 /**
  * TEMP9-MAX.
  *
  * September maximum temperature.
  *
- * September maximum temperature (C° × 10).
+ * September maximum temperature (C°).
  */
-var kTAG_TEMP9_MAX = '121';
+var kTAG_TEMP9_MAX = '126';
 
 /**
  * TEMP10.
  *
  * October mean temperature.
  *
- * October mean temperature (C° × 10).
+ * October mean temperature (C°).
  */
-var kTAG_TEMP10 = '122';
+var kTAG_TEMP10 = '127';
 
 /**
  * TEMP10-MIN.
  *
  * October minimum temperature.
  *
- * October minimum temperature (C° × 10).
+ * October minimum temperature (C°).
  */
-var kTAG_TEMP10_MIN = '123';
+var kTAG_TEMP10_MIN = '128';
 
 /**
  * TEMP10-MAX.
  *
  * October maximum temperature.
  *
- * October maximum temperature (C° × 10).
+ * October maximum temperature (C°).
  */
-var kTAG_TEMP10_MAX = '124';
+var kTAG_TEMP10_MAX = '129';
 
 /**
  * TEMP11.
  *
  * November mean temperature.
  *
- * November mean temperature (C° × 10).
+ * November mean temperature (C°).
  */
-var kTAG_TEMP11 = '125';
+var kTAG_TEMP11 = '130';
 
 /**
  * TEMP11-MIN.
  *
  * November minimum temperature.
  *
- * November minimum temperature (C° × 10).
+ * November minimum temperature (C°).
  */
-var kTAG_TEMP11_MIN = '126';
+var kTAG_TEMP11_MIN = '131';
 
 /**
  * TEMP11-MAX.
  *
  * November maximum temperature.
  *
- * November maximum temperature (C° × 10).
+ * November maximum temperature (C°).
  */
-var kTAG_TEMP11_MAX = '127';
+var kTAG_TEMP11_MAX = '132';
 
 /**
  * TEMP12.
  *
  * December mean temperature.
  *
- * December mean temperature (C° × 10).
+ * December mean temperature (C°).
  */
-var kTAG_TEMP12 = '128';
+var kTAG_TEMP12 = '133';
 
 /**
  * TEMP12-MIN.
  *
  * December minimum temperature.
  *
- * December minimum temperature (C° × 10).
+ * December minimum temperature (C°).
  */
-var kTAG_TEMP12_MIN = '129';
+var kTAG_TEMP12_MIN = '134';
 
 /**
  * TEMP12-MAX.
  *
  * December maximum temperature.
  *
- * December maximum temperature (C° × 10).
+ * December maximum temperature (C°).
  */
-var kTAG_TEMP12_MAX = '130';
+var kTAG_TEMP12_MAX = '135';
 
 /*=======================================================================================
  *	MONTHLY PRECIPITATION ATTRIBUTES													*
@@ -1282,252 +1329,252 @@ var kTAG_TEMP12_MAX = '130';
  *
  * January mean precipitation (mm.).
  */
-var kTAG_PREC1 = '131';
+var kTAG_PREC1 = '136';
 
 /**
  * PREC1-MIN.
  *
  * January minimum precipitation (mm.).
  */
-var kTAG_PREC1_MIN = '132';
+var kTAG_PREC1_MIN = '137';
 
 /**
  * PREC1-MAX.
  *
  * January maximum precipitation (mm.).
  */
-var kTAG_PREC1_MAX = '133';
+var kTAG_PREC1_MAX = '138';
 
 /**
  * PREC2.
  *
  * February mean precipitation (mm.).
  */
-var kTAG_PREC2 = '134';
+var kTAG_PREC2 = '139';
 
 /**
  * PREC2-MIN.
  *
  * February minimum precipitation (mm.).
  */
-var kTAG_PREC2_MIN = '135';
+var kTAG_PREC2_MIN = '140';
 
 /**
  * PREC2-MAX.
  *
  * February maximum precipitation (mm.).
  */
-var kTAG_PREC2_MAX = '136';
+var kTAG_PREC2_MAX = '141';
 
 /**
  * PREC3.
  *
  * March mean precipitation (mm.).
  */
-var kTAG_PREC3 = '137';
+var kTAG_PREC3 = '142';
 
 /**
  * PREC3-MIN.
  *
  * March minimum precipitation (mm.).
  */
-var kTAG_PREC3_MIN = '138';
+var kTAG_PREC3_MIN = '143';
 
 /**
  * PREC3-MAX.
  *
  * March maximum precipitation (mm.).
  */
-var kTAG_PREC3_MAX = '139';
+var kTAG_PREC3_MAX = '144';
 
 /**
  * PREC4.
  *
  * April mean precipitation (mm.).
  */
-var kTAG_PREC4 = '140';
+var kTAG_PREC4 = '145';
 
 /**
  * PREC4-MIN.
  *
  * April minimum precipitation (mm.).
  */
-var kTAG_PREC4_MIN = '141';
+var kTAG_PREC4_MIN = '146';
 
 /**
  * PREC4-MAX.
  *
  * April maximum precipitation (mm.).
  */
-var kTAG_PREC4_MAX = '142';
+var kTAG_PREC4_MAX = '147';
 
 /**
  * PREC5.
  *
  * May mean precipitation (mm.).
  */
-var kTAG_PREC5 = '143';
+var kTAG_PREC5 = '148';
 
 /**
  * PREC5-MIN.
  *
  * May minimum precipitation (mm.).
  */
-var kTAG_PREC5_MIN = '144';
+var kTAG_PREC5_MIN = '149';
 
 /**
  * PREC5-MAX.
  *
  * May maximum precipitation (mm.).
  */
-var kTAG_PREC5_MAX = '145';
+var kTAG_PREC5_MAX = '150';
 
 /**
  * PREC6.
  *
  * June mean precipitation (mm.).
  */
-var kTAG_PREC6 = '146';
+var kTAG_PREC6 = '151';
 
 /**
  * PREC6-MIN.
  *
  * June minimum precipitation (mm.).
  */
-var kTAG_PREC6_MIN = '147';
+var kTAG_PREC6_MIN = '152';
 
 /**
  * PREC6-MAX.
  *
  * June maximum precipitation (mm.).
  */
-var kTAG_PREC6_MAX = '148';
+var kTAG_PREC6_MAX = '153';
 
 /**
  * PREC7.
  *
  * July mean precipitation (mm.).
  */
-var kTAG_PREC7 = '149';
+var kTAG_PREC7 = '154';
 
 /**
  * PREC7-MIN.
  *
  * July minimum precipitation (mm.).
  */
-var kTAG_PREC7_MIN = '150';
+var kTAG_PREC7_MIN = '155';
 
 /**
  * PREC7-MAX.
  *
  * July maximum precipitation (mm.).
  */
-var kTAG_PREC7_MAX = '151';
+var kTAG_PREC7_MAX = '156';
 
 /**
  * PREC8.
  *
  * August mean precipitation (mm.).
  */
-var kTAG_PREC8 = '152';
+var kTAG_PREC8 = '157';
 
 /**
  * PREC8-MIN.
  *
  * August minimum precipitation (mm.).
  */
-var kTAG_PREC8_MIN = '153';
+var kTAG_PREC8_MIN = '158';
 
 /**
  * PREC8-MAX.
  *
  * August maximum precipitation (mm.).
  */
-var kTAG_PREC8_MAX = '154';
+var kTAG_PREC8_MAX = '159';
 
 /**
  * PREC9.
  *
  * September mean precipitation (mm.).
  */
-var kTAG_PREC9 = '155';
+var kTAG_PREC9 = '160';
 
 /**
  * PREC9-MIN.
  *
  * September minimum precipitation (mm.).
  */
-var kTAG_PREC9_MIN = '156';
+var kTAG_PREC9_MIN = '161';
 
 /**
  * PREC9-MAX.
  *
  * September maximum precipitation (mm.).
  */
-var kTAG_PREC9_MAX = '157';
+var kTAG_PREC9_MAX = '162';
 
 /**
  * PREC10.
  *
  * October mean precipitation (mm.).
  */
-var kTAG_PREC10 = '158';
+var kTAG_PREC10 = '163';
 
 /**
  * PREC10-MIN.
  *
  * October minimum precipitation (mm.).
  */
-var kTAG_PREC10_MIN = '159';
+var kTAG_PREC10_MIN = '164';
 
 /**
  * PREC10-MAX.
  *
  * October maximum precipitation (mm.).
  */
-var kTAG_PREC10_MAX = '160';
+var kTAG_PREC10_MAX = '165';
 
 /**
  * PREC11.
  *
  * November mean precipitation (mm.).
  */
-var kTAG_PREC11 = '161';
+var kTAG_PREC11 = '166';
 
 /**
  * PREC11-MIN.
  *
  * November minimum precipitation (mm.).
  */
-var kTAG_PREC11_MIN = '162';
+var kTAG_PREC11_MIN = '167';
 
 /**
  * PREC11-MAX.
  *
  * November maximum precipitation (mm.).
  */
-var kTAG_PREC11_MAX = '163';
+var kTAG_PREC11_MAX = '168';
 
 /**
  * PREC12.
  *
  * December mean precipitation (mm.).
  */
-var kTAG_PREC12 = '164';
+var kTAG_PREC12 = '169';
 
 /**
  * PREC12-MIN.
  *
  * December minimum precipitation (mm.).
  */
-var kTAG_PREC12_MIN = '165';
+var kTAG_PREC12_MIN = '170';
 
 /**
  * PREC12-MAX.
  *
  * December maximum precipitation (mm.).
  */
-var kTAG_PREC12_MAX = '166';
+var kTAG_PREC12_MAX = '171';
 
 /*=======================================================================================
  *	ENTITY OBJECT ATTRIBUTES															*
@@ -1540,7 +1587,7 @@ var kTAG_PREC12_MAX = '166';
  *
  * The entity first name, in case of an individual.
  */
-var kTAG_FIRST_NAME = '167';
+var kTAG_FIRST_NAME = '172';
 
 /**
  * LAST-NAME.
@@ -1549,7 +1596,7 @@ var kTAG_FIRST_NAME = '167';
  *
  * The entity surname, in case of an individual.
  */
-var kTAG_LAST_NAME = '168';
+var kTAG_LAST_NAME = '173';
 
 /**
  * MAIL.
@@ -1558,7 +1605,7 @@ var kTAG_LAST_NAME = '168';
  *
  * The mailing address of an entity.
  */
-var kTAG_MAIL = '169';
+var kTAG_MAIL = '174';
 
 /**
  * EMAIL.
@@ -1567,7 +1614,7 @@ var kTAG_MAIL = '169';
  *
  * The e-mail address of an entity.
  */
-var kTAG_EMAIL = '170';
+var kTAG_EMAIL = '175';
 
 /**
  * PHONE.
@@ -1576,7 +1623,7 @@ var kTAG_EMAIL = '170';
  *
  * The telephone number of an entity.
  */
-var kTAG_PHONE = '171';
+var kTAG_PHONE = '176';
 
 /**
  * FAX.
@@ -1585,7 +1632,7 @@ var kTAG_PHONE = '171';
  *
  * The telefax number of an entity.
  */
-var kTAG_FAX = '172';
+var kTAG_FAX = '177';
 
 /**
  * WEB-SITE.
@@ -1594,7 +1641,7 @@ var kTAG_FAX = '172';
  *
  * The entity internet web site address.
  */
-var kTAG_WEB_SITE = '173';
+var kTAG_WEB_SITE = '178';
 
 /**
  * AFFILIATION.
@@ -1603,7 +1650,7 @@ var kTAG_WEB_SITE = '173';
  *
  * The reference to the entity with which the current entity is affiliated.
  */
-var kTAG_AFFILIATION = '174';
+var kTAG_AFFILIATION = '179';
 
 /**
  * NATIONALITY.
@@ -1612,7 +1659,7 @@ var kTAG_AFFILIATION = '174';
  *
  * The country of an entity.
  */
-var kTAG_NATIONALITY = '175';
+var kTAG_NATIONALITY = '180';
 
 /**
  * ENTITY-KIND.
@@ -1621,7 +1668,7 @@ var kTAG_NATIONALITY = '175';
  *
  * The entity kind.
  */
-var kTAG_ENTITY_KIND = '176';
+var kTAG_ENTITY_KIND = '181';
 
 /**
  * ENTITY-TYPE.
@@ -1630,7 +1677,7 @@ var kTAG_ENTITY_KIND = '176';
  *
  * The entity type.
  */
-var kTAG_ENTITY_TYPE = '177';
+var kTAG_ENTITY_TYPE = '182';
 
 /*=======================================================================================
  *	USER OBJECT ATTRIBUTES																*
@@ -1644,7 +1691,7 @@ var kTAG_ENTITY_TYPE = '177';
  * The code by which a user is known to the system, it may be equal to the entity
  * identifier.
  */
-var kTAG_USER_CODE = '178';
+var kTAG_USER_CODE = '183';
 
 /**
  * USER-PASS.
@@ -1653,7 +1700,7 @@ var kTAG_USER_CODE = '178';
  *
  * The password by which a user is known to the system.
  */
-var kTAG_USER_PASS = '179';
+var kTAG_USER_PASS = '184';
 
 /**
  * USER-ROLE.
@@ -1662,7 +1709,7 @@ var kTAG_USER_PASS = '179';
  *
  * The roles assigned to the user.
  */
-var kTAG_USER_ROLE = '180';
+var kTAG_USER_ROLE = '185';
 
 /**
  * USER-PROFILE.
@@ -1671,7 +1718,7 @@ var kTAG_USER_ROLE = '180';
  *
  * The profile role name assigned to the user.
  */
-var kTAG_USER_PROFILE = '181';
+var kTAG_USER_PROFILE = '186';
 
 /**
  * USER-DOMAIN.
@@ -1680,14 +1727,14 @@ var kTAG_USER_PROFILE = '181';
  *
  * List of domains the user has access to.
  */
-var kTAG_USER_DOMAIN = '182';
+var kTAG_USER_DOMAIN = '187';
 
 /**
  * USER-SOCIAL-NETWORK.
  *
  * User social network.
  */
-var kTAG_USER_SOCIAL_NETWORK = '183';
+var kTAG_USER_SOCIAL_NETWORK = '188';
 
 /*=======================================================================================
  *	CUSTOM TYPE SUB ATTRIBUTES															*

@@ -332,6 +332,7 @@ class TraitController extends Controller
 	// &$theUnit: The units list reference.
 	// &$theTags: Tags response section (read-only).
 	//  $theOffset: Unit and tag offset.
+	//  $theRestricted: List of restricted tags.
 	//
 	protected function hideOffset( &$theUnit, &$theTags, $theOffset )
 	{
@@ -341,9 +342,18 @@ class TraitController extends Controller
 		if( array_key_exists( $theOffset, $theTags ) )
 		{
 			//
+			// Hide restricted.
+			//
+			if( array_key_exists( Tags::kTAG_RESTRICTIONS, $theUnit ) )
+			{
+				if( in_array( (int) $theOffset, $theUnit[ Tags::kTAG_RESTRICTIONS ] ) )
+					unset( $theUnit[ $theOffset ] );
+			}
+
+			//
 			// Hide offset.
 			//
-			if( in_array( Types::kTYPE_HIDDEN,
+			elseif( in_array( Types::kTYPE_HIDDEN,
 						  $theTags[ $theOffset ][ Tags::kTAG_TYPE ] ) )
 				unset( $theUnit[ $theOffset ] );
 
