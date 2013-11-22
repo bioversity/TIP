@@ -247,6 +247,7 @@ class TraitController extends Controller
 	    $tags_list = $trials->getResponse()->getTag();
 	    $this->hideUnitOffsets( $units, $tags_list );
 
+
         return $this->render(
             'BioversityTraitBundle:Trait:trials_list.html.twig',
             array(
@@ -335,17 +336,26 @@ class TraitController extends Controller
 	protected function hideOffset( &$theUnit, &$theTags, $theOffset )
 	{
 		//
-		// Hide offset.
+		// Check if offset is a tag.
 		//
-		if( in_array( Types::kTYPE_HIDDEN, $theTags[ $theOffset ] ) )
-			unset( $theUnit[ $theOffset ] );
+		if( array_key_exists( $theOffset, $theTags ) )
+		{
+			//
+			// Hide offset.
+			//
+			if( in_array( Types::kTYPE_HIDDEN,
+						  $theTags[ $theOffset ][ Tags::kTAG_TYPE ] ) )
+				unset( $theUnit[ $theOffset ] );
 
-		//
-		// Recurse structure.
-		//
-		elseif( is_array( $theUnit[ $theOffset ] )
-			 && in_array( Types::kTYPE_STRUCT, $theTags[ $theOffset ] ) )
-			$this->hideUnitOffsets( $theUnit[ $theOffset ], $theTags );
+			//
+			// Recurse structure.
+			//
+			elseif( is_array( $theUnit[ $theOffset ] )
+				&& in_array( Types::kTYPE_STRUCT,
+							 $theTags[ $theOffset ][ Tags::kTAG_TYPE ] ) )
+				$this->hideUnitOffsets( $theUnit[ $theOffset ], $theTags );
+
+		} // Offset is tag.
 
 	} // hideOffset.
 
