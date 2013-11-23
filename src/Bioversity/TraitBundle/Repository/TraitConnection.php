@@ -27,8 +27,9 @@ class TraitConnection
     $requestManager->setOperation('WS:OP:GetTag');
     $requestManager->setCollection(':_tags');
     $requestManager->setQuery(Tags::kTAG_LABEL.'.en', Types::kTYPE_STRING, $word, Operators::kOPERATOR_CONTAINS_NOCASE);
-    $requestManager->addQuery(Tags::kTAG_DATAPOINT_REFS, Types::kTYPE_INT, 0, Operators::kOPERATOR_GREAT);
-    
+	$requestManager->addQuery(Tags::kTAG_DATAPOINT_REFS, Types::kTYPE_INT, 0, Operators::kOPERATOR_GREAT);
+	$requestManager->addQuery(Tags::kTAG_TYPE, Types::kTYPE_STRING, 0, Operators::kOPERATOR_EQUAL_NOT);
+
     return $requestManager->sendRequest();
   } 
   

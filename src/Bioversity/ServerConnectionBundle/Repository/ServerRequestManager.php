@@ -6,12 +6,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Bioversity\ServerConnectionBundle\Repository\ServerResponseManager;
 //use Bioversity\ServerConnectionBundle\Repository\ServerResponseRequestQueryManager;
 
-//
-// Global configurations file.
-// MILKO
-//
-require_once( "/Library/WebServer/Configuration/PGRDG/Server.inc.php" );
-
 
 class ServerRequestManager
 {
@@ -20,10 +14,10 @@ class ServerRequestManager
 	//
 	// Database and wrapper settings.
 	//
-	protected $databaseOntology  = kSERVER_METADATA;
-	protected $databaseUsers     = kSERVER_ENTITIES;
-	protected $databasePGRSecure = kSERVER_DATA;
-	protected $wrapper           = kSERVER_WRAPPER;
+	protected $databaseOntology  = 'METADATA';
+	protected $databaseUsers     = 'DATA';
+	protected $databasePGRSecure = 'DATA';
+	protected $wrapper           = 'http://192.168.181.11/PGRDG/MongoWrapper.php';
 
 	protected $format;
     protected $operation;

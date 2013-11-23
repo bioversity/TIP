@@ -3,6 +3,7 @@
 namespace Bioversity\ServerConnectionBundle\Repository;
 
 class Types{
+
 	/*=======================================================================================
 	 *	PRIMITIVE DATA TYPES																*
 	 *======================================================================================*/
@@ -17,7 +18,7 @@ class Types{
 	 *
 	 * Version 1: (kTYPE_ANY)[:ANY]
 	 */
-	const kTYPE_ANY	=								':ANY';
+	const kTYPE_ANY =   							':ANY';
 
 	/**
 	 * STRING.
@@ -724,5 +725,6 @@ class Types{
 	 * Version 1: (kTYPE_CARD_ARRAY)[:ARRAY]
 	 */
 	const kTYPE_ARRAY =   							':ARRAY';
+
 
 }
