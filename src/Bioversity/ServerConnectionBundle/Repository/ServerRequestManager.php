@@ -17,7 +17,14 @@ class ServerRequestManager
 	protected $databaseOntology  = 'METADATA';
 	protected $databaseUsers     = 'DATA';
 	protected $databasePGRSecure = 'DATA';
-	protected $wrapper           = 'http://192.168.181.11/PGRDG/MongoWrapper.php';
+	//
+	// SERVER Wrapper.
+	//
+//	protected $wrapper = 'http://192.168.181.11/PGRDG/MongoWrapper.php';
+	//
+	// LOCAL Wrapper.
+	//
+	protected $wrapper = 'http://1services/Wrappers/PGRDG/MongoWrapper.php';
 
 	protected $format;
     protected $operation;
