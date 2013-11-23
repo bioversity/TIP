@@ -24,7 +24,7 @@ class ServerRequestManager
 	//
 	// LOCAL Wrapper.
 	//
-	protected $wrapper = 'http://services/Wrappers/PGRDG/MongoWrapper.php';
+	protected $wrapper = 'http://localhost/services/Wrappers/PGRDG/MongoWrapper.php';
 
 	protected $format;
     protected $operation;

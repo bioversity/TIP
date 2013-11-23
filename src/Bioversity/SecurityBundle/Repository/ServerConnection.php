@@ -27,7 +27,7 @@ class ServerConnection
     $requestManager->setCollection(':_entities');
     $requestManager->setQuery(Tags::kTAG_USER_CODE,Types::kTYPE_STRING, $username, Operators::kOPERATOR_EQUAL);
     $requestManager->addQuery(Tags::kTAG_USER_DOMAIN,Types::kTYPE_STRING,'TIP', Operators::kOPERATOR_EQUAL);
-    
+
     return $requestManager->sendRequest();
   }
   
@@ -43,7 +43,7 @@ class ServerConnection
     $requestManager->setOperation('WS:OP:GET');
     $requestManager->setCollection(':_entities');
     $requestManager->setQuery(Tags::kTAG_USER_DOMAIN,Types::kTYPE_STRING,'TIP', Operators::kOPERATOR_EQUAL);
-    
+
     return $requestManager->sendRequest();
   }
   
