@@ -14,7 +14,27 @@ class DinamicFormController extends Controller
     public function indexAction(Request $request)
     {
         $session= $request->getSession();
-        
+
+	    $formFields = array
+	    (
+			18378 => array
+			(
+				18379 => array
+				(
+					18380, 18381, 18382, 18383, 18384, 18385, 18386,
+					18392, 18393, 18394, 18395, 18396, 18397, 18398,
+					18399, 18400
+				),
+				18401 => array
+				(
+					18402, 18403, 18404, 18405, 18406, 18407, 18408,
+					18409, 19410, 18411, 18412, 18413, 18414, 18415,
+					18416, 18417
+				)
+			)
+	    );
+
+ /*
         $formFields=    Array(24575 => array(
                                 24576 => array(709),
                                 24578 => array(711,722),
@@ -22,6 +42,7 @@ class DinamicFormController extends Controller
                                 24598 => array(729, 730)
                             )
                         );
+ */
         
         //$formBase = $this->createForm(new BioversityDinamicFormType($formFields));
         

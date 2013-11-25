@@ -104,7 +104,8 @@ class ServerRequestManager
     
     public function sendRequest()
     {
-        //print_r(implode( '&', $this->getRequest() ));
+//print_r($this->wrapper.'?'.implode( '&', $this->getRequest() ) );
+//exit;
         return new ServerResponseManager(json_decode(file_get_contents( $this->wrapper.'?'.implode( '&', $this->getRequest() ) ), true));
     }
     
