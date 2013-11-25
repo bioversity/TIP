@@ -20,7 +20,8 @@ class TraitTagsType extends BioversityBaseType
         $ids= $response->getIds();
         $synonyms= '';
         $internationalization= array();
-        foreach($ids as $key=>$id){
+
+	    foreach($ids as $key=>$id){
             $origin= $tags[$id][Tags::kTAG_PATH][0];
             if(array_key_exists(Tags::kTAG_OFFSETS, $tags[$id]))
                 $synonyms= $this->getTagsString($id, $tags[$id][Tags::kTAG_OFFSETS]);

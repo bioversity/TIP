@@ -8,26 +8,31 @@
     {% set lid      = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_LID') %}
     {% set namespace= constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_NAMESPACE') %}
     {% set version  = constant('Bioversity\\ServerConnectionBundle\\Repository\\Tags::kTAG_VERSION') %}
+    {% set enum     = constant('Bioversity\\ServerConnectionBundle\\Repository\\Types::kTYPE_ENUM') %}
     <ul class="nav nav-pills nav-stacked">
         {% for distinct in distincts %}
             {% for key,value in distinct %}
                 <li class="">
-                  <a href="{{ links|get_url(key) }}">
-                    <span class="badge pull-right distinct_value">{{ value }}</span>
-                      {% if terms[key][kind] is defined %}
-                        {% if terms[key][kind][0] == ':KIND-ENUMERATION' %}
-                            {% if terms[key][label]['en'] is defined %}
-                                {{ terms[key][label]['en'] }}
+                    <a href="{{ links|get_url(key) }}">
+                        <span class="badge pull-right distinct_value">{{ value }}</span>
+                        {% if enum in tags[group][type] %}
+                            {% if tags[group][label] is defined %}
+                                {% if tags[group][label]['en'] is defined %}
+                                    {{ terms[key][label]['en'] }}
+                                {% else %}
+                                    {% if tags[group][label]['0'] is defined %}
+                                        {{ terms[key][label]['0'] }}
+                                    {% else %}
+                                        {{ key }}
+                                    {% endif %}
+                                {% endif %}
                             {% else %}
-                                no-data-found ( {{ key }} - {{ value }} )
-                            {% endif%}
+                                {{ key }}
+                            {% endif %}
                         {% else %}
                             {{ key }}
                         {% endif %}
-                      {% else %}
-                          {{ key }}
-                      {% endif %}
-                  </a>
+                    </a>
                 </li>
             {% endfor %}
         {% endfor %}
@@ -37,6 +42,6 @@
 {% else %}
     <div class="alert alert-block">
         <h4>Warning!</h4>
-        No elements founds. Looks with other keys
+        No elements founds.
     </div>
 {% endif %}

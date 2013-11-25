@@ -87,7 +87,7 @@ class TraitController extends Controller
             
             if($summaryList->getResponse()){
                 $data      = $summaryList->getResponse();
-                $units     = $data->getUnit();
+	            $units     = $data->getUnit();
                 $tags      = $data->getTag();
                 $terms     = $data->getTerm();
                 $distincts = $data->getDistinct();
@@ -106,15 +106,17 @@ class TraitController extends Controller
         if (
             $this->get('security.context')->isGranted('ROLE_ADMIN') &&
             ($this->get('kernel')->getEnvironment() != 'test') //hack to blok request print in test
-        ){
-            print_r('<pre style="height:200px;overflow: auto;">');
-            print_r($summaryList);
+        )
+        {
+            print_r('Summary List<pre style="height:200px;overflow: auto;">');
+	        print_r($summaryList);
             print_r('</pre>');
         }
         
         return $this->render(
             'BioversityTraitBundle:Trait:summary.html.twig',
             array(
+	            'group'         => Tags::kTAG_DOMAIN,
                 'units'         => $units,
                 'tags'          => $tags,
                 'terms'         => $terms,
