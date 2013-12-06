@@ -44,12 +44,12 @@ class TraitController extends Controller
 //---------------JSON---------------//
     public function jsonGetTagFieldsAction(Request $request)
     {
-        $word= json_decode(stripslashes($request->get('word')));
+	    $word= json_decode(stripslashes($request->get('word')));
         //$word = json_decode(stripslashes($_POST['word']));
         
         $server= new TraitConnection();
         $traits= $server->getTraits($word);
-        
+
         $form= $this->createForm(new TraitTagsType($traits));
         
         return $this->render(

@@ -43,11 +43,11 @@ class BioversityDinamicFormType extends BioversityBaseType
         $formGroup= array();
         $tagEntity= new Tags();
         $nodeEntity= new Nodes();
-        
+
         foreach($formFields as $key=>$value){
             $formGroupLabel= LanguageHelper::checkLanguage($nodeEntity->getNodeByNID($key)->getResponse()->getNode()[$key][Tags::kTAG_LABEL]);
-            foreach($value as $k=>$v){
-                $tags= $tagEntity->getTags($v)->getResponse()->getTag();
+	        foreach($value as $k=>$v){
+	            $tags= $tagEntity->getTags($v)->getResponse()->getTag();
                 foreach($v as $ktag=>$vtag){
                     $origin= $tags[$vtag][Tags::kTAG_PATH][0];
                     if(array_key_exists(Tags::kTAG_OFFSETS, $tags[$vtag]))
