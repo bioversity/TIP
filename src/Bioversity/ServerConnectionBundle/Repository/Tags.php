@@ -818,6 +818,16 @@ class Tags
 	const kTAG_HWSD =   							'83';
 
 	/**
+	 * CLIM-TILES.
+	 *
+	 * Climate data tiles count.
+	 *
+	 * This attribute records the number of tiles (30 seconds) used to generate the climatic
+	 * data.
+	 */
+	const kTAG_CLIM_TILES =   						'84';
+
+	/**
 	 * CLIM-ELEV-MIN.
 	 *
 	 * Minimum environment elevation.
@@ -825,7 +835,7 @@ class Tags
 	 * This attribute records the minimum elevation of the climatic area, that is, the minimum
 	 * elevation found when retrieving climatic data.
 	 */
-	const kTAG_CLIM_ELEV_MIN =   					'84';
+	const kTAG_CLIM_ELEV_MIN =   					'85';
 
 	/**
 	 * CLIM-ELEV-MEAN.
@@ -835,7 +845,7 @@ class Tags
 	 * This attribute records the mean elevation of the climatic area, that is, the mean
 	 * elevation found when retrieving climatic data.
 	 */
-	const kTAG_CLIM_ELEV_MEAN =   					'85';
+	const kTAG_CLIM_ELEV_MEAN =   					'86';
 
 	/**
 	 * CLIM-ELEV-MAX.
@@ -845,7 +855,7 @@ class Tags
 	 * This attribute records the maximum elevation of the climatic area, that is, the maximum
 	 * elevation found when retrieving climatic data.
 	 */
-	const kTAG_CLIM_ELEV_MAX =   					'86';
+	const kTAG_CLIM_ELEV_MAX =   					'87';
 
 	/**
 	 * CLIM-DIST-MIN.
@@ -855,7 +865,7 @@ class Tags
 	 * This attribute records the minimum distance of the climatic area from the provided
 	 * geometry.
 	 */
-	const kTAG_CLIM_DIST_MIN =   					'87';
+	const kTAG_CLIM_DIST_MIN =   					'88';
 
 	/**
 	 * CLIM-DIST-MEAN.
@@ -865,7 +875,7 @@ class Tags
 	 * This attribute records the mean distance of the climatic area from the provided
 	 * geometry.
 	 */
-	const kTAG_CLIM_DIST_MEAN =   					'88';
+	const kTAG_CLIM_DIST_MEAN =   					'89';
 
 	/**
 	 * CLIM-DIST-MAX.
@@ -875,7 +885,7 @@ class Tags
 	 * This attribute records the maximum distance of the climatic area from the provided
 	 * geometry.
 	 */
-	const kTAG_CLIM_DIST_MAX =   					'89';
+	const kTAG_CLIM_DIST_MAX =   					'90';
 
 	/*=======================================================================================
 	 *	BIO-CLIMATIC ATTRIBUTES																*
@@ -886,133 +896,133 @@ class Tags
 	 *
 	 * Annual Mean Temperature.
 	 */
-	const kTAG_BIO1 =   							'90';
+	const kTAG_BIO1 =   							'91';
 
 	/**
 	 * BIO2.
 	 *
 	 * Mean Diurnal Range.
 	 */
-	const kTAG_BIO2 =   							'91';
+	const kTAG_BIO2 =   							'92';
 
 	/**
 	 * BIO3.
 	 *
 	 * Isothermality.
 	 */
-	const kTAG_BIO3 =   							'92';
+	const kTAG_BIO3 =   							'93';
 
 	/**
 	 * BIO4.
 	 *
 	 * Temperature Seasonality.
 	 */
-	const kTAG_BIO4 =   							'93';
+	const kTAG_BIO4 =   							'94';
 
 	/**
 	 * BIO5.
 	 *
 	 * Maximum Temperature of Warmest Month.
 	 */
-	const kTAG_BIO5 =   							'94';
+	const kTAG_BIO5 =   							'95';
 
 	/**
 	 * BIO6.
 	 *
 	 * Minimum Temperature of Coldest Month.
 	 */
-	const kTAG_BIO6 =   							'95';
+	const kTAG_BIO6 =   							'96';
 
 	/**
 	 * BIO7.
 	 *
 	 * Temperature Annual Range.
 	 */
-	const kTAG_BIO7 =   							'96';
+	const kTAG_BIO7 =   							'97';
 
 	/**
 	 * BIO8.
 	 *
 	 * Mean Temperature of Wettest Quarter.
 	 */
-	const kTAG_BIO8 =   							'97';
+	const kTAG_BIO8 =   							'98';
 
 	/**
 	 * BIO9.
 	 *
 	 * Mean Temperature of Driest Quarter.
 	 */
-	const kTAG_BIO9 =   							'98';
+	const kTAG_BIO9 =   							'99';
 
 	/**
 	 * BIO10.
 	 *
 	 * Mean Temperature of Warmest Quarter.
 	 */
-	const kTAG_BIO10 =   							'99';
+	const kTAG_BIO10 =   							'100';
 
 	/**
 	 * BIO11.
 	 *
 	 * Mean Temperature of Coldest Quarter.
 	 */
-	const kTAG_BIO11 =   							'100';
+	const kTAG_BIO11 =   							'101';
 
 	/**
 	 * BIO12.
 	 *
 	 * Annual Precipitation.
 	 */
-	const kTAG_BIO12 =   							'101';
+	const kTAG_BIO12 =   							'102';
 
 	/**
 	 * BIO13.
 	 *
 	 * Precipitation of Wettest Month.
 	 */
-	const kTAG_BIO13 =   							'102';
+	const kTAG_BIO13 =   							'103';
 
 	/**
 	 * BIO14.
 	 *
 	 * Precipitation of Driest Month.
 	 */
-	const kTAG_BIO14 =   							'103';
+	const kTAG_BIO14 =   							'104';
 
 	/**
 	 * BIO15.
 	 *
 	 * Precipitation Seasonality.
 	 */
-	const kTAG_BIO15 =   							'104';
+	const kTAG_BIO15 =   							'105';
 
 	/**
 	 * BIO16.
 	 *
 	 * Precipitation of Wettest Quarter.
 	 */
-	const kTAG_BIO16 =   							'105';
+	const kTAG_BIO16 =   							'106';
 
 	/**
 	 * BIO17.
 	 *
 	 * Precipitation of Driest Quarter.
 	 */
-	const kTAG_BIO17 =   							'106';
+	const kTAG_BIO17 =   							'107';
 
 	/**
 	 * BIO18.
 	 *
 	 * Precipitation of Warmest Quarter.
 	 */
-	const kTAG_BIO18 =   							'107';
+	const kTAG_BIO18 =   							'108';
 
 	/**
 	 * BIO19.
 	 *
 	 * Precipitation of Coldest Quarter.
 	 */
-	const kTAG_BIO19 =   							'108';
+	const kTAG_BIO19 =   							'109';
 
 	/*=======================================================================================
 	 *	MONTHLY TEMPERATURE ATTRIBUTES														*
@@ -1023,252 +1033,252 @@ class Tags
 	 *
 	 * January mean temperature.
 	 */
-	const kTAG_TEMP1 =   							'109';
+	const kTAG_TEMP1 =   							'110';
 
 	/**
 	 * TEMP1-MIN.
 	 *
 	 * January minimum temperature.
 	 */
-	const kTAG_TEMP1_MIN =   						'110';
+	const kTAG_TEMP1_MIN =   						'111';
 
 	/**
 	 * TEMP1-MAX.
 	 *
 	 * January maximum temperature.
 	 */
-	const kTAG_TEMP1_MAX =   						'111';
+	const kTAG_TEMP1_MAX =   						'112';
 
 	/**
 	 * TEMP2.
 	 *
 	 * February mean temperature.
 	 */
-	const kTAG_TEMP2 =   							'112';
+	const kTAG_TEMP2 =   							'113';
 
 	/**
 	 * TEMP2-MIN.
 	 *
 	 * February minimum temperature.
 	 */
-	const kTAG_TEMP2_MIN =   						'113';
+	const kTAG_TEMP2_MIN =   						'114';
 
 	/**
 	 * TEMP2-MAX.
 	 *
 	 * February maximum temperature.
 	 */
-	const kTAG_TEMP2_MAX =   						'114';
+	const kTAG_TEMP2_MAX =   						'115';
 
 	/**
 	 * TEMP3.
 	 *
 	 * March mean temperature.
 	 */
-	const kTAG_TEMP3 =   							'115';
+	const kTAG_TEMP3 =   							'116';
 
 	/**
 	 * TEMP3-MIN.
 	 *
 	 * March minimum temperature.
 	 */
-	const kTAG_TEMP3_MIN =   						'116';
+	const kTAG_TEMP3_MIN =   						'117';
 
 	/**
 	 * TEMP3-MAX.
 	 *
 	 * March maximum temperature.
 	 */
-	const kTAG_TEMP3_MAX =   						'117';
+	const kTAG_TEMP3_MAX =   						'118';
 
 	/**
 	 * TEMP4.
 	 *
 	 * April mean temperature.
 	 */
-	const kTAG_TEMP4 =   							'118';
+	const kTAG_TEMP4 =   							'119';
 
 	/**
 	 * TEMP4-MIN.
 	 *
 	 * April minimum temperature.
 	 */
-	const kTAG_TEMP4_MIN =   						'119';
+	const kTAG_TEMP4_MIN =   						'120';
 
 	/**
 	 * TEMP4-MAX.
 	 *
 	 * April maximum temperature.
 	 */
-	const kTAG_TEMP4_MAX =   						'120';
+	const kTAG_TEMP4_MAX =   						'121';
 
 	/**
 	 * TEMP5.
 	 *
 	 * May mean temperature.
 	 */
-	const kTAG_TEMP5 =   							'121';
+	const kTAG_TEMP5 =   							'122';
 
 	/**
 	 * TEMP5-MIN.
 	 *
 	 * May minimum temperature.
 	 */
-	const kTAG_TEMP5_MIN =   						'122';
+	const kTAG_TEMP5_MIN =   						'123';
 
 	/**
 	 * TEMP5-MAX.
 	 *
 	 * May maximum temperature.
 	 */
-	const kTAG_TEMP5_MAX =   						'123';
+	const kTAG_TEMP5_MAX =   						'124';
 
 	/**
 	 * TEMP6.
 	 *
 	 * June mean temperature.
 	 */
-	const kTAG_TEMP6 =   							'124';
+	const kTAG_TEMP6 =   							'125';
 
 	/**
 	 * TEMP6-MIN.
 	 *
 	 * June minimum temperature.
 	 */
-	const kTAG_TEMP6_MIN =   						'125';
+	const kTAG_TEMP6_MIN =   						'126';
 
 	/**
 	 * TEMP6-MAX.
 	 *
 	 * June maximum temperature.
 	 */
-	const kTAG_TEMP6_MAX =   						'126';
+	const kTAG_TEMP6_MAX =   						'127';
 
 	/**
 	 * TEMP7.
 	 *
 	 * July mean temperature.
 	 */
-	const kTAG_TEMP7 =   							'127';
+	const kTAG_TEMP7 =   							'128';
 
 	/**
 	 * TEMP7-MIN.
 	 *
 	 * July minimum temperature.
 	 */
-	const kTAG_TEMP7_MIN =   						'128';
+	const kTAG_TEMP7_MIN =   						'129';
 
 	/**
 	 * TEMP7-MAX.
 	 *
 	 * July maximum temperature.
 	 */
-	const kTAG_TEMP7_MAX =   						'129';
+	const kTAG_TEMP7_MAX =   						'130';
 
 	/**
 	 * TEMP8.
 	 *
 	 * August mean temperature.
 	 */
-	const kTAG_TEMP8 =   							'130';
+	const kTAG_TEMP8 =   							'131';
 
 	/**
 	 * TEMP8-MIN.
 	 *
 	 * August minimum temperature.
 	 */
-	const kTAG_TEMP8_MIN =   						'131';
+	const kTAG_TEMP8_MIN =   						'132';
 
 	/**
 	 * TEMP8-MAX.
 	 *
 	 * August maximum temperature.
 	 */
-	const kTAG_TEMP8_MAX =   						'132';
+	const kTAG_TEMP8_MAX =   						'133';
 
 	/**
 	 * TEMP9.
 	 *
 	 * September mean temperature.
 	 */
-	const kTAG_TEMP9 =   							'133';
+	const kTAG_TEMP9 =   							'134';
 
 	/**
 	 * TEMP9-MIN.
 	 *
 	 * September minimum temperature.
 	 */
-	const kTAG_TEMP9_MIN =   						'134';
+	const kTAG_TEMP9_MIN =   						'135';
 
 	/**
 	 * TEMP9-MAX.
 	 *
 	 * September maximum temperature.
 	 */
-	const kTAG_TEMP9_MAX =   						'135';
+	const kTAG_TEMP9_MAX =   						'136';
 
 	/**
 	 * TEMP10.
 	 *
 	 * October mean temperature.
 	 */
-	const kTAG_TEMP10 =   							'136';
+	const kTAG_TEMP10 =   							'137';
 
 	/**
 	 * TEMP10-MIN.
 	 *
 	 * October minimum temperature.
 	 */
-	const kTAG_TEMP10_MIN =   						'137';
+	const kTAG_TEMP10_MIN =   						'138';
 
 	/**
 	 * TEMP10-MAX.
 	 *
 	 * October maximum temperature.
 	 */
-	const kTAG_TEMP10_MAX =   						'138';
+	const kTAG_TEMP10_MAX =   						'139';
 
 	/**
 	 * TEMP11.
 	 *
 	 * November mean temperature.
 	 */
-	const kTAG_TEMP11 =   							'139';
+	const kTAG_TEMP11 =   							'140';
 
 	/**
 	 * TEMP11-MIN.
 	 *
 	 * November minimum temperature.
 	 */
-	const kTAG_TEMP11_MIN =   						'140';
+	const kTAG_TEMP11_MIN =   						'141';
 
 	/**
 	 * TEMP11-MAX.
 	 *
 	 * November maximum temperature.
 	 */
-	const kTAG_TEMP11_MAX =   						'141';
+	const kTAG_TEMP11_MAX =   						'142';
 
 	/**
 	 * TEMP12.
 	 *
 	 * December mean temperature.
 	 */
-	const kTAG_TEMP12 =   							'142';
+	const kTAG_TEMP12 =   							'143';
 
 	/**
 	 * TEMP12-MIN.
 	 *
 	 * December minimum temperature.
 	 */
-	const kTAG_TEMP12_MIN =   						'143';
+	const kTAG_TEMP12_MIN =   						'144';
 
 	/**
 	 * TEMP12-MAX.
 	 *
 	 * December maximum temperature.
 	 */
-	const kTAG_TEMP12_MAX =   						'144';
+	const kTAG_TEMP12_MAX =   						'145';
 
 	/*=======================================================================================
 	 *	MONTHLY PRECIPITATION ATTRIBUTES													*
@@ -1279,252 +1289,252 @@ class Tags
 	 *
 	 * January mean precipitation (mm.).
 	 */
-	const kTAG_PREC1 =   							'145';
+	const kTAG_PREC1 =   							'146';
 
 	/**
 	 * PREC1-MIN.
 	 *
 	 * January minimum precipitation (mm.).
 	 */
-	const kTAG_PREC1_MIN =   						'146';
+	const kTAG_PREC1_MIN =   						'147';
 
 	/**
 	 * PREC1-MAX.
 	 *
 	 * January maximum precipitation (mm.).
 	 */
-	const kTAG_PREC1_MAX =   						'147';
+	const kTAG_PREC1_MAX =   						'148';
 
 	/**
 	 * PREC2.
 	 *
 	 * February mean precipitation (mm.).
 	 */
-	const kTAG_PREC2 =   							'148';
+	const kTAG_PREC2 =   							'149';
 
 	/**
 	 * PREC2-MIN.
 	 *
 	 * February minimum precipitation (mm.).
 	 */
-	const kTAG_PREC2_MIN =   						'149';
+	const kTAG_PREC2_MIN =   						'150';
 
 	/**
 	 * PREC2-MAX.
 	 *
 	 * February maximum precipitation (mm.).
 	 */
-	const kTAG_PREC2_MAX =   						'150';
+	const kTAG_PREC2_MAX =   						'151';
 
 	/**
 	 * PREC3.
 	 *
 	 * March mean precipitation (mm.).
 	 */
-	const kTAG_PREC3 =   							'151';
+	const kTAG_PREC3 =   							'152';
 
 	/**
 	 * PREC3-MIN.
 	 *
 	 * March minimum precipitation (mm.).
 	 */
-	const kTAG_PREC3_MIN =   						'152';
+	const kTAG_PREC3_MIN =   						'153';
 
 	/**
 	 * PREC3-MAX.
 	 *
 	 * March maximum precipitation (mm.).
 	 */
-	const kTAG_PREC3_MAX =   						'153';
+	const kTAG_PREC3_MAX =   						'154';
 
 	/**
 	 * PREC4.
 	 *
 	 * April mean precipitation (mm.).
 	 */
-	const kTAG_PREC4 =   							'154';
+	const kTAG_PREC4 =   							'155';
 
 	/**
 	 * PREC4-MIN.
 	 *
 	 * April minimum precipitation (mm.).
 	 */
-	const kTAG_PREC4_MIN =   						'155';
+	const kTAG_PREC4_MIN =   						'156';
 
 	/**
 	 * PREC4-MAX.
 	 *
 	 * April maximum precipitation (mm.).
 	 */
-	const kTAG_PREC4_MAX =   						'156';
+	const kTAG_PREC4_MAX =   						'157';
 
 	/**
 	 * PREC5.
 	 *
 	 * May mean precipitation (mm.).
 	 */
-	const kTAG_PREC5 =   							'157';
+	const kTAG_PREC5 =   							'158';
 
 	/**
 	 * PREC5-MIN.
 	 *
 	 * May minimum precipitation (mm.).
 	 */
-	const kTAG_PREC5_MIN =   						'158';
+	const kTAG_PREC5_MIN =   						'159';
 
 	/**
 	 * PREC5-MAX.
 	 *
 	 * May maximum precipitation (mm.).
 	 */
-	const kTAG_PREC5_MAX =   						'159';
+	const kTAG_PREC5_MAX =   						'160';
 
 	/**
 	 * PREC6.
 	 *
 	 * June mean precipitation (mm.).
 	 */
-	const kTAG_PREC6 =   							'160';
+	const kTAG_PREC6 =   							'161';
 
 	/**
 	 * PREC6-MIN.
 	 *
 	 * June minimum precipitation (mm.).
 	 */
-	const kTAG_PREC6_MIN =   						'161';
+	const kTAG_PREC6_MIN =   						'162';
 
 	/**
 	 * PREC6-MAX.
 	 *
 	 * June maximum precipitation (mm.).
 	 */
-	const kTAG_PREC6_MAX =   						'162';
+	const kTAG_PREC6_MAX =   						'163';
 
 	/**
 	 * PREC7.
 	 *
 	 * July mean precipitation (mm.).
 	 */
-	const kTAG_PREC7 =   							'163';
+	const kTAG_PREC7 =   							'164';
 
 	/**
 	 * PREC7-MIN.
 	 *
 	 * July minimum precipitation (mm.).
 	 */
-	const kTAG_PREC7_MIN =   						'164';
+	const kTAG_PREC7_MIN =   						'165';
 
 	/**
 	 * PREC7-MAX.
 	 *
 	 * July maximum precipitation (mm.).
 	 */
-	const kTAG_PREC7_MAX =   						'165';
+	const kTAG_PREC7_MAX =   						'166';
 
 	/**
 	 * PREC8.
 	 *
 	 * August mean precipitation (mm.).
 	 */
-	const kTAG_PREC8 =   							'166';
+	const kTAG_PREC8 =   							'167';
 
 	/**
 	 * PREC8-MIN.
 	 *
 	 * August minimum precipitation (mm.).
 	 */
-	const kTAG_PREC8_MIN =   						'167';
+	const kTAG_PREC8_MIN =   						'168';
 
 	/**
 	 * PREC8-MAX.
 	 *
 	 * August maximum precipitation (mm.).
 	 */
-	const kTAG_PREC8_MAX =   						'168';
+	const kTAG_PREC8_MAX =   						'169';
 
 	/**
 	 * PREC9.
 	 *
 	 * September mean precipitation (mm.).
 	 */
-	const kTAG_PREC9 =   							'169';
+	const kTAG_PREC9 =   							'170';
 
 	/**
 	 * PREC9-MIN.
 	 *
 	 * September minimum precipitation (mm.).
 	 */
-	const kTAG_PREC9_MIN =   						'170';
+	const kTAG_PREC9_MIN =   						'171';
 
 	/**
 	 * PREC9-MAX.
 	 *
 	 * September maximum precipitation (mm.).
 	 */
-	const kTAG_PREC9_MAX =   						'171';
+	const kTAG_PREC9_MAX =   						'172';
 
 	/**
 	 * PREC10.
 	 *
 	 * October mean precipitation (mm.).
 	 */
-	const kTAG_PREC10 =   							'172';
+	const kTAG_PREC10 =   							'173';
 
 	/**
 	 * PREC10-MIN.
 	 *
 	 * October minimum precipitation (mm.).
 	 */
-	const kTAG_PREC10_MIN =   						'173';
+	const kTAG_PREC10_MIN =   						'174';
 
 	/**
 	 * PREC10-MAX.
 	 *
 	 * October maximum precipitation (mm.).
 	 */
-	const kTAG_PREC10_MAX =   						'174';
+	const kTAG_PREC10_MAX =   						'175';
 
 	/**
 	 * PREC11.
 	 *
 	 * November mean precipitation (mm.).
 	 */
-	const kTAG_PREC11 =   							'175';
+	const kTAG_PREC11 =   							'176';
 
 	/**
 	 * PREC11-MIN.
 	 *
 	 * November minimum precipitation (mm.).
 	 */
-	const kTAG_PREC11_MIN =   						'176';
+	const kTAG_PREC11_MIN =   						'177';
 
 	/**
 	 * PREC11-MAX.
 	 *
 	 * November maximum precipitation (mm.).
 	 */
-	const kTAG_PREC11_MAX =   						'177';
+	const kTAG_PREC11_MAX =   						'178';
 
 	/**
 	 * PREC12.
 	 *
 	 * December mean precipitation (mm.).
 	 */
-	const kTAG_PREC12 =   							'178';
+	const kTAG_PREC12 =   							'179';
 
 	/**
 	 * PREC12-MIN.
 	 *
 	 * December minimum precipitation (mm.).
 	 */
-	const kTAG_PREC12_MIN =   						'179';
+	const kTAG_PREC12_MIN =   						'180';
 
 	/**
 	 * PREC12-MAX.
 	 *
 	 * December maximum precipitation (mm.).
 	 */
-	const kTAG_PREC12_MAX =   						'180';
+	const kTAG_PREC12_MAX =   						'181';
 
 	/*=======================================================================================
 	 *	ENTITY OBJECT ATTRIBUTES															*
@@ -1537,7 +1547,7 @@ class Tags
 	 *
 	 * The entity first name, in case of an individual.
 	 */
-	const kTAG_FIRST_NAME =   						'181';
+	const kTAG_FIRST_NAME =   						'182';
 
 	/**
 	 * LAST-NAME.
@@ -1546,7 +1556,7 @@ class Tags
 	 *
 	 * The entity surname, in case of an individual.
 	 */
-	const kTAG_LAST_NAME =   						'182';
+	const kTAG_LAST_NAME =   						'183';
 
 	/**
 	 * MAIL.
@@ -1555,7 +1565,7 @@ class Tags
 	 *
 	 * The mailing address of an entity.
 	 */
-	const kTAG_MAIL =   							'183';
+	const kTAG_MAIL =   							'184';
 
 	/**
 	 * EMAIL.
@@ -1564,7 +1574,7 @@ class Tags
 	 *
 	 * The e-mail address of an entity.
 	 */
-	const kTAG_EMAIL =   							'184';
+	const kTAG_EMAIL =   							'185';
 
 	/**
 	 * PHONE.
@@ -1573,7 +1583,7 @@ class Tags
 	 *
 	 * The telephone number of an entity.
 	 */
-	const kTAG_PHONE =   							'185';
+	const kTAG_PHONE =   							'186';
 
 	/**
 	 * FAX.
@@ -1582,7 +1592,7 @@ class Tags
 	 *
 	 * The telefax number of an entity.
 	 */
-	const kTAG_FAX =   								'186';
+	const kTAG_FAX =   								'187';
 
 	/**
 	 * WEB-SITE.
@@ -1591,7 +1601,7 @@ class Tags
 	 *
 	 * The entity internet web site address.
 	 */
-	const kTAG_WEB_SITE =   						'187';
+	const kTAG_WEB_SITE =   						'188';
 
 	/**
 	 * AFFILIATION.
@@ -1600,7 +1610,7 @@ class Tags
 	 *
 	 * The reference to the entity with which the current entity is affiliated.
 	 */
-	const kTAG_AFFILIATION =   						'188';
+	const kTAG_AFFILIATION =   						'189';
 
 	/**
 	 * NATIONALITY.
@@ -1609,7 +1619,7 @@ class Tags
 	 *
 	 * The country of an entity.
 	 */
-	const kTAG_NATIONALITY =   						'189';
+	const kTAG_NATIONALITY =   						'190';
 
 	/**
 	 * ENTITY-KIND.
@@ -1618,7 +1628,7 @@ class Tags
 	 *
 	 * The entity kind.
 	 */
-	const kTAG_ENTITY_KIND =   						'190';
+	const kTAG_ENTITY_KIND =   						'191';
 
 	/**
 	 * ENTITY-TYPE.
@@ -1627,7 +1637,7 @@ class Tags
 	 *
 	 * The entity type.
 	 */
-	const kTAG_ENTITY_TYPE =   						'191';
+	const kTAG_ENTITY_TYPE =   						'192';
 
 	/*=======================================================================================
 	 *	USER OBJECT ATTRIBUTES																*
@@ -1641,7 +1651,7 @@ class Tags
 	 * The code by which a user is known to the system, it may be equal to the entity
 	 * identifier.
 	 */
-	const kTAG_USER_CODE =   						'192';
+	const kTAG_USER_CODE =   						'193';
 
 	/**
 	 * USER-PASS.
@@ -1650,7 +1660,7 @@ class Tags
 	 *
 	 * The password by which a user is known to the system.
 	 */
-	const kTAG_USER_PASS =   						'193';
+	const kTAG_USER_PASS =   						'194';
 
 	/**
 	 * USER-ROLE.
@@ -1659,7 +1669,7 @@ class Tags
 	 *
 	 * The roles assigned to the user.
 	 */
-	const kTAG_USER_ROLE =   						'194';
+	const kTAG_USER_ROLE =   						'195';
 
 	/**
 	 * USER-PROFILE.
@@ -1668,7 +1678,7 @@ class Tags
 	 *
 	 * The profile role name assigned to the user.
 	 */
-	const kTAG_USER_PROFILE =   					'195';
+	const kTAG_USER_PROFILE =   					'196';
 
 	/**
 	 * USER-DOMAIN.
@@ -1677,14 +1687,14 @@ class Tags
 	 *
 	 * List of domains the user has access to.
 	 */
-	const kTAG_USER_DOMAIN =   						'196';
+	const kTAG_USER_DOMAIN =   						'197';
 
 	/**
 	 * USER-SOCIAL-NETWORK.
 	 *
 	 * User social network.
 	 */
-	const kTAG_USER_SOCIAL_NETWORK =   				'197';
+	const kTAG_USER_SOCIAL_NETWORK =   				'198';
 
 	/*=======================================================================================
 	 *	CUSTOM TYPE SUB ATTRIBUTES															*
@@ -1815,6 +1825,7 @@ class Tags
 	 * Version 1: (kTAG_RANGE_MAX)[h]
 	 */
 	const kTAG_RANGE_MAX =   						'h';
+
 
 
 
