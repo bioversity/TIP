@@ -44,9 +44,12 @@
         <form action="{{ path('bioversity_trait_browse_trait') }}" id="form_fields" class="form-search" method="post" style="display: block !important;">
             {% for node,forms in form_base %}
                 <h1><small>{{ node }}</small></h1>
-                
+
                 {% for field,form in forms %}
-                    
+
+                    {# MILKO: Removed spaces from {field} in order to use it as an anchor. #}
+                    {% set identifier = field|replace({' ':''}) %}
+
                     {% form_theme form
                         '::error.html.twig'
                         '::form_div_layout.html.twig'
@@ -55,12 +58,12 @@
                     %}
                     <div class="accordion-group">
                         <div class="accordion-heading">
-                            <a href="#collapse{{ field }}" data-parent="#accordion{{ field }}" data-toggle="collapse" class="accordion-toggle collapsed">
+                            <a href="#collapse{{ identifier }}" data-parent="#accordion{{ identifier }}" data-toggle="collapse" class="accordion-toggle collapsed">
                                 {{ form_errors(form) }}
                                 {{ field|upper }}
                             </a>
                         </div>
-                        <div class="accordion-body collapse" id="collapse{{ field }}" style="height: 0px;">
+                        <div class="accordion-body collapse" id="collapse{{ identifier }}" style="height: 0px;">
                             <div class="accordion-inner">
                                 {{ form_widget(form) }}
                                 <div class="clear"></div>
