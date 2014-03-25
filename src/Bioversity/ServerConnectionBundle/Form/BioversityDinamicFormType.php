@@ -54,7 +54,9 @@ class BioversityDinamicFormType extends BioversityBaseType
                         $synonyms= self::getTagsString($vtag, $tags[$vtag][Tags::kTAG_OFFSETS]);
                         
                     $groupLabel= LanguageHelper::checkLanguage($nodeEntity->getNodeByNID($k)->getResponse()->getNode()[$k][Tags::kTAG_LABEL]);
-                    $formGroup[$formGroupLabel][$groupLabel][]= str_replace(':','',$origin).'_'.$synonyms.$vtag;
+	                // MILKO - Added replacement for other characters.
+	                //$formGroup[$formGroupLabel][$groupLabel][]= str_replace(':','',$origin).'_'.$synonyms.$vtag;
+	                $formGroup[$formGroupLabel][$groupLabel][]= str_replace(array(':','/','-','.'),'',$origin).'_'.$synonyms.$vtag;
                 }
             }
         }

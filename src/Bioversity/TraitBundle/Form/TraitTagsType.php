@@ -25,10 +25,12 @@ class TraitTagsType extends BioversityBaseType
             $origin= $tags[$id][Tags::kTAG_PATH][0];
             if(array_key_exists(Tags::kTAG_OFFSETS, $tags[$id]))
                 $synonyms= $this->getTagsString($id, $tags[$id][Tags::kTAG_OFFSETS]);
-                
-            $internationalization[]= str_replace(':','',$origin).'_'.$synonyms.$id;
+
+		    // MILKO - Added replacement for other characters.
+			//$internationalization[]= str_replace(':','',$origin).'_'.$synonyms.$id;
+		    $internationalization[]= str_replace(array(':','/','-','.'),'',$origin).'_'.$synonyms.$id;
         }
-        
+
         $this->setInternationlization($internationalization);
     }
     
