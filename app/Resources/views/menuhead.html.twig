@@ -1,129 +1,149 @@
 <style>
-  #menu{ position: fixed; top: 0px;float: right; width: 100%; text-align:right; list-style:none; z-index: 1000;}
-  .menu_level{float: right; width: 100%; list-style: none; background-color: #1E1E1E; padding: 5px; margin: 0px;}
-  .menu_level li{float: left; background-color: #1E1E1E; margin-left: 10px;}
-  .menu_level li a{text-decoration: none; color: #fff; font-weight: bold; padding: 5px;}
-  #menu_opener{width: 100%; text-align: right; border-top: 2px solid #1E1E1E; color: #fff; cursor: pointer;}
-  #menu_opener span{ background-color: #1E1E1E; padding: 5px 20px;}
-  #menu_opener span:hover{ background-color: #1a1a1a;}
+    /*
+    #menu{ position: fixed; top: 0px;float: right; width: 100%; text-align:right; list-style:none; z-index: 1000;}
+    */
+    .menu_level{float: right; width: 100%; list-style: none; background-color: #1E1E1E; padding: 5px; margin: 0px;}
+    .menu_level li {/*float: left; background-color: #1E1E1E;*/ margin-left: 10px;}
+    .menu_level li a{text-decoration: none; color: #fff; font-weight: bold; padding: 5px;}
+    #menu_opener{width: 100%; text-align: right; border-top: 2px solid #1E1E1E; color: #fff; cursor: pointer;}
+    #menu_opener span{ background-color: #1E1E1E; padding: 5px 20px;}
+    #menu_opener span:hover{ background-color: #1a1a1a;}
+
+    #menu a { padding: 5px; }
+    #menu li.menu_desc { padding: 5px 5px 5px 0; }
+    ul.dropdown-menu { margin-top: 10px; }
+    ul.dropdown-menu li { margin: 0 10px; }
+    ul.dropdown-menu li a { color: #333; font-weight: normal; }
+    ul.dropdown-menu li a:hover { background-color: #f1921a !important; background-image: none !important; color: #fff !important; }
 </style>
 
 <script type="text/javascript">
-  $(document).ready(function(){
-    openmenu(-($('#menu').height() - $('#menu_opener').height()));
-    
-    $(window).resize(function(){
-      openmenu(-($('#menu').height() - $('#menu_opener').height()));
-    });
-    
-    
-
-    $('#menu').mouseenter(function(){
-      openmenu(0);
-    });
-    $('#menu').mouseleave(function(){
-      openmenu(-($('#menu').height() - $('#menu_opener').height()));
-    });
-
-    $('#menu_opener span').click(function(){
-      if($('#menu_opener').hasClass('closed')){
-        openmenu(0);
-        $('#menu_opener').removeClass('closed');
-      }
-      else{
+    $(document).ready(function(){
         openmenu(-($('#menu').height() - $('#menu_opener').height()));
-        $('#menu_opener').addClass('closed');
-      }
+
+        $(window).resize(function(){
+            openmenu(-($('#menu').height() - $('#menu_opener').height()));
+        });
+
+
+
+        $('#menu').mouseenter(function(){
+            openmenu(0);
+        });
+        $('#menu').mouseleave(function(){
+            openmenu(-($('#menu').height() - $('#menu_opener').height()));
+            $('[data-toggle="dropdown"]').parent().removeClass('open');
+        });
+
+        $('#menu_opener span').click(function(){
+            if($('#menu_opener').hasClass('closed')){
+                openmenu(0);
+                $('#menu_opener').removeClass('closed');
+            }
+            else{
+                openmenu(-($('#menu').height() - $('#menu_opener').height()));
+                $('#menu_opener').addClass('closed');
+            }
+        });
     });
-  });
-  
-  function openmenu(height)
-  {
-    $('#menu').stop().animate({ top: height}, 500);
-  }
+
+    function openmenu(height)
+    {
+        $('#menu').stop().animate({ top: height}, 500);
+    }
 </script>
 
 {% set currentPath = app.request.attributes.get('_route') %}
-<div id="menu">
-  <ul class="navigationFirstLevel menu_level">
-    <li><i class="icon-bookmark icon-white"></i>Main Menu</li>
-    <li class="root_page navigationLink"><a href="{{ path('bioversity_site_structure_homepage') }}">Home</a></li>
-    <li class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_about') }}">About</a></li>
-    <li class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_contact') }}">Contact</a></li>
-    <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_checklists') }}">National Checklists</a></li>
-    <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_conservaton_strategies') }}">Conservation Strategies</a></li>
-    <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_inventories') }}">National Inventories</a></li>
-    <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_links') }}">Links</a></li>
-    <li class="trait_page navigationLink"><a href="{{ path('bioversity_trait_browse_trait') }}">Trait</a></li>
-    <li class="trait_page navigationLink"><a href="{{ path('bioversity_dinamic_form_index') }}">Search</a></li>
-  </ul>
+<div id="menu" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-collapse">
+        <ul class="navigationFirstLevel menu_level nav navbar-nav">
+            <li class="menu_desc"><i class="icon-bookmark icon-white"></i>Main Menu</li>
+            <li class="root_page navigationLink"><a href="{{ path('bioversity_site_structure_homepage') }}">Home</a></li>
+            <li class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_about') }}">About</a></li>
+            <li class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_contact') }}">Contact</a></li>
+            <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_checklists') }}">National Checklists</a></li>
+            <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_conservaton_strategies') }}">Conservation Strategies</a></li>
+            <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_inventories') }}">National Inventories</a></li>
+            <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_links') }}">Links</a></li>
+            <li class="trait_page navigationLink"><a href="{{ path('bioversity_trait_browse_trait') }}">Trait</a></li>
+            <!--li class=""><a href="{{ path('bioversity_dinamic_form_index') }}">Search</a></li-->
+            <li class="trait_page navigationLink dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="./search/mcpd">Passport</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Something else</a></li>
+                </ul>
+            </li>
+        </ul>
 
-  <div class="clear"></div>
-  
-  <ul id="under_construction" class="navigationFirstLevel menu_level">
-    <li><i class="icon-wrench icon-white"></i>Under Development</li>
-    <li class="research_page navigationLink"><a href="{{ path('bioversity_slider_browse_slider') }}">Ontology</a></li>
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {% if is_granted('ROLE_ONTOLOGY') %}
-            <li><a href="{{ path('bioversity_ontology_browse_slider') }}">Manage Ontology</a></li>
+        <div class="clear"></div>
+
+        <ul id="under_construction" class="navigationFirstLevel menu_level nav navbar-nav">
+            <li class="menu_desc"><i class="icon-wrench icon-white"></i>Under Development</li>
+            <li class="research_page navigationLink"><a href="{{ path('bioversity_slider_browse_slider') }}">Ontology</a></li>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {% if is_granted('ROLE_ONTOLOGY') %}
+                    <li><a href="{{ path('bioversity_ontology_browse_slider') }}">Manage Ontology</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+
+        <div class="clear"></div>
+
+        <ul class="menu_level nav navbar-nav">
+            <li class="menu_desc"><i class="icon-user icon-white"></i>Logged Menu</li>
+            <li><a href="{{ path('bioversity_site_structure_online_chat') }}">Who is online (chat)</a></li>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('bioversity_user_homepage') }}">Manage User</a></li>
+                {% endif %}
+                <li><a href="#">Profile</a></li>
+                <li><a href="{{ path('b_s_logout') }}">Sign Out</a></li>
+            {% else %}
+                <li><a href="{{ path('b_s_registration') }}">Registration</a></li>
+                <li><a href="{{ path('b_s_login_path') }}">Login</a></li>
+            {% endif %}
+        </ul>
+
+        <div class="clear"></div>
+
+        <div id="menu_opener" class="closed">
+		<span>
+		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            Welcome <strong>{{ app.user.username }}</strong> &nbsp;
+        {% else %}
+            MENU &nbsp;
         {% endif %}
-    {% endif %}
-  </ul>
-  
-  <div class="clear"></div>
-  
-  <ul class="menu_level">
-    <li><i class="icon-user icon-white"></i>Logged Menu</li>
-    <li><a href="{{ path('bioversity_site_structure_online_chat') }}">Who is online (chat)</a></li>
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {% if is_granted('ROLE_ADMIN') %}
-            <li><a href="{{ path('bioversity_user_homepage') }}">Manage User</a></li>
-        {% endif %}
-        <li><a href="#">Profile</a></li>
-        <li><a href="{{ path('b_s_logout') }}">Sign Out</a></li>
-    {% else %}
-        <li><a href="{{ path('b_s_registration') }}">Registration</a></li>
-        <li><a href="{{ path('b_s_login_path') }}">Login</a></li>
-    {% endif %}
-  </ul>
-  
-  <div class="clear"></div>
-  
-  <div id="menu_opener" class="closed">
-    <span>
-      {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        Welcome <strong>{{ app.user.username }}</strong> &nbsp;
-      {% else %}
-        MENU &nbsp;
-      {% endif %}
-      <i class="icon-th icon-white"></i>
-    </span>
-  </div>
+            <i class="icon-th icon-white"></i>
+		</span>
+        </div>
+    </div>
 </div>
 
 <div class="clear"></div>
 
 <div class="navbar">
-  <div> <!--class="navbar-inner menu_top_inner"-->
-    
-    <div>
-      
-      <div id="tip_logo">
-        <img src="{{ asset('images/TIP-logo.gif') }}" />
-      </div>
-      
-      <a class="brand" href="{{ path('bioversity_site_structure_homepage') }}">
-        <strong>T</strong><em>rait</em> <strong>I</strong><em>nformation</em> <strong>P</strong><em>ortal</em>
-        <span class="beta_release">beta 0.1</span>
-      </a>
-      
-      <div id="main_menu" class="first_row">
-        {#{% include '::mainMenu.html.twig' %}#}
-        {#{% include '::login.html.twig' %}#}
-        {#{% include '::search.html.twig' %}#}
-      </div>
-    
-      <div class="clear"></div>
+    <div> <!--class="navbar-inner menu_top_inner"-->
+
+        <div>
+
+            <div id="tip_logo">
+                <img src="{{ asset('images/TIP-logo.gif') }}" />
+            </div>
+
+            <a class="brand" href="{{ path('bioversity_site_structure_homepage') }}">
+                <strong>T</strong><em>rait</em> <strong>I</strong><em>nformation</em> <strong>P</strong><em>ortal</em>
+                <span class="beta_release">beta 0.1</span>
+            </a>
+
+            <div id="main_menu" class="first_row">
+                {#{% include '::mainMenu.html.twig' %}#}
+                {#{% include '::login.html.twig' %}#}
+                {#{% include '::search.html.twig' %}#}
+            </div>
+
+            <div class="clear"></div>
+        </div>
     </div>
-  </div>
 </div>

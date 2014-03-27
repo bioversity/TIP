@@ -44,23 +44,29 @@ class BioversityDinamicFormType extends BioversityBaseType
         $tagEntity= new Tags();
         $nodeEntity= new Nodes();
 
-        foreach($formFields as $key=>$value){
-            $formGroupLabel= LanguageHelper::checkLanguage($nodeEntity->getNodeByNID($key)->getResponse()->getNode()[$key][Tags::kTAG_LABEL]);
-	        foreach($value as $k=>$v){
-	            $tags= $tagEntity->getTags($v)->getResponse()->getTag();
-                foreach($v as $ktag=>$vtag){
-                    $origin= $tags[$vtag][Tags::kTAG_PATH][0];
-                    if(array_key_exists(Tags::kTAG_OFFSETS, $tags[$vtag]))
-                        $synonyms= self::getTagsString($vtag, $tags[$vtag][Tags::kTAG_OFFSETS]);
-                        
-                    $groupLabel= LanguageHelper::checkLanguage($nodeEntity->getNodeByNID($k)->getResponse()->getNode()[$k][Tags::kTAG_LABEL]);
-	                // MILKO - Added replacement for other characters.
-	                //$formGroup[$formGroupLabel][$groupLabel][]= str_replace(':','',$origin).'_'.$synonyms.$vtag;
-	                $formGroup[$formGroupLabel][$groupLabel][]= str_replace(array(':','/','-','.'),'',$origin).'_'.$synonyms.$vtag;
-                }
-            }
-        }
-        
+	    foreach($formFields as $key=>$value){
+		    $formGroupLabel
+			    = LanguageHelper::checkLanguage(
+			    $nodeEntity->getNodeByNID($key)
+				    ->getResponse()->getNode()[$key][Tags::kTAG_LABEL]);
+		    foreach($value as $k=>$v){
+			    $tags= $tagEntity->getTags($v)->getResponse()->getTag();
+			    foreach($v as $ktag=>$vtag){
+				    $origin= $tags[$vtag][Tags::kTAG_PATH][0];
+				    if(array_key_exists(Tags::kTAG_OFFSETS, $tags[$vtag]))
+					    $synonyms= self::getTagsString($vtag, $tags[$vtag][Tags::kTAG_OFFSETS]);
+
+				    $groupLabel
+					    = LanguageHelper::checkLanguage(
+					        $nodeEntity->getNodeByNID($k)
+						        ->getResponse()->getNode()[$k][Tags::kTAG_LABEL]);
+				    // MILKO - Added replacement for other characters.
+				    //$formGroup[$formGroupLabel][$groupLabel][]= str_replace(':','',$origin).'_'.$synonyms.$vtag;
+				    $formGroup[$formGroupLabel][$groupLabel][]= str_replace(array(':','/','-','.'),'',$origin).'_'.$synonyms.$vtag;
+			    }
+		    }
+	    }
+
         return $formGroup;
     }
     
@@ -75,5 +81,5 @@ class BioversityDinamicFormType extends BioversityBaseType
         
         return $string;
     }
-    
+
 }

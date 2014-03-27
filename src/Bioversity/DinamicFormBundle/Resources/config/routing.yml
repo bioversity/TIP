@@ -1,3 +1,7 @@
 bioversity_dinamic_form_index:
     pattern:  /search
     defaults: { _controller: BioversityDinamicFormBundle:DinamicForm:index }
+
+bioversity_dinamic_form_index_theForm:
+    pattern:  /search/{theForm}
+    defaults: { _controller: BioversityDinamicFormBundle:DinamicForm:index }

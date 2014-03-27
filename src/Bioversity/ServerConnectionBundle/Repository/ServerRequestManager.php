@@ -20,11 +20,11 @@ class ServerRequestManager
 	//
 	// SERVER Wrapper.
 	//
-//	protected $wrapper = 'http://192.168.181.11/PGRDG/MongoWrapper.php';
+	protected $wrapper = 'http://192.168.181.11/PGRDG/MongoWrapper.php';
 	//
 	// LOCAL Wrapper.
 	//
-	protected $wrapper = 'http://localhost/services/Wrappers/PGRDG/MongoWrapper.php';
+//	protected $wrapper = 'http://localhost/services/Wrappers/PGRDG/MongoWrapper.php';
 
 	protected $format;
     protected $operation;

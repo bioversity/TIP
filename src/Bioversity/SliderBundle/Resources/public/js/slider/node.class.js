@@ -23,6 +23,7 @@ function setNodeProperty(node_detail)
   selected_node_description = getNodeDescription(node_detail);
   selected_node_class       = getNodeClass(node_detail);
   selected_node_kind        = getNodeKind(node_detail);
+  selected_node_id          = getNodeId(node_detail);
 }
 
 function getRootNodeList()

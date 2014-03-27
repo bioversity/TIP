@@ -2228,6 +2228,7 @@ function setNodeProperty(node_detail)
   selected_node_description = getNodeDescription(node_detail);
   selected_node_class       = getNodeClass(node_detail);
   selected_node_kind        = getNodeKind(node_detail);
+  selected_node_id          = getNodeId(node_detail);
 }
 
 function getRootNodeList()
@@ -2969,7 +2970,7 @@ function createNodeDetail()
 {
   //console.log('createNodeDetail');
   $.each(selected_node_data._node[selected_node_id], function(arrayID,arrayValue) {
-    if(arrayID !== '_id'){
+  if(arrayID !== '_id'){
       var label= selected_node_data._term[selected_node_data._tag[arrayID][kTAG_PATH][0]][kTAG_LABEL]['en'];
       if(arrayID == kTAG_LABEL){
         createNodeHeaderName(arrayValue['en']);
@@ -2992,7 +2993,7 @@ function createNodeDetail()
 function createNodeHeaderName(node_name)
 {
   //console.log('createNodeHeaderName');
-  $('#'+slider_destination_center_header+' .btn_node_name').html(node_name);
+  $('#'+slider_destination_center_header+' .btn_node_name').html(node_name+' ('+selected_node_id+')');
 }
 
 function createNodeHeaderCode(node_code)
