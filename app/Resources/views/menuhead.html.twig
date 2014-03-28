@@ -61,9 +61,17 @@
             <li class="root_page navigationLink"><a href="{{ path('bioversity_site_structure_homepage') }}">Home</a></li>
             <li class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_about') }}">About</a></li>
             <li class="static_page navigationLink"><a href="{{ path('bioversity_site_structure_contact') }}">Contact</a></li>
-            <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_checklists') }}">National Checklists</a></li>
-            <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_conservaton_strategies') }}">Conservation Strategies</a></li>
-            <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_inventories') }}">National Inventories</a></li>
+            <!--li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_checklists') }}">National Checklists</a></li-->
+            <!--li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_conservaton_strategies') }}">Conservation Strategies</a></li-->
+            <!--li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_national_inventories') }}">National Inventories</a></li-->
+            <li class="conservation_page navigationLink dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">National Inventories <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ path('bioversity_site_structure_national_inventories') }}">National Inventories</a></li>
+                    <li><a href="{{ path('bioversity_site_structure_national_checklists') }}">National Checklists</a></li>
+                    <li><a href="{{ path('bioversity_site_structure_conservaton_strategies') }}">Conservation Strategies</a></li>
+                </ul>
+            </li>
             <li class="conservation_page navigationLink"><a href="{{ path('bioversity_site_structure_links') }}">Links</a></li>
             <li class="trait_page navigationLink"><a href="{{ path('bioversity_trait_browse_trait') }}">Trait</a></li>
             <!--li class=""><a href="{{ path('bioversity_dinamic_form_index') }}">Search</a></li-->
@@ -71,8 +79,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/search/mcpd">Passport</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Something else</a></li>
+                    <li><a href="/search/fg">Forest GCU</a></li>
                 </ul>
             </li>
         </ul>

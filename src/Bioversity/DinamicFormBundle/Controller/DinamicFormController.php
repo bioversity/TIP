@@ -15,7 +15,9 @@ class DinamicFormController extends Controller
     {
 		$session= $request->getSession();
 	    $theForm = $request->get( 'theForm' );
-	    $formFields = file_get_contents( "http://localhost/services/Wrappers/PGRDG/ThematicSearch.php?form=$theForm" );
+	    $formFields
+		        = file_get_contents(
+		        "http://localhost/services/Wrappers/PGRDG/ThematicSearch.php?form=$theForm" );
 	    $formFields = json_decode( $formFields, TRUE );
 
         //$formBase = $this->createForm(new BioversityDinamicFormType($formFields));

@@ -49,9 +49,9 @@ class SiteStructureController extends Controller
     public function conservatonStrategiesAction()
     {
         $dir= $this->get('kernel')->getRootDir() . '/../web/conservationstrategies';
-        
+
         $files= $this->ListIn($dir);
-        
+
         return $this->render(
             'BioversitySiteStructureBundle:SiteStructure:conservation_strategies.html.twig',
             array(
@@ -205,6 +205,21 @@ class SiteStructureController extends Controller
     private function ListIn($dir, $tab = 4) {
         $result = array();
 
+	    $cdir = new \DirectoryIterator( $dir );
+	    foreach( $cdir as $file )
+	    {
+		    if( (! $file->isDot())
+		     && ($file->getFileName() != ".DS_Store") )
+		    {
+			    $tmp = new \SplFileInfo( $dir . DIRECTORY_SEPARATOR . $file );
+			    if( $tmp->isDir() )
+				    $result[$file->getFileName()] = self::ListIn($tmp);
+			    else
+				    $result[] = $file->getFilename();
+		    }
+	    }
+
+	   /*
         $cdir = scandir($dir,1);
         foreach ($cdir as $key => $value)
         {
@@ -220,6 +235,7 @@ class SiteStructureController extends Controller
               }
            }
         }
+	   */
         
         return $result; 
     }
