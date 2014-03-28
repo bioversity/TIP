@@ -19,12 +19,12 @@ class DinamicFormController extends Controller
 	    //
 	    // Local.
 	    //
-	//    $formFields = file_get_contents( "http://localhost/services/Wrappers/PGRDG/ThematicSearch.php?form=$theForm" );
+	    $formFields = file_get_contents( "http://localhost/services/Wrappers/PGRDG/ThematicSearch.php?form=$theForm" );
 
 	    //
 	    // Server.
 	    //
-	    $formFields = file_get_contents( "http://192.168.181.11/PGRDG/ThematicSearch.php?form=$theForm" );
+	//    $formFields = file_get_contents( "http://192.168.181.11/PGRDG/ThematicSearch.php?form=$theForm" );
 
 	    $formFields = json_decode( $formFields, TRUE );
 

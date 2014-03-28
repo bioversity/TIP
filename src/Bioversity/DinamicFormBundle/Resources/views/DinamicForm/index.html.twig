@@ -48,7 +48,7 @@
                 {% for field,form in forms %}
 
                     {# MILKO: Removed spaces from {field} in order to use it as an anchor. #}
-                    {% set identifier = field|replace({' ':''}) %}
+                    {% set identifier = field|replace({' ':'','/':''}) %}
 
                     {% form_theme form
                         '::error.html.twig'

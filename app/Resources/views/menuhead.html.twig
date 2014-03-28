@@ -15,6 +15,8 @@
     ul.dropdown-menu li { margin: 0 10px; }
     ul.dropdown-menu li a { color: #333; font-weight: normal; }
     ul.dropdown-menu li a:hover { background-color: #f1921a !important; background-image: none !important; color: #fff !important; }
+    .tree label { display: block; }
+    .tree input[type=checkbox] { margin-right: 7.5px; }
 </style>
 
 <script type="text/javascript">
@@ -79,7 +81,9 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/search/mcpd">Passport</a></li>
-                    <li><a href="/search/fg">Forest GCU</a></li>
+                    <li><a href="/search/fg">Forest</a></li>
+                    <li><a href="/search/lr">Landrace</a></li>
+                    <li><a href="/search/cwr">Checklist</a></li>
                 </ul>
             </li>
         </ul>
@@ -135,12 +139,9 @@
 
         <div>
 
-            <div id="tip_logo">
-                <img src="{{ asset('images/TIP-logo.gif') }}" />
-            </div>
-
+            <div id="tip_logo"><img src="{{ asset('images/TIP-logo.gif') }}" /></div>&nbsp;&nbsp;
             <a class="brand" href="{{ path('bioversity_site_structure_homepage') }}">
-                <strong>T</strong><em>rait</em> <strong>I</strong><em>nformation</em> <strong>P</strong><em>ortal</em>
+                Plant Genetic Resources Diversity Gateway
                 <span class="beta_release">beta 0.1</span>
             </a>
 
